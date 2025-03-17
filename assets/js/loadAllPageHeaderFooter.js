@@ -2,6 +2,7 @@
     "use strict";
 
     document.addEventListener("DOMContentLoaded", () => {
+    
         function loadComponent(file, elementId) {
             let el = document.getElementById(elementId);
             if (!el) {
