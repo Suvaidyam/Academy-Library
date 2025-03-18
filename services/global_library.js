@@ -1,7 +1,7 @@
-
-(async () => {
+import ENV from "../config/config.js";
+import { FrappeApiClient } from "./FrappeApiClient.js";
+export async function getGlobalList() {
     let frappe_client = new FrappeApiClient();
-
     try {
         let response = await frappe_client.get('/get_knowledge_artifact_list');
         let posts = response.message.artifacts;
@@ -17,7 +17,7 @@
                     let newCard = template.cloneNode(true);
                     newCard.classList.remove("d-none");
                     newCard.querySelector(".blog-img").src = post.thumbnail_image
-                        ? "https://erp-ryss.ap.gov.in" + post.thumbnail_image
+                        ? ENV.API_BASE_URL + post.thumbnail_image
                         : "assets/img/blog/default.jpg";
                     newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
                     newCard.querySelector(".blog-title").textContent = post.title || "No Title";
@@ -37,4 +37,4 @@
     } catch (error) {
         console.error('Error fetching blog posts:', error);
     }
-})();
+}

@@ -1,13 +1,8 @@
-
-// const BASE_URL = "https://erp-ryss.ap.gov.in/api/method/get_knowledge_artifact_list"; // API base URL
-
-
-
-class FrappeApiClient {
+export class FrappeApiClient {
     constructor(baseURL = 'https://erp-ryss.ap.gov.in') {
         this.baseURL = baseURL;
     }
-
+    
     async get(endpoint, params = {}) {
         const url = new URL(`${this.baseURL}/api/method${endpoint}`);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -47,11 +42,3 @@ class FrappeApiClient {
         return document.cookie.split('; ').find(row => row.startsWith('sid='))?.split('=')[1] || '';
     }
 }
-
-// module.exports = FrappeApiClient;
-// window.FrappeApiClient = FrappeApiClient;
-
-// Example Usage:
-// const api = new FrappeApiClient('https://your-frappe-instance.com');
-// api.get('/frappe.client.get_list', { doctype: 'User' }).then(console.log);
-// api.post('/frappe.client.insert', { doc: { doctype: 'User', email: 'john@example.com' } }).then(console.log);

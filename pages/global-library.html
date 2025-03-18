@@ -184,71 +184,7 @@
   </main>
   <div id="footer" class="footer dark-background"></div>
   <!-- Footer will be loaded here -->
-
-  <footer id="footer" class="footer dark-background">
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="d-flex align-items-center">
-            <span class="sitename">Academy</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>Rythu Sadhikara Samstha,<br />
-              Second Floor, Sahasra Apartment Block - 2,<br />
-              Opposite Hosanna Mandir,<br />
-              Amaravathi Road, Gorantla,<br />
-              Guntur, Andhra Pradesh - 522 034
-              India</p>
-
-            <p class="mt-3"><strong>Phone:</strong> <span>+91 97002 52548</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
-          </div>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Learning</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Research</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">News & Events</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Academics</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-md-12">
-          <h4>Follow Us</h4>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-          <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Academy</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-
-
-      </div>
-    </div>
-
-  </footer>
-
+   
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
@@ -276,6 +212,13 @@
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script type="module">
+    import { getGlobalList } from "../services/global_library.js";
+    document.addEventListener("DOMContentLoaded", () => {
+      getGlobalList();
+    });
+  </script>
 
 </body>
 
