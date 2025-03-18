@@ -50,61 +50,61 @@
         </nav>
       </div>
     </div>
-    <!-- End Page Title -->  
+    <!-- End Page Title -->
 
     <!-- Filters -->
     <div class="container position-relative mt-3">
-          <form>
-              <div class="row mb-12">
-                  <div class="col-sm-3">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Category</option>
-                      <option value="1">OWN FIELD</option>
-                      <option value="2">OWN EXPERIMENT</option>
-                      <option value="3">CADRE TRAINING</option>
-                      <option value="4">RESEARCH METHODS</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Author</option>
-                      <option value="Amresh">Amresh</option>
-                      <option value="Sandeep">Sandeep</option>
-                      <option value="Vrindarak">Vrindarak</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Language</option>
-                      <option value="Hindi">Hindi</option>
-                      <option value="English">English</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <input class="form-control" type="text" placeholder="Keywords" name="keywords">
-                  </div>
-                </div>
-          </form>
+      <form>
+        <div class="row mb-12">
+          <div class="col-sm-3">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Category</option>
+              <option value="1">OWN FIELD</option>
+              <option value="2">OWN EXPERIMENT</option>
+              <option value="3">CADRE TRAINING</option>
+              <option value="4">RESEARCH METHODS</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Author</option>
+              <option value="Amresh">Amresh</option>
+              <option value="Sandeep">Sandeep</option>
+              <option value="Vrindarak">Vrindarak</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Language</option>
+              <option value="Hindi">Hindi</option>
+              <option value="English">English</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <input class="form-control" type="text" placeholder="Keywords" name="keywords">
+          </div>
+        </div>
+      </form>
     </div>
-    
+
     <!-- End Filters -->
 
     <!-- Blog Posts Section -->
-    <section id="blog-posts" class="blog-posts section">
+    <!-- <section id="blog-posts" class="blog-posts section">
 
       <div class="container">
-        <div class="row gy-4">
+        <div class="row gy-4" id="blog-container">
 
-          <div class="col-lg-4">
+          <div class="col-lg-4 d-none" id="blog-template">
             <article>
 
               <div class="post-img">
-                <img src="../assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
+                <img src="../assets/img/blog/blog-1.jpg" alt="" class="img-fluid" id="img-fluid_">
               </div>
 
-              <p class="post-category">Agriculture</p>
+              <p class="post-category" id="post-category_">Agriculture</p>
 
-              <h2 class="title">
+              <h2 class="title" id="title_">
                 <a href="blog-details.html">Direct Seeded Rice: Prospects, Problems/Constraints and Researchable Issues
                   in India</a>
               </h2>
@@ -112,19 +112,51 @@
               <div class="d-flex align-items-center">
                 <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
                 <div class="post-meta">
-                  <p class="post-author">Maria Doe</p>
-                  <p class="post-date">
+                  <p class="post-author" id="post-author_">Maria Doe</p>
+                  <p class="post-date" id="post-date_">
                     <time datetime="2022-01-01">Jan 1, 2022</time>
                   </p>
                 </div>
               </div>
 
             </article>
-          </div><!-- End post list item -->          
+          </div>
         </div>
       </div>
-    </section><!-- /Blog Posts Section -->
-    
+    </section> -->
+    <!-- /Blog Posts Section -->
+
+
+    <!-- New Changes Blog Posts Section-->
+    <section id="blog-posts" class="blog-posts section">
+      <div class="container">
+        <div class="row gy-4" id="blog-container">
+          <div class="col-lg-4 d-none" id="blog-template">
+            <article>
+              <div class="post-img">
+                <img src="" alt="" class="img-fluid blog-img">
+              </div>
+              <p class="post-category"></p>
+              <h2 class="title">
+                <a href="blog-details.html" class="blog-title"></a>
+              </h2>
+              <div class="d-flex align-items-center">
+                <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
+                <div class="post-meta">
+                  <p class="post-author"></p>
+                  <p class="post-date">
+                    <time></time>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- New Changes Blog Posts Section-->
+
+
     <!-- Blog Pagination Section -->
     <section id="blog-pagination" class="blog-pagination section">
 
@@ -146,7 +178,7 @@
     </section><!-- /Blog Pagination Section -->
 
   </main>
-  <div id="footer" class="footer dark-background"></div>  
+  <div id="footer" class="footer dark-background"></div>
   <!-- Footer will be loaded here -->
 
   <!-- Scroll Top -->
@@ -167,7 +199,7 @@
   <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-   <!-- ............. -->
+  <!-- ............. -->
   <!-- <script src="../services/research_library.js"></script>
   <script src="../services/apiService.js"></script> -->
 

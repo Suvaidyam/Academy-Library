@@ -5,9 +5,9 @@
     try {
         let response = await frappe_client.get('/get_knowledge_artifact_list');
         let posts = response.message.artifacts;
-        const internalArtifacts = posts.filter(artifact => artifact.artifact_source === "Internal");
-        // console.log(internalArtifacts);
-        // console.log(posts)
+        const internalArtifacts = posts.filter(artifact => artifact.artifact_source === "External");
+        console.log(internalArtifacts);
+        console.log(posts)
         if (internalArtifacts && posts.length > 0) {
             let template = document.getElementById("blog-template");
             let blogContainer = document.getElementById("blog-container");
@@ -23,6 +23,13 @@
                     newCard.querySelector(".blog-title").textContent = post.title || "No Title";
                     newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
                     newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
+                    const resourceLink = newCard.querySelector(".resource_link");
+                    if (post.resource_link) {
+                        resourceLink.href = post.resource_link;
+                        resourceLink.textContent = "Explore Now";
+                    } else {
+                        resourceLink.style.display = "none";
+                    }
                     blogContainer.appendChild(newCard);
                 }
             });
