@@ -1,15 +1,9 @@
+import ENV from "../config/config";
 
-// const BASE_URL = "https://erp-ryss.ap.gov.in/api/method/get_knowledge_artifact_list"; // API base URL
-
-
-
-class FrappeApiClient {
-    constructor(baseURL = 'https://erp-ryss.ap.gov.in') {
-        this.baseURL = baseURL;
-    }
+export const apiService = {
 
     async get(endpoint, params = {}) {
-        const url = new URL(`${this.baseURL}/api/method${endpoint}`);
+        const url = new URL(`${ENV.API_BASE_URL}/api/method${endpoint}`);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
         try {
@@ -23,11 +17,11 @@ class FrappeApiClient {
             console.error('GET request failed:', error);
             throw error;
         }
-    }
+    },
 
     async post(endpoint, data = {}) {
         try {
-            const response = await fetch(`${this.baseURL}/api/method${endpoint}`, {
+            const response = await fetch(`${ENV.API_BASE_URL}/api/method${endpoint}`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -41,34 +35,9 @@ class FrappeApiClient {
             console.error('POST request failed:', error);
             throw error;
         }
-    }
+    },
 
     getCSRFToken() {
         return document.cookie.split('; ').find(row => row.startsWith('sid='))?.split('=')[1] || '';
     }
-}
-
-// module.exports = FrappeApiClient;
-// window.FrappeApiClient = FrappeApiClient;
-
-// Example Usage:
-// const api = new FrappeApiClient('https://your-frappe-instance.com');
-// api.get('/frappe.client.get_list', { doctype: 'User' }).then(console.log);
-// api.post('/frappe.client.insert', { doc: { doctype: 'User', email: 'john@example.com' } }).then(console.log);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};

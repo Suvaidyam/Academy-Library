@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Research Library</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+
+</head>
+
+<body class="blog-page">
+
+  <div id="header" class="header d-flex align-items-center fixed-top"></div>
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title dark-background">
+      <div class="container position-relative">
+        <h1>Research Articles</h1>
+        <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
+          molestias.</p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li class="current">Blog</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Filters -->
+    <div class="container position-relative mt-3">
+      <form>
+        <div class="row mb-12">
+          <div class="col-sm-3">
+            <select class="form-select" id="category-dropdown" aria-label="Default select example">
+              <!-- <option selected>Category</option> -->
+              <!-- <option value="1">OWN FIELD</option>
+              <option value="2">OWN EXPERIMENT</option>
+              <option value="3">CADRE TRAINING</option>
+              <option value="4">RESEARCH METHODS</option> -->
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <select class="form-select" id="author-dropdown" aria-label="Default select example">
+              <option selected>Author</option>
+              <option value="Amresh">Amresh</option>
+              <option value="Sandeep">Sandeep</option>
+              <option value="Vrindarak">Vrindarak</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <select class="form-select" id="language-dropdown" aria-label="Default select example">
+              <option selected>Language</option>
+              <option value="Hindi">Hindi</option>
+              <option value="English">English</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <input class="form-control" type="text" placeholder="Keywords" name="keywords">
+          </div>
+          <div class="col-sm-1">
+            <button class="btn btn-primary" id="search-btn" type="button">Search</button>
+          </div>
+          <div class="col-sm-1">
+            <button class="btn btn-danger" id="reset-btn" type="button">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- End Filters -->
+
+    <!-- Blog Posts Section -->
+    <!-- <section id="blog-posts" class="blog-posts section">
+
+      <div class="container">
+        <div class="row gy-4" id="blog-container">
+
+          <div class="col-lg-4 d-none" id="blog-template">
+            <article>
+
+              <div class="post-img">
+                <img src="../assets/img/blog/blog-1.jpg" alt="" class="img-fluid" id="img-fluid_">
+              </div>
+
+              <p class="post-category" id="post-category_">Agriculture</p>
+
+              <h2 class="title" id="title_">
+                <a href="blog-details.html">Direct Seeded Rice: Prospects, Problems/Constraints and Researchable Issues
+                  in India</a>
+              </h2>
+
+              <div class="d-flex align-items-center">
+                <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
+                <div class="post-meta">
+                  <p class="post-author" id="post-author_">Maria Doe</p>
+                  <p class="post-date" id="post-date_">
+                    <time datetime="2022-01-01">Jan 1, 2022</time>
+                  </p>
+                </div>
+              </div>
+
+            </article>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- /Blog Posts Section -->
+
+
+    <!-- New Changes Blog Posts Section-->
+    <section id="blog-posts" class="blog-posts section">
+      <div class="container">
+        <div class="row gy-4" id="blog-container">
+          <div class="col-lg-4 d-none" id="blog-template">
+            <article>
+              <div class="post-img">
+                <img src="" alt="" class="img-fluid blog-img">
+              </div>
+              <p class="post-category"></p>
+              <h2 class="title">
+                <a href="blog-details.html" class="blog-title"></a>
+              </h2>
+              <div class="d-flex align-items-center">
+                <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
+                <div class="post-meta">
+                  <p class="post-author"></p>
+                  <p class="post-date">
+                    <time></time>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- New Changes Blog Posts Section-->
+
+
+    <!-- Blog Pagination Section -->
+    <section id="blog-pagination" class="blog-pagination section">
+
+      <div class="container">
+        <div class="d-flex justify-content-center">
+          <ul>
+            <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#" class="active">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li>...</li>
+            <li><a href="#">10</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
+          </ul>
+        </div>
+      </div>
+
+    </section><!-- /Blog Pagination Section -->
+
+  </main>
+  <div id="footer" class="footer dark-background"></div>
+  <!-- Footer will be loaded here -->
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+  
+  <!-- Vendor JS Files -->
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/php-email-form/validate.js"></script>
+  <script src="../vendor/aos/aos.js"></script>
+  <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  
+  <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+  <script type="module">
+      import { getLibraryList } from "../services/research_library.js";
+      document.addEventListener("DOMContentLoaded", () => {
+        getLibraryList();
+      });
+  </script>
+</body>
+
+</html>
