@@ -102,6 +102,63 @@
 
       <div class="container">
         <div class="row gy-4">
+          <div class="container mt-4">
+            <div
+              style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; justify-content: center; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);"
+              id="filterContainer">
+
+              <div style="display: flex; flex-direction: column; text-align: center;">
+                <label for="category" style="font-weight: 600; margin-bottom: 5px;">Category</label>
+                <select id="category"
+                  style="width: 180px; padding: 8px; border-radius: 6px; text-align: center; font-size: 15px;">
+                  <option selected>Select Category</option>
+                  <option value="1">Technology</option>
+                  <option value="2">Science</option>
+                  <option value="3">Business</option>
+                  <option value="4">Health</option>
+                </select>
+              </div>
+
+              <div style="display: flex; flex-direction: column; text-align: center;">
+                <label for="author" style="font-weight: 600; margin-bottom: 5px;">Author</label>
+                <select id="author"
+                  style="width: 180px; padding: 8px; border-radius: 6px; text-align: center; font-size: 15px;">
+                  <option selected>Select Author</option>
+                  <option value="1">Author A</option>
+                  <option value="2">Author B</option>
+                  <option value="3">Author C</option>
+                  <option value="4">Author D</option>
+                </select>
+              </div>
+
+              <div style="display: flex; flex-direction: column; text-align: center;">
+                <label for="keywords" style="font-weight: 600; margin-bottom: 5px;">Keywords</label>
+                <select id="keywords"
+                  style="width: 180px; padding: 8px; border-radius: 6px; text-align: center; font-size: 15px;">
+                  <option selected>Select Keyword</option>
+                  <option value="1">AI</option>
+                  <option value="2">Machine Learning</option>
+                  <option value="3">Blockchain</option>
+                  <option value="4">Cloud Computing</option>
+                </select>
+              </div>
+
+              <div style="display: flex; flex-direction: column; text-align: center;">
+                <label for="language" style="font-weight: 600; margin-bottom: 5px;">Language</label>
+                <select id="language"
+                  style="width: 180px; padding: 8px; border-radius: 6px; text-align: center; font-size: 15px;">
+                  <option selected>Select Language</option>
+                  <option value="1">English</option>
+                  <option value="2">Hindi</option>
+                  <option value="3">French</option>
+                  <option value="4">Spanish</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+
 
           <div class="col-lg-4">
             <article>
@@ -385,6 +442,13 @@
     })();
 
   </script> -->
+  <script>
+    // LG स्क्रीन (1024px से बड़ी) पर बैकग्राउंड हटाने के लिए
+    if (window.innerWidth >= 1024) {
+      document.getElementById("filterContainer").style.background = "none";
+      document.getElementById("filterContainer").style.boxShadow = "none";
+    }
+  </script>
 </body>
 
 </html>
