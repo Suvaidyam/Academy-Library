@@ -1,7 +1,7 @@
 import ENV from "../config/config.js";
 import { FrappeApiClient } from "./FrappeApiClient.js";
 
-export  async function  getLibraryList() { 
+export async function getLibraryList() {
     let frappe_client = new FrappeApiClient();
     try {
         // ========== Fetch Knowledge Artifacts ==========
@@ -95,7 +95,7 @@ export  async function  getLibraryList() {
             let filteredArtifacts = internalArtifacts.filter(post => post.category === selectedCategory);
             displayArtifacts(filteredArtifacts);
         });
-        
+
         // ========== Reset Button Click Event ==========
         resetButton.addEventListener("click", () => {
             categoryDropdown.value = "";
@@ -107,3 +107,6 @@ export  async function  getLibraryList() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    getLibraryList();
+});
