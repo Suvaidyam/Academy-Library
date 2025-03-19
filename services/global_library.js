@@ -38,7 +38,3 @@ export async function getGlobalList() {
         console.error('Error fetching blog posts:', error);
     }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    getGlobalList();
-});
