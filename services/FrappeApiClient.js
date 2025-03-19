@@ -2,7 +2,7 @@ export class FrappeApiClient {
     constructor(baseURL = 'https://erp-ryss.ap.gov.in') {
         this.baseURL = baseURL;
     }
-    
+
     async get(endpoint, params = {}) {
         const url = new URL(`${this.baseURL}/api/method${endpoint}`);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
