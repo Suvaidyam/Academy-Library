@@ -4,6 +4,9 @@ export async function getCourseList() {
     let frappe_client = new FrappeApiClient();
     try {
         let response = await frappe_client.get('/lms.lms.utils.get_courses');
+        if(response){
+            document.getElementById("loader").style.display = "none";
+        }
         console.log("response",response);
         // Live Cources 
         let liveCources = response.message.live;
