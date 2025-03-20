@@ -61,6 +61,9 @@ export async function getLibraryList() {
         // Initially display all internal artifacts
         async function show_data() {
             let artifacts = await knowledge_data();
+            if(artifacts){
+                document.getElementById("loader").style.display = "none";
+            }
             // console.log(artifacts)
             displayArtifacts(artifacts);
         }

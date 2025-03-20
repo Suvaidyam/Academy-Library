@@ -26,14 +26,19 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
-  <!-- <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"> </script> -->
 </head>
 <style>
-  /* #blog-posts{
-    height: 50%;
+  #blog-posts{
+    height: 70%;
     overflow: auto;
     padding: 10px;
-  } */
+  }
+
+  #myDiv {
+    display: none;
+    text-align: center;
+  }
+
 </style>
 
 
@@ -44,8 +49,8 @@
     <!-- Page Title -->
     <div class="page-title dark-background">
       <div class="container position-relative">
-        <h1>Learning Library</h1>
-        <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p>
+        <h1>Courses </h1>
+        <p>A course is a structured unit of study offered by educational institutions like colleges, universities, and online platforms. It covers a specific subject or skill and is designed to provide knowledge, training, or certification in a particular field.</p>
         <nav class="breadcrumbs">
           <ol>
             <li><a href="../index.html">Home</a></li>
@@ -64,23 +69,29 @@
               <h4>Academics List</h4>
               <div class="services-list">
                 <!-- <a href="library.html" class="active"><i class="bi bi-arrow-right-circle"></i><span>Learning</span></a> -->
-                <a href="research-library.html"><i class="bi bi-arrow-right-circle"></i><span>Research</span></a>
-                <a href="global-library.html"><i class="bi bi-arrow-right-circle"></i><span>Global Resources</span></a>
-                <a href="question-library.html"><i class="bi bi-arrow-right-circle"></i><span>Question Bank</span></a>
-                <a href="library.html"><i class="bi bi-arrow-right-circle"></i><span>Assignment Bank</span></a>
+                <a class="nav-link active" href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>Undergraduate</span></a>
+                <a href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>Postgraduate</span></a>
+                <a href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>PG Diploma</span></a>
+                <a href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>Professional Development</span></a>
               </div>
             </div><!-- End Services List -->
 
             <div class="service-box">
-              <h4>Download Catalog</h4>
-              <div class="download-catalog">
-                <a href="#"><i class="bi bi-filetype-pdf"></i><span>Catalog PDF</span></a>
-                <a href="#"><i class="bi bi-file-earmark-word"></i><span>Catalog DOC</span></a>
+              <h4>Category</h4>
+              <div class="col-sm-12">
+                <select class="form-select" id="category-dropdown" aria-label="Default select example">
+                  <option selected>Select Category</option>
+                </select>
               </div>
             </div>
             
-            <!-- End Services List -->
-
+            <div class="service-box"> 
+              <h4>Registration</h4>
+              <div class="services-list">
+                <a class="nav-link active" href="https://erp-ryss.ap.gov.in/app/course-registration" target="_blank"><i class="bi bi-arrow-right-circle"></i><span>Register for a course. </span></a>
+              </div>
+            </div><!-- End Services List -->
+            
             <div class="help-box d-flex flex-column justify-content-center align-items-center">
               <i class="bi bi-headset help-icon"></i>
               <h4>Have a Question?</h4>
@@ -95,12 +106,14 @@
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                   <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Live Courses</button>
                   <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">New Courses</button>
+                  <button class="nav-link" id="nav-registered-tab" data-bs-toggle="tab" data-bs-target="#nav-registered" type="button" role="tab" aria-controls="nav-registered" aria-selected="false">Registered Courses</button>
                 </div>
               </nav>
 
                 <!-- New Changes Blog Posts Section-->
                 <section id="blog-posts" class="blog-posts section">
                   <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                    <div id="loader"></div>
                     <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> 
                       <div class="container">
                         <div class="row gy-4" id="blog-container">
@@ -153,28 +166,11 @@
                           </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="nav-registered" role="tabpanel" aria-labelledby="nav-profile-tab">
+                      There is no registered courses ... 
+                    </div>                  
                   </div>
-                  
                 </section>
-                <!-- New Changes Blog Posts Section-->
-<!-- 
-                
-            <img src="../assets/img/services.jpg" alt="" class="img-fluid services-img">
-            <h3>Temporibus et in vero dicta aut eius lidero plastis trand lined voluptas dolorem ut voluptas</h3>
-            <p>
-              Blanditiis voluptate odit ex error ea sed officiis deserunt. Cupiditate non consequatur et doloremque consequuntur. Accusantium labore reprehenderit error temporibus saepe perferendis fuga doloribus vero. Qui omnis quo sit. Dolorem architecto eum et quos deleniti officia qui.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Aut eum totam accusantium voluptatem.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Assumenda et porro nisi nihil nesciunt voluptatibus.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
-            </ul>
-            <p>
-              Est reprehenderit voluptatem necessitatibus asperiores neque sed ea illo. Deleniti quam sequi optio iste veniam repellat odit. Aut pariatur itaque nesciunt fuga.
-            </p>
-            <p>
-              Sunt rem odit accusantium omnis perspiciatis officia. Laboriosam aut consequuntur recusandae mollitia doloremque est architecto cupiditate ullam. Quia est ut occaecati fuga. Distinctio ex repellendus eveniet velit sint quia sapiente cumque. Et ipsa perferendis ut nihil. Laboriosam vel voluptates tenetur nostrum. Eaque iusto cupiditate et totam et quia dolorum in. Sunt molestiae ipsum at consequatur vero. Architecto ut pariatur autem ad non cumque nesciunt qui maxime. Sunt eum quia impedit dolore alias explicabo ea.
-            </p> -->
           </div>
 
         </div>
