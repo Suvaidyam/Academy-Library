@@ -28,7 +28,7 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
 </head>
 
 <body class="blog-page">
@@ -58,7 +58,7 @@
         <div class="row mb-12">
           <div class="col-sm-3">
             <select class="form-select" id="category-dropdown" aria-label="Default select example">
-              <!-- <option selected>Category</option> -->
+              <option selected>Category</option>
               <!-- <option value="1">OWN FIELD</option>
               <option value="2">OWN EXPERIMENT</option>
               <option value="3">CADRE TRAINING</option>
@@ -68,20 +68,22 @@
           <div class="col-sm-3">
             <select class="form-select" id="author-dropdown" aria-label="Default select example">
               <option selected>Author</option>
-              <option value="Amresh">Amresh</option>
+              <!-- <option value="Amresh">Amresh</option>
               <option value="Sandeep">Sandeep</option>
-              <option value="Vrindarak">Vrindarak</option>
+              <option value="Vrindarak">Vrindarak</option> -->
             </select>
           </div>
           <div class="col-sm-2">
             <select class="form-select" id="language-dropdown" aria-label="Default select example">
               <option selected>Language</option>
-              <option value="Hindi">Hindi</option>
-              <option value="English">English</option>
+              <!-- <option value="Hindi">Hindi</option>
+              <option value="English">English</option> -->
             </select>
           </div>
           <div class="col-sm-2">
-            <input class="form-control" type="text" placeholder="Keywords" name="keywords">
+            <div class="container">
+              <input id="tagsInput" class="form-control" placeholder="Keywords">
+            </div>
           </div>
           <div class="col-sm-1">
             <button class="btn btn-primary" id="search-btn" type="button">Search</button>
@@ -171,7 +173,7 @@
           <ul>
             <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
             <li><a href="#">1</a></li>
-            <li><a href="#" class="active">2</a></li>
+            <li><a href="#" class="">2</a></li>
             <li><a href="#">3</a></li>
             <li><a href="#">4</a></li>
             <li>...</li>
@@ -181,7 +183,8 @@
         </div>
       </div>
 
-    </section><!-- /Blog Pagination Section -->
+    </section>
+    <!-- /Blog Pagination Section -->
 
   </main>
   <div id="footer" class="footer dark-background"></div>
@@ -211,6 +214,9 @@
   <script src="../assets/js/main.js"></script>
 
   <script type="module" src="../services/research_library.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+
+
 </body>
 
 </html>

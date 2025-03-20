@@ -5,9 +5,13 @@ export async function getLibraryList() {
     let frappe_client = new FrappeApiClient();
     try {
         // ========== Fetch Knowledge Artifacts ==========
-        let response = await frappe_client.get('/get_knowledge_artifact_list');
-        let posts = response.message.artifacts;
-        const internalArtifacts = posts.filter(artifact => artifact.artifact_source === "Internal");
+        let filter = {};
+        filter["artifact_source"] = 'Internal'
+        async function knowledge_data() {
+            let response = await frappe_client.get('/get_knowledge_artifact_list', filter);
+            let posts = response.message.artifacts;
+            return posts
+        }
 
         let blogContainer = document.getElementById("blog-container");
         let template = document.getElementById("blog-template");
@@ -15,6 +19,7 @@ export async function getLibraryList() {
         let authorDropdown = document.getElementById("author-dropdown");
         let languageDropdown = document.getElementById("language-dropdown");
         let searchButton = document.getElementById("search-btn");
+        let Keywords = document.getElementById("tagsInput");
         let resetButton = document.getElementById("reset-btn"); // Reset button
 
         if (!template) {
@@ -25,7 +30,7 @@ export async function getLibraryList() {
         function displayArtifacts(filteredArtifacts) {
             blogContainer.innerHTML = ""; // Clear previous cards
 
-            if (filteredArtifacts.length === 0) {
+            if (filteredArtifacts?.length === 0) {
                 blogContainer.innerHTML = `
                     <div class="no-results text-center">
                         <h4 class="mt-3">No results found</h4>
@@ -33,7 +38,7 @@ export async function getLibraryList() {
                     </div>`;
                 return;
             }
-            filteredArtifacts.forEach(post => {
+            filteredArtifacts?.forEach(post => {
                 if (post) {
                     let newCard = template.cloneNode(true);
                     newCard.classList.remove("d-none");
@@ -41,7 +46,7 @@ export async function getLibraryList() {
 
                     newCard.querySelector(".blog-img").src = post.thumbnail_image
                         ? ENV.API_BASE_URL + post.thumbnail_image
-                        : "assets/img/blog/default.jpg";
+                        : "";
 
                     newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
                     newCard.querySelector(".blog-title").textContent = post.title || "No Title";
@@ -54,8 +59,12 @@ export async function getLibraryList() {
         }
 
         // Initially display all internal artifacts
-        displayArtifacts(internalArtifacts);
-
+        async function show_data() {
+            let artifacts = await knowledge_data();
+            // console.log(artifacts)
+            displayArtifacts(artifacts);
+        }
+        show_data()
         // ========== Fetch Categories for Dropdown ==========
         let fieldMetaParams = { doctype: "Knowledge Artifact", fieldname: "category" };
         let fieldMetaResponse = await frappe_client.get('/get_field_meta', fieldMetaParams);
@@ -69,43 +78,106 @@ export async function getLibraryList() {
         }
 
         // ============== AuthorDropdown =================
-        let AuthorResponse = await frappe_client.get('/get_link_filed');
+        let AuthorResponse = await frappe_client.get('/get_link_filed',) || [];
         let dropdownOptionsauthor = `<option selected value="">Author</option>`;
-        dropdownOptionsauthor += AuthorResponse.message.map(item =>
-            `<option value="${item.employee_name}">${item.employee_name}</option>`
+        dropdownOptionsauthor += AuthorResponse.message?.emp?.map(item =>
+            `<option value="${item.employee_id}">${item.employee_name}</option>`
         ).join('');
         authorDropdown.innerHTML = dropdownOptionsauthor;
 
 
         // ============== LanguageDropdown =================
-        let fieldlinkResponse = await frappe_client.get('/get_link_filed');
+        let fieldlinkResponse = await frappe_client.get('/get_link_filed') || [];
+        // console.log(fieldlinkResponse.message, 'language');
         let dropdownOptions = `<option selected value="">Language</option>`;
-        dropdownOptions += fieldlinkResponse.message.map(item =>
-            `<option value="${item.language_name}">${item.language_name}</option>`
+        dropdownOptions += fieldlinkResponse.message?.lang?.map(item =>
+            `<option value="${item.language_id}">${item.language_name}</option>`
         ).join('');
         languageDropdown.innerHTML = dropdownOptions;
+
+
+        // ============== TagsDropdown =================
+        let fieldtagsResponse = await frappe_client.get('/get_link_filed') || [];
+        // console.log(fieldtagsResponse.message.tag)
+        const availableTags = fieldtagsResponse.message?.tag?.map(tag => tag.tag_name)
+
+
+
+        // Initialize Tagify on input field
+        const input = document.getElementById("tagsInput");
+        new Tagify(input, {
+            whitelist: availableTags,
+            dropdown: {
+                enabled: 0,
+                closeOnSelect: false
+            }
+        });
 
         // ========== Search Button Click Event ==========
         searchButton.addEventListener("click", () => {
             let selectedCategory = categoryDropdown.value;
-            if (!selectedCategory) {
-                alert("Please select a category!");
-                return;
+            let lan = languageDropdown.value
+            let authorDropdowns = authorDropdown.value
+            let Keyword = Keywords.value || []
+            if (Keyword.length) {
+                Keyword = JSON.parse(Keyword)?.map(keyword => keyword.value)
+            } else {
+                Keyword = []
             }
-            let filteredArtifacts = internalArtifacts.filter(post => post.category === selectedCategory);
-            displayArtifacts(filteredArtifacts);
+            // console.log(Keyword, 'Keyword', lan)
+            if (selectedCategory) {
+                filter["category"] = selectedCategory
+            } else {
+                filter["category"] = '';
+            }
+            if (lan) {
+                filter["language"] = lan
+            } else {
+                filter["language"] = '';
+            }
+            if (authorDropdowns) {
+                filter["internalauthor"] = authorDropdowns
+            } else {
+                filter["internalauthor"] = '';
+            }
+            if (Keyword) {
+                filter["tags"] = Keyword;
+            } else {
+                filter["tags"] = '';
+            }
+            // console.log(filter)
+            show_data()
         });
 
         // ========== Reset Button Click Event ==========
         resetButton.addEventListener("click", () => {
+            filter = {};
+            filter["artifact_source"] = 'Internal'
+            Keywords.value = ''
+            authorDropdown.value = ''
+            languageDropdown.value = '';
             categoryDropdown.value = "";
-            displayArtifacts(internalArtifacts); // Show all artifacts again
+            show_data() // Show all internal artifacts again
         });
 
+        // ========== Pagination Logic ==========
+        document.querySelectorAll("#blog-pagination ul li a").forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                let pageNumber = this.textContent.trim();
+                if (!isNaN(pageNumber)) {
+                    console.log("Clicked Page:", pageNumber);
+                    filter['page'] = pageNumber
+                    show_data()
+                }
+            });
+        });
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     getLibraryList();
