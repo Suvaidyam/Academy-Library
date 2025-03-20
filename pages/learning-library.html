@@ -26,13 +26,19 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
- 
+  <!-- <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"> </script> -->
 </head>
+<style>
+  /* #blog-posts{
+    height: 50%;
+    overflow: auto;
+    padding: 10px;
+  } */
+</style>
+
 
 <body class="service-details-page">
-
   <div id="header" class="header d-flex align-items-center fixed-top"></div>
-  
   <main class="main">
 
     <!-- Page Title -->
@@ -48,20 +54,16 @@
         </nav>
       </div>
     </div><!-- End Page Title -->
-
     <!-- Service Details Section -->
     <section id="service-details" class="service-details section">
-
       <div class="container">
-
         <div class="row gy-5">
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100"> 
+          <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100"> 
             <div class="service-box"> 
 
               <h4>Academics List</h4>
               <div class="services-list">
-                <a href="library.html" class="active"><i class="bi bi-arrow-right-circle"></i><span>Learning</span></a>
+                <!-- <a href="library.html" class="active"><i class="bi bi-arrow-right-circle"></i><span>Learning</span></a> -->
                 <a href="research-library.html"><i class="bi bi-arrow-right-circle"></i><span>Research</span></a>
                 <a href="global-library.html"><i class="bi bi-arrow-right-circle"></i><span>Global Resources</span></a>
                 <a href="question-library.html"><i class="bi bi-arrow-right-circle"></i><span>Question Bank</span></a>
@@ -75,7 +77,9 @@
                 <a href="#"><i class="bi bi-filetype-pdf"></i><span>Catalog PDF</span></a>
                 <a href="#"><i class="bi bi-file-earmark-word"></i><span>Catalog DOC</span></a>
               </div>
-            </div><!-- End Services List -->
+            </div>
+            
+            <!-- End Services List -->
 
             <div class="help-box d-flex flex-column justify-content-center align-items-center">
               <i class="bi bi-headset help-icon"></i>
@@ -86,7 +90,75 @@
 
           </div>
 
-          <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+          <div id="course_tabs" class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">            
+              <nav>
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Live Courses</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">New Courses</button>
+                </div>
+              </nav>
+
+                <!-- New Changes Blog Posts Section-->
+                <section id="blog-posts" class="blog-posts section">
+                  <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                    <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> 
+                      <div class="container">
+                        <div class="row gy-4" id="blog-container">
+                          <div class="col-lg-6 d-none" id="blog-template">
+                            <article>
+                              <div class="post-img">
+                                <img src="" id="img-pf" alt="" class="img-fluid blog-img">
+                              </div>
+                              <p class="post-category"></p>
+                              <h2 class="title">
+                                <a href="" class="blog-title"></a>
+                              </h2>
+                              <div class="d-flex align-items-center">
+                                <!-- <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0"> -->
+                                <div class="post-meta">
+                                  <p class="short_introduction"></p>
+                                  <p class="published_on">
+                                    <time></time>
+                                  </p>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="container">
+                          <div class="row gy-4" id="blog-container-2">
+                            <div class="col-lg-6 d-none-2" id="blog-template-2">
+                              <article>
+                                <div class="post-img-2">
+                                  <img src="" alt="" class="img-fluid blog-img-2">
+                                </div>
+                                <p class="post-category-2"></p>
+                                <h2 class="title">
+                                  <a href="" class="blog-title-2"></a>
+                                </h2>
+                                <div class="d-flex align-items-center">
+                                  <!-- <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0"> -->
+                                  <div class="post-meta-2">
+                                    <p class="short_introduction-2"></p>
+                                    <p class="published_on-2">
+                                      <time></time>
+                                    </p>
+                                  </div>
+                                </div>
+                              </article>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  
+                </section>
+                <!-- New Changes Blog Posts Section-->
+<!-- 
+                
             <img src="../assets/img/services.jpg" alt="" class="img-fluid services-img">
             <h3>Temporibus et in vero dicta aut eius lidero plastis trand lined voluptas dolorem ut voluptas</h3>
             <p>
@@ -102,7 +174,7 @@
             </p>
             <p>
               Sunt rem odit accusantium omnis perspiciatis officia. Laboriosam aut consequuntur recusandae mollitia doloremque est architecto cupiditate ullam. Quia est ut occaecati fuga. Distinctio ex repellendus eveniet velit sint quia sapiente cumque. Et ipsa perferendis ut nihil. Laboriosam vel voluptates tenetur nostrum. Eaque iusto cupiditate et totam et quia dolorum in. Sunt molestiae ipsum at consequatur vero. Architecto ut pariatur autem ad non cumque nesciunt qui maxime. Sunt eum quia impedit dolore alias explicabo ea.
-            </p>
+            </p> -->
           </div>
 
         </div>
@@ -133,15 +205,12 @@
   <script src="../vendor/waypoints/noframework.waypoints.js"></script>
   <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script>
-  
-  </script>
+
   <script src="../assets/js/loadAllPageHeaderFooter.js"></script>
 
+  <script type="module" src="../services/learning_library.js"></script>
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
-
-
 </body>
 
 </html>
