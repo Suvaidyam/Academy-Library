@@ -154,7 +154,7 @@ export async function getLibraryList() {
         // ========== Reset Button Click Event ==========
         resetButton.addEventListener("click", () => {
             filter = {};
-            filter["artifact_source"] = 'Internal'
+            filter["artifact_source"] = 'External'
             Keywords.value = ''
             authorDropdown.value = ''
             languageDropdown.value = '';
