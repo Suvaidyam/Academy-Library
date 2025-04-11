@@ -28,11 +28,13 @@
   <link href="../assets/css/main.css" rel="stylesheet">
 </head>
 <style>
+  /*
   #blog-posts{
     height: 70%;
     overflow: auto;
     padding: 10px;
   }
+    */
 
   #myDiv {
     display: none;
@@ -49,13 +51,13 @@
     <!-- Page Title -->
     <div class="page-title dark-background">
       <div class="container position-relative">
-        <h1>Courses </h1>
-        <p>A course is a structured unit of study offered by educational institutions like colleges, universities, and online platforms. It covers a specific subject or skill and is designed to provide knowledge, training, or certification in a particular field.</p>
-        <nav class="breadcrumbs">
+        <h1 id="courseTypeName">Courses</h1>
+        <p id="courseContentsDetails">About Courses ..</p>
+        <!-- <nav class="breadcrumbs">
           <ol>
             <li><a href="../index.html">Home</a></li>
             <li class="current">Learning Library</li>
-          </ol>
+          </ol> -->
         </nav>
       </div>
     </div><!-- End Page Title -->
@@ -69,10 +71,9 @@
               <h4>Academics List</h4>
               <div class="services-list">
                 <!-- <a href="library.html" class="active"><i class="bi bi-arrow-right-circle"></i><span>Learning</span></a> -->
-                <a class="nav-link active" href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>Undergraduate</span></a>
-                <a href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>Postgraduate</span></a>
-                <a href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>PG Diploma</span></a>
-                <a href="learning-library.html"><i class="bi bi-arrow-right-circle"></i><span>Professional Development</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')"><i class="bi bi-arrow-right-circle"></i><span>Under Graduation</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Post Graduation')"><i class="bi bi-arrow-right-circle"></i><span>Post Graduation</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Certification')"><i class="bi bi-arrow-right-circle"></i><span>Certification</span></a>
               </div>
             </div><!-- End Services List -->
 <!-- 
@@ -105,8 +106,8 @@
               <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                   <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Live Courses</button>
-                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">New Courses</button>
-                  <button class="nav-link" id="nav-registered-tab" data-bs-toggle="tab" data-bs-target="#nav-registered" type="button" role="tab" aria-controls="nav-registered" aria-selected="false">Registered Courses</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Upcoming Courses</button>
+                  <button class="nav-link" id="nav-registered-tab" data-bs-toggle="tab" data-bs-target="#nav-registered" type="button" role="tab" aria-controls="nav-registered" aria-selected="false">Enrolled Courses</button>
                 </div>
               </nav>
 
@@ -117,31 +118,88 @@
                     <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> 
                       <div class="container">
                         <div class="row gy-4" id="blog-container">
-                          <div class="col-lg-6 d-none" id="blog-template">
-                            <article>
-                              <div class="post-img">
-                                <img src="" id="img-pf" alt="" class="img-fluid blog-img">
-                              </div>
-                              <p class="post-category"></p>
-                              <h2 class="title">
-                                <a href="" class="blog-title"></a>
-                              </h2>
-                              <div class="d-flex align-items-center">
-                                <!-- <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0"> -->
-                                <div class="post-meta">
-                                  <p class="short_introduction"></p>
-                                  <p class="published_on">
-                                    <time></time>
-                                  </p>
+                          <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
+                              <article>
+                                <div class="row newsCard">
+                                  <div class="col-md-4" class="post-img">
+                                    <img src="" id="img-pf" alt="" class="img-fluid blog-img">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <p class="post-category"></p>
+                                      <h2 class="title">
+                                        <a href="" class="blog-title"></a>
+                                      </h2>
+                                      <div class="d-flex align-items-center">
+                                        <!-- <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0"> -->
+                                        <div class="post-meta">
+                                          <p class="short_introduction"></p>
+                                          <p class="published_on">
+                                            <time></time>
+                                          </p>
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </article>
-                          </div>
+                                <p>
+                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </p>
+                                <div class="service-box">
+                                  <h4>Download Course</h4>
+                                  <div class="download-catalog">
+                                    <a href="#"><i class="bi bi-filetype-pdf"></i><span>Course PDF</span></a>
+                                    <a href="#"><i class="bi bi-file-earmark-word"></i><span>Course DOC</span></a>
+                                  </div>
+                                </div><!-- End Services List -->
+                              </article>
+                          </div><!-- End Card with an image on left -->
                         </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <div class="container">
+                      <div class="container">
+                        <div class="row gy-4" id="blog-container-2">
+                          <div class="col-lg-12" id="blog-template-2" data-aos="fade-up" data-aos-delay="100">
+                              <article>
+                                <div class="row newsCard">
+                                  <div class="col-md-4" class="post-img-2">
+                                    <img src="" id="img-pf" alt="" class="img-fluid blog-img-2">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <p class="post-category-2"></p>
+                                      <h2 class="title">
+                                        <a href="" class="blog-title-2"></a>
+                                      </h2>
+                                      <div class="d-flex align-items-center">
+                                        <!-- <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0"> -->
+                                        <div class="post-meta-2">
+                                          <p class="short_introduction-2"></p>
+                                          <p class="published_on-2">
+                                            <time></time>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </p>
+                                <div class="service-box">
+                                  <h4>Download Course</h4>
+                                  <div class="download-catalog">
+                                    <a href="#"><i class="bi bi-filetype-pdf"></i><span>Course PDF</span></a>
+                                    <a href="#"><i class="bi bi-file-earmark-word"></i><span>Course DOC</span></a>
+                                  </div>
+                                </div><!-- End Services List -->
+                              </article>
+                          </div><!-- End Card with an image on left -->
+                        </div>
+                      </div>
+                        <!-- <div class="container">
                           <div class="row gy-4" id="blog-container-2">
                             <div class="col-lg-6 d-none-2" id="blog-template-2">
                               <article>
@@ -153,7 +211,6 @@
                                   <a href="" class="blog-title-2"></a>
                                 </h2>
                                 <div class="d-flex align-items-center">
-                                  <!-- <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0"> -->
                                   <div class="post-meta-2">
                                     <p class="short_introduction-2"></p>
                                     <p class="published_on-2">
@@ -164,7 +221,7 @@
                               </article>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="tab-pane fade" id="nav-registered" role="tabpanel" aria-labelledby="nav-profile-tab">
                       There is no registered courses ... 
@@ -207,6 +264,34 @@
   <script type="module" src="../services/learning_library.js"></script>
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll(".nav-link-courseType");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            // Remove 'active' from all links
+            navLinks.forEach(nav => nav.classList.remove("active"));
+            
+            // Add 'active' to the clicked link
+            this.classList.add("active");
+
+            // Store the active link in session storage
+            sessionStorage.setItem("activeNav", this.getAttribute("href"));
+        });
+    });
+
+    // On page load, set the active class from session storage
+    const activeNav = sessionStorage.getItem("activeNav");
+    if (activeNav) {
+        const activeLink = document.querySelector(`.nav-link[href="${activeNav}"]`);
+        if (activeLink) {
+            activeLink.classList.add("active");
+        }
+    }
+});
+</script>
 </body>
 
 </html>
