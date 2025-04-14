@@ -47,10 +47,12 @@
   <link href="../vendor/aos/aos.css" rel="stylesheet">
   <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
- 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 <div class="container">
     <div class="row">
@@ -94,11 +96,31 @@
   <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
+
   <script type="module" src="../services/authService.js"></script>
   
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
   <script>
+    window.onload = function() {
+      toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+    };
+
     document.getElementById("loginForm").addEventListener("submit", async function (e) {
             e.preventDefault(); // Prevent form from submitting
             console.log("Form submitted");
@@ -106,7 +128,7 @@
             const password = document.getElementById("password").value;
             login(username, password);
     });
-    
+
     async function login(username , password){
             const formData = new URLSearchParams();
             formData.append("cmd", "login");
@@ -126,13 +148,14 @@
                 .then(data => {
                     console.log("Login response:", data);
                     sessionStorage.setItem("user_info", JSON.stringify(data));
-                    // // Optional redirect
+                    // // Optional redirects
                     if (data.home_page) {
                         window.location.href = "/index.html"; 
                     }
                 })
             }catch (error) {
-                console.error('Error while fetching data:', error);
+              toastr.error('Error while fetching data, Please check your username and password and try again.');
+                // console.error('Error while fetching data:', error);
             }
     }
 
