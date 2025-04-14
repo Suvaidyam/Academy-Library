@@ -38,6 +38,25 @@ export class FrappeApiClient {
         }
     }
 
+    async login(endpoint, username , password){
+            // Prepare form data as a URL-encoded string
+            const formData = new URLSearchParams();
+            formData.append("cmd", "login");
+            formData.append("usr", username);
+            formData.append("pwd", password);
+
+            const response = await fetch(`${this.baseURL}/${endpoint}`, {
+                method: 'POST',
+                // credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Frappe-CSRF-Token': this.getCSRFToken()
+                },
+                body: formData
+            });
+            return await response.json(); 
+    }
+
     getCSRFToken() {
         return document.cookie.split('; ').find(row => row.startsWith('sid='))?.split('=')[1] || '';
     }
