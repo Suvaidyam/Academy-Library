@@ -1,0 +1,131 @@
+<style>
+    .btn-color{
+    background-color: #0e1c36 !important;
+    color: #ffffff !important;
+    
+    }
+
+    .profile-image-pic{
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+    }
+
+    .cardbody-color{
+        background-color: #ffffff !important;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    .container{
+      margin-top: 6%;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Library Details</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+ 
+</head>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <!-- <h2 class="text-center text-dark mt-5">Login Form</h2> -->
+        <!-- <div class="text-center mb-5 text-dark">Made with bootstrap</div> -->
+        <div class="card my-5">
+
+          <form id="loginForm" class="card-body cardbody-color p-lg-5">
+
+            <div class="text-center">
+              <img src="/assets/img/login_logo.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                width="200px" alt="profile">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" id="username" required placeholder="User Name">
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" id="password" required placeholder="password">
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">Sign Up</button></div>
+            <div id="emailHelp" class="form-text text-center mb-5 text-dark">Have an account ? <a href="login.html" class="text-dark fw-bold"> Login </a>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Vendor JS Files -->
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/php-email-form/validate.js"></script>
+  <script src="../vendor/aos/aos.js"></script>
+  <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <script type="module" src="../services/authService.js"></script>
+  
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+            e.preventDefault(); // Prevent form from submitting
+            console.log("Form submitted");
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            login(username, password);
+    });
+    
+    async function login(username , password){
+            const formData = new URLSearchParams();
+            formData.append("cmd", "login");
+            formData.append("usr", username);
+            formData.append("pwd", password);
+            
+            const response = await fetch("https://erp-ryss.ap.gov.in/login", {
+                method: 'POST',
+                // credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'X-Frappe-CSRF-Token': this.getCSRFToken()
+                },
+                body: formData
+            });
+            return await response.json();
+    }
+
+    function getCSRFToken() {
+        return document.cookie.split('; ').find(row => row.startsWith('sid='))?.split('=')[1] || '';
+    }
+
+  </script>

@@ -11,6 +11,7 @@
   <!-- Favicons -->
   <link href="../assets/img/favicon.png" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -36,10 +37,54 @@
   }
     */
 
+  .enroll-this-course{
+    color: #365bcc;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 19px;
+    font-style: oblique;
+    font-family: serif;
+  }
+
   #myDiv {
     display: none;
     text-align: center;
   }
+
+  .login-container {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .login-container p {
+      margin-bottom: 30px;
+      color: #666;
+    }
+
+    .login-container a {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #4a90e2;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container a:hover {
+      background-color: #3b7dc4;
+    }
 
 </style>
 
@@ -86,12 +131,13 @@
               </div>
             </div> -->
             
-            <div class="service-box"> 
+            <!-- <div class="service-box"> 
               <h4>Registration</h4>
               <div class="services-list">
                 <a class="nav-link active" href="https://erp-ryss.ap.gov.in/app/course-registration" target="_blank"><i class="bi bi-arrow-right-circle"></i><span>Register for a course. </span></a>
               </div>
-            </div><!-- End Services List -->
+            </div> -->
+            <!-- End Services List -->
             
             <div class="help-box d-flex flex-column justify-content-center align-items-center">
               <i class="bi bi-headset help-icon"></i>
@@ -146,6 +192,9 @@
                                 <p>
                                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                 </p>
+                                <div class="mb-3">
+                                  <a href="" class="enroll-this-course"> <i class="bi bi-journal-plus"></i> Click to Enroll in Course</a>
+                                </div>
                                 <div class="service-box">
                                   <h4>Download Course</h4>
                                   <div class="download-catalog">
@@ -153,6 +202,7 @@
                                     <a href="#"><i class="bi bi-file-earmark-word"></i><span>Course DOC</span></a>
                                   </div>
                                 </div><!-- End Services List -->
+                                
                               </article>
                           </div><!-- End Card with an image on left -->
                         </div>
@@ -224,7 +274,13 @@
                         </div> -->
                     </div>
                     <div class="tab-pane fade" id="nav-registered" role="tabpanel" aria-labelledby="nav-profile-tab">
-                      There is no registered courses ... 
+                      
+                      <div class="login-container">
+                        <h2>Access Restricted</h2>
+                        <p>Please login to view your enrolled courses.</p>
+                        <a href="login.html">Login</a>
+                      </div>
+
                     </div>                  
                   </div>
                 </section>
@@ -258,6 +314,7 @@
   <script src="../vendor/waypoints/noframework.waypoints.js"></script>
   <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
   <script src="../assets/js/loadAllPageHeaderFooter.js"></script>
 
