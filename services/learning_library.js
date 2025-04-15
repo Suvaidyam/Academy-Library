@@ -71,7 +71,24 @@ export async function getandSetDyanamicCourseDetailsAndName() {
     }    
 }
 
+
+export async function showEnrolledCourseList() {
+    const LoginCard = document.getElementById("corseRestrictedInfoCard");
+    const cardDetailsList = document.getElementById("enrolledCourses");
+    const signinTab = document.getElementById("signin");
+    const userLoginStatus = JSON.parse(sessionStorage.getItem("user_info"));
+    // console.log("userLoginStatus",userLoginStatus);
+    if (userLoginStatus.message == "Logged In") {
+        LoginCard.style.display = "none"; // hide it
+        cardDetailsList.style.display = "block"; // show it
+      } else {
+        LoginCard.style.display = "block"; //show it
+        cardDetailsList.style.display = "none"; // hide it
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    showEnrolledCourseList();
     getandSetDyanamicCourseDetailsAndName();
     getCourseList();
 });

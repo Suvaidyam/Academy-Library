@@ -51,6 +51,14 @@
     text-align: center;
   }
 
+  #corseRestrictedInfoCard{
+    display: block; /* hidden by default */
+  }
+
+  #enrolledCourses{
+    display: none; /* hidden by default */
+  }
+
   .login-container {
       background: #fff;
       padding: 40px 30px;
@@ -275,10 +283,56 @@
                     </div>
                     <div class="tab-pane fade" id="nav-registered" role="tabpanel" aria-labelledby="nav-profile-tab">
                       
-                      <div class="login-container">
+                      <div id="corseRestrictedInfoCard" class="login-container">
                         <h2>Access Restricted</h2>
                         <p>Please login to view your enrolled courses.</p>
                         <a href="login.html">Login</a>
+                      </div>
+
+                      <div id="enrolledCourses" class="container">
+                        Here will come list of enrolled courses ..
+                        <!-- <div class="row gy-4" id="blog-container">
+                          <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
+                              <article>
+                                <div class="row newsCard">
+                                  <div class="col-md-4" class="post-img">
+                                    <img src="" id="img-pf" alt="" class="img-fluid blog-img">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <p class="post-category"></p>
+                                      <h2 class="title">
+                                        <a href="" class="blog-title"></a>
+                                      </h2>
+                                      <div class="d-flex align-items-center">
+                                        <div class="post-meta">
+                                          <p class="short_introduction"></p>
+                                          <p class="published_on">
+                                            <time></time>
+                                          </p>
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </p>
+                                <div class="mb-3">
+                                  <a href="" class="enroll-this-course"> <i class="bi bi-journal-plus"></i> Click to Enroll in Course</a>
+                                </div>
+                                <div class="service-box">
+                                  <h4>Download Course</h4>
+                                  <div class="download-catalog">
+                                    <a href="#"><i class="bi bi-filetype-pdf"></i><span>Course PDF</span></a>
+                                    <a href="#"><i class="bi bi-file-earmark-word"></i><span>Course DOC</span></a>
+                                  </div>
+                                </div>
+                                
+                              </article>
+                          </div>
+                        </div> -->
                       </div>
 
                     </div>                  

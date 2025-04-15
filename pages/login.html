@@ -130,33 +130,62 @@
     });
 
     async function login(username , password){
-            const formData = new URLSearchParams();
-            formData.append("cmd", "login");
-            formData.append("usr", username);
-            formData.append("pwd", password);
+
+      const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          // myHeaders.append("Cookie", "full_name=Administrator; sid=09275b57619557e7d7ae627b4ff85781913d3d6e70c6504039c6d068; system_user=yes; user_id=Administrator; user_image=");
+
+          const raw = JSON.stringify({
+            "cmd": "login",
+            "usr": "Administrator",
+            "pwd": "admin@RySS2024"
+          });
+
+          const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+          };
+
+          fetch("https://erp-ryss.ap.gov.in/api/method/login", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.error(error))
             
-            try{
-              await fetch("https://erp-ryss.ap.gov.in/login", {
-                  method: 'POST',
-                  // credentials: 'include',
-                  headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                      // 'X-Frappe-CSRF-Token': this.getCSRFToken()
-                  },
-                  body: formData
-              }).then(response => response.json())
-                .then(data => {
-                    console.log("Login response:", data);
-                    sessionStorage.setItem("user_info", JSON.stringify(data));
-                    // // Optional redirects
-                    if (data.home_page) {
-                        window.location.href = "/index.html"; 
-                    }
-                })
-            }catch (error) {
-              toastr.error('Error while fetching data, Please check your username and password and try again.');
-                // console.error('Error while fetching data:', error);
-            }
+            // const formData = new FormData();
+            // formData.append("cmd", "login");
+            // formData.append("usr", username);
+            // formData.append("pwd", password);
+            
+          //   formData = {
+          //     "cmd" : "login",
+          //     "username" : document.getElementById("username").value,
+          //     "password" : document.getElementById("password").value
+          //   }
+
+          //   try{
+          //     await fetch("https://erp-ryss.ap.gov.in/api/method/login", {
+          //         method: 'POST',
+          //         // credentials: 'include', // Important to handle cookies/session
+          //         headers: {
+          //             'Content-Type': 'application/json',
+          //             // 'X-Frappe-CSRF-Token': this.getCSRFToken()
+          //         },
+          //         data: formData
+          //     }).then(response => response.json())
+          //       .then(data => {
+          //           console.log("Login response:", data);
+          //           sessionStorage.setItem("user_info", JSON.stringify(data));
+          //           // // Optional redirects
+          //           if (data.home_page) {
+          //               window.location.href = "/index.html"; 
+          //           }
+          //       })
+          //   }catch (error) {
+          //     toastr.error('Error while fetching data, Please check your username and password and try again.');
+          //       // console.error('Error while fetching data:', error);
+          //   }
     }
 
     function getCSRFToken() {
