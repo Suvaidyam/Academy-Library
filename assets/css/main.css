@@ -566,7 +566,7 @@ color: #012970;
 }
 
 .about .about-content ul li:first-child {
-  margin-top: 35px;
+  /* margin-top: 35px; */
 }
 
 .about .about-content ul i {
@@ -2844,3 +2844,19 @@ section,
   to{ bottom:0; opacity:1 }
 }
   
+
+.read-more-content{
+	display: none;
+	padding-top: 22px;
+}
+.read-more{
+	display: inline;
+}.timeline-info {
+	position: relative;
+	background: #f3f1f1;
+	padding: 24px 20px 18px;
+	margin-bottom: 12px;
+	border: 1px solid #f3f1f1;
+	border-radius: 8px;
+	margin-left: 54px;
+}
