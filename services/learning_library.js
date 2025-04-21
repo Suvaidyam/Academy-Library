@@ -3,7 +3,7 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 export async function getCourseList() {
     let frappe_client = new FrappeApiClient();
     try {
-        let response = await frappe_client.get('/lms.lms.utils.get_courses');
+        let response = await frappe_client.get('/lms.lms.utils.get_courses',{course_type:null});
         if(response){
             document.getElementById("loader").style.display = "none";
         }
@@ -36,7 +36,6 @@ export async function getCourseList() {
             let blogContainer2 = document.getElementById("blog-container-2");
             document.getElementById("blog-container-2").innerHTML = "";
             newCources.forEach(post => {
-                console.log("hi");
                 if (post) {
                     let newCard2 = template2.cloneNode(true);
                     newCard2.classList.remove("d-none-2");
@@ -88,7 +87,7 @@ export async function showEnrolledCourseList() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    showEnrolledCourseList();
+    // showEnrolledCourseList();
     getandSetDyanamicCourseDetailsAndName();
-    getCourseList();
+    // getCourseList();
 });
