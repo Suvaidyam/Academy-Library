@@ -27,6 +27,8 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
+
+
 </head>
 <style>
   /*
@@ -124,11 +126,13 @@
               <h4>Academics List</h4>
               <div class="services-list">
                 <!-- <a href="library.html" class="active"><i class="bi bi-arrow-right-circle"></i><span>Learning</span></a> -->
-                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')"><i class="bi bi-arrow-right-circle"></i><span>Under Graduation</span></a>
-                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Post Graduation')"><i class="bi bi-arrow-right-circle"></i><span>Post Graduation</span></a>
-                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Certification')"><i class="bi bi-arrow-right-circle"></i><span>Certification</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" ><i class="bi bi-arrow-right-circle"></i><span>Under Graduation</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" ><i class="bi bi-arrow-right-circle"></i><span>Post Graduation</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" ><i class="bi bi-arrow-right-circle"></i><span>Certification</span></a>
               </div>
             </div><!-- End Services List -->
+            <div>
+            </div>
 <!-- 
             <div class="service-box">
               <h4>Category</h4>
@@ -370,8 +374,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
   <script src="../assets/js/loadAllPageHeaderFooter.js"></script>
-
   <script type="module" src="../services/learning_library.js"></script>
+  <script type="module" src="../services/get_course_list.js"></script>
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
 
@@ -401,6 +405,11 @@
         }
     }
 });
+
+// const get_dynamic_Course=()=>{
+//   console.log("??????????????????????????????");
+  
+// }
 </script>
 </body>
 
