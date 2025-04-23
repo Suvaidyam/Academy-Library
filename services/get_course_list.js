@@ -11,7 +11,7 @@ export async function get_dynaic_course_list(courseType, navtype) {
   let frappe_client = new FrappeApiClient();
   try {
     // Make GET request to backend with courseType and navtype as params
-    let response = await frappe_client.get('/get_under_graduation_course', {
+    let response = await frappe_client.get('/get_all_courses', {
       course_type: courseType,
       navtype: navtype,
     });
