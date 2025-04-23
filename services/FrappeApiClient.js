@@ -1,11 +1,11 @@
 export class FrappeApiClient {
-    constructor(baseURL = 'https://erp-ryss.ap.gov.in') {
-        this.baseURL = baseURL;
-    }
-
-    // constructor(baseURL = 'http://erp.localhost:8000') {
+    // constructor(baseURL = 'https://erp-ryss.ap.gov.in') {
     //     this.baseURL = baseURL;
     // }
+
+    constructor(baseURL = 'http://erp.localhost:8000') {
+        this.baseURL = baseURL;
+    }
 
     async get(endpoint, params = {}) {
         const url = new URL(`${this.baseURL}/api/method${endpoint}`);
