@@ -145,7 +145,7 @@
               <div class="icon">
                 <i class="bi bi-activity"></i>
               </div>
-              <a href="/pages/learning-library.html" id="under_graduation"  onclick="localStorage.setItem('courseCategory', 'Under Graduation')" class="stretched-link">
+              <a  id="under_graduation"   class="stretched-link">
                 <h3>Under Graduation</h3>
               </a>
               <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis
@@ -404,14 +404,15 @@
   <script src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <script>
-    import { get_dynaic_course_list } from "../../services/get_course_list";
+    // import { get_dynaic_course_list } from "../../services/get_course_list";
     let under_graduation_btn=document.getElementById('under_graduation')
     under_graduation_btn.addEventListener('click',(e)=>{
       e.preventDefault()
-      console.log("under_graduation_btn is clicked");
+      console.log("under_graduation_btn is clicked",under_graduation_btn);
+      window.location.href = 'pages/learning-library.html';
 
-      get_dynaic_course_list('Post Graduation','1')
-      localStorage.setItem('courseCategory','Post Graduation')
+      // get_dynaic_course_list('Post Graduation','1')
+      localStorage.setItem('courseCategory','Under Graduation')
       
     })
     document.addEventListener("DOMContentLoaded", () => {
