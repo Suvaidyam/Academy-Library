@@ -32,7 +32,7 @@ export async function get_dynaic_course_list(courseType, navtype) {
 // Run once DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   window.scrollTo(0, 0);
-  sessionStorage.setItem('navtype','1')
+  localStorage.setItem('navtype','1')
   getandSetDyanamicCourseDetailsAndName()
 
 
@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const course = e.currentTarget.innerText.trim(); 
       console.log("course",course);
       // Get selected course name
-      sessionStorage.setItem('courseCategory', course); // Store it in session
+      localStorage.setItem('courseCategory', course); // Store it in session
       getandSetDyanamicCourseDetailsAndName()
 
-      let navtype = sessionStorage.getItem("navtype"); // Get current tab type
+      let navtype = localStorage.getItem("navtype"); // Get current tab type
       if (course) {
         get_dynaic_course_list(course, navtype); // Fetch course list
       }
@@ -141,15 +141,15 @@ let Enrolled_Courses_Btn = document.getElementById('nav-registered-tab');
 
 // Upcoming Courses Tab Clicked
 Upcoming_Courses_Btn.addEventListener('click', () => {
-  let currentValue = sessionStorage.getItem("courseCategory");
-  sessionStorage.setItem("navtype", "0");
+  let currentValue = localStorage.getItem("courseCategory");
+  localStorage.setItem("navtype", "0");
   get_dynaic_course_list(currentValue, "0");
 });
 
 // Live Courses Tab Clicked
 Live_Courses_Btn.addEventListener('click', () => {
-  let currentValue = sessionStorage.getItem("courseCategory");
-  sessionStorage.setItem("navtype", "1");
+  let currentValue = localStorage.getItem("courseCategory");
+  localStorage.setItem("navtype", "1");
   get_dynaic_course_list(currentValue, "1");
 });
 
@@ -157,7 +157,7 @@ Live_Courses_Btn.addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll('.services-list a');
   links.forEach(link => {
-    let courseType = sessionStorage.getItem('courseCategory')
+    let courseType = localStorage.getItem('courseCategory')
     const course = link.textContent.trim();
     console.log("link", link, course);
     if (course === courseType) {
@@ -172,9 +172,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // firstLink.classList.add("active");
 
-  // sessionStorage.setItem('courseCategory', 'Under Graduation');
-  // sessionStorage.setItem("navtype", "1");
-  let courseType = sessionStorage.getItem('courseCategory')
+  // localStorage.setItem('courseCategory', 'Under Graduation');
+  // localStorage.setItem("navtype", "1");
+  let courseType = localStorage.getItem('courseCategory')
 
   get_dynaic_course_list(courseType, "1");
   let homebtn = document.getElementById("home")

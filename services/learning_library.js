@@ -57,7 +57,7 @@ export async function getCourseList() {
 
 export async function getandSetDyanamicCourseDetailsAndName() {
 
-    let courseCategoryType = sessionStorage.getItem('courseCategory');
+    let courseCategoryType = localStorage.getItem('courseCategory');
     document.getElementById("courseTypeName").innerHTML = courseCategoryType + ' Courses';
     let ugCourseContent = 'Academy is currently offering one course under this program.  A under graduation course is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.  Graduation courses follows multiple entry-exit policy where students will be able to exit after each year, if necessary, and continue the course later through earned credits.​'
     let pgCourseContent = 'Academy is currently offering a two-year post graduation course that is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.​'
@@ -76,7 +76,7 @@ export async function showEnrolledCourseList() {
     const LoginCard = document.getElementById("corseRestrictedInfoCard");
     const cardDetailsList = document.getElementById("enrolledCourses");
     const signinTab = document.getElementById("signin");
-    const userLoginStatus = JSON.parse(sessionStorage.getItem("user_info"));
+    const userLoginStatus = JSON.parse(localStorage.getItem("user_info"));
     // console.log("userLoginStatus",userLoginStatus);
     if (userLoginStatus.message == "Logged In") {
         LoginCard.style.display = "none"; // hide it
