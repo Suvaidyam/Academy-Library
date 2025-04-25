@@ -1,5 +1,7 @@
 import ENV from "../config/config.js";
 import { FrappeApiClient } from "./FrappeApiClient.js";
+import { getandSetDyanamicCourseDetailsAndName } from "./learning_library.js";
+
 
 let baseURL=new FrappeApiClient().baseURL;
 
@@ -11,12 +13,13 @@ export async function get_dynaic_course_list(courseType, navtype) {
   let frappe_client = new FrappeApiClient();
   try {
     // Make GET request to backend with courseType and navtype as params
-    let response = await frappe_client.get('/get_under_graduation_course', {
+    let response = await frappe_client.get('/get_all_courses', {
       course_type: courseType,
       navtype: navtype,
     });
 
     // On successful response, hide the loader and render the course list
+
     if (response) {
       document.getElementById("loader").style.display = "none";
       set_dynamic_course(response, navtype);
@@ -29,6 +32,7 @@ export async function get_dynaic_course_list(courseType, navtype) {
 // Run once DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   window.scrollTo(0, 0);
+  
 
   // Add click event listener to each course category link
   const links = document.querySelectorAll('.services-list a');
@@ -37,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const course = e.currentTarget.innerText.trim(); // Get selected course name
       sessionStorage.setItem('courseCategory', course); // Store it in session
+      getandSetDyanamicCourseDetailsAndName()
 
       let navtype = sessionStorage.getItem("navtype"); // Get current tab type
       if (course) {
@@ -51,18 +56,24 @@ const set_dynamic_course = (response, navtype) => {
   const blogContainer = document.getElementById("blog-container");
   const blogContainer2 = document.getElementById("blog-container-2");
 
-  console.log("set_dynamic_course is called", blogContainer);
-  console.log("navtype=", navtype);
+  // console.log("set_dynamic_course is called", blogContainer);
+  // console.log("navtype=", navtype);
 
   // Clear existing course list depending on navtype
   if (navtype === "1") blogContainer.innerHTML = "";
   if (navtype === "0") blogContainer2.innerHTML = "";
 
-  console.log("set_dynamic_course", response.message);
+  if (response.message.length ===0) {
+    console.log("set_dynamic_course length===", response.message.length);
+    document.getElementById("no-alvailable-corses").style.display = "block";
+  }
+  else{
+    document.getElementById("no-alvailable-corses").style.display = "none";
+  }
 
   // Loop through each course and render HTML
   response.message.forEach((item) => {
-    console.log("Item being rendered:", item);
+    // console.log("Item being rendered:", item);
     const newo = `
       <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
         <article>
@@ -105,8 +116,13 @@ const set_dynamic_course = (response, navtype) => {
     if (navtype === "0") {
       blogContainer2.insertAdjacentHTML("beforeend", newo);
     }
+   
+    
+
+
   });
 };
+
 
 // Tab button references
 let Live_Courses_Btn = document.getElementById('nav-home-tab');
@@ -130,11 +146,37 @@ Live_Courses_Btn.addEventListener('click', () => {
 // On page load, select first category and load "Under Graduation" live courses
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll('.services-list a');
+  links.forEach(link => {
+    let courseType=sessionStorage.getItem('courseCategory')
+    const course = link.textContent.trim();
+    console.log("link",link,course);
+    if (course === courseType) {
+      link.classList.add("active");
+    }else{
+      link.classList.remove("active");
+    }
+    
+    
+  });
   const firstLink = links[0];
-  firstLink.classList.add("active");
+  
+  // firstLink.classList.add("active");
 
-  sessionStorage.setItem('courseCategory', 'Under Graduation');
+  // sessionStorage.setItem('courseCategory', 'Under Graduation');
   sessionStorage.setItem("navtype", "1");
+  let courseType=sessionStorage.getItem('courseCategory')
 
-  get_dynaic_course_list("Under Graduation", "1");
+  get_dynaic_course_list(courseType, "1");
+let homebtn=document.getElementById("home")
+console.log("home btn is clicked",homebtn);
+
+
 });
+
+
+let homebtn=document.getElementById("header")
+homebtn.addEventListener("click",(e)=>{
+  e.preventDefault
+  console.log("home btn is clicked");
+  
+})
