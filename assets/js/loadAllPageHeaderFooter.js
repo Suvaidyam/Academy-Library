@@ -57,6 +57,7 @@
         // Load header and then execute code that needs header elements
         loadComponent("../components/header.html", "header", () => {
             get_header_elements();
+            get_home_element()
         });
 
         loadComponent("../components/footer.html", "footer");
@@ -103,39 +104,45 @@ const get_header_elements = () => {
 };
 
 
-// const get_header_elements = () => {
-//     let headers = document.querySelectorAll('#navmenu ul li');
-//     console.log("get_header_elements", headers[0]);
 
-//     headers.forEach(header => {
-//         header.addEventListener('click', e => {
-//             // e.preventDefault()
-//             const head = e.currentTarget.innerText.trim();
-//             // console.log("head-=",head);
-//             headers.forEach(item => {
-//                 let nav = item.querySelector("a")
-//                 if (nav.classList.contains("active")) {
-//                     nav.classList.remove("active");
-//                     console.log("===========================");
+const get_home_element = () => {
+    let hometab = document.querySelectorAll('#hometab li');
+    const homebtn = document.getElementById('homebtn');
 
-//                 } else {
-//                     nav.classList.add("active");
-//                 }
-//                 // console.log('item',nav);
+    hometab.forEach(header => {
+        header.addEventListener('click', e => {
+            e.preventDefault()
+            // Remove 'active' from all nav links
+            hometab.forEach(item => {
+                let nav = item.querySelector("a");
+                if (homebtn) {
+                    homebtn.classList.remove("active");
+                }
+            });
+
+            // Add 'active' to the clicked nav link
+            
+            const clickedNav = header.querySelector("a");
+            
+            
+            let href = clickedNav.getAttribute('href');
+            console.log("Clicked head:", clickedNav,href)
+            // sessionStorage.setItem("activeNav",href)
+            
+            // window.location.href(sessionStorage.getItem("activeNav"))
+
+            if (href) {
+                
+                window.location.href = href;
+            }
+            if (homebtn) {
+                homebtn.classList.add("active");
+            }
 
 
-//             })
-
-//             const clickedNav = header.querySelector("a");
-//             if (!clickedNav.classList.contains("active")) {
-//                 clickedNav.classList.add("active")
-//                 console.log("Clicked head:", clickedNav)
-//             }
+            
+        });
+    });
 
 
-//         })
-//     })
-
-
-
-// };
+};
