@@ -158,7 +158,7 @@
               <div class="icon">
                 <i class="bi bi-broadcast"></i>
               </div>
-              <a href="/pages/learning-library.html" onclick="localStorage.setItem('courseCategory', 'Post Graduation')" class="stretched-link">
+              <a  id="post_graduation" class="stretched-link">
                 <h3>Post Graduation</h3>
               </a>
               <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut
@@ -171,7 +171,7 @@
               <div class="icon">
                 <i class="bi bi-easel"></i>
               </div>
-              <a href="/pages/learning-library.html" onclick="localStorage.setItem('courseCategory', 'Certification')"  class="stretched-link">
+              <a id="certification"  class="stretched-link">
                 <h3>Certification</h3>
               </a>
               <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci
@@ -406,18 +406,27 @@
   <script>
     // import { get_dynaic_course_list } from "../../services/get_course_list";
     let under_graduation_btn=document.getElementById('under_graduation')
-    under_graduation_btn.addEventListener('click',(e)=>{
+    let post_graduation_btn=document.getElementById('post_graduation')
+    let certification_btn=document.getElementById('certification')
+
+    let all_btn=[under_graduation_btn, post_graduation_btn, certification_btn]
+    all_btn.forEach(item=>{
+      item.addEventListener('click',(e)=>{
       e.preventDefault()
       console.log("under_graduation_btn is clicked",under_graduation_btn);
+      let course_type=item.firstElementChild.textContent.trim()
       
       // get_dynaic_course_list('Post Graduation','1')
       setInterval(() => {
         window.location.href = 'pages/learning-library.html';
         
-      }, 3000);
-      localStorage.setItem('courseCategory','Under Graduation')
+      }, 100);
+      localStorage.setItem('courseCategory',course_type)
       
     })
+
+    })
+    
     document.addEventListener("DOMContentLoaded", () => {
       function loadComponent(file, elementId) {
           let el = document.getElementById(elementId);
