@@ -1,15 +1,25 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Academy </h1>
+      <a href="/#hero" class="logo d-flex align-items-center">
+        <img src="../assets/img/logo-350x66.png">         
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
+ 
+          <!-- <li><a href="/#hero" class="tab-link active">Home</a></li> -->
+           
+          <li class="dropdown" ><a href="javascript:void(0)"><span>Home</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a  href="/pages/about.html" class="tab-link">About</a></li>  
+              <li><a href="/pages/our-leaders.html" class="tab-link">Our Leaders</a></li> 
+            </ul>
+          </li>    
+ 
           <li><a href="/#hero" class="tab-link active">Home</a></li>
           <li><a  href="/#about" class="tab-link">About</a></li>       
+ 
           <!-- <li><a href="/pages/learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')">Academics</a></li> -->
           <li><a href="/#academics" class="tab-link">Academics</a></li>
           <li><a href="/#research" class="tab-link">Research</a></li>
@@ -17,13 +27,20 @@
           <li class="dropdown"><a href="javascript:void(0)" class="tab-link"><span>Resources</span> 
             <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
+ 
+              <li><a href="/pages/library.html" class="tab-link">Library</a></li>
+              <li><a href="/pages/research-library" class="tab-link">Research</a></li>
               <li><a href="/pages/global-library.html" class="tab-link">Global Resources</a></li>
+              <li><a href="/pages/assignment_bank.html" class="tab-link">Assignment Bank</a>  </li>
               <li><a href="/pages/question-library.html" class="tab-link">Question Bank</a></li>
-              <li><a href="/pages/research-library" class="tab-link">Research Articles</a></li>
-              <li class="dropdown"><a href="/pages/assignment_bank.html" class="tab-link">Assignment Bank</a>  </li>
+              <li><a href="/pages/case-studies.html" class="tab-link">Case Studies</a></li>
+              <li><a href="/pages/success-stories.html" class="tab-link">Success Stories</a></li>
             </ul>
           </li>
           <li><a href="/#services" class="tab-link">News & Events</a></li>
+          <!-- <li><a href="#" class="tab-link">Blogs</a></li>
+          <li><a href="#" class="tab-link">Careers</a></li> -->
+ 
           <!-- <li><a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign in</a></li> -->
           <li id="signin" ><a href="/pages/login.html">Sign in</a></li>
           <li id="loggedinUser"></li>
