@@ -85,9 +85,9 @@ const get_header_elements = () => {
             
             let href = clickedNav.getAttribute('href');
             console.log("Clicked head:", clickedNav,href)
-            // sessionStorage.setItem("activeNav",href)
+            // localStorage.setItem("activeNav",href)
             
-            // window.location.href(sessionStorage.getItem("activeNav"))
+            // window.location.href(localStorage.getItem("activeNav"))
 
             if (href) {
                 
@@ -127,9 +127,9 @@ const get_home_element = () => {
             
             let href = clickedNav.getAttribute('href');
             console.log("Clicked head:", clickedNav,href)
-            // sessionStorage.setItem("activeNav",href)
+            // localStorage.setItem("activeNav",href)
             
-            // window.location.href(sessionStorage.getItem("activeNav"))
+            // window.location.href(localStorage.getItem("activeNav"))
 
             if (href) {
                 

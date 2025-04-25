@@ -361,12 +361,12 @@
             this.classList.add("active");
 
             // Store the active link in session storage
-            sessionStorage.setItem("activeNav", this.getAttribute("href"));
+            localStorage.setItem("activeNav", this.getAttribute("href"));
         });
     });
 
     // On page load, set the active class from session storage
-    const activeNav = sessionStorage.getItem("activeNav");
+    const activeNav = localStorage.getItem("activeNav");
     if (activeNav) {
         const activeLink = document.querySelector(`.nav-link[href="${activeNav}"]`);
         if (activeLink) {

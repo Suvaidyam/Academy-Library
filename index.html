@@ -145,7 +145,7 @@
               <div class="icon">
                 <i class="bi bi-activity"></i>
               </div>
-              <a href="/pages/learning-library.html" id="under_graduation"  onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')" class="stretched-link">
+              <a href="/pages/learning-library.html" id="under_graduation"  onclick="localStorage.setItem('courseCategory', 'Under Graduation')" class="stretched-link">
                 <h3>Under Graduation</h3>
               </a>
               <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis
@@ -158,7 +158,7 @@
               <div class="icon">
                 <i class="bi bi-broadcast"></i>
               </div>
-              <a href="/pages/learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Post Graduation')" class="stretched-link">
+              <a href="/pages/learning-library.html" onclick="localStorage.setItem('courseCategory', 'Post Graduation')" class="stretched-link">
                 <h3>Post Graduation</h3>
               </a>
               <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut
@@ -171,7 +171,7 @@
               <div class="icon">
                 <i class="bi bi-easel"></i>
               </div>
-              <a href="/pages/learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Certification')"  class="stretched-link">
+              <a href="/pages/learning-library.html" onclick="localStorage.setItem('courseCategory', 'Certification')"  class="stretched-link">
                 <h3>Certification</h3>
               </a>
               <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci
@@ -411,7 +411,7 @@
       console.log("under_graduation_btn is clicked");
 
       get_dynaic_course_list('Post Graduation','1')
-      sessionStorage.setItem('courseCategory','Post Graduation')
+      localStorage.setItem('courseCategory','Post Graduation')
       
     })
     document.addEventListener("DOMContentLoaded", () => {
