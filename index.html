@@ -409,9 +409,12 @@
     under_graduation_btn.addEventListener('click',(e)=>{
       e.preventDefault()
       console.log("under_graduation_btn is clicked",under_graduation_btn);
-      window.location.href = 'pages/learning-library.html';
-
+      
       // get_dynaic_course_list('Post Graduation','1')
+      setInterval(() => {
+        window.location.href = 'pages/learning-library.html';
+        
+      }, 3000);
       localStorage.setItem('courseCategory','Under Graduation')
       
     })
