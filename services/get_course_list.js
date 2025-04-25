@@ -3,7 +3,7 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 import { getandSetDyanamicCourseDetailsAndName } from "./learning_library.js";
 
 
-let baseURL=new FrappeApiClient().baseURL;
+let baseURL = new FrappeApiClient().baseURL;
 
 
 // Fetch and render the course list dynamically based on course type and navtype (live/upcoming)
@@ -32,14 +32,18 @@ export async function get_dynaic_course_list(courseType, navtype) {
 // Run once DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   window.scrollTo(0, 0);
-  
+  sessionStorage.setItem('navtype','1')
+  getandSetDyanamicCourseDetailsAndName()
+
 
   // Add click event listener to each course category link
   const links = document.querySelectorAll('.services-list a');
   links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
-      const course = e.currentTarget.innerText.trim(); // Get selected course name
+      const course = e.currentTarget.innerText.trim(); 
+      console.log("course",course);
+      // Get selected course name
       sessionStorage.setItem('courseCategory', course); // Store it in session
       getandSetDyanamicCourseDetailsAndName()
 
@@ -63,11 +67,11 @@ const set_dynamic_course = (response, navtype) => {
   if (navtype === "1") blogContainer.innerHTML = "";
   if (navtype === "0") blogContainer2.innerHTML = "";
 
-  if (response.message.length ===0) {
+  if (response.message.length === 0) {
     console.log("set_dynamic_course length===", response.message.length);
     document.getElementById("no-alvailable-corses").style.display = "block";
   }
-  else{
+  else {
     document.getElementById("no-alvailable-corses").style.display = "none";
   }
 
@@ -78,13 +82,13 @@ const set_dynamic_course = (response, navtype) => {
       <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
         <article>
           <div class="row newsCard">
-            <div class="col-md-4" class="post-img">
+            <div class="col-md-3" class="post-img">
               <img src="${ENV.API_BASE_URL + item.image}" alt="" class="img-fluid blog-img">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
               <div class="card-body">
                 <h2 class="title">
-                  <a href="" class="blog-title">${item.title}</a>
+                  <a href="" class="blog-title text-break text-wrap">${item.title}</a>
                 </h2>
                 <div class="d-flex align-items-center">
                   <div class="post-meta">
@@ -94,18 +98,24 @@ const set_dynamic_course = (response, navtype) => {
                 </div>
               </div>
             </div>
+            <div class=" col-md-3">
+              <h4>Information</h4>
+              <div class="download-catalog">
+                  <a href="" onclick="window.open('${baseURL}${item.custom_course_document}')" ><i class="bi bi-filetype-pdf"></i><span>Catalogue</span></a>
+                  <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
+                  <a href="" class="enroll-this-course"><i class="bi bi-journal-plus"></i> Apply</a>
+               </div>
+          </div>
           </div>
           <p>${item.description}</p>
-          <div class="mb-3">
-            <a href="" class="enroll-this-course"><i class="bi bi-journal-plus"></i> Click to Enroll in Course</a>
-          </div>
-          <div class="service-box">
-            <h4>Download Course</h4>
-            <div class="download-catalog">
-              <a href="#" onclick="window.open('${baseURL}${item.custom_course_document}')" ><i class="bi bi-filetype-pdf"></i><span>Course PDF</span></a>
-              <a href="#"><i class="bi bi-file-earmark-word"></i><span>Course DOC</span></a>
+         <!-- <div class="service-box">
+            <h4>Information</h4>
+            <div class="download-catalog pl-2">
+              <a href="#" onclick="window.open('${baseURL}${item.custom_course_document}')" ><i class="bi bi-filetype-pdf"></i><span>Catalogue</span></a>
+              <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
+               <a href="" class="enroll-this-course"><i class="bi bi-journal-plus"></i> Apply</a>
             </div>
-          </div>
+          </div> -->
         </article>
       </div>`;
 
@@ -116,8 +126,8 @@ const set_dynamic_course = (response, navtype) => {
     if (navtype === "0") {
       blogContainer2.insertAdjacentHTML("beforeend", newo);
     }
-   
-    
+
+
 
 
   });
@@ -147,36 +157,30 @@ Live_Courses_Btn.addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll('.services-list a');
   links.forEach(link => {
-    let courseType=sessionStorage.getItem('courseCategory')
+    let courseType = sessionStorage.getItem('courseCategory')
     const course = link.textContent.trim();
-    console.log("link",link,course);
+    console.log("link", link, course);
     if (course === courseType) {
       link.classList.add("active");
-    }else{
+    } else {
       link.classList.remove("active");
     }
-    
-    
+
+
   });
   const firstLink = links[0];
-  
+
   // firstLink.classList.add("active");
 
   // sessionStorage.setItem('courseCategory', 'Under Graduation');
-  sessionStorage.setItem("navtype", "1");
-  let courseType=sessionStorage.getItem('courseCategory')
+  // sessionStorage.setItem("navtype", "1");
+  let courseType = sessionStorage.getItem('courseCategory')
 
   get_dynaic_course_list(courseType, "1");
-let homebtn=document.getElementById("home")
-console.log("home btn is clicked",homebtn);
+  let homebtn = document.getElementById("home")
+  console.log("home btn is clicked", homebtn);
 
 
 });
 
 
-let homebtn=document.getElementById("header")
-homebtn.addEventListener("click",(e)=>{
-  e.preventDefault
-  console.log("home btn is clicked");
-  
-})

@@ -56,11 +56,12 @@ export async function getCourseList() {
 }
 
 export async function getandSetDyanamicCourseDetailsAndName() {
+
     let courseCategoryType = sessionStorage.getItem('courseCategory');
     document.getElementById("courseTypeName").innerHTML = courseCategoryType + ' Courses';
-    let ugCourseContent = 'Academy is currently offering one four-year graduation course that is earned through experiential learning. <br /> This course is referred to as Farmer Scientist Course (FSC).'
-    let pgCourseContent = 'Academy is currently offering one two-year post graduation course that is earned through experiential learning. <br /> This course is referred to as PG in Natural Farming (PGNF).'
-    let CertificationContent = 'Academy is currently offering three certificate courses.  These experiential learning courses have their own criteria for the enrollment and are delivered through the hybrid mode of learning like classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.'
+    let ugCourseContent = 'Academy is currently offering one course under this program.  A under graduation course is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.  Graduation courses follows multiple entry-exit policy where students will be able to exit after each year, if necessary, and continue the course later through earned credits.​'
+    let pgCourseContent = 'Academy is currently offering a two-year post graduation course that is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.​'
+    let CertificationContent = 'Academy is currently offering two certificate courses.  Academy emphasis on the experiential learning even if these are certificate courses.  Certificate courses are either online or are delivered through the hybrid mode of learning like classroom sessions, field classes, online classes, and field practice. These are non-credit courses.  Certificates may have a validity period to keep-up with the new knowledge in the respective field.​'
     if(courseCategoryType == "Certification"){
         document.getElementById("courseContentsDetails").innerHTML = CertificationContent;
     }else if(courseCategoryType == "Post Graduation"){
