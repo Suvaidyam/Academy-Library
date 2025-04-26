@@ -27,6 +27,8 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
+
+
 </head>
 <style>
   /*
@@ -124,11 +126,13 @@
               <h4>Academics List</h4>
               <div class="services-list">
                 <!-- <a href="library.html" class="active"><i class="bi bi-arrow-right-circle"></i><span>Learning</span></a> -->
-                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')"><i class="bi bi-arrow-right-circle"></i><span>Under Graduation</span></a>
-                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Post Graduation')"><i class="bi bi-arrow-right-circle"></i><span>Post Graduation</span></a>
-                <a class="nav-link-courseType" href="learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Certification')"><i class="bi bi-arrow-right-circle"></i><span>Certification</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" ><i class="bi bi-arrow-right-circle"></i><span>Under Graduation</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" ><i class="bi bi-arrow-right-circle"></i><span>Post Graduation</span></a>
+                <a class="nav-link-courseType" href="learning-library.html" ><i class="bi bi-arrow-right-circle"></i><span>Certification</span></a>
               </div>
             </div><!-- End Services List -->
+            <div>
+            </div>
 <!-- 
             <div class="service-box">
               <h4>Category</h4>
@@ -169,50 +173,18 @@
                 <section id="blog-posts" class="blog-posts section">
                   <div class="tab-content p-3 border bg-light" id="nav-tabContent">
                     <div id="loader"></div>
+                    <div class="container my-5 py-5" id="no-alvailable-corses" style="display: none;">
+                      <div class=" alert-warning text-center mb-2.5" role="alert">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+                        No courses are available at the moment. Please check back later!
+                      </div>
+                    </div>
                     <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> 
                       <div class="container">
                         <div class="row gy-4" id="blog-container">
                           <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
-                              <article>
-                                <div class="row newsCard">
-                                  <div class="col-md-4" class="post-img">
-                                    <img src="" id="img-pf" alt="" class="img-fluid blog-img">
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="card-body">
-                                      <p class="post-category"></p>
-                                      <h2 class="title">
-                                        <a href="" class="blog-title"></a>
-                                      </h2>
-                                      <div class="d-flex align-items-center">
-                                        <!-- <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0"> -->
-                                        <div class="post-meta">
-                                          <p class="short_introduction"></p>
-                                          <p class="published_on">
-                                            <time></time>
-                                          </p>
-                                        </div>
-                                      </div>
-                                      
-                                    </div>
-                                  </div>
-                                </div>
-                                <p>
-                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                </p>
-                                <div class="mb-3">
-                                  <a href="" class="enroll-this-course"> <i class="bi bi-journal-plus"></i> Click to Enroll in Course</a>
-                                </div>
-                                <div class="service-box">
-                                  <h4>Download Course</h4>
-                                  <div class="download-catalog">
-                                    <a href="#"><i class="bi bi-filetype-pdf"></i><span>Course PDF</span></a>
-                                    <a href="#"><i class="bi bi-file-earmark-word"></i><span>Course DOC</span></a>
-                                  </div>
-                                </div><!-- End Services List -->
-                                
-                              </article>
-                          </div><!-- End Card with an image on left -->
+                            
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -371,8 +343,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
   <script src="../assets/js/loadAllPageHeaderFooter.js"></script>
-
   <script type="module" src="../services/learning_library.js"></script>
+  <script type="module" src="../services/get_course_list.js"></script>
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
 
@@ -389,12 +361,12 @@
             this.classList.add("active");
 
             // Store the active link in session storage
-            sessionStorage.setItem("activeNav", this.getAttribute("href"));
+            localStorage.setItem("activeNav", this.getAttribute("href"));
         });
     });
 
     // On page load, set the active class from session storage
-    const activeNav = sessionStorage.getItem("activeNav");
+    const activeNav = localStorage.getItem("activeNav");
     if (activeNav) {
         const activeLink = document.querySelector(`.nav-link[href="${activeNav}"]`);
         if (activeLink) {
@@ -402,6 +374,11 @@
         }
     }
 });
+
+// const get_dynamic_Course=()=>{
+//   console.log("??????????????????????????????");
+  
+// }
 </script>
 </body>
 

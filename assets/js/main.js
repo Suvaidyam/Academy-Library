@@ -236,5 +236,23 @@
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
-
 })();
+
+/**
+ * Active Tabs ...
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  // Wait for 2 seconds before setting up the tab click logic
+  setTimeout(function () {
+    const tabs = document.querySelectorAll(".tab-link");
+    tabs.forEach(tab => {
+      tab.addEventListener("click", function () {
+        // Remove active from all tabs
+        tabs.forEach(t => t.classList.remove("active"));
+        // Add active to the clicked tab
+        this.classList.add("active");
+      });
+    });
+  }, 2000); 
+});
+

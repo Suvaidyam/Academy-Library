@@ -3,7 +3,7 @@ export class FrappeApiClient {
         this.baseURL = baseURL;
     }
 
-    // constructor(baseURL = 'http://hrms.localhost:8000') {
+    // constructor(baseURL = 'http://erp.localhost:8000') {
     //     this.baseURL = baseURL;
     // }
 

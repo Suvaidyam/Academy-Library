@@ -1,49 +1,47 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Academy </h1>
+      <a href="/#hero" class="logo d-flex align-items-center">
+        <img src="../assets/img/logo-350x66.png">         
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="/#hero" class="active">Home</a></li>
-          <li><a  href="/pages/about.html">About</a></li>
-
-          <!-- <li class="dropdown"><a href="/#learning"><span>Academics</span><i
-                class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="/pages/learning-library.html">Learning</a></li>
-              <li><a href="/pages/research-library.html">Research</a></li>
+ 
+          <!-- <li><a href="/#hero" class="tab-link active">Home</a></li> -->
+           
+          <li class="dropdown" ><a href="javascript:void(0)" id="homebtn" ><span>Home</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul id="hometab">
+              <li><a  href="/pages/about.html" class="tab-link">About</a></li>  
+              <li><a href="/pages/our-leaders.html" class="tab-link">Our Leaders</a></li> 
             </ul>
-          </li> -->
-          <li><a href="/pages/learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')">Academics</a></li>
-          <li><a href="/#admissions">Admissions</a></li>
-          <li><a href="/pages/research-library.html">Research</a></li>
-          <li><a href="/pages/news-events.html">News & Events</a></li>
-          <!-- <li><a href="/#services">News & Events</a></li> -->
-          <li class="dropdown"><a href="#"><span>Resources</span> <i
-                class="bi bi-chevron-down toggle-dropdown"></i></a>
+          </li>    
+ 
+      
+ 
+          <!-- <li><a href="/pages/learning-library.html" onclick="localStorage.setItem('courseCategory', 'Under Graduation')">Academics</a></li> -->
+          <li><a href="/#academics" class="tab-link">Academics</a></li>
+          <li><a href="/#research" class="tab-link">Research</a></li>
+          <li><a href="/#admissions" class="tab-link">Admissions</a></li>
+          <li class="dropdown"><a href="javascript:void(0)" class="tab-link"><span>Resources</span> 
+            <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="/pages/global-library.html">Global Resources</a></li>
-              <li><a href="/pages/question-library.html">Question Bank</a></li>
-              <li class="dropdown"><a href="/pages/assignment_bank.html">Assignment Bank</a><i
-                    class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <!-- <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li> -->
+ 
+              <li><a href="/pages/library.html" class="tab-link">Library</a></li>
+              <li><a href="/pages/research-library" class="tab-link">Research</a></li>
+              <li><a href="/pages/global-library.html" class="tab-link">Global Resources</a></li>
+              <li><a href="/pages/assignment_bank.html" class="tab-link">Assignment Bank</a>  </li>
+              <li><a href="/pages/question-library.html" class="tab-link">Question Bank</a></li>
+              <li><a href="/pages/case-studies.html" class="tab-link">Case Studies</a></li>
+              <li><a href="/pages/success-stories.html" class="tab-link">Success Stories</a></li>
             </ul>
           </li>
+          <li><a href="/#services" class="tab-link">News & Events</a></li>
+          <!-- <li><a href="#" class="tab-link">Blogs</a></li>
+          <li><a href="#" class="tab-link">Careers</a></li> -->
+ 
           <!-- <li><a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign in</a></li> -->
-          <li id="signin"><a href="/pages/login.html">Sign in</a></li>
+          <li id="signin" ><a href="/pages/login.html">Sign in</a></li>
           <li id="loggedinUser"></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -51,29 +49,3 @@
 
     </div>
   </header>
-  <!-- Your modal login form -->
-<div id="id01" class="modal">
-  <form class="modal-content animate" id="loginForm">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="../assets/img/login_logo.png" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" id="username" placeholder="jane@example.com" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" id="password" placeholder="******" name="psw" required>
-
-      <!-- FIXED: Correct HTML button tag -->
-      <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #2e81ae;">Login</button>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
-</div>
-<script></script>
-  <!-- <script type="module" src="../services/authService.js"></script> -->
