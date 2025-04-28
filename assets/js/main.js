@@ -23,18 +23,6 @@
   window.addEventListener('load', toggleScrolled);
 
   /**
-   * Mobile nav toggle
-   */
-  // const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-
-  // function mobileNavToogle() {
-  //   document.querySelector('body').classList.toggle('mobile-nav-active');
-  //   mobileNavToggleBtn.classList.toggle('bi-list');
-  //   mobileNavToggleBtn.classList.toggle('bi-x');
-  // }
-  // mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
-
-  /**
    * Hide mobile nav on same-page/hash links
    */
   document.querySelectorAll('#navmenu a').forEach(navmenu => {
@@ -237,4 +225,61 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
+  /**
+   * Mobile nav toggle
+   */
+  setTimeout(function () {
+    const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+
+    function mobileNavToggle() {
+      document.querySelector('body').classList.toggle('mobile-nav-active');
+      mobileNavToggleBtn.classList.toggle('bi-list');
+      mobileNavToggleBtn.classList.toggle('bi-x');
+    }
+
+    mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
+
+    // Handle click on nav links
+    const navLinks = document.querySelectorAll('nav a'); // Change selector based on your menu
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        // Check if the link has a submenu
+        const hasSubmenu = link.nextElementSibling && link.nextElementSibling.tagName === 'UL';
+        
+        if (!hasSubmenu) {
+          // No submenu = close mobile menu
+          if (document.body.classList.contains('mobile-nav-active')) {
+            mobileNavToggle();
+          }
+        } else {
+          // Has submenu = prevent link from closing menu
+          e.preventDefault(); // Prevent going to another page
+          link.classList.toggle('active'); // Optional: you can toggle an active class
+          link.nextElementSibling.classList.toggle('dropdown-active'); // Open the submenu
+        }
+      });
+    });
+  }, 1000);
+
+
 })();
+
+/**
+ * Active Tabs ...
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  // Wait for 2 seconds before setting up the tab click logic
+  setTimeout(function () {
+    const tabs = document.querySelectorAll(".tab-link");
+    tabs.forEach(tab => {
+      tab.addEventListener("click", function () {
+        // Remove active from all tabs
+        tabs.forEach(t => t.classList.remove("active"));
+        // Add active to the clicked tab
+        this.classList.add("active");
+      });
+    });
+  }, 2000); 
+});
+

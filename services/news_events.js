@@ -3,7 +3,11 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 export async function getCourseList() {
     let frappe_client = new FrappeApiClient();
     try {
-        let response = await frappe_client.get('/lms.lms.utils.get_courses',{course_type:null});
+
+        
+        let res = await frappe_client.getResourses('/News');
+        // console.log("res",res);
+        let response = await frappe_client.get('/lms.lms.utils.get_courses');
         if(response){
             document.getElementById("loader").style.display = "none";
         }
@@ -36,6 +40,7 @@ export async function getCourseList() {
             let blogContainer2 = document.getElementById("blog-container-2");
             document.getElementById("blog-container-2").innerHTML = "";
             newCources.forEach(post => {
+                console.log("hi");
                 if (post) {
                     let newCard2 = template2.cloneNode(true);
                     newCard2.classList.remove("d-none-2");
@@ -56,12 +61,11 @@ export async function getCourseList() {
 }
 
 export async function getandSetDyanamicCourseDetailsAndName() {
-
-    let courseCategoryType = localStorage.getItem('courseCategory');
+    let courseCategoryType = sessionStorage.getItem('courseCategory');
     document.getElementById("courseTypeName").innerHTML = courseCategoryType + ' Courses';
-    let ugCourseContent = 'Academy is currently offering one course under this program.  A under graduation course is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.  Graduation courses follows multiple entry-exit policy where students will be able to exit after each year, if necessary, and continue the course later through earned credits.​'
-    let pgCourseContent = 'Academy is currently offering a two-year post graduation course that is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.​'
-    let CertificationContent = 'Academy is currently offering two certificate courses.  Academy emphasis on the experiential learning even if these are certificate courses.  Certificate courses are either online or are delivered through the hybrid mode of learning like classroom sessions, field classes, online classes, and field practice. These are non-credit courses.  Certificates may have a validity period to keep-up with the new knowledge in the respective field.​'
+    let ugCourseContent = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+    let pgCourseContent = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+    let CertificationContent = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
     if(courseCategoryType == "Certification"){
         document.getElementById("courseContentsDetails").innerHTML = CertificationContent;
     }else if(courseCategoryType == "Post Graduation"){
@@ -76,7 +80,7 @@ export async function showEnrolledCourseList() {
     const LoginCard = document.getElementById("corseRestrictedInfoCard");
     const cardDetailsList = document.getElementById("enrolledCourses");
     const signinTab = document.getElementById("signin");
-    const userLoginStatus = JSON.parse(localStorage.getItem("user_info"));
+    const userLoginStatus = JSON.parse(sessionStorage.getItem("user_info"));
     // console.log("userLoginStatus",userLoginStatus);
     if (userLoginStatus.message == "Logged In") {
         LoginCard.style.display = "none"; // hide it
@@ -88,7 +92,7 @@ export async function showEnrolledCourseList() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // showEnrolledCourseList();
+    showEnrolledCourseList();
     getandSetDyanamicCourseDetailsAndName();
-    // getCourseList();
+    getCourseList();
 });
