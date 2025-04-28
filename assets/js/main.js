@@ -256,7 +256,7 @@
           // Has submenu = prevent link from closing menu
           e.preventDefault(); // Prevent going to another page
           link.classList.toggle('active'); // Optional: you can toggle an active class
-          link.nextElementSibling.classList.toggle('open'); // Open the submenu
+          link.nextElementSibling.classList.toggle('dropdown-active'); // Open the submenu
         }
       });
     });
