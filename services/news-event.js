@@ -42,11 +42,17 @@ const set_all_news = (response) => {
 
     response.message.forEach(item => {
       let news_date = formatDateForNews(item.datetime);
+      let link =` news-details?id=${encodeURIComponent(item?.name)}`;
+      console.log("link");
+      let page = window.location.hash
+      if(page = '#services'){
+        link = `/pages/news-details?id=${encodeURIComponent(item?.name)}`;
+      }
 
       let cards = ` 
           <!-- Card with an image on left -->
           <div class="col-md-6 " data-aos="fade-up" data-aos-delay="100">
-            <a href="news-details.html?id=${encodeURIComponent(item?.name)}">
+            <a href="${link}">
               <div class="row   newsCard ">
                 <div class="col-md-4">
                   <img src="${ENV.API_BASE_URL + item?.image}" class="img-fluid " alt="...">
