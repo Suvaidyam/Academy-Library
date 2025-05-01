@@ -1,6 +1,7 @@
 import { FrappeApiClient } from "../services/FrappeApiClient.js";
 import ENV from "../config/config.js";
 
+console.log("=====");
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -57,7 +58,7 @@ function populateNewsDetails(news) {
 
   // Set Content
   const contentElement = document.querySelector('.content');
-  contentElement.innerHTML = <p>${news?.description}</p>;
+  contentElement.innerHTML = `<p>${news?.description}</p>`;
 }
 
 function formatDate(dateStr) {
