@@ -72,7 +72,7 @@ function formatDate(dateStr) {
 
 
 function set_remaining_news(remaining_news) {
-  if (remaining_news && remaining_news.length > 0) {
+  if (remaining_news && remaining_news.length > 0 ) {
     const remaining_news_container = document.getElementById('remaining_news');
     remaining_news_container.innerHTML = ""; // Clear existing content
 
