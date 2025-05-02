@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Case Studies</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="header" class="header d-flex align-items-center fixed-top"></div>
+
+  <div class="page-title dark-background">
+    <div class="container position-relative">
+      <h1>Library</h1>
+      <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
+        molestias.</p>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="learning-library.html">Home</a></li>
+          <li class="current">Library</li>
+        </ol>
+      </nav>
+
+      <!-- <div class="search-bar ">
+        <form class="search-form d-flex align-items-center " method="POST" action="#">
+          <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+          <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+      </div> -->
+      <!-- End Search Bar -->
+    </div>
+  </div><!-- End Page Title -->
+  <div class="container-fluid px-0">
+    <!-- Header with navigation -->
+    <!-- <header class="header py-2 px-3 d-flex justify-content-between align-items-center">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="#">Library</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Course Content</li>
+        </ol>
+      </nav>
+      <button id="signInBtn" class="btn btn-outline-primary btn-sm">Sign in</button>
+    </header> -->
+
+
+    <div class="container mt-4">
+      <!-- <h4 class="mb-3">Library</h4> -->
+      
+      <!-- Nav Tabs -->
+      <ul class="nav nav-tabs" id="libraryTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content" type="button" role="tab" aria-controls="course-content" aria-selected="true">
+            Course Content
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button" role="tab" aria-controls="books" aria-selected="false">
+            Books
+          </button>
+        </li>
+      </ul>
+    
+      <!-- Tab Content -->
+      <div class="tab-content p-3 border border-top-0" id="libraryTabContent">
+        <!-- Course Content Tab Pane -->
+        <div class="tab-pane fade show active" id="course-content" role="tabpanel" aria-labelledby="course-content-tab">
+          <!-- <p>Here goes the Course Content section — search sessions, filter modules, etc.</p> -->
+          <main class="container my-4" >
+            <div class="row">
+              <!-- Search Section -->
+              <div class="col-lg-8 mb-4">
+                <!-- Global Search -->
+                <div class="search-bar mb-4 ">
+                  <form class="search-form d-flex align-items-center " method="POST" action="#">
+                    <input type="text" name="query" placeholder="Tags / keywords for generic / global searches" title="Enter search keyword">
+                    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                  </form>
+                </div>
+                <!-- <div class="search-container mb-4">
+                  <label for="globalSearch" class="form-label mb-2">Search</label>
+                  <div class="input-group">
+                    <input type="text" id="globalSearch" class="form-control"
+                      placeholder="Tags / keywords for generic / global searches">
+                    <button class="btn btn-outline-secondary search-btn" type="button">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                </div> -->
+      
+                <!-- Course-specific Search -->
+                <div class="course-search-container mb-4">
+                  <!-- <div class="mb-3">
+                    <p class="small text-muted mb-3">Search Sessions <span class="fst-italic">&lt;This will be course
+                        specific&gt;</span></p>
+                  </div> -->
+      
+                  <!-- Course Dropdown -->
+                  <!-- <div class="mb-3">
+                    <div class="input-group">
+                      <input type="text" id="courseSearch" class="form-control" placeholder="Course <Dropdown>">
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+      
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="courseSearch" class="form-select">
+                        <option selected disabled>Select a Course</option>
+                        <!-- <option value="course1">Course 1</option>
+                        <option value="course2">Course 2</option> -->
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+      
+                  <!-- Modules Dropdown -->
+                  <!-- <div class="mb-3">
+                    <div class="input-group">
+                      <input type="text" id="moduleSearch" class="form-control" placeholder="Modules <Dropdown>">
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+      
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="topicSearch" class="form-select">
+                        <option disabled selected>Select a Topic</option>
+                        <!-- <option value="externalities">Externalities</option>
+                        <option value="quadratic">Quadratic Equations</option>
+                        <option value="forces">Forces</option> -->
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+      
+                  <!-- Topics Dropdown -->
+                  <!-- <div class="mb-3">
+                    <div class="input-group">
+                      <input type="text" id="topicSearch" class="form-control" placeholder="Topics <Dropdown>">
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+      
+                  <!-- Chapters Dropdown -->
+                  <!-- <div class="mb-3">
+                    <div class="input-group">
+                      <input type="text" id="chapterSearch" class="form-control" placeholder="Chapters <Dropdown>">
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+      
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="chapterSearch" class="form-select">
+                        <option disabled selected>Select a Chapter</option>
+                        <option value="ch1">Chapter 1: Introduction</option>
+                        <option value="ch2">Chapter 2: Analysis</option>
+                        <option value="ch3">Chapter 3: Case Study</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+      
+                  <!-- Results List -->
+                  <div class="results-container border rounded p-3 mt-4">
+                    <h6>Session List</h6>
+                    <p class="text-muted small mb-2">e.g., (someone is searching for externalities)</p>
+                    <ul class="list-unstyled search-results" id="searchResults">
+                      <li class="result-item" data-type="doc">Externalities-1 (DOC)</li>
+                      <li class="result-item" data-type="mov">Externalities-1 (MOV)</li>
+                      <li class="result-item" data-type="pptx">Externalities-1 (PPTX)</li>
+                      <li class="result-item" data-type="pdf">Externalities-2 (PDF)</li>
+                      <li class="result-item" data-type="activity">Externalities-2 (Activity)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+      
+              <!-- File Type Filters -->
+              <div class="col-lg-4">
+                <div class="file-type-container p-3 bg-light rounded">
+                  <h6 class="mb-3">File Type</h6>
+                  <div class="mb-2 file-type-option">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span>All</span>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="all" id="allFilesCheck" checked>
+                        <label class="form-check-label" for="allFilesCheck"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-2 file-type-option">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span>Doc</span>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Docs" id="docFilesCheck">
+                        <label class="form-check-label" for="docFilesCheck"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-2 file-type-option">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span>PDF</span>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="PDF" id="pdfFilesCheck">
+                        <label class="form-check-label" for="pdfFilesCheck"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-2 file-type-option">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span>Video</span>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Video" id="videoFilesCheck">
+                        <label class="form-check-label" for="videoFilesCheck"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-2 file-type-option">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span>Image</span>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Image" id="presentationFilesCheck">
+                        <label class="form-check-label" for="presentationFilesCheck"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+          <!-- You can move your existing course/module/topic/chapter search UI here -->
+        </div>
+    
+        <!-- Books Tab Pane -->
+        <div class="tab-pane fade" id="books" role="tabpanel" aria-labelledby="books-tab">
+          <!-- <p>Here goes the Books section — list of books, download links, or categorization.</p> -->
+          <div class="container py-4">
+            <!-- Search Bar -->
+            <div class="row mb-4">
+                <div class="col-md-8 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Search</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Tags / Keywords for generic / global searches">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <!-- Main Content - Featured Books -->
+                <div class="col-lg-8">
+                    <div class="featured-section mb-4">
+                        <!-- <div class="featured-label">These are the featured books</div> -->
+                        <div class="card">
+                            <div class="card-body" id="book-body">
+                                <!-- Book 1 -->
+                                <div class="row mb-4 book-card">
+                                    <div class="col-md-3">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgYjpfPcn_pQ_3Jb44iih2kVTat6xA5PJKEg&s" alt="Book cover showing water" class="img-fluid rounded book-img">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h5 class="card-title">Description of the book</h5>
+                                        <p class="card-text text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    </div>
+                                </div>
+    
+                                
+                               
+    
+                              
+                            </div>
+                            <!-- <div class="card-footer text-muted">
+                                <small>When clicked on any book, the book will open on a separate webpage. On top will be the download button.</small>
+                            </div> -->
+                        </div>
+                    </div>
+    
+                    <!-- Other Books -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">List of other books</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- Other Book 1 -->
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100 book-card">
+                                        <img src="/api/placeholder/150/180" class="card-img-top book-img" alt="Book cover">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Book Title</h6>
+                                            <p class="card-text small">Author Name</p>
+                                        </div>
+                                        <div class="card-footer bg-white border-top-0">
+                                            <a href="#" class="btn btn-sm btn-outline-primary w-100">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Other Book 2 -->
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100 book-card">
+                                        <img src="/api/placeholder/150/180" class="card-img-top book-img" alt="Book cover">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Book Title</h6>
+                                            <p class="card-text small">Author Name</p>
+                                        </div>
+                                        <div class="card-footer bg-white border-top-0">
+                                            <a href="#" class="btn btn-sm btn-outline-primary w-100">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Other Book 3 -->
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100 book-card">
+                                        <img src="/api/placeholder/150/180" class="card-img-top book-img" alt="Book cover">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Book Title</h6>
+                                            <p class="card-text small">Author Name</p>
+                                        </div>
+                                        <div class="card-footer bg-white border-top-0">
+                                            <a href="#" class="btn btn-sm btn-outline-primary w-100">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Sidebar - Sort Options -->
+                <div class="col-lg-4">
+                    <div class="card sort-card mb-4">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Sort by</h5>
+                        </div>
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Select / Clear
+                                <span class="badge bg-primary rounded-pill">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">Year</a>
+                            <a href="#" class="list-group-item list-group-item-action">Author</a>
+                            <a href="#" class="list-group-item list-group-item-action">Alphabetic</a>
+                        </div>
+                    </div>
+    
+                    
+                    
+                </div>
+            </div>
+        </div>
+          <!-- Add your books UI or content here -->
+        </div>
+      </div>
+    </div>
+    
+    
+
+    <footer class="footer py-3 mt-5 border-top">
+      <div class="container text-center">
+        <p class="small text-muted mb-0">© 2025 Library Course Content System</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+              </div>
+              <a href="#" class="text-decoration-none">Forgot password?</a>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="loginBtn">Sign In</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="footer" class="footer dark-background"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
+
+
+
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/php-email-form/validate.js"></script>
+  <script src="../vendor/aos/aos.js"></script>
+  <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+
+  <script src="../services/FrappeApiClient.js"></script>
+  <script src="../services/research_library.js"></script>
+  <script src="../services/about.js"></script>
+
+  <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
+
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../Libray/searchService.js"></script>
+
+  <script type="module" src="../Libray Service/get_all_courses.js"></script>
+  <script type="module" src="../Libray Service/handleFiletype.js"></script>
+  <script type="module" src="../Libray Service/get_book_list.js"></script>
+
+
+
+</body>
+
+</html>
