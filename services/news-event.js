@@ -15,7 +15,7 @@ const get_all_news = async () => {
   }
 };
 
-function formatDateForNews(dateStr) {
+ function formatDateForNews(dateStr) {
   const date = new Date(dateStr);
   const options = { month: 'short', day: 'numeric', year: 'numeric' };
   return date.toLocaleDateString('en-US', options);
@@ -97,7 +97,7 @@ const get_all_events = async () => {
 
   }
 }
-function formatDate(dateStr) {
+export function formatDate(dateStr) {
   const date = new Date(dateStr);
   const day = date.getDate();
   const month = date.toLocaleString('default', { month: 'short' });
