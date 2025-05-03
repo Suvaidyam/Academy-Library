@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Research Library</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../vendor/aos/aos.css" rel="stylesheet">
+    <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+</head>
+
+<body class="blog-page">
+
+    <div id="header" class="header d-flex align-items-center fixed-top"></div>
+    <main class="main">
+
+        <!-- Page Title -->
+        <div class="page-title dark-background">
+            <div class="container position-relative">
+                <h1>Research Articles</h1>
+                <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda
+                    numquam
+                    molestias.</p>
+                <nav class="breadcrumbs">
+                    <ol>
+                        <li><a href="../index.html">Home</a></li>
+                        <li class="current">Blog</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- End Page Title -->
+        <!-- Service Details Section -->
+        <section id="service-details" class="service-details section">
+            <div class="container">
+                <div class="row gy-5">
+                    <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-box">
+                            <form>
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <select class="form-select" id="category-dropdown"
+                                            aria-label="Default select example">
+                                            <option selected>Category</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <select class="form-select" id="author-dropdown"
+                                            aria-label="Default select example">
+                                            <option selected>Author</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <select class="form-select" id="language-dropdown"
+                                            aria-label="Default select example">
+                                            <option selected>Language</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <input id="tagsInput" class="form-control" placeholder="Keywords">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="services-list">
+                                        <a class="btn btn-success" id="search-btn"><span> <i class="bi bi-search"></i>
+                                                Search</span></a>
+                                        <a class="btn btn-danger" id="reset-btn"> <i
+                                                class="bi bi-arrow-counterclockwise"></i> <span>Reset</span></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!-- End Services List -->
+
+                        <div class="help-box d-flex flex-column justify-content-center align-items-center">
+                            <i class="bi bi-headset help-icon"></i>
+                            <h4>Have a Question?</h4>
+                            <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1
+                                    5589 55488 55</span></p>
+                            <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a
+                                    href="mailto:contact@example.com">contact@example.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="articles-tab" data-bs-toggle="tab" href="#articles"
+                                    role="tab" aria-controls="articles" aria-selected="true">Articles</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="journals-tab" data-bs-toggle="tab" href="#journals" role="tab"
+                                    aria-controls="journals" aria-selected="false">Journals</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="publications-tab" data-bs-toggle="tab" href="#publications"
+                                    role="tab" aria-controls="publications" aria-selected="false">Publications</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content mt-3">
+                            <div class="tab-pane fade show active" id="articles" role="tabpanel"
+                                aria-labelledby="articles-tab">
+                                <!-- Loop through articles here -->
+                                <div class="container my-5">
+                                    <h2 class="mb-4 text-center">Latest Articles</h2>
+                                    <div class="row" id="articles-container">
+                                        <!-- Dynamic articles will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="journals" role="tabpanel" aria-labelledby="journals-tab">
+                                <!-- Loop through journals here -->
+                                <div class="container my-5">
+                                    <h2 class="mb-4 text-center">Latest Journals</h2>
+                                    <div class="row" id="Journals-container">
+                                        <!-- Dynamic articles will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="publications" role="tabpanel"
+                                aria-labelledby="publications-tab">
+                                <!-- Loop through publications here -->
+                                <div class="container my-5">
+                                    <h2 class="mb-4 text-center">Latest Publications</h2>
+                                    <div class="row" id="Publications-container">
+                                        <!-- Dynamic articles will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- New Changes Blog Posts Section-->
+
+
+                        <!-- Blog Pagination Section -->
+                        <section id="blog-pagination" class="blog-pagination section">
+
+                            <div class="container">
+                                <div class="d-flex justify-content-center">
+                                    <ul>
+                                        <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#" class="">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li>...</li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </section> 
+                        <!-- /Blog Pagination Section -->
+
+                    </div>
+                </div>
+            </div>
+        </section><!-- /Service Details Section -->
+    </main>
+    <div id="footer" class="footer dark-background"></div>
+    <!-- Footer will be loaded here -->
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/php-email-form/validate.js"></script>
+    <script src="../vendor/aos/aos.js"></script>
+    <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+    <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
+
+    <!-- Main JS File -->
+    <script src="../assets/js/main.js"></script>
+
+    <script type="module" src="../research_page/research.js"></script>
+    <!-- <script type="module" src="../services/research_library.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+
+
+</body>
+
+</html>
