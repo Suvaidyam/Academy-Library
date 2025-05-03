@@ -1,5 +1,7 @@
 import { FrappeApiClient } from "../services/FrappeApiClient.js";
 let frappe_client = new FrappeApiClient()
+let baseURL = new FrappeApiClient().baseURL;
+
 
 const get_all_courses = async () => {
     try {
@@ -113,28 +115,93 @@ const get_session_list = async () => {
 
 }
 
+// export function setSessionList(response) {
+//     let SessionList = document.querySelector('#searchResults')
+//     console.log(response);
+//     SessionList.innerHTML = ""
+//     // console.log(SessionList, 'emptyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+
+//     response.message.forEach(element => {
+
+
+//         let result_card = ` 
+//                       <li class="result-item" data-type="pdf">${element.name} (${element.doc_type})</li>
+//                     `
+
+
+//         SessionList.insertAdjacentHTML("beforeend", result_card);
+
+//     });
+
+// }
 export function setSessionList(response) {
-    let SessionList = document.querySelector('#searchResults')
+    let SessionList = document.querySelector('#searchResults');
     console.log(response);
-    SessionList.innerHTML = ""
-    // console.log(SessionList, 'emptyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+    SessionList.innerHTML = "";
 
     response.message.forEach(element => {
+        let result_card = "";
+        console.log('element.doc_type',element.doc_type);
+        
 
-
-        let result_card = ` 
-                      <li class="result-item" data-type="pdf">${element.name} (${element.doc_type})</li>
-                    `
-
+        if (element.doc_type === "PDF") {
+            result_card = `
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <div class="portfolio-content h-100">
+                <img src="../assets/img/portfolio/pdf_109.webp" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>${element.name}</h4>
+                  <p>${element.description || "PDF File"}</p>
+                  <a href="" onclick="window.open('${baseURL}${element.session_doc}')" title="PDF" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="#" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>`;
+        } else if (element.doc_type === "Docs") {
+            result_card = `
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <div class="portfolio-content h-100">
+                <img src="../assets/img/portfolio/doc.webp" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>${element.name}</h4>
+                  <p>${element.description || "Document File"}</p>
+                  <a href="" title="Docs"  onclick="window.open('${baseURL}${element.session_doc}')" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="#" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>`;
+        } else if (element.doc_type === "Video") {
+            result_card = `
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+              <div class="portfolio-content h-100">
+                <img src="../assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>${element.name}</h4>
+                  <p>${element.description || "Video File"}</p>
+                  <a href=""  onclick="window.open('${baseURL}${element.session_doc}')" title="Video" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="#" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>`;
+        } else if (element.doc_type === "Image") {
+            result_card = `
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100">
+                <img src="../assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>${element.name}</h4>
+                  <p>${element.description || "Image File"}</p>
+                  <a href=""  onclick="window.open('${baseURL}${element.session_doc}')" title="Image" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="#" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>`;
+        }
 
         SessionList.insertAdjacentHTML("beforeend", result_card);
-
     });
-
-
-
-
 }
+
 
 
 
