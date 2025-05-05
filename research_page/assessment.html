@@ -109,16 +109,73 @@
                                     href="mailto:contact@example.com">contact@example.com</a></p>
                         </div>
                     </div>
+                    <div class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="assignment-tab" data-bs-toggle="tab" href="#assignment-bank"
+                                    role="tab" aria-controls="assignment-tab" aria-selected="true">Assignment-Bank</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="question-tab" data-bs-toggle="tab" href="#question-bank" role="tab"
+                                    aria-controls="question-tab" aria-selected="false">Question-Bank</a>
+                            </li>
+                        </ul>
 
-                   
+                        <div class="tab-content mt-3">
+                            <div class="tab-pane fade show active" id="assignments" role="tabpanel"
+                                aria-labelledby="assignments-tab">
+                                <!-- Loop through articles here -->
+                                <div class="container my-5">
+                                    <!-- <h2 class="mb-4 text-center">Latest</h2> -->
+                                    <div class="row" id="assignment-container">
+                                        <!-- Dynamic articles will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
 
-                                       
-                   
-                  </div>
-              </div>
+                            <div class="tab-pane fade" id="questions" role="tabpanel" aria-labelledby="question-tab">
+                                <!-- Loop through journals here -->
+                                <div class="container my-5">
+                                    <!-- <h2 class="mb-4 text-center">Latest Journals</h2> -->
+                                    <div class="row" id="questions-container">
+                                        <!-- Dynamic articles will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- New Changes Blog Posts Section-->
+
+
+                        <!-- Blog Pagination Section -->
+                        <section id="blog-pagination" class="blog-pagination section">
+
+                            <div class="container">
+                                <div class="d-flex justify-content-center">
+                                    <ul>
+                                        <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#" class="">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li>...</li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </section>
+                        <!-- /Blog Pagination Section -->
+
+                    </div>
+                </div>
             </div>
-          </div>
-        </section> 
+            </div>
+            </div>
+
+        </section>
+
     </main>
     <div id="footer" class="footer dark-background"></div>
     <!-- Footer will be loaded here -->
@@ -149,6 +206,8 @@
 
     <!-- Main JS File -->
     <script src="../assets/js/main.js"></script>
+
+    <script type="module" src="../research_page/assessment.js"></script>
 
 </body>
 
