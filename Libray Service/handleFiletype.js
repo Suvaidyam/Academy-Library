@@ -3,21 +3,25 @@ let frappe_client = new FrappeApiClient()
 import { setSessionList } from "./get_all_courses.js";
 
 const allCheckbox = document.getElementById('allFilesCheck');
-const checkboxes = document.querySelectorAll('.form-check-input:not(#allFilesCheck)');
+// const checkboxes = document.querySelectorAll('.form-check-input:not(#allFilesCheck)');
+const checkboxes = document.querySelectorAll('input.form-check-input[type="checkbox"]:not(#allFilesCheck)');
+
+// allCheckbox.addEventListener('click',()=>{
+//     console.log('external===========');
+//     get_seesion_list(checkboxes)
+// })
+
 
 const handle_filetype_btn = () => {
-
-
-
-
     // 1. When "All" is clicked, check/uncheck all others
     allCheckbox.addEventListener('click', function () {
+    console.log('internal===========');
+
         checkboxes.forEach(cb => {
             cb.checked = allCheckbox.checked;
-            // get_seesion_list()
-            // get_seesion_list(checkboxes)
-
         });
+
+        get_seesion_list()
 
 
     });
@@ -26,7 +30,7 @@ const handle_filetype_btn = () => {
     checkboxes.forEach(cb => {
         cb.addEventListener('click', async function () {
 
-            get_seesion_list(checkboxes)
+            get_seesion_list()
 
             allCheckbox.checked = allChecked;
             console.log("all=====================", allChecked);
@@ -49,7 +53,9 @@ const get_seesion_list = async () => {
     const checkedValues = Array.from(checkboxes)
         .filter(input => input.checked)
         .map(input => input.value);
-    if (checkedValues.length == 4) {
+    console.log(checkedValues);
+        
+    if (checkedValues.length >= 4 ) {
         allCheckbox.checked = true;
     } else {
         allCheckbox.checked = false;
@@ -78,6 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // handle Book sorting 
 
+import set_book_list from "./get_book_list.js";
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const sortOptions = document.getElementById('sortOptions');
@@ -86,9 +94,22 @@ document.addEventListener('DOMContentLoaded', function () {
   
     // Handle selection change
     radioButtons.forEach(radio => {
-      radio.addEventListener('change', function () {
+      radio.addEventListener('change',async function () {
         if (this.checked) {
           console.log('Selected sort option:', this.value);
+          try {
+            const response = await frappe_client.get('/get_book_list',{
+               sort_type:this.value 
+            });
+            console.log('Book list response:', response);
+            set_book_list(response)
+    
+            // Example: render the books if needed
+            // renderBookList(response);
+        } catch (error) {
+            console.error('Error fetching book list:', error);
+        }
+
           // Implement your sorting logic here based on this.value
         }
       });
