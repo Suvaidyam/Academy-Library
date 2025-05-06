@@ -50,6 +50,10 @@ const set_book_list=(response)=>{
 export default set_book_list;
 
 let bookbtn = document.getElementById('books-tab')
+const clearButton = document.getElementById('clearSelection');
+clearButton.addEventListener('click', () => {
+    get_all_books();
+});
 
 bookbtn.addEventListener('click', () => {
     get_all_books();
