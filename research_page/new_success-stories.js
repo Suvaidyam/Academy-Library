@@ -3,17 +3,22 @@ import ENV from "../config/config.js";
 
 let frappe_client = new FrappeApiClient();
 
+let all_success_stories_Data = [];
+let success_story_Page = 0;
+
+const itemsPerPage = 10;
+
 // -------- Get All News ----------
 const get_all_success_stories = async () => {
 
-    try {
-        let response = await frappe_client.get('/success_story_list');
-        console.log("success_stories_list", response);
+  try {
+    let response = await frappe_client.get('/success_story_list');
 
-        set_all_success_stories(response);
-    } catch (error) {
-        console.error('Error fetching case_studies:', error);
-    }
+    all_success_stories_Data = response.message || [];
+    renderSuccess_story_Page();
+  } catch (error) {
+    console.error('Error fetching success_stories:', error);
+  }
 };
 
 function truncateText(text, maxLength) {
@@ -28,19 +33,21 @@ function truncateText(text, maxLength) {
 }
 
 
-// -------- Set All News ----------
-const set_all_success_stories = (response) => {
-    if (response) {
-        const successContainer = document.getElementById('success-container');
-        successContainer.innerHTML = "";
+// -------- Set All stories ----------
+const renderSuccess_story_Page = () => {
+  const successContainer = document.getElementById('success-container');
+  successContainer.innerHTML = "";
 
-        response.message.forEach(item => {
-            // let published_date = formatDate(item.published_date);
-            let link = ` success-details?id=${encodeURIComponent(item?.name)}`;
-            console.log("link", link);
+  const start = success_story_Page * itemsPerPage;
+  const end = start + itemsPerPage;
+  const currentCase_study = all_success_stories_Data.slice(start, end)
+
+  currentCase_study.forEach(item => {
+    // let published_date = formatDate(item.published_date);
+    let link = ` success-details?id=${encodeURIComponent(item?.name)}`;
 
 
-            let cards = ` 
+    let cards = ` 
           <!-- Card with an image on left -->
           <div class="col-md-6 " data-aos="fade-up" data-aos-delay="100">
             <a href="${link}">
@@ -60,10 +67,9 @@ const set_all_success_stories = (response) => {
               </div>
             </a>
           </div>`
-            successContainer.insertAdjacentHTML("beforeend", cards);
-        });
-    }
-};
+    successContainer.insertAdjacentHTML("beforeend", cards);
+  });
+}
 
 
 // export function formatDate(dateStr) {
@@ -76,6 +82,21 @@ const set_all_success_stories = (response) => {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+  document.getElementById("story-next-btn")?.addEventListener("click", () => {
+    const maxPage = Math.floor(all_success_stories_Data.length / itemsPerPage);
+    if (success_story_Page < maxPage) {
+      success_story_Page++;
+      renderSuccess_story_Page();
+    }
+  });
+
+  document.getElementById("story-prev-btn")?.addEventListener("click", () => {
+    if (success_story_Page > 0) {
+      success_story_Page--;
+      renderSuccess_story_Page();
+    }
+  });
+
   get_all_success_stories();
 
 
