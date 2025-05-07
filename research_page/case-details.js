@@ -1,13 +1,11 @@
 import { FrappeApiClient } from "../services/FrappeApiClient.js";
 import ENV from "../config/config.js";
 
-console.log("=====");
 
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const casesId = urlParams.get('id');
-    console.log(casesId);
 
     if (!casesId) {
         console.error("No cases ID found in URL");
@@ -20,12 +18,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (response && response.message) {
             const caselist = response.message;
-            const cases = caselist.find(item => item.title === casesId);
-            console.log("cases", cases);
+            const cases = caselist.find(item => item.name === casesId);
             
 
-            const remaining_cases = caselist.filter(item => item.title !== casesId);
-            console.log("remaining_cases", remaining_cases);
+            const remaining_cases = caselist.filter(item => item.name !== casesId);
 
             if (cases) {
                 populatecasesDetails(cases);
