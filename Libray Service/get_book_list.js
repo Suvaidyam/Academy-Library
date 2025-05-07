@@ -58,3 +58,27 @@ clearButton.addEventListener('click', () => {
 bookbtn.addEventListener('click', () => {
     get_all_books();
 });
+
+
+
+// Handle globle search
+
+const form = document.getElementById('book_form_search');
+const searchInput = document.getElementById('bookSearchInput');
+
+form.addEventListener('submit',async function (e) {
+    e.preventDefault(); // Prevent actual form submission
+console.log(searchInput.value,'ddddddddddddddddddddddd');
+
+
+
+    
+    
+    let response = await frappe_client.get('/filter_global_book', {
+        global_val: searchInput.value
+    })
+    set_book_list(response)
+    console.log('Search Query:', searchInput.value,response); 
+    
+  });
+
