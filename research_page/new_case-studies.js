@@ -17,7 +17,16 @@ const get_all_case_studies = async () => {
 };
 
 
+function truncateText(text, maxLength) {
+  if (!text) return '';
 
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  const truncated = text.substring(0, maxLength).trim();
+  return `${truncated}... <span style="color: #8FBEDE; font-weight: 800;">More</span>`;
+}
 
 // -------- Set All News ----------
 const set_all_case_studies = (response) => {
@@ -27,7 +36,7 @@ const set_all_case_studies = (response) => {
 
         response.message.forEach(item => {
             let published_date = formatDate(item.published_date);
-            let link = ` new_case-studies?id=${encodeURIComponent(item?.title)}`;
+            let link = ` case-details?id=${encodeURIComponent(item?.title)}`;
             console.log("link", link);
 
 
@@ -43,7 +52,7 @@ const set_all_case_studies = (response) => {
                   <div class="card-body">
                     <h5 class="mb-2">${item?.title}</h5>
 
-                    <p class="card-text">${item?.introduction}</p>
+                    <p class="card-text">${truncateText(item?.introduction, 80)}</p>
                     <div class="post-meta">
                       <p class="post-date">
                         <time datetime="${item?.published_date}">${published_date}</time>
