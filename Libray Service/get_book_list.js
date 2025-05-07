@@ -20,6 +20,14 @@ const get_all_books = async () => {
 const set_book_list=(response)=>{
     let bookdiv = document.getElementById('book-body')
     bookdiv.innerHTML=''
+    if (response.message ==0) {
+        bookdiv.innerHTML=`<div class=" alert-warning text-center mb-2.5" role="alert">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+                        No Books are available at the moment. Please check back later!
+                      </div>`
+        // bookdiv.style.textAlign = "center";
+        
+    }
 
     response.message.forEach(book => {
 
@@ -66,18 +74,25 @@ bookbtn.addEventListener('click', () => {
 const form = document.getElementById('book_form_search');
 const searchInput = document.getElementById('bookSearchInput');
 
+
+
+
 form.addEventListener('submit',async function (e) {
     e.preventDefault(); // Prevent actual form submission
 console.log(searchInput.value,'ddddddddddddddddddddddd');
-
-
-
     
     
-    let response = await frappe_client.get('/filter_global_book', {
-        global_val: searchInput.value
-    })
-    set_book_list(response)
+    if (searchInput.value) {
+        let response = await frappe_client.get('/filter_global_book', {
+            global_val: searchInput.value
+        })
+        console.log('value haiiiiiiii');
+        set_book_list(response)
+    }
+    else{
+        get_all_books();
+    }
+   
     console.log('Search Query:', searchInput.value,response); 
     
   });

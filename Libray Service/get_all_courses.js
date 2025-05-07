@@ -90,16 +90,16 @@ const set_chapter_option = async (topic) => {
     // select.addEventListener('change', function async() {
     //     console.log(this.value);
     //     let response = await frappe_client.get('/get_session_list')
-        
+
     //     // set_chapter_option(this.value)
     // });
-    select.addEventListener('change',async function () {
+    select.addEventListener('change', async function () {
         console.log(this.value);
         const searchInput = document.getElementById('searchInput');
-        searchInput.value=''
-        
-        let response = await frappe_client.get('/get_session_list',{
-            selected_chapter:this.value
+        searchInput.value = ''
+
+        let response = await frappe_client.get('/get_session_list', {
+            selected_chapter: this.value
         })
         setSessionList(response)
     });
@@ -114,7 +114,7 @@ const get_session_list = async () => {
     setSessionList(response)
 
 
-    
+
 
 }
 
@@ -141,11 +141,21 @@ export function setSessionList(response) {
     let SessionList = document.querySelector('#searchResults');
     console.log(response);
     SessionList.innerHTML = "";
+    if (response.message == 0) {
+        const prev = SessionList.previousElementSibling;
+        SessionList.innerHTML = `<div class=" alert-warning text-center mb-2.5" role="alert">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+                        No Sessions are available at the moment. Please check back later!
+                      </div>`
+        if (prev) {
+            prev.style.display = "none";
+        }
+    }
 
     response.message.forEach(element => {
         let result_card = "";
-        console.log('element.doc_type',element.doc_type);
-        
+        console.log('element.doc_type', element.doc_type);
+
 
         if (element.doc_type === "PDF") {
             result_card = `
@@ -219,8 +229,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // let response = await frappe_client.get('/filter_global_session', {
     //     global_val: searchInput.value
     // })
-    console.log("3333333333333333333333333333333333",response);
-    
+    console.log("3333333333333333333333333333333333", response);
+
 
 })
 
@@ -233,18 +243,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 const form = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
 
-form.addEventListener('submit',async function (e) {
+form.addEventListener('submit', async function (e) {
     e.preventDefault(); // Prevent actual form submission
 
 
 
     // let response = await frappe_client.get('/test_api')
     // console.log('response;;;;;;;;;;;;;;',response);
-    
+
     let response = await frappe_client.get('/filter_global_session', {
         global_val: searchInput.value
     })
     setSessionList(response)
-    console.log('Search Query:', searchInput.value,response); 
-    
-  });
+    console.log('Search Query:', searchInput.value, response);
+
+});
