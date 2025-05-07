@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Library Details</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <title>Assessments - Assignment Banks</title>
+  <meta name="description" content="Assessment and assignment banks for educational purposes">
+  <meta name="keywords" content="assignments, education, assessment, classroom">
 
   <!-- Favicons -->
   <link href="../assets/img/favicon.png" rel="icon">
@@ -15,7 +15,9 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,210 +28,259 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
- 
 </head>
 
-<body class="service-details-page">
+<body>
   <div id="header" class="header d-flex align-items-center fixed-top"></div>
-  <main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title dark-background">
-      <div class="container position-relative">
-        <h1>Assignment </h1>
-        <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="../index.html">Home</a></li>
-            <li class="current">Learning Library</li>
-          </ol>
-        </nav>
-      </div>
-    </div><!-- End Page Title -->
+  <div class="page-title dark-background">
+    <div class="container position-relative">
+      <h1>Assessments</h1>
+      <p>Access and manage assignments and assessment materials for your courses.</p>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="assessments.html">Assessments</a></li>
+          <!-- <li class="current">Assignment Banks</li> -->
+        </ol>
+      </nav>
+    </div>
+  </div><!-- End Page Title -->
 
-        <!-- Service Details Section -->
-        <section id="service-details" class="service-details section">
-          <div class="container">
-            <div class="row gy-5">
-              <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-box">
-                  <form>
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" aria-label="Default select example">
-                          <option selected>Type of Assignment</option>
-                          <option value="1">assignment1</option>
-                          <option value="2"> assignment2</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" aria-label="Default select example">
-                          <option selected>Modules</option>
-                            <option value="1">OWN FIELD</option>
-                            <option value="2">OWN EXPERIMENT</option>
-                            <option value="3">CADRE TRAINING</option>
-                            <option value="4">RESEARCH METHODS</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-sm-12">
-                          <select class="form-select" aria-label="Default select example">
-                            <option selected>Topics</option>
-                            <option value="1">Establishing Own Field (72)</option>
-                            <option value="2">Natural Farming Fundamentals (80)</option>
-                            <option value="3">Learning Fundamentals (70)</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-sm-12">
-                          <select class="form-select" aria-label="Default select example">
-                            <option selected>Chapters</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                        </div>
-                      </div>
+  <div class="container-fluid px-0">
+    <div class="container mt-4">
+      <!-- Nav Tabs -->
+      <ul class="nav nav-tabs" id="assessmentTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="assignment-banks-tab" data-bs-toggle="tab"
+            data-bs-target="#assignment-banks" type="button" role="tab" aria-controls="assignment-banks"
+            aria-selected="true">
+            Assignment Banks
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="question-banks-tab" data-bs-toggle="tab" data-bs-target="#question-banks"
+            type="button" role="tab" aria-controls="question-banks" aria-selected="false">
+            Question Banks
+          </button>
+        </li>
+      </ul>
+
+      <!-- Assignment Banks Content -->
+      <div class="tab-content p-3 border border-top-0" id="assessmentTabContent">
+        <!-- Assignment Banks Tab Pane -->
+        <div class="tab-pane fade show active" id="assignment-banks" role="tabpanel"
+          aria-labelledby="assignment-banks-tab">
+          <main class="container my-4">
+            <div class="row">
+              <!-- Search Section -->
+              <div class="col-lg-12 mb-4">
+                <!-- Global Search -->
+                <div class="search-bar mb-4">
+                  <form id="globalSearchForm" class="search-form d-flex align-items-center" method="POST" action="#">
+                   
+                      <input type="text" id="globalSearchInput" name="query" class="form-control"
+                        placeholder="Tags / Keywords for generic / global searches">
+                      <button type="submit" class="btn btn-outline-secondary" title="Search"><i
+                          class="bi bi-search"></i></button>
+                    
                   </form>
-              </div><!-- End Services List -->
-    
-                <div class="help-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-headset help-icon"></i>
-                  <h4>Have a Question?</h4>
-                  <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1 5589 55488 55</span></p>
-                  <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a href="mailto:contact@example.com">contact@example.com</a></p>
+                </div>
+
+                <!-- Course-specific Search -->
+                <div class="course-search-container mb-4">
+                  <p class="mb-2">Search Sessions <span class="text-muted fst-italic">This will be course
+                      specific</span></p>
+
+                  <!-- Assignment Type Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="assignmentTypeDropdown" class="form-select">
+                        <option selected disabled>Type of Assignment <Dropdown - Classroom, Field>
+                        </option>
+                        <option value="classroom">Classroom Assignment</option>
+                        <option value="field">Field Assignment</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Modules Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="moduleDropdown" class="form-select">
+                        <option disabled selected>Modules <Dropdown>
+                        </option>
+                        <option value="mod1">Module 1: Fundamentals</option>
+                        <option value="mod2">Module 2: Advanced Concepts</option>
+                        <option value="mod3">Module 3: Applications</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Topics Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="topicDropdown" class="form-select">
+                        <option disabled selected>Topics <Dropdown>
+                        </option>
+                        <option value="topic1">Topic 1: Introduction</option>
+                        <option value="topic2">Topic 2: Core Principles</option>
+                        <option value="topic3">Topic 3: Case Studies</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Chapters Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="chapterDropdown" class="form-select">
+                        <option disabled selected>Chapters <Dropdown>
+                        </option>
+                        <option value="ch1">Chapter 1: Introduction</option>
+                        <option value="ch2">Chapter 2: Analysis</option>
+                        <option value="ch3">Chapter 3: Case Study</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Assignment List -->
+                  <div class="results-container border rounded p-3 mt-4">
+                    <h6>Assignment List</h6>
+                    <div id="assignmentList" class="p-3">
+                      <!-- Assignment results will appear here -->
+                      <p class="text-muted">Select search criteria to view available assignments</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-    
-              <div class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-                  <nav>
-                    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Assignment  Details </button>
-                    </div>
-                  </nav>
+            </div>
+          </main>
+        </div>
 
-                  <div class="accordion" id="accordionExample">
-                     <!-- Assignment 1 -->
-                        <div class="accordion-item">
-                          <h2 class="accordion-header">
-                              <button class="accordion-button"  data-bs-toggle="collapse" data-bs-target="#assignment1">
-                                  📖 Math Homework - Algebra (Due: June 10)
-                              </button>
-                          </h2>
-                          <div id="assignment1" class="accordion-collapse collapse">
-                              <div class="accordion-body">
-                                  <p><strong>Subject:</strong> Mathematics</p>
-                                  <p><strong>Description:</strong> Solve 10 algebra problems from Chapter 5.</p>
-                                  <p><strong>Status:</strong> <span class="badge bg-warning">Pending</span></p>
-                                  <button class="btn btn-success">Submit Assignment</button>
-                              </div>
-                          </div>
-                      </div>
+        <!-- Question Banks Tab Pane -->
+        <div class="tab-pane fade" id="question-banks" role="tabpanel" aria-labelledby="question-banks-tab">
+          <main class="container my-4">
+            <div class="row">
+              <!-- Search Section -->
+              <div class="col-lg-12 mb-4">
+                <!-- Global Search -->
+                <div class="search-bar mb-4">
+                  <form id="questionBankSearchForm" class="search-form d-flex align-items-center" method="POST"
+                    action="#">
+                    <label for="questionBankSearchInput" class="form-label me-2">Search</label>
+                    <div class="input-group">
+                      <input type="text" id="questionBankSearchInput" name="query" class="form-control"
+                        placeholder="Tags / Keywords for generic / global searches">
+                      <button type="submit" class="btn btn-outline-secondary" title="Search"><i
+                          class="bi bi-search"></i></button>
+                    </div>
+                  </form>
+                </div>
 
-                      <!-- Assignment 2 -->
-                      <div class="accordion-item">
-                          <h2 class="accordion-header">
-                              <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#assignment2">
-                                  ✍️ English Essay - Shakespeare (Due: June 12)
-                              </button>
-                          </h2>
-                          <div id="assignment2" class="accordion-collapse collapse">
-                              <div class="accordion-body">
-                                  <p><strong>Subject:</strong> English Literature</p>
-                                  <p><strong>Description:</strong> Write a 500-word essay on Shakespeare's plays.</p>
-                                  <p><strong>Status:</strong> <span class="badge bg-success">Submitted</span></p>
-                              </div>
-                          </div>
-                      </div>
+                <!-- Course-specific Search -->
+                <div class="question-search-container mb-4">
+                  <p class="mb-2">Search Sessions <span class="text-muted fst-italic">This will be course
+                      specific</span></p>
 
-<!--                       
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          What are the main types of farming?
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <ul>
-                            <li><i class="bi bi-check-circle"></i> <span>Subsistence Farming – Farmers grow food mainly for their own consumption.</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Commercial Farming – Large-scale farming for selling crops and livestock.</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Organic Farming – Uses natural methods and avoids synthetic chemicals.</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Mixed Farming – Combines crops and livestock farming.</span></li>
-                          </ul>
-                        </div>
-                      </div>
+                  <!-- Assessment Type Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="assessmentTypeDropdown" class="form-select">
+                        <option selected disabled>Type of Assessment <Dropdown – Knowledge, Learning>
+                        </option>
+                        <option value="knowledge">Knowledge Assessment</option>
+                        <option value="learning">Learning Assessment</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
                     </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Why is soil preparation important before farming?
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <ul>
-                            <li><i class="bi bi-check-circle"></i> <span>Better water retention</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Improved nutrient absorption</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Removal of weeds</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Stronger root growth</span></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          What are the different irrigation methods used in farming?
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <ul>
-                            <li><i class="bi bi-check-circle"></i> <span>Better water retention</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Improved nutrient absorption</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Removal of weeds</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Stronger root growth</span></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingFour">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                          What are the different irrigation methods used in farming?
-                        </button>
-                      </h2>
-                      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <ul>
-                            <li><i class="bi bi-check-circle"></i> <span>Better water retention</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Improved nutrient absorption</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Removal of weeds</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Stronger root growth</span></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div> -->
                   </div>
+
+                  <!-- Modules Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="qbModuleDropdown" class="form-select">
+                        <option disabled selected>Modules <Dropdown>
+                        </option>
+                        <option value="mod1">Module 1: Fundamentals</option>
+                        <option value="mod2">Module 2: Advanced Concepts</option>
+                        <option value="mod3">Module 3: Applications</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Topics Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="qbTopicDropdown" class="form-select">
+                        <option disabled selected>Topics <Dropdown>
+                        </option>
+                        <option value="topic1">Topic 1: Introduction</option>
+                        <option value="topic2">Topic 2: Core Principles</option>
+                        <option value="topic3">Topic 3: Case Studies</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Chapters Dropdown -->
+                  <div class="mb-3">
+                    <div class="input-group">
+                      <select id="qbChapterDropdown" class="form-select">
+                        <option disabled selected>Chapters <Dropdown>
+                        </option>
+                        <option value="ch1">Chapter 1: Introduction</option>
+                        <option value="ch2">Chapter 2: Analysis</option>
+                        <option value="ch3">Chapter 3: Case Study</option>
+                      </select>
+                      <button class="btn btn-outline-secondary search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Question List -->
+                  <div class="results-container border rounded p-3 mt-4">
+                    <h6>Question List</h6>
+                    <div id="questionList" class="p-3">
+                      <!-- Question results will appear here -->
+                      <p class="text-danger">
+                        <NEED TO THINK IN DETAIL HOW THIS WILL BE DONE>
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </section><!-- /Service Details Section -->
-  </main>
+          </main>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
   <div id="footer" class="footer dark-background"></div>
-  <!-- Footer will be loaded here -->
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../vendor/php-email-form/validate.js"></script>
   <script src="../vendor/aos/aos.js"></script>
@@ -240,16 +291,128 @@
   <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-
   <script src="../services/FrappeApiClient.js"></script>
-  <script src="../services/research_library.js"></script>
-
   <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
-  
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
 
+  <script>
+    // JavaScript to handle assessment search functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      // Function to update assignment list
+      function updateAssignmentList(searchParams) {
+        const assignmentList = document.getElementById('assignmentList');
+
+        // This is where you would normally fetch data from an API
+        // For demonstration, we'll just update the UI with placeholder content
+        assignmentList.innerHTML = '<p>Loading assignments...</p>';
+
+        // Simulate loading data
+        setTimeout(() => {
+          assignmentList.innerHTML = `
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Assignment 1: Introduction Exercise
+                <span class="badge bg-primary rounded-pill">Classroom</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Assignment 2: Field Research Project
+                <span class="badge bg-success rounded-pill">Field</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Assignment 3: Case Analysis
+                <span class="badge bg-primary rounded-pill">Classroom</span>
+              </li>
+            </ul>
+          `;
+        }, 5000);
+      }
+
+      // Function to update question list
+      function updateQuestionList(searchParams) {
+        const questionList = document.getElementById('questionList');
+
+        // This is where you would normally fetch data from an API
+        questionList.innerHTML = '<p>Loading questions...</p>';
+
+        // Simulate loading data
+        setTimeout(() => {
+          questionList.innerHTML = `
+            <div class="alert alert-info">
+              <p><strong>Note:</strong> This section needs detailed planning for implementation.</p>
+              <p>Potential features to consider:</p>
+              <ul>
+                <li>Categorized question display by type (multiple choice, essay, etc.)</li>
+                <li>Difficulty level indicators</li>
+                <li>Preview/edit capabilities</li>
+                <li>Question bank management tools</li>
+              </ul>
+            </div>
+            <p class="text-danger">NEED TO THINK IN DETAIL HOW THIS WILL BE DONE</p>
+          `;
+        }, 5000);
+      }
+
+      // Add event listeners for assignment bank search buttons
+      const assignmentSearchButtons = document.querySelectorAll('#assignment-banks .search-btn');
+      assignmentSearchButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // Get values from all dropdowns
+          const assignmentType = document.getElementById('assignmentTypeDropdown').value;
+          const module = document.getElementById('moduleDropdown').value;
+          const topic = document.getElementById('topicDropdown').value;
+          const chapter = document.getElementById('chapterDropdown').value;
+
+          updateAssignmentList({
+            assignmentType,
+            module,
+            topic,
+            chapter
+          });
+        });
+      });
+
+      // Add event listeners for question bank search buttons
+      const questionSearchButtons = document.querySelectorAll('#question-banks .search-btn');
+      questionSearchButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // Get values from all dropdowns
+          const assessmentType = document.getElementById('assessmentTypeDropdown').value;
+          const module = document.getElementById('qbModuleDropdown').value;
+          const topic = document.getElementById('qbTopicDropdown').value;
+          const chapter = document.getElementById('qbChapterDropdown').value;
+
+          updateQuestionList({
+            assessmentType,
+            module,
+            topic,
+            chapter
+          });
+        });
+      });
+
+      // Assignment bank global search form submission
+      document.getElementById('globalSearchForm')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const searchQuery = document.getElementById('globalSearchInput').value;
+        updateAssignmentList({
+          globalSearch: searchQuery
+        });
+      });
+
+      // Question bank global search form submission
+      document.getElementById('questionBankSearchForm')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const searchQuery = document.getElementById('questionBankSearchInput').value;
+        updateQuestionList({
+          globalSearch: searchQuery
+        });
+      });
+    });
+  </script>
+
+  
 </body>
 
 </html>
