@@ -95,6 +95,9 @@ const set_chapter_option = async (topic) => {
     // });
     select.addEventListener('change',async function () {
         console.log(this.value);
+        const searchInput = document.getElementById('searchInput');
+        searchInput.value=''
+        
         let response = await frappe_client.get('/get_session_list',{
             selected_chapter:this.value
         })
@@ -210,11 +213,38 @@ export function setSessionList(response) {
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     get_all_courses()
     get_session_list()
+    // let response = await frappe_client.get('/filter_global_session', {
+    //     global_val: searchInput.value
+    // })
+    console.log("3333333333333333333333333333333333",response);
+    
 
 })
 
 
-// console.log("get_coursess",FrappeApiClient);
+
+
+
+// Handle globle search
+
+const form = document.getElementById('searchForm');
+const searchInput = document.getElementById('searchInput');
+
+form.addEventListener('submit',async function (e) {
+    e.preventDefault(); // Prevent actual form submission
+
+
+
+    // let response = await frappe_client.get('/test_api')
+    // console.log('response;;;;;;;;;;;;;;',response);
+    
+    let response = await frappe_client.get('/filter_global_session', {
+        global_val: searchInput.value
+    })
+    setSessionList(response)
+    console.log('Search Query:', searchInput.value,response); 
+    
+  });
