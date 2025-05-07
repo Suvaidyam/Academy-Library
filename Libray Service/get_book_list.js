@@ -77,11 +77,8 @@ const searchInput = document.getElementById('bookSearchInput');
 
 
 
-form.addEventListener('submit',async function (e) {
+searchInput.addEventListener('input',async function (e) {
     e.preventDefault(); // Prevent actual form submission
-console.log(searchInput.value,'ddddddddddddddddddddddd');
-    
-    
     if (searchInput.value) {
         let response = await frappe_client.get('/filter_global_book', {
             global_val: searchInput.value

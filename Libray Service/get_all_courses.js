@@ -243,13 +243,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 const form = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
 
-form.addEventListener('submit', async function (e) {
+searchInput.addEventListener('input', async function (e) {
     e.preventDefault(); // Prevent actual form submission
-
-
-
-    // let response = await frappe_client.get('/test_api')
-    // console.log('response;;;;;;;;;;;;;;',response);
 
     let response = await frappe_client.get('/filter_global_session', {
         global_val: searchInput.value
