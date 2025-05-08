@@ -74,7 +74,13 @@ function set_remaining_cases(remaining_cases) {
         const remaining_cases_container = document.getElementById('remaining_cases');
         remaining_cases_container.innerHTML = ""; // Clear existing content
 
-        remaining_cases.forEach(item => {
+        remaining_cases.sort((a, b) => new Date(b.published_date) - new Date(a.published_date));
+
+        const recentCases = remaining_cases.slice(0, 5);
+
+
+
+        recentCases.forEach(item => {
             const postItem = document.createElement('div');
             postItem.classList.add('post-item');
 
@@ -91,5 +97,12 @@ function set_remaining_cases(remaining_cases) {
 
             remaining_cases_container.appendChild(postItem);
         });
+
+        const seeMoreBtn = document.createElement('div');
+        seeMoreBtn.classList.add('see-more-container');
+        seeMoreBtn.innerHTML = `
+            <a href="new_case-studies.html" class="see-more-button">See More</a>
+        `;
+        remaining_cases_container.appendChild(seeMoreBtn);
     }
 }

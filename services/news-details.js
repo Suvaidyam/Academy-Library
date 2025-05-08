@@ -72,15 +72,20 @@ function formatDate(dateStr) {
 
 
 function set_remaining_news(remaining_news) {
-  if (remaining_news && remaining_news.length > 0 ) {
+  if (remaining_news && remaining_news.length > 0) {
     const remaining_news_container = document.getElementById('remaining_news');
     remaining_news_container.innerHTML = ""; // Clear existing content
 
-    remaining_news.forEach(item => {
+    // Sort by datetime (most recent first)
+    remaining_news.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+
+    // Limit to 5
+    const recentNews = remaining_news.slice(0, 5);
+
+    recentNews.forEach(item => {
       const postItem = document.createElement('div');
       postItem.classList.add('post-item');
 
-      // Set default image if item.image is not provided
       const imageUrl = item.image ? `${ENV.API_BASE_URL}${item.image}` : '../assets/img/default-news.jpg';
 
       postItem.innerHTML = `
@@ -93,5 +98,14 @@ function set_remaining_news(remaining_news) {
 
       remaining_news_container.appendChild(postItem);
     });
+
+    // Add "See More" button
+    const seeMoreBtn = document.createElement('div');
+    seeMoreBtn.classList.add('see-more-container');
+    seeMoreBtn.innerHTML = `
+      <a href="news-events.html" class="see-more-button">See More</a>
+    `;
+    remaining_news_container.appendChild(seeMoreBtn);
   }
 }
+
