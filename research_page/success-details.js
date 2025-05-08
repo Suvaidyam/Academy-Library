@@ -71,21 +71,32 @@ function set_remaining_stories(remaining_stories) {
         const remaining_stories_container = document.getElementById('remaining_stories');
         remaining_stories_container.innerHTML = ""; // Clear existing content
 
-        remaining_stories.forEach(item => {
+        // Use top 5 items from already-ordered list
+        const recentStories = remaining_stories.slice(0, 5);
+
+        recentStories.forEach(item => {
             const postItem = document.createElement('div');
             postItem.classList.add('post-item');
 
-            // Set default image if item.image is not provided
-            const imageUrl = item.cover_image  ? `${ENV.API_BASE_URL}${item.cover_image }` : '../assets/img/default-stories.jpg';
+            const imageUrl = item.cover_image ? `${ENV.API_BASE_URL}${item.cover_image}` : '../assets/img/default-stories.jpg';
 
             postItem.innerHTML = `
-        <img src="${imageUrl}" alt="${item.name1}" class="flex-shrink-0">
-        <div>
-          <h4><a href="success-details?id=${encodeURIComponent(item.name)}">${item.name1}</a></h4>
-        </div>
-      `;
+                <img src="${imageUrl}" alt="${item.name1}" class="flex-shrink-0">
+                <div>
+                    <h4><a href="success-details?id=${encodeURIComponent(item.name)}">${item.name1}</a></h4>
+                </div>
+            `;
 
             remaining_stories_container.appendChild(postItem);
         });
+
+        // Add "See More" button
+        const seeMoreBtn = document.createElement('div');
+        seeMoreBtn.classList.add('see-more-container');
+        seeMoreBtn.innerHTML = `
+            <a href="new_success-stories.html" class="see-more-button">See More</a>
+        `;
+        remaining_stories_container.appendChild(seeMoreBtn);
     }
 }
+
