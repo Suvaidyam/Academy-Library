@@ -84,7 +84,7 @@ function set_remaining_cases(remaining_cases) {
             postItem.innerHTML = `
         <img src="${imageUrl}" alt="${item.title}" class="flex-shrink-0">
         <div>
-          <h4><a href="case-details?id=${encodeURIComponent(item.title)}">${item.title}</a></h4>
+          <h4><a href="case-details?id=${encodeURIComponent(item.name)}">${item.title}</a></h4>
           <time datetime="${item.published_date}">${formatDate(item.published_date)}</time>
         </div>
       `;
