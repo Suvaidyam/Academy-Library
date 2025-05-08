@@ -36,40 +36,43 @@ function truncateText(text, maxLength) {
 // -------- Set All stories ----------
 const renderSuccess_story_Page = () => {
   const successContainer = document.getElementById('success-container');
+  const prevBtn = document.getElementById("story-prev-btn");
+  const nextBtn = document.getElementById("story-next-btn");
+
   successContainer.innerHTML = "";
 
   const start = success_story_Page * itemsPerPage;
   const end = start + itemsPerPage;
-  const currentCase_study = all_success_stories_Data.slice(start, end)
+  const currentCase_study = all_success_stories_Data.slice(start, end);
 
   currentCase_study.forEach(item => {
-    // let published_date = formatDate(item.published_date);
-    let link = ` success-details?id=${encodeURIComponent(item?.name)}`;
+    let link = `success-details?id=${encodeURIComponent(item?.name)}`;
 
-
-    let cards = ` 
-          <!-- Card with an image on left -->
-          <div class="col-md-6 " data-aos="fade-up" data-aos-delay="100">
-            <a href="${link}">
-              <div class="row   successCard">
-                <div class="col-md-4">
-                  <img src="${ENV.API_BASE_URL + item?.cover_image}" class="img-fluid "  alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="mb-2">${item?.name1}</h5>
-
-                    <p class="card-text">${truncateText(item?.introduction, 200)}</p>
-                  </div>
-                </div>
-
-
+    let cardHTML = ` 
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <a href="${link}">
+          <div class="row successCard">
+            <div class="col-md-4">
+              <img src="${ENV.API_BASE_URL + item?.cover_image}" class="img-fluid" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="mb-2">${item?.name1}</h5>
+                <p class="card-text">${truncateText(item?.introduction, 200)}</p>
               </div>
-            </a>
-          </div>`
-    successContainer.insertAdjacentHTML("beforeend", cards);
+            </div>
+          </div>
+        </a>
+      </div>`;
+    
+    successContainer.insertAdjacentHTML("beforeend", cardHTML);
   });
-}
+
+  // -------- Disable Prev/Next Buttons ----------
+  const totalPages = Math.ceil(all_success_stories_Data.length / itemsPerPage);
+  prevBtn.disabled = success_story_Page === 0;
+  nextBtn.disabled = success_story_Page >= totalPages - 1;
+};
 
 
 // export function formatDate(dateStr) {
@@ -83,8 +86,8 @@ const renderSuccess_story_Page = () => {
 
 document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("story-next-btn")?.addEventListener("click", () => {
-    const maxPage = Math.floor(all_success_stories_Data.length / itemsPerPage);
-    if (success_story_Page < maxPage) {
+    const maxPage =  Math.ceil(all_success_stories_Data.length / itemsPerPage);
+    if (success_story_Page < maxPage - 1) {
       success_story_Page++;
       renderSuccess_story_Page();
     }

@@ -44,6 +44,8 @@ function truncateText(text, maxLength) {
 // -------- Render Paginated News ----------
 const renderNewsPage = () => {
   const newsContainer = document.getElementById('news-container');
+  const prevBtn = document.getElementById("news-prev-btn");
+  const nextBtn = document.getElementById("news-next-btn");
   newsContainer.innerHTML = "";
 
   const start = newsPage * itemsPerPage;
@@ -81,6 +83,9 @@ const renderNewsPage = () => {
       </div>`;
     newsContainer.insertAdjacentHTML("beforeend", card);
   });
+  const totalPages = Math.ceil(allNewsData.length / itemsPerPage);
+  prevBtn.disabled = newsPage === 0;
+  nextBtn.disabled = newsPage >= totalPages - 1;
 };
 
 // -------- Get All Events ----------
@@ -107,6 +112,8 @@ export function formatDate(dateStr) {
 // -------- Set All Events ----------
 const renderEventsPage = () => {
   const eventsContainer = document.getElementById('events-container');
+  const prevBtn = document.getElementById("events-prev-btn");
+  const nextBtn = document.getElementById("events-next-btn");
   eventsContainer.innerHTML = "";
 
   const start = eventsPage * itemsPerPage;
@@ -130,6 +137,9 @@ const renderEventsPage = () => {
       </div>`;
     eventsContainer.insertAdjacentHTML("beforeend", card);
   });
+  const totalPages = Math.ceil(allEventsData.length / itemsPerPage);
+  prevBtn.disabled = eventsPage === 0;
+  nextBtn.disabled = eventsPage >= totalPages - 1;
 };
 
 // -------- Initialize on Page Load ----------

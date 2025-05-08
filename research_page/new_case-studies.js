@@ -35,19 +35,21 @@ function truncateText(text, maxLength) {
 
 // -------- Set All cases ----------
 const renderCase_study_Page = () => {
-    const caseContainer = document.getElementById('case-container');
-    caseContainer.innerHTML = "";
+  const caseContainer = document.getElementById('case-container');
+  const prevBtn = document.getElementById("case-prev-btn");
+  const nextBtn = document.getElementById("case-next-btn");
+  caseContainer.innerHTML = "";
 
-    const start = case_study_Page * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentCase_study = all_case_studies_Data.slice(start, end)
+  const start = case_study_Page * itemsPerPage;
+  const end = start + itemsPerPage;
+  const currentCase_study = all_case_studies_Data.slice(start, end)
 
-    currentCase_study.forEach(item => {
-      let published_date = formatDate(item.published_date);
-      let link = ` case-details?id=${encodeURIComponent(item?.name)}`;
+  currentCase_study.forEach(item => {
+    let published_date = formatDate(item.published_date);
+    let link = ` case-details?id=${encodeURIComponent(item?.name)}`;
 
 
-      let cards = ` 
+    let cards = ` 
           <!-- Card with an image on left -->
           <div class="col-md-6 " data-aos="fade-up" data-aos-delay="100">
             <a href="${link}">
@@ -72,9 +74,12 @@ const renderCase_study_Page = () => {
               </div>
             </a>
           </div>`
-      caseContainer.insertAdjacentHTML("beforeend", cards);
-    });
-  }
+    caseContainer.insertAdjacentHTML("beforeend", cards);
+  });
+  const totalPages = Math.ceil(all_case_studies_Data.length / itemsPerPage);
+  prevBtn.disabled = case_study_Page === 0;
+  nextBtn.disabled = case_study_Page >= totalPages - 1;
+};
 
 
 
@@ -90,17 +95,17 @@ export function formatDate(dateStr) {
 document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("case-next-btn")?.addEventListener("click", () => {
-    const maxPage = Math.floor(all_case_studies_Data.length / itemsPerPage);
-    if (case_study_Page < maxPage) {
+    const maxPage = Math.ceil(all_case_studies_Data.length / itemsPerPage);
+    if (case_study_Page < maxPage - 1) {
       case_study_Page++;
-      renderCase_study_Page ();
+      renderCase_study_Page();
     }
   });
 
   document.getElementById("case-prev-btn")?.addEventListener("click", () => {
     if (case_study_Page > 0) {
       case_study_Page--;
-      renderCase_study_Page ();
+      renderCase_study_Page();
     }
   });
 
