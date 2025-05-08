@@ -2,184 +2,97 @@ import ENV from "../config/config.js";
 import { FrappeApiClient } from "./FrappeApiClient.js";
 
 export async function getLibraryList() {
-    let frappe_client = new FrappeApiClient();
+    const frappe_client = new FrappeApiClient();
+
+    const ITEMS_PER_PAGE = 10;
+    let currentPage = 1;
+    let filter = { artifact_source: 'External' };
+
     try {
-        // ========== Fetch Knowledge Artifacts ==========
-        let filter = {};
-        filter["artifact_source"] = 'External'
-        async function knowledge_data() {
-            let response = await frappe_client.get('/get_knowledge_artifact_list', filter);
-            let posts = response.message.artifacts;
-            return posts
-        }
-        let blogContainer = document.getElementById("blog-container");
-        let template = document.getElementById("blog-template");
-        let categoryDropdown = document.getElementById("category-dropdown");
-        let authorDropdown = document.getElementById("author-dropdown");
-        let languageDropdown = document.getElementById("language-dropdown");
-        let searchButton = document.getElementById("search-btn");
-        let Keywords = document.getElementById("tagsInput");
-        let resetButton = document.getElementById("reset-btn"); // Reset button
+        const blogContainer = document.getElementById("blog-container");
+        const template = document.getElementById("blog-template");
+        const prevBtn = document.getElementById("blog-prev-btn");
+        const nextBtn = document.getElementById("blog-next-btn");
+        const loader = document.getElementById("loader");
 
         if (!template) {
             console.error("Template not found!");
             return;
         }
 
-        function displayArtifacts(filteredArtifacts) {
-            blogContainer.innerHTML = ""; // Clear previous cards
+        let fullData = [];
 
-            if (filteredArtifacts?.length === 0) {
-                blogContainer.innerHTML = `
-                    <div class="no-results text-center">
-                        <h4 class="mt-3">No results found</h4>
-                        <p class="text-muted">Try selecting a different category, author, or language.</p>
-                    </div>`;
+        // Fetch full artifact list once
+        async function fetchAllData() {
+            const res = await frappe_client.get('/get_knowledge_artifact_list', filter);
+            fullData = res.message?.artifacts || [];
+        }
+
+        // Display paginated data
+        function displayArtifacts() {
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const artifacts = fullData.slice(start, end);
+
+            blogContainer.innerHTML = "";
+
+            if (!artifacts.length) {
+                blogContainer.innerHTML = `<div class="no-results text-center"><h4>No results found</h4></div>`;
                 return;
             }
-            filteredArtifacts?.forEach(post => {
-                if (post) {
-                    let newCard = template.cloneNode(true);
-                    newCard.classList.remove("d-none");
-                    newCard.removeAttribute("id"); // Remove duplicate IDs
 
-                    newCard.querySelector(".blog-img").src = post.thumbnail_image
-                        ? ENV.API_BASE_URL + post.thumbnail_image
-                        : "";
+            artifacts.forEach(post => {
+                const newCard = template.cloneNode(true);
+                newCard.classList.remove("d-none");
+                newCard.removeAttribute("id");
 
-                    newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
-                    newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-                    newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
-                    newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "";
 
-                    blogContainer.appendChild(newCard);
-                }
+                newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
+                newCard.querySelector(".blog-title").textContent = post.title || "No Title";
+                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+                newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
+
+                blogContainer.appendChild(newCard);
             });
+
+            // Pagination buttons
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage >= Math.ceil(fullData.length / ITEMS_PER_PAGE);
         }
 
-        // Initially display all internal artifacts
-        async function show_data() {
-            let artifacts = await knowledge_data();
-            if(artifacts){
-                document.getElementById("loader").style.display = "none";
-            }
-            // console.log(artifacts)
-            displayArtifacts(artifacts);
-        }
-        show_data()
-        // ========== Fetch Categories for Dropdown ==========
-        let fieldMetaParams = { doctype: "Knowledge Artifact", fieldname: "category" };
-        let fieldMetaResponse = await frappe_client.get('/get_field_meta', fieldMetaParams);
-        let fieldMetaData = fieldMetaResponse.message;
-        // console.log(fieldMetaResponse)
-        if (fieldMetaData && fieldMetaData.length > 0) {
-            categoryDropdown.innerHTML = `<option selected value="">Category</option>`;
-            fieldMetaData.forEach(optionText => {
-                categoryDropdown.innerHTML += `<option value="${optionText}">${optionText}</option>`;
-            });
+        // Show loading and fetch-render
+        async function showData() {
+            loader.style.display = "block";
+            await fetchAllData();
+            loader.style.display = "none";
+            displayArtifacts();
         }
 
-        // ============== AuthorDropdown =================
-        let AuthorResponse = await frappe_client.get('/get_link_filed',) || [];
-        let dropdownOptionsauthor = `<option selected value="">Author</option>`;
-        dropdownOptionsauthor += AuthorResponse.message?.emp?.map(item =>
-            `<option value="${item.employee_id}">${item.employee_name}</option>`
-        ).join('');
-        authorDropdown.innerHTML = dropdownOptionsauthor;
-
-
-        // ============== LanguageDropdown =================
-        let fieldlinkResponse = await frappe_client.get('/get_link_filed') || [];
-        // console.log(fieldlinkResponse.message, 'language');
-        let dropdownOptions = `<option selected value="">Language</option>`;
-        dropdownOptions += fieldlinkResponse.message?.lang?.map(item =>
-            `<option value="${item.language_id}">${item.language_name}</option>`
-        ).join('');
-        languageDropdown.innerHTML = dropdownOptions;
-
-
-        // ============== TagsDropdown =================
-        let fieldtagsResponse = await frappe_client.get('/get_link_filed') || [];
-        // console.log(fieldtagsResponse.message.tag)
-        const availableTags = fieldtagsResponse.message?.tag?.map(tag => tag.tag_name)
-
-
-
-        // Initialize Tagify on input field
-        const input = document.getElementById("tagsInput");
-        new Tagify(input, {
-            whitelist: availableTags,
-            dropdown: {
-                enabled: 0,
-                closeOnSelect: false
+        // Pagination events
+        prevBtn.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayArtifacts();
             }
         });
 
-        // ========== Search Button Click Event ==========
-        searchButton.addEventListener("click", () => {
-            let selectedCategory = categoryDropdown.value;
-            let lan = languageDropdown.value
-            let authorDropdowns = authorDropdown.value
-            let Keyword = Keywords.value || []
-            if (Keyword.length) {
-                Keyword = JSON.parse(Keyword)?.map(keyword => keyword.value)
-            } else {
-                Keyword = []
+        nextBtn.addEventListener("click", () => {
+            const maxPage = Math.ceil(fullData.length / ITEMS_PER_PAGE);
+            if (currentPage < maxPage) {
+                currentPage++;
+                displayArtifacts();
             }
-            // console.log(Keyword, 'Keyword', lan)
-            if (selectedCategory) {
-                filter["category"] = selectedCategory
-            } else {
-                filter["category"] = '';
-            }
-            if (lan) {
-                filter["language"] = lan
-            } else {
-                filter["language"] = '';
-            }
-            if (authorDropdowns) {
-                filter["internalauthor"] = authorDropdowns
-            } else {
-                filter["internalauthor"] = '';
-            }
-            if (Keyword) {
-                filter["tags"] = Keyword;
-            } else {
-                filter["tags"] = '';
-            }
-            // console.log(filter)
-            show_data()
         });
 
-        // ========== Reset Button Click Event ==========
-        resetButton.addEventListener("click", () => {
-            filter = {};
-            filter["artifact_source"] = 'External'
-            Keywords.value = ''
-            authorDropdown.value = ''
-            languageDropdown.value = '';
-            categoryDropdown.value = "";
-            show_data() // Show all internal artifacts again
-        });
-
-        // ========== Pagination Logic ==========
-        document.querySelectorAll("#blog-pagination ul li a").forEach(function (link) {
-            link.addEventListener("click", function (event) {
-                event.preventDefault();
-                let pageNumber = this.textContent.trim();
-                if (!isNaN(pageNumber)) {
-                    console.log("Clicked Page:", pageNumber);
-                    filter['page'] = pageNumber
-                    show_data()
-                }
-            });
-        });
+        // Initial load
+        showData();
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
     }
 }
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
     getLibraryList();
