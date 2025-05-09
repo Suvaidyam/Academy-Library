@@ -51,100 +51,120 @@
       </div>
     </div>
     <!-- End Page Title -->
-         <!-- Service Details Section -->
+    <!-- Service Details Section -->
     <section id="service-details" class="service-details section">
       <div class="container">
         <div class="row gy-5">
           <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
             <div class="service-box">
-                <form>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                          <select class="form-select" id="category-dropdown" aria-label="Default select example">
-                            <option selected>Category</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-sm-12">
-                          <select class="form-select" id="author-dropdown" aria-label="Default select example">
-                            <option selected>Author</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-sm-12">
-                          <select class="form-select" id="language-dropdown" aria-label="Default select example">
-                            <option selected>Language</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <input id="tagsInput" class="form-control" placeholder="Keywords">
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="services-list">
-                          <a class="btn btn-success"  id="search-btn"><span> <i class="bi bi-search"></i> Search</span></a>
-                          <a class="btn btn-danger"  id="reset-btn"> <i class="bi bi-arrow-counterclockwise"></i> <span>Reset</span></a>
-                        </div>
-                      </div>
-                </form>
+              <form>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <select class="form-select" id="category-dropdown1" aria-label="Default select example">
+                      <option disabled selected>Select a Category</option>
+                      <option value="Article">Articles</option>
+                      <option value="Publications">Publications</option>
+                      <option value="Journals">Journals</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <select class="form-select" id="author-dropdown" aria-label="Default select example">
+                      <option selected>Select a Author</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <select class="form-select" id="language-dropdown" aria-label="Default select example">
+                      <option selected>Select a Language</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <input id="tagsInput" class="form-control" placeholder="Keywords">
+                  </div>
+                </div>
+                <div class="row mb-3 ">
+                  
+                  <button type="button" id="clearbtn" class="btn btn-outline-secondary">
+                    Clear
+                  </button>
+                  
+                  <!-- <div class="services-list"><button id="clear_btn" class="btn btn-outline-secondary">
+                      <i class="bi bi-x-circle"></i> Clear
+                    </button>
+                    <a class="btn btn-success" id="search-btn"><span> <i class="bi bi-search"></i> Search</span></a>
+                    <a class="btn btn-danger" id="reset-btn"> <i class="bi bi-arrow-counterclockwise"></i>
+                      <span>Reset</span></a>
+                  </div> -->
+                </div>
+              </form>
             </div><!-- End Services List -->
 
             <div class="help-box d-flex flex-column justify-content-center align-items-center">
               <i class="bi bi-headset help-icon"></i>
               <h4>Have a Question?</h4>
-              <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1 5589 55488 55</span></p>
-              <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a href="mailto:contact@example.com">contact@example.com</a></p>
+              <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1 5589 55488
+                  55</span></p>
+              <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a
+                  href="mailto:contact@example.com">contact@example.com</a></p>
             </div>
           </div>
 
           <div class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-              <!-- <nav>
+            <!-- <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                   <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Research Article</button>
                 </div>
               </nav> -->
-                <!-- New Changes Blog Posts Section-->
-                <section id="blog-posts" class="blog-posts section">
-                  <div id="loader"></div>
-                  <div class="container">
-                    <div class="row gy-4" id="blog-container">
-                      <div class="col-lg-6 d-none" id="blog-template">
-                        <article>
-                          <div class="post-img">
-                            <img src="" alt="" class="img-fluid blog-img">
-                          </div>
-                          <p class="post-category"></p>
-                          <h2 class="title">
-                            <a href="blog-details.html" class="blog-title"></a>
-                          </h2>
-                          <div class="d-flex align-items-center">
-                            <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
-                            <div class="post-meta">
-                              <p class="post-author"></p>
-                              <p class="post-date">
-                                <time></time>
-                              </p>
-                            </div>
-                          </div>
-                        </article>
+            <!-- New Changes Blog Posts Section-->
+            <section id="blog-posts" class="blog-posts section">
+              <div id="loader"></div>
+              <div class="container">
+                <div class="row gy-4" id="blog-container">
+                  <div class="col-lg-6 d-none" id="blog-template">
+                    <article>
+                      <div class="post-img">
+                        <img src="" alt="" class="img-fluid rounded blog-img">
                       </div>
-                    </div>
+                      <p class="post-category"></p>
+                      <h2 class="title">
+                        <a href="blog-details.html" class="blog-title"></a>
+                      </h2>
+                      <div class="d-flex align-items-center">
+                        <img src="../assets/img/blog/blog-author.jpg" alt=""
+                          class="img-fluid post-author-img flex-shrink-0">
+                        <div class="post-meta">
+                          <p class="post-author"></p>
+                          <p class="post-date">
+                            <time></time>
+                          </p>
+                        </div>
+                      </div>
+                    </article>
                   </div>
-                </section>
-                <!-- New Changes Blog Posts Section-->
+                </div>
+              </div>
+            </section>
+            <!-- New Changes Blog Posts Section-->
 
 
             <!-- Blog Pagination Section -->
-            <section id="blog-pagination" class="blog-pagination section">
+            <div id="pagination m-0" class="d-flex justify-content-between align-items-center">
+              <button id="prev-btn" class="btn border-0 bg-transparent"><i
+                  class="bi bi-arrow-left-circle fs-1 "></i></button>
+              <button id="next-btn" class="btn border-0 bg-transparent"><i
+                  class="bi bi-arrow-right-circle fs-1 "></i></button>
+            </div>
+            <!-- <section id="blog-pagination" class="blog-pagination section">
 
               <div class="container">
                 <div class="d-flex justify-content-center">
                   <ul>
-                    <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
+                    <li><a href="#"><i class="bi bi-arrow-left-circle fs-1"></i></a></li>
                     <li><a href="#">1</a></li>
                     <li><a href="#" class="">2</a></li>
                     <li><a href="#">3</a></li>
@@ -156,9 +176,9 @@
                 </div>
               </div>
 
-            </section>
-    <!-- /Blog Pagination Section -->
-     
+            </section> -->
+            <!-- /Blog Pagination Section -->
+
           </div>
         </div>
       </div>

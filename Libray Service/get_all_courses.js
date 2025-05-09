@@ -49,6 +49,7 @@ const set_topic_option = async (course) => {
         select.remove(1);
     }
     select.selectedIndex = 0;
+    document.getElementById('chapterSearch').selectedIndex=0
 
     // Append dynamic options
     response.message.forEach(course => {

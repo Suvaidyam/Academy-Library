@@ -78,21 +78,22 @@ const set_dynamic_course = (response, navtype) => {
   // Loop through each course and render HTML
   response.message.forEach((item) => {
     // console.log("Item being rendered:", item);
+    const description = item.description.split(" ").slice(0, 20).join(" ");
     const newo = `
       <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
         <article>
           <div class="row newsCard">
             <div class="col-md-3" class="post-img">
-              <img src="${ENV.API_BASE_URL + item.image}" alt="" class="img-fluid blog-img">
+              <img src="${ENV.API_BASE_URL + item.image}" alt="" class="img-fluid blog-img ">
             </div>
             <div class="col-md-6">
               <div class="card-body">
-                <h2 class="title">
+                <h2 class="title mb-1">
                   <a href="" class="blog-title text-break text-wrap">${item.title}</a>
                 </h2>
                 <div class="d-flex align-items-center">
                   <div class="post-meta">
-                    <p class="short_introduction">${item.short_introduction}</p>
+                    <p class="short_introduction my-0">${item.short_introduction}</p>
                     <p class="published_on"><time>${item.published_on}</time></p>
                   </div>
                 </div>
@@ -101,23 +102,18 @@ const set_dynamic_course = (response, navtype) => {
             <div class=" col-md-3">
               <h4 class="text-white py-1 px-2 d-flex text-center"  style="background-color: #68a4c4 !important;">Information</h4>
               <div class="download-catalog">
-                  <a href="" onclick="window.open('${baseURL}${item.custom_course_document}')" ><i class="bi bi-filetype-pdf"></i><span>Catalogue</span></a>
-                  <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
+                 <!-- <a href="" onclick="window.open('${baseURL}${item.custom_course_document}')" ><i class="bi bi-filetype-pdf"></i><span>Catalogue</span></a> -->
+                  <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ' ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
                   <a href="" class="enroll-this-course"><i class="bi bi-journal-plus"></i> Apply</a>
                </div>
           </div>
           </div>
-          <p>${item.description}</p>
-         <!-- <div class="service-box">
-            <h4>Information</h4>
-            <div class="download-catalog pl-2">
-              <a href="#" onclick="window.open('${baseURL}${item.custom_course_document}')" ><i class="bi bi-filetype-pdf"></i><span>Catalogue</span></a>
-              <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
-               <a href="" class="enroll-this-course"><i class="bi bi-journal-plus"></i> Apply</a>
-            </div>
-          </div> -->
+          <p>${description}</p>
+        
         </article>
       </div>`;
+
+      
 
     // Append to respective container based on navtype
     if (navtype === "1") {
@@ -138,6 +134,10 @@ const set_dynamic_course = (response, navtype) => {
 let Live_Courses_Btn = document.getElementById('nav-home-tab');
 let Upcoming_Courses_Btn = document.getElementById('nav-profile-tab');
 let Enrolled_Courses_Btn = document.getElementById('nav-registered-tab');
+
+Enrolled_Courses_Btn.addEventListener('click',()=>{
+  document.getElementById("no-alvailable-corses").style.display = "none";
+})
 
 // Upcoming Courses Tab Clicked
 Upcoming_Courses_Btn.addEventListener('click', () => {
