@@ -115,69 +115,98 @@
           </div>
 
           <div class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+
+
+            <ul class="nav nav-tabs" id="articlesTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="articles-tab" data-bs-toggle="tab"
+                  data-bs-target="#articles" type="button" role="tab" aria-controls="articles"
+                  aria-selected="true">
+                  Articles
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="publications-tab" data-bs-toggle="tab" data-bs-target="#publications"
+                  type="button" role="tab" aria-controls="publications" aria-selected="false">
+                  Publications
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="journals-tab" data-bs-toggle="tab" data-bs-target="#journals"
+                  type="button" role="tab" aria-controls="journals" aria-selected="false">
+                  Journals
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="case-studies-tab" data-bs-toggle="tab" data-bs-target="#case-studies"
+                  type="button" role="tab" aria-controls="case-studies" aria-selected="false">
+                  Case Studies
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content p-3 border border-top-0" id="researchTabContent">
+              <div class="tab-pane fade show active" id="articles" role="tabpanel"  aria-labelledby="articles-tab">
+                <section id="blog-posts" class="blog-posts section">
+                  <div id="loader"></div>
+                  <div class="container">
+                    <div class="row gy-4" id="blog-container">
+                      <div class="col-lg-6 d-none" id="blog-template">
+                        <article>
+                          <div class="post-img">
+                            <img src="" alt="" class="img-fluid rounded blog-img">
+                          </div>
+                          <p class="post-category"></p>
+                          <h2 class="title">
+                            <a href="blog-details.html" class="blog-title"></a>
+                          </h2>
+                          <div class="d-flex align-items-center">
+                            <img src="../assets/img/blog/blog-author.jpg" alt=""
+                              class="img-fluid post-author-img flex-shrink-0">
+                            <div class="post-meta">
+                              <p class="post-author"></p>
+                              <p class="post-date">
+                                <time></time>
+                              </p>
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <!-- New Changes Blog Posts Section-->
+    
+    
+                <!-- Blog Pagination Section -->
+                <div id="pagination m-0" class="d-flex justify-content-between align-items-center">
+                  <button id="prev-btn" class="btn border-0 bg-transparent"><i
+                      class="bi bi-arrow-left-circle fs-1 "></i></button>
+                  <button id="next-btn" class="btn border-0 bg-transparent"><i
+                      class="bi bi-arrow-right-circle fs-1 "></i></button>
+                </div>
+               </div>
+               
+               <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
+                publications
+               </div>
+               <div class="tab-pane fade" id="journals" role="tabpanel" aria-labelledby="journals-tab">
+                journals
+               </div>
+               <div class="tab-pane fade" id="case-studies" role="tabpanel" aria-labelledby="case-studies-tab">
+                case-studies
+               </div>
+            </div>
+            
+
             <!-- <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                   <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Research Article</button>
                 </div>
               </nav> -->
             <!-- New Changes Blog Posts Section-->
-            <section id="blog-posts" class="blog-posts section">
-              <div id="loader"></div>
-              <div class="container">
-                <div class="row gy-4" id="blog-container">
-                  <div class="col-lg-6 d-none" id="blog-template">
-                    <article>
-                      <div class="post-img">
-                        <img src="" alt="" class="img-fluid rounded blog-img">
-                      </div>
-                      <p class="post-category"></p>
-                      <h2 class="title">
-                        <a href="blog-details.html" class="blog-title"></a>
-                      </h2>
-                      <div class="d-flex align-items-center">
-                        <img src="../assets/img/blog/blog-author.jpg" alt=""
-                          class="img-fluid post-author-img flex-shrink-0">
-                        <div class="post-meta">
-                          <p class="post-author"></p>
-                          <p class="post-date">
-                            <time></time>
-                          </p>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <!-- New Changes Blog Posts Section-->
-
-
-            <!-- Blog Pagination Section -->
-            <div id="pagination m-0" class="d-flex justify-content-between align-items-center">
-              <button id="prev-btn" class="btn border-0 bg-transparent"><i
-                  class="bi bi-arrow-left-circle fs-1 "></i></button>
-              <button id="next-btn" class="btn border-0 bg-transparent"><i
-                  class="bi bi-arrow-right-circle fs-1 "></i></button>
-            </div>
-            <!-- <section id="blog-pagination" class="blog-pagination section">
-
-              <div class="container">
-                <div class="d-flex justify-content-center">
-                  <ul>
-                    <li><a href="#"><i class="bi bi-arrow-left-circle fs-1"></i></a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#" class="">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li>...</li>
-                    <li><a href="#">10</a></li>
-                    <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-
-            </section> -->
-            <!-- /Blog Pagination Section -->
+          
+           
 
           </div>
         </div>

@@ -115,52 +115,62 @@
               <!-- New Changes Blog Posts Section-->
               <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Global Resources</button>
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Subscribed</button>
+                  <button class="nav-link " id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">General Success Stories</button>
                 </div>
               </nav>
-              <section id="blog-posts" class="blog-posts section">
-                <div id="loader"></div>
-                <div class="container">
-                  <div class="row gy-4" id="blog-container">
-                    <div class="col-lg-6 d-none" id="blog-template">
-                      <article>
-                        <div class="post-img">
-                          <img src="" alt="" class="img-fluid blog-img">
+              <div class="tab-content p-3 border border-top-0" id="globalLibraryTabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel"  aria-labelledby="nav-home-tab">
+                  <section id="blog-posts" class="blog-posts section">
+                    <div id="loader"></div>
+                    <div class="container">
+                      <div class="row gy-4" id="blog-container">
+                        <div class="col-lg-6 d-none" id="blog-template">
+                          <article>
+                            <div class="post-img">
+                              <img src="" alt="" class="img-fluid blog-img">
+                            </div>
+                            <p class="post-category"></p>
+                            <h2 class="title">
+                              <a href="blog-details.html" class="blog-title"></a>
+                            </h2>
+                            <div class="d-flex align-items-center">
+                              <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
+                              <div class="post-meta">
+                                <p class="post-author"></p>
+                                <p class="post-date">
+                                  <time></time>
+                                </p>
+                              </div>
+                            </div>
+                            <div class="mt-3">
+                              <a href="#" target="_blank" class="resource_link"></a>
+                            </div>
+                          </article>
                         </div>
-                        <p class="post-category"></p>
-                        <h2 class="title">
-                          <a href="blog-details.html" class="blog-title"></a>
-                        </h2>
-                        <div class="d-flex align-items-center">
-                          <img src="../assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
-                          <div class="post-meta">
-                            <p class="post-author"></p>
-                            <p class="post-date">
-                              <time></time>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="mt-3">
-                          <a href="#" target="_blank" class="resource_link"></a>
-                        </div>
-                      </article>
+                      </div>
                     </div>
+                  </section>
+                  <!-- New Changes Blog Posts Section-->
+              <!-- Blog Pagination Section -->
+              <section id="blog-pagination" class="blog-pagination section">
+                <div class="container">
+                  <div id="pagination" class="d-flex justify-content-between align-items-center">
+                    <button id="blog-prev-btn" class="btn border-0 bg-transparent"><i
+                            class="bi bi-arrow-left-circle fs-1 "></i></button>
+                    <button id="blog-next-btn" class="btn border-0 bg-transparent"><i
+                            class="bi bi-arrow-right-circle fs-1 "></i></button>
+                </div>
+                </div>
+                
+              </section>  
+                </div>
+                  <div class="tab-pane fade " id="general" role="tabpanel"  aria-labelledby="general-tab">
+               General  
                   </div>
                 </div>
-              </section>
-              <!-- New Changes Blog Posts Section-->
-          <!-- Blog Pagination Section -->
-          <section id="blog-pagination" class="blog-pagination section">
-            <div class="container">
-              <div id="pagination" class="d-flex justify-content-between align-items-center">
-                <button id="blog-prev-btn" class="btn border-0 bg-transparent"><i
-                        class="bi bi-arrow-left-circle fs-1 "></i></button>
-                <button id="blog-next-btn" class="btn border-0 bg-transparent"><i
-                        class="bi bi-arrow-right-circle fs-1 "></i></button>
-            </div>
-            </div>
-            
-          </section>
+
+             
         <!-- /Blog Pagination Section -->
         </div>
       </div>
