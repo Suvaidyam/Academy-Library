@@ -2,6 +2,51 @@ import { FrappeApiClient } from "../services/FrappeApiClient.js";
 let frappe_client = new FrappeApiClient()
 let baseURL = new FrappeApiClient().baseURL;
 
+let currentView = 'card'; // Default
+
+const listBtn = document.getElementById('listViewBtn');
+const cardBtn = document.getElementById('cardViewBtn');
+
+function updateButtonStyles() {
+    if (currentView === 'card') {
+        cardBtn.classList.remove('btn-outline-primary');
+        cardBtn.classList.add('btn-primary');
+
+        listBtn.classList.remove('btn-primary');
+        listBtn.classList.add('btn-outline-secondary');
+    } else {
+        listBtn.classList.remove('btn-outline-secondary');
+        listBtn.classList.add('btn-primary');
+
+        cardBtn.classList.remove('btn-primary');
+        cardBtn.classList.add('btn-outline-primary');
+    }
+}
+
+
+
+let SessionList = document.querySelector('#searchResults');
+listBtn.addEventListener('click', () => {
+    SessionList.classList.remove(..."list-unstyled search-results row gy-4 isotope-container".split(" "));
+
+
+    currentView = 'list';
+    updateButtonStyles();
+    get_session_list();
+});
+
+cardBtn.addEventListener('click', () => {
+    currentView = 'card';
+    SessionList.classList.add(..."list-unstyled search-results row gy-4 isotope-container".split(" "));
+
+
+    updateButtonStyles();
+    get_session_list();
+
+});
+
+
+
 
 const get_all_courses = async () => {
     try {
@@ -49,7 +94,7 @@ const set_topic_option = async (course) => {
         select.remove(1);
     }
     select.selectedIndex = 0;
-    document.getElementById('chapterSearch').selectedIndex=0
+    document.getElementById('chapterSearch').selectedIndex = 0
 
     // Append dynamic options
     response.message.forEach(course => {
@@ -155,9 +200,96 @@ export function setSessionList(response) {
 
     response.message.forEach(element => {
         let result_card = "";
-        console.log('element.doc_type', element.doc_type);
+        let list_card = "";
 
 
+        if (element.doc_type === "PDF") {
+            list_card = `
+            <div class="col-12 mb-4">
+            <div class="row g-3 align-items-center border rounded p-3">
+                <div class="col-md-4">
+                <img src="../assets/img/portfolio/pdf_109.webp" class="img-fluid rounded" alt="PDF">
+                </div>
+                <div class="col-md-8">
+                <h5 class="mb-1">${element.name}</h5>
+                <p class="text-muted mb-2">${element.description || "PDF File"}</p>
+                <div>
+                    <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" class="btn btn-sm btn-outline-primary me-2">
+                    <i class="bi bi-zoom-in"></i> View
+                    </a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-link-45deg"></i> More Details
+                    </a>
+                </div>
+                </div>
+            </div>
+            </div>`;
+        } else if (element.doc_type === "Docs") {
+            list_card = `
+            <div class="col-12 mb-4">
+            <div class="row g-3 align-items-center border rounded p-3">
+                <div class="col-md-4">
+                <img src="../assets/img/portfolio/doc.webp" class="img-fluid rounded" alt="Document">
+                </div>
+                <div class="col-md-8">
+                <h5 class="mb-1">${element.name}</h5>
+                <p class="text-muted mb-2">${element.description || "Document File"}</p>
+                <div>
+                    <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" class="btn btn-sm btn-outline-primary me-2">
+                    <i class="bi bi-zoom-in"></i> View
+                    </a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-link-45deg"></i> More Details
+                    </a>
+                </div>
+                </div>
+            </div>
+            </div>`;
+        }
+        else if (element.doc_type === "Video") {
+            list_card = `
+            <div class="col-12 mb-4">
+            <div class="row g-3 align-items-center border rounded p-3">
+                <div class="col-md-4">
+                <img src="../assets/img/portfolio/branding-1.jpg" class="img-fluid rounded" alt="Video">
+                </div>
+                <div class="col-md-8">
+                <h5 class="mb-1">${element.name}</h5>
+                <p class="text-muted mb-2">${element.description || "Video File"}</p>
+                <div>
+                    <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" class="btn btn-sm btn-outline-primary me-2">
+                    <i class="bi bi-zoom-in"></i> View
+                    </a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-link-45deg"></i> More Details
+                    </a>
+                </div>
+                </div>
+            </div>
+            </div>`;
+        } else if (element.doc_type === "Image") {
+            list_card = `
+            <div class="col-12 mb-4">
+            <div class="row g-3 align-items-center border rounded p-3">
+                <div class="col-md-4">
+                <img src="../assets/img/portfolio/books-1.jpg" class="img-fluid rounded" alt="Image">
+                </div>
+                <div class="col-md-8">
+                <h5 class="mb-1">${element.name}</h5>
+                <p class="text-muted mb-2">${element.description || "Image File"}</p>
+                <div>
+                    <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" class="btn btn-sm btn-outline-primary me-2">
+                    <i class="bi bi-zoom-in"></i> View
+                    </a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-link-45deg"></i> More Details
+                    </a>
+                </div>
+                </div>
+            </div>
+            </div>`;
+        }
+        // list_card 
         if (element.doc_type === "PDF") {
             result_card = `
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
@@ -211,8 +343,11 @@ export function setSessionList(response) {
               </div>
             </div>`;
         }
-
-        SessionList.insertAdjacentHTML("beforeend", result_card);
+        if (currentView === 'card') {
+            SessionList.insertAdjacentHTML("beforeend", result_card);
+        } else {
+            SessionList.insertAdjacentHTML("beforeend", list_card);
+        }
     });
 }
 
@@ -225,6 +360,7 @@ export function setSessionList(response) {
 
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // updateButtonStyles();
     get_all_courses()
     get_session_list()
     // let response = await frappe_client.get('/filter_global_session', {

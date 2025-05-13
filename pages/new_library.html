@@ -31,8 +31,8 @@
 </head>
 
 <body>
-  <div id="header" class="header d-flex align-items-center fixed-top" ></div>
- 
+  <div id="header" class="header d-flex align-items-center fixed-top"></div>
+
 
   <div class="page-title dark-background">
     <div class="container position-relative">
@@ -99,8 +99,8 @@
                 <!-- Global Search -->
                 <div class="search-bar mb-4 ">
                   <form id="searchForm" class="search-form d-flex align-items-center " method="POST" action="#">
-                    <input type="text" id="searchInput" name="query" placeholder="Tags / keywords for generic / global searches"
-                      title="Enter search keyword">
+                    <input type="text" id="searchInput" name="query"
+                      placeholder="Tags / keywords for generic / global searches" title="Enter search keyword">
                     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                   </form>
                 </div>
@@ -172,18 +172,19 @@
 
                   <!-- Results List -->
                   <div class="results-container border rounded p-3 mt-4">
-                    <h6>Session List</h6>
-                    <!-- <p class="text-muted small mb-2">e.g., (someone is searching for externalities)</p> -->
-                    <ul class="list-unstyled search-results row gy-4 isotope-container" id="searchResults">
-                      <!-- <li class="result-item" data-type="doc">Externalities-1 (DOC)</li>
-                      <li class="result-item" data-type="mov">Externalities-1 (MOV)</li>
-                      <li class="result-item" data-type="pptx">Externalities-1 (PPTX)</li>
-                      <li class="result-item" data-type="pdf">Externalities-2 (PDF)</li>
-                      <li class="result-item" data-type="activity">Externalities-2 (Activity)</li> -->
-                    <p>loading Session list ............</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h6 class="mb-0">Session List</h6>
+                      <div class="view-toggle">
+                        <div id="cardViewBtn" class="btn btn-outline-primary btn-lg"><i class="bi bi-grid-3x3-gap-fill"></i></div>
+                        <div id="listViewBtn" class="btn btn-outline-secondary btn-lg"> <i class="bi bi-list-ul"></i></div>
+                      </div>
+                    </div>
 
-                    </ul>
+                    <div class="list-unstyled search-results row gy-4 isotope-container" id="searchResults">
+                      <p>Loading session list...</p>
+                    </div>
                   </div>
+
                 </div>
               </div>
 
@@ -256,8 +257,8 @@
                 <!-- Global Search -->
                 <div class="search-bar mb-4 ">
                   <form id="book_form_search" class="search-form d-flex align-items-center " method="POST" action="#">
-                    <input id="bookSearchInput" type="text" name="query" placeholder="Tags / keywords for generic / global searches"
-                      title="Enter search keyword">
+                    <input id="bookSearchInput" type="text" name="query"
+                      placeholder="Tags / keywords for generic / global searches" title="Enter search keyword">
                     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                   </form>
                 </div>
