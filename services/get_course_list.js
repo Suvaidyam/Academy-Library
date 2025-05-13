@@ -100,11 +100,11 @@ const set_dynamic_course = (response, navtype) => {
               </div>
             </div>
             <div class=" col-md-3">
-              <h4 class="text-white py-1 px-2 d-flex text-center"  style="background-color: #68a4c4 !important;">Information</h4>
+              <!--h4 class="text-white py-1 px-2 d-flex text-center"  style="background-color: #68a4c4 !important;">Information</h4-->
               <div class="download-catalog">
                  <!-- <a href="" onclick="window.open('${baseURL}${item.custom_course_document}')" ><i class="bi bi-filetype-pdf"></i><span>Catalogue</span></a> -->
                   <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ' ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
-                  <a href="" class="enroll-this-course"><i class="bi bi-journal-plus"></i> Apply</a>
+                  <a href=""><i class="bi bi-journal-plus"></i> Apply</a>
                </div>
           </div>
           </div>
