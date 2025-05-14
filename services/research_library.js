@@ -212,47 +212,104 @@ let currentPage = 1;
 const pageSize = 4;
 
 
-pre_btn.addEventListener("click",async function () {
-    currentPage--;    let filter = {
+pre_btn.addEventListener("click", async function () {
+    currentPage--; let filter = {
         page: currentPage,
         page_size: pageSize,
     };
 
-    let response =await frappe_client.get('/get_knowledge_artificates', filter)
+    let response = await frappe_client.get('/get_knowledge_artificates', filter)
     displayArtifacts(response.message.data)
 
 
-    console.log('-----------', c_dropdown.value,currentPage);
+    console.log('-----------', c_dropdown.value, currentPage);
 
 
 })
-next_btn.addEventListener("click",async function () {
+next_btn.addEventListener("click", async function () {
     currentPage++;
     let filter = {
         page: currentPage,
         page_size: pageSize,
     };
 
-    let response =await frappe_client.get('/get_knowledge_artificates', filter)
+    let response = await frappe_client.get('/get_knowledge_artificates', filter)
     displayArtifacts(response.message.data)
 
-    console.log('-----------', c_dropdown.value,currentPage);
+    console.log('-----------', c_dropdown.value, currentPage);
 
 
 })
-let handleclearbtn=document.getElementById('clearbtn')
+let handleclearbtn = document.getElementById('clearbtn')
 
-handleclearbtn.addEventListener('click',()=>{
+handleclearbtn.addEventListener('click', () => {
     // alert('btn click');
     // console.log("==================");
     c_dropdown.selectedIndex = 0;
     getLibraryList();
-    
-    }
+
+}
 )
+
+let handlelanguageDropdown = document.getElementById('language-dropdown')
+const getLanguageList = async () => {
+    const args = {
+        doctype: 'Language',
+        fields: ['name', 'language_name'],
+        filters: JSON.stringify({ enabled: '1' })
+
+        // filters: {
+        //   enabled: 1,
+        // },
+    };
+
+
+
+    let response = await frappe_client.get('/get_doctype_list', args);
+    response.message.forEach(lang => {
+        let option = document.createElement('option');
+        option.value = lang.name;
+        option.textContent = lang.language_name || lang.name; // Fallback if `language_name` is missing
+        handlelanguageDropdown.appendChild(option);
+    });
+    handlelanguageDropdown.addEventListener('change',()=> {
+        try {
+            let filter = {}
+            // filter["artifact_source"] = 'Internal'
+            filter["language"] = handlelanguageDropdown.value
+
+            let response = frappe_client.get('/get_knowledge_artificates', filter);
+            // let posts = response.message.artifacts;
+            console.log('Selected value:', this.value, response);
+            displayArtifacts(response.message.data)
+        }catch (error) {
+            console.error('Error fetching data:', error);
+        }
+
+        console.log('Language List:', handlelanguageDropdown.value)
+    });
+
+
+
+}
+
+
+displayArtifacts()
+
+const handleLanguageChange = async () => {
+    let filter = {}
+    // filter["artifact_source"] = 'Internal'
+    filter["language"] = handlelanguageDropdown.value
+
+    let response = await frappe_client.get('/get_knowledge_artificates', filter);
+    // let posts = response.message.artifacts;
+    console.log('Selected value:', this.value, response);
+    displayArtifacts(response.message.data)
+}
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
     getLibraryList();
+    getLanguageList();
 });
