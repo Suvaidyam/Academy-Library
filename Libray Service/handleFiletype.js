@@ -32,8 +32,8 @@ const handle_filetype_btn = () => {
 
             get_seesion_list()
 
-            allCheckbox.checked = allChecked;
-            console.log("all=====================", allChecked);
+            // allCheckbox.checked = allChecked;
+            // console.log("all=====================", allChecked);
 
 
             // Log which checkboxes are currently checked
@@ -47,9 +47,15 @@ const handle_filetype_btn = () => {
 const get_seesion_list = async () => {
     // const allCheckbox = document.getElementById('allFilesCheck');
 
-    const chapterSelect = document.getElementById('chapterSearch');
+    const chapterSelect = document.getElementById('chapterSearch').value;
+    const topicSelect = document.getElementById('topicSearch').value;
+    const courseSelect = document.getElementById('courseSearch').value;
+
+
+
+    console.log('Selected course:', courseSelect, topicSelect, chapterSelect);
     const selectedValue = chapterSelect.value;
-    console.log('Selected chapter:', selectedValue);
+    // console.log('Selected chapter:', selectedValue);
     const checkedValues = Array.from(checkboxes)
         .filter(input => input.checked)
         .map(input => input.value);
@@ -61,16 +67,61 @@ const get_seesion_list = async () => {
         allCheckbox.checked = false;
     }
 
-    try {
-        let response = await frappe_client.get('/get_session_list', {
-            file_type: checkedValues,
-            selected_chapter: selectedValue
-        });
-        console.log('session list:', response);
-        // console.log('Clicked checkbox value:', this.value);
-        setSessionList(response);
-    } catch (err) {
-        console.error('Error fetching session list:', err);
+    if (chapterSelect !== 'Select a Chapter') {
+        // console.log('not a chapter', chapterSelect);
+        try {
+            let response = await frappe_client.get('/get_newsession_list', {
+                file_type: JSON.stringify(checkedValues),
+                selected_chapter: chapterSelect,
+            });
+            console.log('session list:', response);
+            // console.log('Clicked checkbox value:', this.value);
+            setSessionList(response);
+        } catch (err) {
+            console.error('Error fetching session list:', err);
+        }
+
+    }
+
+    if (topicSelect !== 'Select a Topic') {
+        try {
+            let response = await frappe_client.get('/get_newsession_list', {
+                file_type: JSON.stringify(checkedValues),
+                selected_topic: topicSelect,
+            });
+            console.log('session list:', response);
+            // console.log('Clicked checkbox value:', this.value);
+            setSessionList(response);
+        } catch (err) {
+            console.error('Error fetching session list:', err);
+        }
+
+    }
+    if (courseSelect !== 'Select a Course') {
+        try {
+            let response = await frappe_client.get('/get_newsession_list', {
+                file_type: JSON.stringify(checkedValues),
+                selected_course: courseSelect,
+            });
+            console.log('session list:', response);
+            // console.log('Clicked checkbox value:', this.value);
+            setSessionList(response);
+        } catch (err) {
+            console.error('Error fetching session list:', err);
+        }
+    } else {
+
+        try {
+            let response = await frappe_client.get('/get_newsession_list', {
+                file_type: JSON.stringify(checkedValues),
+                // selected_chapter: selectedValue
+            });
+            console.log('session list:', response);
+            // console.log('Clicked checkbox value:', this.value);
+            setSessionList(response);
+        } catch (err) {
+            console.error('Error fetching session list:', err);
+        }
     }
 }
 
@@ -98,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (this.checked) {
                 console.log('Selected sort option:', this.value);
                 if (searchInput.value) {
-                    console.log("some value hai",searchInput.value);
+                    console.log("some value hai", searchInput.value);
                     try {
                         const response = await frappe_client.get('/filter_global_book', {
                             sort_type: this.value,
@@ -121,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.error('Error fetching book list:', error);
                     }
                 }
-                
+
 
                 // Implement your sorting logic here based on this.value
             }
@@ -131,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Clear selection
     clearButton.addEventListener('click', function () {
         const searchInput = document.getElementById('bookSearchInput');
-        searchInput.value=''
+        searchInput.value = ''
         radioButtons.forEach(radio => {
             radio.checked = false;
         });
