@@ -33,9 +33,12 @@ const set_course_option = (response) => {
     });
 
     select.addEventListener('change',async function () {
-        let response = await frappe_client.get('/get_session_list', {
+        let response = await frappe_client.get('/get_newsession_list', {
             selected_course: this.value
         })
+        console.log(this.value)
+        
+
         setSessionList(response)
         set_topic_option(this.value)
         
@@ -66,7 +69,7 @@ const set_topic_option = async (course) => {
 
     select.addEventListener('change', async function () {
         set_chapter_option(this.value)
-        let response = await frappe_client.get('/get_session_list', {
+        let response = await frappe_client.get('/get_newsession_list', {
             selected_topic: this.value
         })
         setSessionList(response)
@@ -97,18 +100,13 @@ const set_chapter_option = async (topic) => {
         select.appendChild(option);
     });
 
-    // select.addEventListener('change', function async() {
-    //     console.log(this.value);
-    //     let response = await frappe_client.get('/get_session_list')
-
-    //     // set_chapter_option(this.value)
-    // });
+   
     select.addEventListener('change', async function () {
         console.log(this.value);
         const searchInput = document.getElementById('searchInput');
         searchInput.value = ''
 
-        let response = await frappe_client.get('/get_session_list', {
+        let response = await frappe_client.get('/get_newsession_list', {
             selected_chapter: this.value
         })
         setSessionList(response)
@@ -119,7 +117,8 @@ const set_chapter_option = async (topic) => {
 
 
 const get_session_list = async () => {
-    let response = await frappe_client.get('/get_session_list')
+   
+    let response = await frappe_client.get('/get_newsession_list')
     console.log('session list', response);
     setSessionList(response)
 
@@ -236,11 +235,6 @@ export function setSessionList(response) {
 document.addEventListener('DOMContentLoaded', async () => {
     get_all_courses()
     get_session_list()
-    // let response = await frappe_client.get('/filter_global_session', {
-    //     global_val: searchInput.value
-    // })
-    console.log("3333333333333333333333333333333333", response);
-
 
 })
 
@@ -256,8 +250,8 @@ const searchInput = document.getElementById('searchInput');
 searchInput.addEventListener('input', async function (e) {
     e.preventDefault(); // Prevent actual form submission
 
-    let response = await frappe_client.get('/filter_global_session', {
-        global_val: searchInput.value
+    let response = await frappe_client.get('/get_newsession_list', {
+        global_search_val: searchInput.value
     })
     setSessionList(response)
     console.log('Search Query:', searchInput.value, response);
