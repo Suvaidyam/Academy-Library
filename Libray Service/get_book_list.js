@@ -36,12 +36,14 @@ const set_book_list=(response)=>{
                   <div class="card mb-4 shadow-sm border-0 book-card">
                     <div class="row g-0">
                         <div class="col-md-3">
-                        <img src="${book.cover_image}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Book cover showing water">
+                        <img src="${book.thumbnail_image}"
+                         onerror="this.onerror=null;this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVU3F0ghKN83Mv-wB7GCJWyWA4Ql6JiZ_k5A&s';" 
+                         class="img-fluid rounded-start h-100 object-fit-cover" alt="Book cover showing water">
                         </div>
                         <div class="col-md-9">
                         <div class="card-body">
-                            <h5 class="card-title mb-2">${book.title}  <a  title="Download pdf" onclick="window.open('${baseURL}${book.pdf}')" ><i class="bi bi-file-earmark-arrow-down"></i></a></h5>
-                            <p class="card-text text-muted">${book.description}</p>
+                            <h5 class="card-title mb-2">${book.title}<span style="cursor: pointer;" title="Download pdf" onclick="window.open('${baseURL}${book.attachment}')" ><i class="bi bi-file-earmark-arrow-down"></i></span></button></h5>
+                            <p class="card-text text-muted">${book.a_short_description_about_the_artifact}</p>
                         </div>
                         </div>
                     </div>
