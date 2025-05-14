@@ -32,8 +32,13 @@ const set_course_option = (response) => {
         select.appendChild(option);
     });
 
-    select.addEventListener('change', function () {
+    select.addEventListener('change',async function () {
+        let response = await frappe_client.get('/get_session_list', {
+            selected_course: this.value
+        })
+        setSessionList(response)
         set_topic_option(this.value)
+        
     });
 }
 
@@ -59,8 +64,12 @@ const set_topic_option = async (course) => {
         select.appendChild(option);
     });
 
-    select.addEventListener('change', function () {
+    select.addEventListener('change', async function () {
         set_chapter_option(this.value)
+        let response = await frappe_client.get('/get_session_list', {
+            selected_topic: this.value
+        })
+        setSessionList(response)
     });
 }
 
