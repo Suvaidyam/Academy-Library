@@ -64,7 +64,9 @@ body {
   color: var(--default-color);
   background-color: var(--background-color);
   font-family: var(--default-font);
+  
 }
+p, a, li{ line-height: 24px !important;}
 
 a {
   color: var(--accent-color);
@@ -881,6 +883,13 @@ color: #012970;
   padding: 160px 0 80px 0;
   text-align: center;
   position: relative;
+}
+.page-title-team {
+  border-top:1px solid var(--accent-color);
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 120px 0 20px 0;
+  text-align: center;
 }
 
 .page-title:before {
@@ -2045,10 +2054,14 @@ section,
 .team .member {
   position: relative;
 }
-
+.img-shadow{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+ 
 .team .member .member-img {
   overflow: hidden;
   position: relative;
+  
 }
 
 @media (max-width: 1024px) {
