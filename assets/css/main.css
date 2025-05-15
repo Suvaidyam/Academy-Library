@@ -229,7 +229,7 @@ h6 {
   --heading-color: #ffffff;
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 15px 0;
+  padding: 5px 0;
   transition: all 0.5s;
   z-index: 997;
 }
@@ -311,7 +311,7 @@ color: #012970;
 
   .navmenu>ul>li {
     white-space: nowrap;
-    padding: 15px 14px;
+    padding: 10px;
   }
 
   .navmenu>ul>li:last-child {
@@ -1148,6 +1148,7 @@ section,
   .hero h2 {
     font-size: 28px;
   }
+ 
 }
 
 @keyframes fadeInUp {
@@ -1976,6 +1977,9 @@ section,
     font-size: 14px;
     margin: 0 5px;
   }
+  .header .logo img {
+    max-height: 29px;
+}
 }
 
 .portfolio .portfolio-content {
