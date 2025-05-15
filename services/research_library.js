@@ -220,7 +220,8 @@ pre_btn.addEventListener("click", async function () {
 
     let response = await frappe_client.get('/get_knowledge_artificates', filter)
     displayArtifacts(response.message.data)
-
+    pre_btn.disabled = currentPage === 1;
+    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
 
     console.log('-----------', c_dropdown.value, currentPage);
 
@@ -235,6 +236,8 @@ next_btn.addEventListener("click", async function () {
 
     let response = await frappe_client.get('/get_knowledge_artificates', filter)
     displayArtifacts(response.message.data)
+    pre_btn.disabled = currentPage === 1;
+    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
 
     console.log('-----------', c_dropdown.value, currentPage);
 
