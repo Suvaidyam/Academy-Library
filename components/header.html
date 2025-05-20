@@ -20,7 +20,7 @@
       
   <div class="d-flex justify-content-end align-items-end">
       <div class="btn-group mx-2">
-        <button type="button"   class="btn btn-success btn-sm" ><i class="bi bi-megaphone-fill"></i></button>
+        <button type="button" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Announcements"   class="btn btn-success btn-sm" ><i class="bi bi-megaphone-fill"></i></button>
         <button type="button" class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="bi bi-globe2"></i> 
         </button>
@@ -30,7 +30,8 @@
             <li><a class="dropdown-item" href="#">German</a></li>
         </ul>
       </div> 
-      <button type="button" class="btn btn-success btn-sm">Sign in</button>
+      <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
+      <span id="loggedinUser" ></span>
     </div>
       
 
@@ -72,7 +73,7 @@
         <li><a href="#" class="tab-link">Careers</a></li> -->
 
           <!-- <li><a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign in</a></li> -->
-          <li id="signin"><a href="/pages/login.html">Sign in</a></li>
+          <!-- <li id="signin"><a href="/pages/login.html">Sign in</a></li> -->
           <!-- <li id="loggedinUser"></li> -->
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
