@@ -12,6 +12,9 @@ let searchButton = document.getElementById("search-btn");
 let Keywords = document.getElementById("tagsInput");
 let resetButton = document.getElementById("reset-btn"); // Reset button
 
+const c_dropdown = document.getElementById('category-dropdown1');
+
+
 export async function getLibraryList() {
     try {
         // ========== Fetch Knowledge Artifacts ==========
@@ -20,11 +23,12 @@ export async function getLibraryList() {
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
             let posts = response.message.data;
-            console.log("post=========", posts);
+            console.log("post=========bb", posts,currentPage,Math.ceil(response.message.data.length / pageSize));
 
+            // next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
             return posts
         }
-
+1 1
 
         if (!template) {
             console.error("Template not found!");
@@ -190,20 +194,40 @@ function displayArtifacts(filteredArtifacts) {
 }
 
 // work on catogoty dropdown
-const c_dropdown = document.getElementById('category-dropdown1');
 
 c_dropdown.addEventListener('change', async function () {
     let filter = {}
     // filter["artifact_source"] = 'Internal'
     filter["category"] = this.value
+    if (languageDropdown.value !== "Select a Language") {
+        filter["language"] = languageDropdown.value
+
+    }
 
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
     // let posts = response.message.artifacts;
     console.log('Selected value:', this.value, response);
+    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
     displayArtifacts(response.message.data)
 
 
 });
+let handlelanguageDropdown = document.getElementById('language-dropdown')
+handlelanguageDropdown.addEventListener('change', async function () {
+    let filter = {}
+    // filter["artifact_source"] = 'Internal'
+    filter["language"] = this.value
+    if (c_dropdown.value !== "Select a Category") {
+        filter["category"] = c_dropdown.value
+    }
+
+    let response = await frappe_client.get('/get_knowledge_artificates', filter);
+    // let posts = response.message.artifacts;
+    console.log('Selected value:', this.value, c_dropdown.value, response);
+    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
+    displayArtifacts(response.message.data)
+
+})
 // ========== Pagination Logic ==========
 let pre_btn = document.getElementById('prev-btn')
 let next_btn = document.getElementById('next-btn')
@@ -213,10 +237,18 @@ const pageSize = 4;
 
 
 pre_btn.addEventListener("click", async function () {
-    currentPage--; let filter = {
+    currentPage--; 
+    let filter = {
         page: currentPage,
         page_size: pageSize,
     };
+    if (languageDropdown.value !== "Select a Language") {
+        filter["language"] = languageDropdown.value
+
+    }
+    if (c_dropdown.value !== "Select a Category") {
+        filter["category"] = c_dropdown.value
+    }
 
     let response = await frappe_client.get('/get_knowledge_artificates', filter)
     displayArtifacts(response.message.data)
@@ -233,6 +265,13 @@ next_btn.addEventListener("click", async function () {
         page: currentPage,
         page_size: pageSize,
     };
+     if (languageDropdown.value !== "Select a Language") {
+        filter["language"] = languageDropdown.value
+
+    }
+    if (c_dropdown.value !== "Select a Category") {
+        filter["category"] = c_dropdown.value
+    }
 
     let response = await frappe_client.get('/get_knowledge_artificates', filter)
     displayArtifacts(response.message.data)
@@ -246,15 +285,13 @@ next_btn.addEventListener("click", async function () {
 let handleclearbtn = document.getElementById('clearbtn')
 
 handleclearbtn.addEventListener('click', () => {
-    // alert('btn click');
-    // console.log("==================");
     c_dropdown.selectedIndex = 0;
     getLibraryList();
 
 }
 )
 
-let handlelanguageDropdown = document.getElementById('language-dropdown')
+
 const getLanguageList = async () => {
     const args = {
         doctype: 'Language',
@@ -275,40 +312,12 @@ const getLanguageList = async () => {
         option.textContent = lang.language_name || lang.name; // Fallback if `language_name` is missing
         handlelanguageDropdown.appendChild(option);
     });
-    handlelanguageDropdown.addEventListener('change',()=> {
-        try {
-            let filter = {}
-            // filter["artifact_source"] = 'Internal'
-            filter["language"] = handlelanguageDropdown.value
-
-            let response = frappe_client.get('/get_knowledge_artificates', filter);
-            // let posts = response.message.artifacts;
-            console.log('Selected value:', this.value, response);
-            displayArtifacts(response.message.data)
-        }catch (error) {
-            console.error('Error fetching data:', error);
-        }
-
-        console.log('Language List:', handlelanguageDropdown.value)
-    });
-
-
 
 }
 
 
 displayArtifacts()
 
-const handleLanguageChange = async () => {
-    let filter = {}
-    // filter["artifact_source"] = 'Internal'
-    filter["language"] = handlelanguageDropdown.value
-
-    let response = await frappe_client.get('/get_knowledge_artificates', filter);
-    // let posts = response.message.artifacts;
-    console.log('Selected value:', this.value, response);
-    displayArtifacts(response.message.data)
-}
 
 
 

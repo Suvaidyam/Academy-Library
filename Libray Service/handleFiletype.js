@@ -67,62 +67,27 @@ const get_seesion_list = async () => {
         allCheckbox.checked = false;
     }
 
-    if (chapterSelect !== 'Select a Chapter') {
-        // console.log('not a chapter', chapterSelect);
-        try {
-            let response = await frappe_client.get('/get_newsession_list', {
-                file_type: JSON.stringify(checkedValues),
-                selected_chapter: chapterSelect,
-            });
-            console.log('session list:', response);
-            // console.log('Clicked checkbox value:', this.value);
-            setSessionList(response);
-        } catch (err) {
-            console.error('Error fetching session list:', err);
-        }
+    // 
+    let payload = {
+    file_type: JSON.stringify(checkedValues),
+};
 
-    }
+if (chapterSelect && chapterSelect !== 'Select a Chapter') {
+    payload.selected_chapter = chapterSelect;
+} else if (topicSelect && topicSelect !== 'Select a Topic') {
+    payload.selected_topic = topicSelect;
+} else if (courseSelect && courseSelect !== 'Select a Course') {
+    payload.selected_course = courseSelect;
+}
 
-    if (topicSelect !== 'Select a Topic') {
-        try {
-            let response = await frappe_client.get('/get_newsession_list', {
-                file_type: JSON.stringify(checkedValues),
-                selected_topic: topicSelect,
-            });
-            console.log('session list:', response);
-            // console.log('Clicked checkbox value:', this.value);
-            setSessionList(response);
-        } catch (err) {
-            console.error('Error fetching session list:', err);
-        }
+try {
+    const response = await frappe_client.get('/get_newsession_list', payload);
+    console.log('Session list:', response);
+    setSessionList(response);
+} catch (err) {
+    console.error('Error fetching session list:', err);
+}
 
-    }
-    if (courseSelect !== 'Select a Course') {
-        try {
-            let response = await frappe_client.get('/get_newsession_list', {
-                file_type: JSON.stringify(checkedValues),
-                selected_course: courseSelect,
-            });
-            console.log('session list:', response);
-            // console.log('Clicked checkbox value:', this.value);
-            setSessionList(response);
-        } catch (err) {
-            console.error('Error fetching session list:', err);
-        }
-    } else {
-
-        try {
-            let response = await frappe_client.get('/get_newsession_list', {
-                file_type: JSON.stringify(checkedValues),
-                // selected_chapter: selectedValue
-            });
-            console.log('session list:', response);
-            // console.log('Clicked checkbox value:', this.value);
-            setSessionList(response);
-        } catch (err) {
-            console.error('Error fetching session list:', err);
-        }
-    }
 }
 
 
@@ -135,57 +100,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // handle Book sorting 
 
-import set_book_list from "./get_book_list.js";
+// import set_book_list from "./get_book_list.js";
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    const sortOptions = document.getElementById('sortOptions');
-    const radioButtons = sortOptions.querySelectorAll('input[type="radio"]');
-    const clearButton = document.getElementById('clearSelection');
-    const searchInput = document.getElementById('bookSearchInput');
-    // Handle selection change
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', async function () {
-            if (this.checked) {
-                console.log('Selected sort option:', this.value);
-                if (searchInput.value) {
-                    console.log("some value hai", searchInput.value);
-                    try {
-                        const response = await frappe_client.get('/filter_global_book', {
-                            sort_type: this.value,
-                            global_val: searchInput.value
-                        });
-                        console.log('Book list response:', response);
-                        set_book_list(response)
-                    } catch (error) {
-                        console.error('Error fetching book list:', error);
-                    }
-                } else {
-                    console.log("Not any value ");
-                    try {
-                        const response = await frappe_client.get('/get_book_list', {
-                            sort_type: this.value
-                        });
-                        console.log('Book list response:', response);
-                        set_book_list(response)
-                    } catch (error) {
-                        console.error('Error fetching book list:', error);
-                    }
-                }
+// document.addEventListener('DOMContentLoaded', function () {
+//     const sortOptions = document.getElementById('sortOptions');
+//     const radioButtons = sortOptions.querySelectorAll('input[type="radio"]');
+//     const clearButton = document.getElementById('clearSelection');
+//     const searchInput = document.getElementById('bookSearchInput');
+//     // Handle selection change
+//     radioButtons.forEach(radio => {
+//         radio.addEventListener('change', async function () {
+//             if (this.checked) {
+//                 console.log('Selected sort option:', this.value);
+//                 if (searchInput.value) {
+//                     console.log("some value hai", searchInput.value);
+//                     try {
+//                         const response = await frappe_client.get('/filter_global_book', {
+//                             sort_type: this.value,
+//                             global_val: searchInput.value
+//                         });
+//                         console.log('Book list response:', response);
+//                         set_book_list(response)
+//                     } catch (error) {
+//                         console.error('Error fetching book list:', error);
+//                     }
+//                 } else {
+//                     console.log("Not any value ");
+//                     try {
+//                         const response = await frappe_client.get('/get_book_list', {
+//                             sort_type: this.value
+//                         });
+//                         console.log('Book list response:', response);
+//                         set_book_list(response)
+//                     } catch (error) {
+//                         console.error('Error fetching book list:', error);
+//                     }
+//                 }
 
 
-                // Implement your sorting logic here based on this.value
-            }
-        });
-    });
+//                 // Implement your sorting logic here based on this.value
+//             }
+//         });
+//     });
 
-    // Clear selection
-    clearButton.addEventListener('click', function () {
-        const searchInput = document.getElementById('bookSearchInput');
-        searchInput.value = ''
-        radioButtons.forEach(radio => {
-            radio.checked = false;
-        });
-        // console.log('Selection cleared');
-    });
-});
+//     // Clear selection
+//     clearButton.addEventListener('click', function () {
+//         const searchInput = document.getElementById('bookSearchInput');
+//         searchInput.value = ''
+//         radioButtons.forEach(radio => {
+//             radio.checked = false;
+//         });
+//         // console.log('Selection cleared');
+//     });
+// });
