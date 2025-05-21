@@ -28,7 +28,7 @@ export async function getLibraryList() {
             // next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
             return posts
         }
-1 1
+
 
         if (!template) {
             console.error("Template not found!");
