@@ -207,7 +207,7 @@ c_dropdown.addEventListener('change', async function () {
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
     // let posts = response.message.artifacts;
     console.log('Selected value:', this.value, response);
-    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
     displayArtifacts(response.message.data)
 
 
@@ -224,7 +224,7 @@ handlelanguageDropdown.addEventListener('change', async function () {
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
     // let posts = response.message.artifacts;
     console.log('Selected value:', this.value, c_dropdown.value, response);
-    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
     displayArtifacts(response.message.data)
 
 })
@@ -253,7 +253,8 @@ pre_btn.addEventListener("click", async function () {
     let response = await frappe_client.get('/get_knowledge_artificates', filter)
     displayArtifacts(response.message.data)
     pre_btn.disabled = currentPage === 1;
-    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
+    next_btn.disabled = false
+    // next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
 
     console.log('-----------', c_dropdown.value, currentPage);
 
@@ -286,6 +287,8 @@ let handleclearbtn = document.getElementById('clearbtn')
 
 handleclearbtn.addEventListener('click', () => {
     c_dropdown.selectedIndex = 0;
+    languageDropdown.selectedIndex = 0;
+    keysearchInput.value = '';
     getLibraryList();
 
 }
@@ -317,6 +320,33 @@ const getLanguageList = async () => {
 
 
 displayArtifacts()
+
+//handle search from keywords
+
+const keysearchInput = document.getElementById('tagsInput');
+
+keysearchInput.addEventListener('input', async function (e) {
+    // e.preventDefault(); // Prevent actual form submission
+
+    let filter = {
+       keySearchInput: keysearchInput.value
+    };
+    if (languageDropdown.value !== "Select a Language") {
+        filter["language"] = languageDropdown.value
+
+    }
+    if (c_dropdown.value !== "Select a Category") {
+        filter["category"] = c_dropdown.value
+    }
+
+    let response = await frappe_client.get('/get_knowledge_artificates', filter)
+    displayArtifacts(response.message.data)
+
+    console.log('Search Query:', keysearchInput.value,response);
+
+});
+
+
 
 
 
