@@ -300,10 +300,7 @@ const getLanguageList = async () => {
         doctype: 'Language',
         fields: ['name', 'language_name'],
         filters: JSON.stringify({ enabled: '1' })
-
-        // filters: {
-        //   enabled: 1,
-        // },
+        
     };
 
 
