@@ -169,7 +169,14 @@
 
                   <!-- Results List -->
                   <div class="results-container border rounded p-3 mt-4">
-                    <h6>Session List</h6>
+                    <!-- <h6>Session List</h6> -->
+                     <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h6 class="mb-0">Session List</h6>
+                      <div class="view-toggle mb-2">
+                        <div id="cardViewBtn" class="btn btn-outline-primary btn-lg"><i class="bi bi-grid-3x3-gap-fill"></i></div>
+                        <div id="listViewBtn" class="btn btn-outline-secondary btn-lg"> <i class="bi bi-list-ul"></i></div>
+                      </div>
+                    </div>
                     <!-- <p class="text-muted small mb-2">e.g., (someone is searching for externalities)</p> -->
                     <ul class="list-unstyled search-results row gy-4 isotope-container" id="searchResults">
                     <p>loading Session list ............</p>

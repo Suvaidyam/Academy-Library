@@ -3,6 +3,51 @@ let frappe_client = new FrappeApiClient()
 let baseURL = new FrappeApiClient().baseURL;
 
 
+
+
+let currentView = 'card'; // Default
+
+const listBtn = document.getElementById('listViewBtn');
+const cardBtn = document.getElementById('cardViewBtn');
+
+function updateButtonStyles() {
+    if (currentView === 'card') {
+        cardBtn.classList.remove('btn-outline-primary');
+        cardBtn.classList.add('btn-primary');
+
+        listBtn.classList.remove('btn-primary');
+        listBtn.classList.add('btn-outline-secondary');
+    } else {
+        listBtn.classList.remove('btn-outline-secondary');
+        listBtn.classList.add('btn-primary');
+
+        cardBtn.classList.remove('btn-primary');
+        cardBtn.classList.add('btn-outline-primary');
+    }
+}
+
+listBtn.addEventListener('click', function () {
+    currentView = 'list';
+    updateButtonStyles();
+    // const sessionList = document.querySelector('#searchResults');
+    // sessionList.classList.remove('row');
+    get_session_list();
+    console.log(currentView);
+
+});
+
+
+cardBtn.addEventListener('click', function () {
+    currentView = 'card';
+    updateButtonStyles();
+    // const sessionList = document.querySelector('#searchResults');
+    // sessionList.classList.add('row');
+    get_session_list();
+    console.log(currentView);
+
+});
+
+
 const get_all_courses = async () => {
     try {
         let response = await frappe_client.get('/get_all_course_list', {
@@ -32,16 +77,16 @@ const set_course_option = (response) => {
         select.appendChild(option);
     });
 
-    select.addEventListener('change',async function () {
+    select.addEventListener('change', async function () {
         let response = await frappe_client.get('/get_newsession_list', {
             selected_course: this.value
         })
         console.log(this.value)
-        
+
 
         setSessionList(response)
         set_topic_option(this.value)
-        
+
     });
 }
 
@@ -57,7 +102,7 @@ const set_topic_option = async (course) => {
         select.remove(1);
     }
     select.selectedIndex = 0;
-    document.getElementById('chapterSearch').selectedIndex=0
+    document.getElementById('chapterSearch').selectedIndex = 0
 
     // Append dynamic options
     response.message.forEach(course => {
@@ -100,7 +145,7 @@ const set_chapter_option = async (topic) => {
         select.appendChild(option);
     });
 
-   
+
     select.addEventListener('change', async function () {
         console.log(this.value);
         const searchInput = document.getElementById('searchInput');
@@ -117,7 +162,7 @@ const set_chapter_option = async (topic) => {
 
 
 const get_session_list = async () => {
-   
+
     let response = await frappe_client.get('/get_newsession_list')
     console.log('session list', response);
     setSessionList(response)
@@ -205,7 +250,7 @@ export function setSessionList(response) {
     //                 <div class="d-flex justify-content-between px-2">       
     //                     <p>${element.description || "Video File"}</p>
     //                     <a href="" onclick="window.open('${baseURL}${element.session_doc}')" title="PDF" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-                
+
     //                  </div>
     //             </div>
     //           </div>
@@ -243,30 +288,30 @@ export function setSessionList(response) {
     //     SessionList.insertAdjacentHTML("beforeend", result_card);
     // });
 
-    
+
     const docTemplates = {
-  PDF: "../assets/img/portfolio/pdf_109.webp",
-  Docs: "../assets/img/portfolio/doc.webp",
-  Video: "../assets/img/portfolio/branding-1.jpg",
-  Image: "../assets/img/portfolio/books-1.jpg",
-  PPT: "../assets/img/portfolio/powerpoint.jpg"
-};
+        PDF: "../assets/img/portfolio/pdf_109.webp",
+        Docs: "../assets/img/portfolio/doc.webp",
+        Video: "../assets/img/portfolio/branding-1.jpg",
+        Image: "../assets/img/portfolio/books-1.jpg",
+        PPT: "../assets/img/portfolio/powerpoint.jpg"
+    };
 
-const filterMap = {
-  PDF: "filter-app",
-  Docs: "filter-product",
-  Video: "filter-branding",
-  Image: "filter-books",
-  PPT: "filter-books"
-};
+    const filterMap = {
+        PDF: "filter-app",
+        Docs: "filter-product",
+        Video: "filter-branding",
+        Image: "filter-books",
+        PPT: "filter-books"
+    };
 
-response.message.forEach(element => {
-  const imgSrc = docTemplates[element.doc_type] || "";
-  const filterClass = filterMap[element.doc_type] || "";
-  const description = element.description || `${element.doc_type} File`;
+    response.message.forEach(element => {
+        const imgSrc = docTemplates[element.doc_type] || "";
+        const filterClass = filterMap[element.doc_type] || "";
+        const description = element.description || `${element.doc_type} File`;
 
-  const result_card = `
-    <div onclick="window.open('${baseURL}${element.session_doc}')" class="col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
+        const result_card = `
+    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
       <div class="portfolio-content h-100">
         <img src="${imgSrc}" class="img-fluid" alt="">
         <div class="portfolio-info">
@@ -280,8 +325,32 @@ response.message.forEach(element => {
     </div>
   `;
 
-  SessionList.insertAdjacentHTML("beforeend", result_card);
-});
+        let list_card = `
+            <div onclick="window.open('${baseURL}${element.session_doc}')" class="col-12 mb-4" style="cursor: pointer;">
+            <div class="row g-3 align-items-center border rounded p-3">
+                <div class="col-md-4">
+                <img src="${imgSrc}" class="img-fluid rounded" alt="PDF">
+                </div>
+                <div class="col-md-8">
+                <h5 class="mb-1">${element.name}</h5>
+                <div>
+                   <div class="d-flex justify-content-between  pe-3">
+            <p>${description}</p>
+            <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
+          </div>
+                </div>
+                </div>
+            </div>
+            </div>`;
+
+        if (currentView === 'list') {
+            SessionList.insertAdjacentHTML("beforeend", list_card);
+
+        } else if (currentView === 'card') {
+
+            SessionList.insertAdjacentHTML("beforeend", result_card);
+        }
+    });
 
 }
 
