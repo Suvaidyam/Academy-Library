@@ -26,23 +26,89 @@ function updateButtonStyles() {
     }
 }
 
+
 listBtn.addEventListener('click', function () {
+    listBtn.disabled = true;
+    cardBtn.disabled = false;
+    // Convert HTMLCollection to an array using Array.from()
+    let mainDivs = Array.from(document.getElementsByClassName('main'));
+    // let portfolioDiv = document.querySelector('.portfolio-content');
+    let portfolioDiv = Array.from(document.getElementsByClassName('portfolio-content'));
+    portfolioDiv.forEach(div => {
+        let children = div.getElementsByClassName('portfolio-info');
+
+        // Convert HTMLCollection to array and loop through each child
+        Array.from(children).forEach(child => {
+            child.classList.add('w-100','px-3');
+        });
+
+        div.classList.remove('h-100');
+        div.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'pe-5', 'border', 'rounded', 'p-3');
+    })
+
+
+    console.log(mainDivs, 'mainDiv');
+
+    mainDivs.forEach(div => {
+        div.classList.remove('col-lg-4');
+        div.classList.add('col-12');
+
+        // div.classList.add('border rounded');
+
+        div.classList.remove('col-md-6');
+        div.classList.add('col-md-12');
+
+
+    });
+    let imgDivs = Array.from(document.getElementsByClassName('img-fluid'));
+
+    console.log(imgDivs, 'imgDiv');
+
+    imgDivs.forEach(div => {
+        div.classList.add('col-4');
+    })
+
     currentView = 'list';
     updateButtonStyles();
-    // const sessionList = document.querySelector('#searchResults');
-    // sessionList.classList.remove('row');
-    get_session_list();
-    console.log(currentView);
 
+    console.log(currentView);
 });
 
 
 cardBtn.addEventListener('click', function () {
+    cardBtn.disabled = true;
+    listBtn.disabled = false;
+
+    let mainDivs = Array.from(document.getElementsByClassName('main'));
+    let imgDivs = Array.from(document.getElementsByClassName('img-fluid'));
+    let portfolioDiv = Array.from(document.getElementsByClassName('portfolio-content'));
+    portfolioDiv.forEach(div => {
+        div.classList.add('h-100');
+       let children = div.getElementsByClassName('portfolio-info');
+
+    Array.from(children).forEach(child => {
+        child.classList.remove('w-100','px-3');
+    });
+        div.classList.remove('d-flex', 'align-items-center', 'justify-content-between', 'pe-5', 'border', 'rounded', 'p-3');
+    })
+    imgDivs.forEach(div => {
+        div.classList.remove('col-4');
+    })
+
+
+    mainDivs.forEach(div => {
+        div.classList.add('col-lg-4');
+        div.classList.remove('col-12');
+
+        div.classList.add('col-md-6');
+        div.classList.remove('col-md-12');
+
+    })
+
+
     currentView = 'card';
     updateButtonStyles();
-    // const sessionList = document.querySelector('#searchResults');
-    // sessionList.classList.add('row');
-    get_session_list();
+
     console.log(currentView);
 
 });
@@ -172,25 +238,7 @@ const get_session_list = async () => {
 
 }
 
-// export function setSessionList(response) {
-//     let SessionList = document.querySelector('#searchResults')
-//     console.log(response);
-//     SessionList.innerHTML = ""
-//     // console.log(SessionList, 'emptyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
 
-//     response.message.forEach(element => {
-
-
-//         let result_card = ` 
-//                       <li class="result-item" data-type="pdf">${element.name} (${element.doc_type})</li>
-//                     `
-
-
-//         SessionList.insertAdjacentHTML("beforeend", result_card);
-
-//     });
-
-// }
 export function setSessionList(response) {
     let SessionList = document.querySelector('#searchResults');
     console.log(response);
@@ -206,87 +254,7 @@ export function setSessionList(response) {
         }
     }
 
-    // response.message.forEach(element => {
-    //     let result_card = "";
-    //     console.log('element.doc_type', element.doc_type);
-
-
-    //     if (element.doc_type === "PDF") {
-    //         result_card = `
-    //         <div onclick="window.open('${baseURL}${element.session_doc}')"   class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-    //           <div class="portfolio-content h-100">
-    //             <img src="../assets/img/portfolio/pdf_109.webp" class="img-fluid" alt="">
-    //             <div class="portfolio-info">
-    //               <h4>${element.name}</h4>
-    //               <div class="d-flex justify-content-between px-2">
-    //                     <p>${element.description || "PDF File"}</p>
-    //                     <a href="" onclick="window.open('${baseURL}${element.session_doc}')" title="PDF" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>`;
-    //     } else if (element.doc_type === "Docs") {
-    //         result_card = `
-    //         <div onclick="window.open('${baseURL}${element.session_doc}')"  class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-    //           <div class="portfolio-content h-100">
-    //             <img src="../assets/img/portfolio/doc.webp" class="img-fluid" alt="">
-    //             <div class="portfolio-info">
-    //               <h4>${element.name}</h4>
-    //                <div class="d-flex justify-content-between px-2">
-    //                     <p>${element.description || "Document File"}</p>
-    //                     <a href="" onclick="window.open('${baseURL}${element.session_doc}')" title="PDF" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-
-    //                 </div>
-    //             </div>
-    //           </div>
-    //         </div>`;
-    //     } else if (element.doc_type === "Video") {
-    //         result_card = `
-    //         <div onclick="window.open('${baseURL}${element.session_doc}')"  class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-    //           <div class="portfolio-content h-100">
-    //             <img src="../assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
-    //             <div class="portfolio-info">
-    //               <h4>${element.name}</h4>
-    //                 <div class="d-flex justify-content-between px-2">       
-    //                     <p>${element.description || "Video File"}</p>
-    //                     <a href="" onclick="window.open('${baseURL}${element.session_doc}')" title="PDF" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-
-    //                  </div>
-    //             </div>
-    //           </div>
-    //         </div>`;
-    //     } else if (element.doc_type === "Image") {
-    //         result_card = `
-    //         <div onclick="window.open('${baseURL}${element.session_doc}')"  class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-    //           <div class="portfolio-content h-100">
-    //             <img src="../assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
-    //             <div class="portfolio-info">
-    //               <h4>${element.name}</h4>
-    //                 <div class="d-flex justify-content-between px-2">
-    //                     <p>${element.description || "Image File"}</p>
-    //                     <a href="" onclick="window.open('${baseURL}${element.session_doc}')" title="PDF" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-    //                 </div>
-    //             </div>
-    //           </div>
-    //         </div>`;
-    //     }else if (element.doc_type === "PPT") {
-    //         result_card = `
-    //         <div onclick="window.open('${baseURL}${element.session_doc}')"  class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-    //           <div class="portfolio-content h-100">
-    //             <img src="../assets/img/portfolio/powerpoint.jpg" class="img-fluid" alt="">
-    //             <div class="portfolio-info">
-    //               <h4>${element.name}</h4>
-    //                 <div class="d-flex justify-content-between px-2">
-    //                     <p>${element.description || "PPT File"}</p>
-    //                     <a href="" onclick="window.open('${baseURL}${element.session_doc}')" title="PDF" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-    //                 </div>
-    //             </div>
-    //           </div>
-    //         </div>`;
-    //     }
-
-    //     SessionList.insertAdjacentHTML("beforeend", result_card);
-    // });
+   
 
 
     const docTemplates = {
@@ -311,8 +279,8 @@ export function setSessionList(response) {
         const description = element.description || `${element.doc_type} File`;
 
         const result_card = `
-    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
-      <div class="portfolio-content h-100">
+    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
+      <div class="portfolio-content  h-100">
         <img src="${imgSrc}" class="img-fluid" alt="">
         <div class="portfolio-info">
           <h4>${element.name}</h4>
@@ -325,23 +293,24 @@ export function setSessionList(response) {
     </div>
   `;
 
-        let list_card = `
-            <div onclick="window.open('${baseURL}${element.session_doc}')" class="col-12 mb-4" style="cursor: pointer;">
-            <div class="row g-3 align-items-center border rounded p-3">
-                <div class="col-md-4">
-                <img src="${imgSrc}" class="img-fluid rounded" alt="PDF">
-                </div>
-                <div class="col-md-8">
-                <h5 class="mb-1">${element.name}</h5>
-                <div>
-                   <div class="d-flex justify-content-between  pe-3">
-            <p>${description}</p>
-            <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-          </div>
-                </div>
-                </div>
-            </div>
-            </div>`;
+        
+        // let list_card = `
+        //     <div onclick="window.open('${baseURL}${element.session_doc}')" class="col-12 mb-4" style="cursor: pointer;">
+        //     <div class="row g-3 align-items-center border rounded p-3">
+        //         <div class="col-md-4">
+        //         <img src="${imgSrc}" class="img-fluid rounded" alt="PDF">
+        //         </div>
+        //         <div class="col-md-8">
+        //         <h5 class="mb-1">${element.name}</h5>
+        //         <div>
+        //            <div class="d-flex justify-content-between  pe-3">
+        //     <p>${description}</p>
+        //     <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
+        //   </div>
+        //         </div>
+        //         </div>
+        //     </div>
+        //     </div>`;
 
         if (currentView === 'list') {
             SessionList.insertAdjacentHTML("beforeend", list_card);
@@ -376,6 +345,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 const form = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
+
+form.addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent actual form submission
+
+    let response = await frappe_client.get('/get_newsession_list', {
+        global_search_val: searchInput.value
+    })
+    setSessionList(response)
+    // console.log('Search Query:', searchInput.value, response);
+
+});
 
 searchInput.addEventListener('input', async function (e) {
     e.preventDefault(); // Prevent actual form submission
