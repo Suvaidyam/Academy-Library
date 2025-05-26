@@ -930,7 +930,7 @@ color: #012970;
 /*--------------------------------------------------------------
 # Global Sections
 --------------------------------------------------------------*/
-section,
+
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
