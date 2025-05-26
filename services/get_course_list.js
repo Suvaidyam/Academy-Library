@@ -15,7 +15,7 @@ export async function get_dynaic_course_list(courseType, navtype) {
     // Make GET request to backend with courseType and navtype as params
     let response = await frappe_client.get('/get_all_courses', {
       course_type: courseType,
-      navtype: navtype,
+      // navtype: navtype,
     });
 
     // On successful response, hide the loader and render the course list
