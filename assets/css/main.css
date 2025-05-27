@@ -585,7 +585,11 @@ color: #012970;
   line-height: 0;
   border-radius: 5px;
 }
-
+.about .about-content ul i
+ img{
+  width: 48px;
+  height: 48px;
+ }
 .about .about-content ul h4 {
   font-size: 18px;
   font-weight: 600;
@@ -1014,7 +1018,8 @@ color: #012970;
   top: 0;
   width: 130%;
   height: 95%;
-  background: linear-gradient(to right, color-mix(in srgb, var(--background-color), transparent 90%), var(--background-color)), url("../img/hero-bg.jpg") center top no-repeat;
+  /* background: linear-gradient(to right, color-mix(in srgb, var(--background-color), transparent 100%), var(--background-color)), url("../img/hero-bg.jpg") center top no-repeat; */
+  background: linear-gradient(to right, color-mix(in srgb, var(--background-color), transparent 100%), var(--background-color)), url("../img/hero-bg.jpg") center top no-repeat;
   background-size: cover;
   z-index: 0;
   border-radius: 0 0 50% 50%;
@@ -2091,6 +2096,7 @@ color: #012970;
   transition: 0.3s;
   visibility: hidden;
   opacity: 0;
+  display: none;
 }
 
 .team .member .member-img .social a {
@@ -2130,6 +2136,7 @@ color: #012970;
 .team .member:hover .member-img .social {
   padding-bottom: 0;
   visibility: visible;
+  display: none;
   opacity: 1;
 }
 
