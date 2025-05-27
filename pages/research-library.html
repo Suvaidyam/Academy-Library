@@ -70,13 +70,20 @@
                     </select>
                   </div>
                 </div>
-                <!-- <div class="row mb-3">
+                <div class="row mb-3">
                   <div class="col-sm-12">
                     <select class="form-select" id="author-dropdown" aria-label="Default select example">
-                      <option selected>Select a Author</option>
+                      <option disabled selected>Select a Author</option>
                     </select>
                   </div>
-                </div> -->
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <select class="form-select" id="year-dropdown" aria-label="Default select example">
+                      <option disabled selected>Select a Year</option>
+                    </select>
+                  </div>
+                </div>
                 <div class="row mb-3">
                   <div class="col-sm-12">
                     <select class="form-select" id="language-dropdown" aria-label="Default select example">
@@ -84,17 +91,23 @@
                     </select>
                   </div>
                 </div>
+                <div class="row mb-3 d-none">
+                  <div class="col-sm-12">
+                    <input id="belongToInput" class="form-control" placeholder="Search by Belong To">
+                  </div>
+                </div>
+
                 <div class="row mb-3">
                   <div class="col-sm-12">
                     <input id="tagsInput" class="form-control" placeholder="Keywords">
                   </div>
                 </div>
                 <div>
-                  
+
                   <button type="button" id="clearbtn" style="width: 100%;" class="btn btn-outline-secondary">
                     Clear
                   </button>
-                  
+
                   <!-- <div class="services-list"><button id="clear_btn" class="btn btn-outline-secondary">
                       <i class="bi bi-x-circle"></i> Clear
                     </button>
@@ -111,7 +124,8 @@
               <h4>Have a Question?</h4>
               <!-- <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1 5589 55488
                   55</span></p> -->
-                  <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a href="mailto:support@ryss.ap.gov.in">support@ryss.ap.gov.in</a></p>
+              <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a
+                  href="mailto:support@ryss.ap.gov.in">support@ryss.ap.gov.in</a></p>
             </div>
           </div>
 
@@ -147,7 +161,7 @@
             </ul> -->
 
             <div class="tab-content p-3 border border-top-0" id="researchTabContent">
-              <div class="tab-pane fade show active" id="articles" role="tabpanel"  aria-labelledby="articles-tab">
+              <div class="tab-pane fade show active" id="articles" role="tabpanel" aria-labelledby="articles-tab">
                 <section id="blog-posts" class="blog-posts ">
                   <div id="loader"></div>
                   <div class="container">
@@ -177,8 +191,8 @@
                   </div>
                 </section>
                 <!-- New Changes Blog Posts Section-->
-    
-    
+
+
                 <!-- Blog Pagination Section -->
                 <div id="pagination m-0" class="d-flex justify-content-between align-items-center">
                   <button id="prev-btn" disabled class="btn border-0 bg-transparent"><i
@@ -186,19 +200,19 @@
                   <button id="next-btn" class="btn border-0 bg-transparent"><i
                       class="bi bi-arrow-right-circle fs-1 "></i></button>
                 </div>
-               </div>
-               
-               <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
+              </div>
+
+              <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
                 publications
-               </div>
-               <div class="tab-pane fade" id="journals" role="tabpanel" aria-labelledby="journals-tab">
+              </div>
+              <div class="tab-pane fade" id="journals" role="tabpanel" aria-labelledby="journals-tab">
                 journals
-               </div>
-               <div class="tab-pane fade" id="case-studies" role="tabpanel" aria-labelledby="case-studies-tab">
+              </div>
+              <div class="tab-pane fade" id="case-studies" role="tabpanel" aria-labelledby="case-studies-tab">
                 case-studies
-               </div>
+              </div>
             </div>
-            
+
 
             <!-- <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
@@ -206,8 +220,8 @@
                 </div>
               </nav> -->
             <!-- New Changes Blog Posts Section-->
-          
-           
+
+
 
           </div>
         </div>
