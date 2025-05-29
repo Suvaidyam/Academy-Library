@@ -16,12 +16,16 @@ let belongToInput = document.getElementById("belongToInput");
 // let resetButton = document.getElementById("reset-btn"); // Reset button
 
 const c_dropdown = document.getElementById('category-dropdown1');
+let currentPage = 1;
+const pageSize = 1;
 
 
 export async function getLibraryList() {
     try {
         // ========== Fetch Knowledge Artifacts ==========
-        let filter = { page_size: pageSize, };
+        let filter = {
+            page: currentPage,
+            page_size: pageSize, page_size: pageSize, };
         filter["artifact_source"] = 'Internal'
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
@@ -136,7 +140,9 @@ export async function getLibraryList() {
 
         // ========== Reset Button Click Event ==========
         // resetButton.addEventListener("click", () => {
-        //     filter = {};
+        //     filter = {
+        // page: currentPage,
+        // page_size: pageSize,};
         //     filter["artifact_source"] = 'Internal'
         //     Keywords.value = ''
         //     authorDropdown.value = ''
@@ -206,6 +212,8 @@ c_dropdown.addEventListener('change', async function () {
 
 
     const filter = {
+        page: currentPage,
+        page_size: pageSize,
         category: this.value,
         ...(languageDropdown.value && languageDropdown.value !== 'Select a Language' && { language: languageDropdown.value }),
         ...(authorDropdown.value && authorDropdown.value !== 'Select a Author' && { author: authorDropdown.value }),
@@ -240,6 +248,8 @@ authorDropdown.addEventListener('change', async function () {
     const search = document.getElementById('tagsInput').value;
 
     const filter = {
+        page: currentPage,
+        page_size: pageSize,
         author: this.value,
         ...(search && { keySearchInput: search }),
         ...(year !== "Select a Year" && { year }),
@@ -281,6 +291,8 @@ handlelanguageDropdown.addEventListener('change', async function () {
     const language = this.value;
 
     const filter = {
+        page: currentPage,
+        page_size: pageSize,
         ...(keySearch && { keySearchInput: keySearch }),
         ...(author !== "Select a Author" && { author }),
         ...(year !== "Select a Year" && { year }),
@@ -300,57 +312,69 @@ handlelanguageDropdown.addEventListener('change', async function () {
 let pre_btn = document.getElementById('prev-btn')
 let next_btn = document.getElementById('next-btn')
 
-let currentPage = 1;
-const pageSize = 4;
+
 
 
 pre_btn.addEventListener("click", async function () {
     currentPage--;
-    let filter = {
+
+    const language = languageDropdown.value;
+    const category = c_dropdown.value;
+    const year = document.getElementById('year-dropdown').value;
+    const search = document.getElementById('tagsInput').value;
+    const author = document.getElementById('author-dropdown').value;
+    const belongTo = document.getElementById('belongToInput').value;
+
+    const filter = {
         page: currentPage,
         page_size: pageSize,
+        ...(search && { keySearchInput: search }),
+        ...(year !== "Select a Year" && { year }),
+        ...(language !== "Select a Language" && { language }),
+        ...(category !== "Select a Category" && { category }),
+        ...(author && { author }),
+        ...(belongTo && { belong_to: belongTo }),
     };
-    if (languageDropdown.value !== "Select a Language") {
-        filter["language"] = languageDropdown.value
 
-    }
-    if (c_dropdown.value !== "Select a Category") {
-        filter["category"] = c_dropdown.value
-    }
+    const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    displayArtifacts(response.message.data);
 
-    let response = await frappe_client.get('/get_knowledge_artificates', filter)
-    displayArtifacts(response.message.data)
     pre_btn.disabled = currentPage === 1;
-    next_btn.disabled = false
-    // next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
+    next_btn.disabled = false;
 
-    console.log('-----------', c_dropdown.value, currentPage);
+    console.log('Previous Page:', category, currentPage);
+});
 
-
-})
 next_btn.addEventListener("click", async function () {
     currentPage++;
-    let filter = {
+
+    const language = languageDropdown.value;
+    const category = c_dropdown.value;
+    const year = document.getElementById('year-dropdown').value;
+    const search = document.getElementById('tagsInput').value;
+    const author = document.getElementById('author-dropdown').value;
+    const belongTo = document.getElementById('belongToInput').value;
+
+    const filter = {
         page: currentPage,
         page_size: pageSize,
+        ...(search && { keySearchInput: search }),
+        ...(year !== "Select a Year" && { year }),
+        ...(language !== "Select a Language" && { language }),
+        ...(category !== "Select a Category" && { category }),
+        ...(author && { author }),
+        ...(belongTo && { belong_to: belongTo }),
     };
-    if (languageDropdown.value !== "Select a Language") {
-        filter["language"] = languageDropdown.value
 
-    }
-    if (c_dropdown.value !== "Select a Category") {
-        filter["category"] = c_dropdown.value
-    }
+    const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    displayArtifacts(response.message.data);
 
-    let response = await frappe_client.get('/get_knowledge_artificates', filter)
-    displayArtifacts(response.message.data)
     pre_btn.disabled = currentPage === 1;
-    next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
 
-    console.log('-----------', c_dropdown.value, currentPage);
+    console.log('Next Page:', category, currentPage);
+});
 
-
-})
 let handleclearbtn = document.getElementById('clearbtn')
 
 handleclearbtn.addEventListener('click', () => {
@@ -406,6 +430,8 @@ keysearchInput.addEventListener('input', async () => {
     const search = keysearchInput.value;
 
     const filter = {
+        page: currentPage,
+        page_size: pageSize,
         ...(search && { keySearchInput: search }),
         ...(language !== "Select a Language" && { language }),
         ...(category !== "Select a Category" && { category }),
@@ -465,6 +491,8 @@ yearDropdown.addEventListener('change', async function () {
     const search = document.getElementById('tagsInput').value;
 
     const filter = {
+        page: currentPage,
+        page_size: pageSize,
         year: this.value,
         ...(search && { keySearchInput: search }),
         ...(author !== "Select a Author" && { author }),
@@ -487,6 +515,8 @@ belongToInput.addEventListener('input', async function () {
     const search = document.getElementById('tagsInput').value;
 
     const filter = {
+        page: currentPage,
+        page_size: pageSize,
         belongTo: this.value,
         ...(search && { keySearchInput: search }),
         ...(author !== "Select a Author" && { author }),
