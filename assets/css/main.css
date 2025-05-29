@@ -29,7 +29,7 @@
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #ffffff;  /* The default color of the main navmenu links */
+  --nav-color: #1e4356;  /* The default color of the main navmenu links */
   --nav-hover-color: #68a4c4; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
@@ -320,7 +320,8 @@ color: #012970;
 
   .navmenu a,
   .navmenu a:focus {
-    color: var(--nav-color);
+    /* color: var(--nav-color); */
+    color: var(--heading-color);
     font-size: 15px;
     padding: 0 2px;
     font-family: var(--nav-font);
@@ -998,46 +999,29 @@ color: #012970;
   margin-bottom: 0;
 }
 
+ 
+
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
 .hero {
+  padding: 0;
+}
+ 
+
+.hero .carousel {
   width: 100%;
   min-height: 80vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+  padding: 0;
+  margin: 0;
   position: relative;
-  background-color: transparent;
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 130%;
-  height: 95%;
-  /* background: linear-gradient(to right, color-mix(in srgb, var(--background-color), transparent 100%), var(--background-color)), url("../img/hero-bg.jpg") center top no-repeat; */
-  background: linear-gradient(to right, color-mix(in srgb, var(--background-color), transparent 100%), var(--background-color)), url("../img/hero-bg.jpg") center top no-repeat;
-  background-size: cover;
-  z-index: 0;
-  border-radius: 0 0 50% 50%;
-  transform: translateX(-50%) rotate(0deg);
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 130%;
-  height: 96%;
-  background: var(--background-color);
-  opacity: 0.3;
-  z-index: 0;
-  border-radius: 0 0 50% 50%;
-  transform: translateX(-50%) translateY(18px) rotate(2deg);
+@media (max-height: 500px),
+(max-width: 580px) {
+  .hero .carousel {
+    min-height: 100vh;
+  }
 }
 
 .hero img {
@@ -1050,74 +1034,126 @@ color: #012970;
   z-index: 1;
 }
 
-.hero .carousel {
-  position: relative;
-  width: 100%;
+.hero .carousel-item {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.hero .container {
+  /* background: color-mix(in srgb, var(--surface-color), transparent 40%); */
+  position: relative;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 50px;
+  max-width: 780px;
+  color:  var(--contrast-color);
+  /* border-top: 4px solid var(--accent-color); */
   z-index: 3;
 }
 
-.hero .carousel-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
+@media (max-width: 1200px) {
+  .hero .container {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
 }
 
 .hero h2 {
-  margin-bottom: 30px;
-  font-size: 48px;
+  margin-bottom: 20px;
+  font-size: 36px;
   font-weight: 700;
-  animation: fadeInDown 1s both;
-  display: block;
+  color: var(--contrast-color);
 }
 
-.hero p {
-  width: 80%;
-  margin: 0 auto 30px auto;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-  animation: fadeInDown 1s both 0.2s;
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 30px;
+  }
 }
 
-.hero .carousel-control-prev,
+ .btn-get-started {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 32px;
+  transition: 0.5s;
+  margin: 10px;
+  border-radius: 50px;
+  color: var(--contrast-color);
+  background: var(--accent-color);
+}
+
+ .btn-get-started:hover {
+  background: var(--surface-color);
+  color: var(--accent-color);
+}
+
+.hero .carousel-control-prev {
+  justify-content: start;
+}
+
+@media (min-width: 640px) {
+  .hero .carousel-control-prev {
+    padding-left: 15px;
+  }
+}
+
 .hero .carousel-control-next {
-  width: 10%;
+  justify-content: end;
+}
+
+@media (min-width: 640px) {
+  .hero .carousel-control-next {
+    padding-right: 15px;
+  }
 }
 
 .hero .carousel-control-next-icon,
 .hero .carousel-control-prev-icon {
   background: none;
-  font-size: 48px;
-  line-height: 1;
-  width: auto;
-  height: auto;
-}
-
- .btn-get-started {
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 12px 32px;
+  font-size: 26px;
+  line-height: 0;
+  background: color-mix(in srgb, var(--default-color), transparent 90%);
   border-radius: 50px;
-  transition: 0.5s;
-  line-height: 1;
-  margin: 10px;
-  color: var(--default-color);
-  animation: fadeInUp 1s both 0.4s;
-  border: 2px solid var(--accent-color);
-}
-
- .btn-get-started:hover {
-  background: var(--accent-color);
   color: var(--contrast-color);
-  text-decoration: none;
+  transition: 0.3s;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hero .carousel-indicators {
-  bottom: -60px;
+.hero .carousel-control-prev,
+.hero .carousel-control-next {
+  transition: 0.3s;
+  opacity: 0.5;
+}
+
+.hero .carousel-control-prev:focus,
+.hero .carousel-control-next:focus {
+  opacity: 0.5;
+}
+
+.hero .carousel-control-prev:hover,
+.hero .carousel-control-next:hover {
+  opacity: 0.9;
+}
+
+.hero .carousel-control-prev:hover .carousel-control-next-icon,
+.hero .carousel-control-prev:hover .carousel-control-prev-icon,
+.hero .carousel-control-next:hover .carousel-control-next-icon,
+.hero .carousel-control-next:hover .carousel-control-prev-icon {
+  background: var(--accent-color);
+  color: var(--default-color);
 }
 
 .hero .carousel-indicators li {
@@ -1128,7 +1164,7 @@ color: #012970;
   width: 12px;
   height: 12px;
   border-radius: 50px;
-  opacity: 0.3;
+  opacity: 0.6;
   transition: 0.3s;
 }
 
@@ -1137,48 +1173,6 @@ color: #012970;
   background: var(--accent-color);
 }
 
-@media (min-width: 1024px) {
-  .hero p {
-    width: 60%;
-  }
-
-  .hero .carousel-control-prev,
-  .hero .carousel-control-next {
-    width: 5%;
-  }
-}
-
-@media (max-width: 768px),
-(max-height: 700px) {
-  .hero h2 {
-    font-size: 28px;
-  }
- 
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
 
 /*--------------------------------------------------------------
 # Featured Services Section

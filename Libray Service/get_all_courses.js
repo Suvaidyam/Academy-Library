@@ -279,11 +279,11 @@ export function setSessionList(response) {
         const description = element.description || `${element.doc_type} File`;
 
         const result_card = `
-    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
+    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-3 col-md-4 portfolio-item isotope-item ${filterClass}">
       <div class="portfolio-content  h-100">
         <img src="${imgSrc}" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>${element.name}</h4>
+          <p>${element.name}</p>
           <div class="d-flex justify-content-between  pe-3">
             <p>${description}</p>
             <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
