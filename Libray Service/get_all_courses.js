@@ -34,6 +34,7 @@ listBtn.addEventListener('click', function () {
     let mainDivs = Array.from(document.getElementsByClassName('main'));
     // let portfolioDiv = document.querySelector('.portfolio-content');
     let portfolioDiv = Array.from(document.getElementsByClassName('portfolio-content'));
+  
     portfolioDiv.forEach(div => {
         let children = div.getElementsByClassName('portfolio-info');
 
@@ -41,7 +42,7 @@ listBtn.addEventListener('click', function () {
         Array.from(children).forEach(child => {
             child.classList.add('w-100','px-3');
         });
-
+        
         div.classList.remove('h-100');
         div.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'pe-5', 'border', 'rounded', 'p-3');
     })
@@ -50,8 +51,8 @@ listBtn.addEventListener('click', function () {
     console.log(mainDivs, 'mainDiv');
 
     mainDivs.forEach(div => {
-        div.classList.remove('col-lg-4');
-        div.classList.add('col-12');
+        div.classList.remove('col-lg-3', 'col-md-3');
+        div.classList.add('col-12','col-lg-6', 'col-md-6');
 
         // div.classList.add('border rounded');
 
@@ -97,10 +98,11 @@ cardBtn.addEventListener('click', function () {
 
 
     mainDivs.forEach(div => {
-        div.classList.add('col-lg-4');
-        div.classList.remove('col-12');
+    
+          div.classList.remove('col-lg-6', 'col-md-6');
+        div.classList.add('col-12','col-lg-3', 'col-md-3');
 
-        div.classList.add('col-md-6');
+        div.classList.add('col-md-3');
         div.classList.remove('col-md-12');
 
     })

@@ -1071,6 +1071,9 @@ color: #012970;
   font-weight: 700;
   color: var(--contrast-color);
 }
+.text-color{
+  color: var(--heading-color) !important;
+}
 
 @media (max-width: 768px) {
   .hero h2 {
@@ -2878,3 +2881,15 @@ color: #012970;
 	border-radius: 8px;
 	margin-left: 54px;
 }
+.noanchor{ 
+  text-decoration: none !important;
+  color: var(--default-color) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: inline-block !important;
+  padding: 5px 10px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.3s ease !important;
+} 
+.noanchor:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
+.card:hover{box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
+#searchResults img{ height: 100px;}
