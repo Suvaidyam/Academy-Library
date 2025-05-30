@@ -2892,3 +2892,4 @@ color: #012970;
 } 
 .noanchor:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
 .card:hover{box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
+#searchResults img{ height: 100px;}
