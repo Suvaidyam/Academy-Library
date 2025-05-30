@@ -2884,11 +2884,11 @@ color: #012970;
 .noanchor{ 
   text-decoration: none !important;
   color: var(--default-color) !important;
-     background-color: unset !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   display: inline-block !important;
   padding: 5px 10px !important;
   border-radius: 4px !important;
   transition: background-color 0.3s ease !important;
-  background-color: transparent !important;
 } 
+.noanchor:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
+.card:hover{box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
