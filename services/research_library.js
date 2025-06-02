@@ -17,7 +17,7 @@ let belongToInput = document.getElementById("belongToInput");
 
 const c_dropdown = document.getElementById('category-dropdown1');
 let currentPage = 1;
-const pageSize = 1;
+const pageSize = 4;
 
 
 export async function getLibraryList() {
@@ -25,7 +25,8 @@ export async function getLibraryList() {
         // ========== Fetch Knowledge Artifacts ==========
         let filter = {
             page: currentPage,
-            page_size: pageSize, page_size: pageSize, };
+            page_size: pageSize, page_size: pageSize,
+        };
         filter["artifact_source"] = 'Internal'
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
@@ -332,7 +333,7 @@ pre_btn.addEventListener("click", async function () {
         ...(year !== "Select a Year" && { year }),
         ...(language !== "Select a Language" && { language }),
         ...(category !== "Select a Category" && { category }),
-        ...(author && { author }),
+        ...(author !== "Select a Author" && { author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
@@ -362,7 +363,7 @@ next_btn.addEventListener("click", async function () {
         ...(year !== "Select a Year" && { year }),
         ...(language !== "Select a Language" && { language }),
         ...(category !== "Select a Category" && { category }),
-        ...(author && { author }),
+        ...(author !=="Select a Author" && { author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
@@ -502,7 +503,7 @@ yearDropdown.addEventListener('change', async function () {
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
-    
+
     next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
     displayArtifacts(response.message.data);
 });
@@ -527,7 +528,7 @@ belongToInput.addEventListener('input', async function () {
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
-    
+
     next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
     displayArtifacts(response.message.data);
 });
