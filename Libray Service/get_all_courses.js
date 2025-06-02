@@ -34,6 +34,7 @@ listBtn.addEventListener('click', function () {
     let mainDivs = Array.from(document.getElementsByClassName('main'));
     // let portfolioDiv = document.querySelector('.portfolio-content');
     let portfolioDiv = Array.from(document.getElementsByClassName('portfolio-content'));
+  
     portfolioDiv.forEach(div => {
         let children = div.getElementsByClassName('portfolio-info');
 
@@ -41,7 +42,7 @@ listBtn.addEventListener('click', function () {
         Array.from(children).forEach(child => {
             child.classList.add('w-100','px-3');
         });
-
+        
         div.classList.remove('h-100');
         div.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'pe-5', 'border', 'rounded', 'p-3');
     })
@@ -50,8 +51,8 @@ listBtn.addEventListener('click', function () {
     console.log(mainDivs, 'mainDiv');
 
     mainDivs.forEach(div => {
-        div.classList.remove('col-lg-4');
-        div.classList.add('col-12');
+        div.classList.remove('col-lg-3', 'col-md-3');
+        div.classList.add('col-12','col-lg-6', 'col-md-6');
 
         // div.classList.add('border rounded');
 
@@ -97,10 +98,11 @@ cardBtn.addEventListener('click', function () {
 
 
     mainDivs.forEach(div => {
-        div.classList.add('col-lg-4');
-        div.classList.remove('col-12');
+    
+          div.classList.remove('col-lg-6', 'col-md-6');
+        div.classList.add('col-12','col-lg-3', 'col-md-3');
 
-        div.classList.add('col-md-6');
+        div.classList.add('col-md-3');
         div.classList.remove('col-md-12');
 
     })
@@ -279,11 +281,11 @@ export function setSessionList(response) {
         const description = element.description || `${element.doc_type} File`;
 
         const result_card = `
-    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
+    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-3 col-md-4 portfolio-item isotope-item ${filterClass}">
       <div class="portfolio-content  h-100">
         <img src="${imgSrc}" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>${element.name}</h4>
+          <p>${element.name}</p>
           <div class="d-flex justify-content-between  pe-3">
             <p>${description}</p>
             <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
