@@ -885,8 +885,9 @@ color: #012970;
 --------------------------------------------------------------*/
 .page-title {
   color: var(--default-color);
-  background-color: var(--background-color);
-  padding: 160px 0 80px 0;
+  /* background-color: var(--background-color); */
+  background: linear-gradient(-45deg,   #23a6d5, #23d5ab);;
+  padding: 80px 0 60px 0;
   text-align: center;
   position: relative;
 }
