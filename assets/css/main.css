@@ -22,7 +22,7 @@
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #555555; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #1e4356; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #68a4c4; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #1e4356; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -30,11 +30,11 @@
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
   --nav-color: #1e4356;  /* The default color of the main navmenu links */
-  --nav-hover-color: #68a4c4; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-hover-color: #1e4356; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #555555; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #68a4c4; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-hover-color: #1e4356; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -224,15 +224,16 @@ h6 {
 # Global Header
 --------------------------------------------------------------*/
 .header {
-  --background-color: rgba(255, 255, 255, 0);
+  --background-color: rgba(0, 0, 0, 0.5);
   --default-color: #ffffff;
   --heading-color: #ffffff;
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 5px 0;
+  padding: 0;
   transition: all 0.5s;
   z-index: 997;
 }
+#signin{ padding:2px 10px !important}
 
 .header .logo {
   line-height: 1;
@@ -285,7 +286,7 @@ color: #012970;
 /* Global Header on Scroll
 ------------------------------*/
 .scrolled .header {
-  --background-color: #1e4356;
+  --background-color: #7f7f7f;
 }
 
 /*--------------------------------------------------------------
@@ -311,7 +312,7 @@ color: #012970;
 
   .navmenu>ul>li {
     white-space: nowrap;
-    padding: 10px;
+    padding: 8px 12px;
   }
 
   .navmenu>ul>li:last-child {
@@ -935,7 +936,7 @@ color: #012970;
 /*--------------------------------------------------------------
 # Global Sections
 --------------------------------------------------------------*/
-
+.main{ margin-top: 74px;}
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
@@ -1048,11 +1049,11 @@ color: #012970;
 .hero .container {
   /* background: color-mix(in srgb, var(--surface-color), transparent 40%); */
   position: relative;
-  text-align: center;
+  text-align: left;
   padding-top: 30px;
-  padding-bottom: 30px;
-  margin-bottom: 50px;
-  max-width: 780px;
+  /* padding-bottom: 30px; */
+  /* margin-bottom: 50px; */
+  /* max-width: 780px; */
   color:  var(--contrast-color);
   /* border-top: 4px solid var(--accent-color); */
   z-index: 3;
@@ -2892,3 +2893,6 @@ color: #012970;
 .noanchor:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
 .card:hover{box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
 #searchResults img{ height: 100px;}
+.form-check-input[type=checkbox] {
+ border:1px solid #1e4356;
+}
