@@ -34,7 +34,6 @@ listBtn.addEventListener('click', function () {
     let mainDivs = Array.from(document.getElementsByClassName('main'));
     // let portfolioDiv = document.querySelector('.portfolio-content');
     let portfolioDiv = Array.from(document.getElementsByClassName('portfolio-content'));
-  
     portfolioDiv.forEach(div => {
         let children = div.getElementsByClassName('portfolio-info');
 
@@ -42,7 +41,7 @@ listBtn.addEventListener('click', function () {
         Array.from(children).forEach(child => {
             child.classList.add('w-100','px-3');
         });
-        
+
         div.classList.remove('h-100');
         div.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'pe-5', 'border', 'rounded', 'p-3');
     })
@@ -51,8 +50,8 @@ listBtn.addEventListener('click', function () {
     console.log(mainDivs, 'mainDiv');
 
     mainDivs.forEach(div => {
-        div.classList.remove('col-lg-3', 'col-md-3');
-        div.classList.add('col-12','col-lg-6', 'col-md-6');
+        div.classList.remove('col-lg-4');
+        div.classList.add('col-12');
 
         // div.classList.add('border rounded');
 
@@ -98,11 +97,10 @@ cardBtn.addEventListener('click', function () {
 
 
     mainDivs.forEach(div => {
-    
-          div.classList.remove('col-lg-6', 'col-md-6');
-        div.classList.add('col-12','col-lg-3', 'col-md-3');
+        div.classList.add('col-lg-4');
+        div.classList.remove('col-12');
 
-        div.classList.add('col-md-3');
+        div.classList.add('col-md-6');
         div.classList.remove('col-md-12');
 
     })
@@ -234,10 +232,6 @@ const get_session_list = async () => {
     let response = await frappe_client.get('/get_newsession_list')
     console.log('session list', response);
     setSessionList(response)
-
-
-
-
 }
 
 
@@ -254,10 +248,8 @@ export function setSessionList(response) {
         if (prev) {
             prev.style.display = "none";
         }
+        return; // Exit early if no results
     }
-
-   
-
 
     const docTemplates = {
         PDF: "../assets/img/portfolio/pdf_109.webp",
@@ -280,71 +272,58 @@ export function setSessionList(response) {
         const filterClass = filterMap[element.doc_type] || "";
         const description = element.description || `${element.doc_type} File`;
 
+        // Card view template
         const result_card = `
-    <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-3 col-md-4 portfolio-item isotope-item ${filterClass}">
-      <div class="portfolio-content  h-100">
-        <img src="${imgSrc}" class="img-fluid" alt="">
-        <div class="portfolio-info">
-          <p>${element.name}</p>
-          <div class="d-flex justify-content-between  pe-3">
-            <p>${description}</p>
-            <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
+            <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
+              <div class="portfolio-content h-100">
+                <img src="${imgSrc}" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>${element.name}</h4>
+                  <div class="d-flex justify-content-between pe-3">
+                    <p>${description}</p>
+                    <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        `;
 
-        
-        // let list_card = `
-        //     <div onclick="window.open('${baseURL}${element.session_doc}')" class="col-12 mb-4" style="cursor: pointer;">
-        //     <div class="row g-3 align-items-center border rounded p-3">
-        //         <div class="col-md-4">
-        //         <img src="${imgSrc}" class="img-fluid rounded" alt="PDF">
-        //         </div>
-        //         <div class="col-md-8">
-        //         <h5 class="mb-1">${element.name}</h5>
-        //         <div>
-        //            <div class="d-flex justify-content-between  pe-3">
-        //     <p>${description}</p>
-        //     <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
-        //   </div>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     </div>`;
+        // List view template
+        const list_card = `
+            <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-12 portfolio-item isotope-item ${filterClass}">
+              <div class="portfolio-content d-flex align-items-center justify-content-between pe-5 border rounded p-3">
+                <img src="${imgSrc}" class="img-fluid col-4" alt="">
+                <div class="portfolio-info w-100 px-3">
+                  <h4>${element.name}</h4>
+                  <div class="d-flex justify-content-between pe-3">
+                    <p>${description}</p>
+                    <a href="#" onclick="window.open('${baseURL}${element.session_doc}')" title="${element.doc_type}" class="glightbox preview-link"><i class="bi bi-eye"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        `;
 
+        // Render based on current view
         if (currentView === 'list') {
             SessionList.insertAdjacentHTML("beforeend", list_card);
-
-        } else if (currentView === 'card') {
-
+        } else {
             SessionList.insertAdjacentHTML("beforeend", result_card);
         }
     });
-
+    
+    updateButtonStyles();
+    console.log('Current view:', currentView);
 }
-
-
-
-
-
-
-
 
 
 document.addEventListener('DOMContentLoaded', async () => {
     get_all_courses()
     get_session_list()
-
 })
 
 
-
-
-
-// Handle globle search
-
+// Handle global search
 const form = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
 
@@ -355,8 +334,6 @@ form.addEventListener('submit', async function (e) {
         global_search_val: searchInput.value
     })
     setSessionList(response)
-    // console.log('Search Query:', searchInput.value, response);
-
 });
 
 searchInput.addEventListener('input', async function (e) {
@@ -367,5 +344,4 @@ searchInput.addEventListener('input', async function (e) {
     })
     setSessionList(response)
     console.log('Search Query:', searchInput.value, response);
-
 });
