@@ -119,22 +119,31 @@ const renderEventsPage = () => {
   const start = eventsPage * itemsPerPage;
   const end = start + itemsPerPage;
   const currentEvents = allEventsData.slice(start, end);
-
+  console.log(currentEvents)
   currentEvents.forEach(item => {
     let event_date = formatDate(item.datetime);
     const card = `
-      <div class="col-md-6 eventscard" data-aos="fade-up" data-aos-delay="100">
-        <div class="service-item d-flex position-relative h-100">
-          <div class="evDate">
-            <i class="bi bi-calendar2-check icon icons flex-shrink-0"></i>
-            <p class="date">${event_date}</p>
-          </div>
-          <div>
-            <h4 class="title"><a href="#" class="stretched-link">${item?.title}</a></h4>
-            <p class="description">${truncateText(item?.description, 100)}</p>
-          </div>
-        </div>
-      </div>`;
+      <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="event-item rounded">
+                                <div class="position-relative">
+                                    <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
+                                    <div class="bg-primary text-white fw-bold rounded d-inline-block position-absolute p-2"
+                                        style="top: 0; right: 0;">${event_date}</div>
+                                    <div class="d-flex justify-content-between border-start border-end bg-white px-2 py-2 w-100 position-absolute"
+                                        style="bottom: 0; left: 0; opacity: 0.8;">
+                                        <a href="#" class="text-dark"><i class="fas fa-clock text-primary"></i> 08:00AM
+                                            - 10:00PM</a>
+                                        <a href="#" class="text-dark"><span
+                                                class="fas fa-map-marker-alt text-primary"></span> New York</a>
+                                    </div>
+                                </div>
+                                <div class="border border-top-0 rounded-bottom p-4">
+                                    <a href="#" class="h4 mb-3 d-block">${item.title}</a>
+                                    <p class="mb-3">${item.description}</p>
+                                    <a class="btn btn-primary rounded-pill text-white py-2 px-4" href="#">Watch Now</a>
+                                </div>
+                            </div>
+                        </div>`;
     eventsContainer.insertAdjacentHTML("beforeend", card);
   });
   const totalPages = Math.ceil(allEventsData.length / itemsPerPage);
