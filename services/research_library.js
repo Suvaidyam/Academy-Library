@@ -4,7 +4,11 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 let frappe_client = new FrappeApiClient();
 
 let blogContainer = document.getElementById("blog-container");
-let template = document.getElementById("blog-template");
+let article_temp = document.getElementById("article_temp");
+let journal_temp = document.getElementById("journal_temp");
+let case_studies_temp = document.getElementById("case_studies_temp");
+let book_temp = document.getElementById("book_temp");
+
 let categoryDropdown = document.getElementById("category-dropdown");
 let authorDropdown = document.getElementById("author-dropdown");
 let languageDropdown = document.getElementById("language-dropdown");
@@ -38,10 +42,23 @@ export async function getLibraryList() {
         }
 
 
-        if (!template) {
+        if (!article_temp) {
             console.error("Template not found!");
             return;
         }
+        if (!journal_temp) {
+            console.error("Template not found!");
+            return;
+        }
+        if (!case_studies_temp) {
+            console.error("Template not found!");
+            return;
+        }
+        if (!book_temp) {
+            console.error("Template not found!");
+            return;
+        }
+        
         displayArtifacts()
 
 
@@ -173,8 +190,10 @@ export async function getLibraryList() {
 }
 
 function displayArtifacts(filteredArtifacts) {
+    let cat = document.getElementById('category-dropdown1').value;
+    console.log("cat",cat);
     blogContainer.innerHTML = ""; // Clear previous cards
-
+    console.log("filteredArtifacts data", filteredArtifacts);
     if (filteredArtifacts?.length === 0) {
         blogContainer.innerHTML = `
             <div class="no-results text-center">
@@ -183,24 +202,87 @@ function displayArtifacts(filteredArtifacts) {
             </div>`;
         return;
     }
-    filteredArtifacts?.forEach(post => {
-        if (post) {
-            let newCard = template.cloneNode(true);
-            newCard.classList.remove("d-none");
-            newCard.removeAttribute("id"); // Remove duplicate IDs
-
-            newCard.querySelector(".blog-img").src = post.thumbnail_image
-                ? ENV.API_BASE_URL + post.thumbnail_image
-                : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
-
-            newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
-            newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-            newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
-            newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
-
-            blogContainer.appendChild(newCard);
-        }
-    });
+    if(cat == "Article"){
+        filteredArtifacts?.forEach(post => {
+            if (post) {
+                let newCard = article_temp.cloneNode(true);
+                newCard.classList.remove("d-none");
+                newCard.removeAttribute("id"); // Remove duplicate IDs
+    
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
+    
+                newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
+                newCard.querySelector(".blog-title").textContent = post.title || "No Title";
+                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+                newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
+    
+                blogContainer.appendChild(newCard);
+            }
+        });
+    }else if(cat == "Journal") {
+        filteredArtifacts?.forEach(post => {
+            if (post) {
+                let newCard = journal_temp.cloneNode(true);
+                newCard.classList.remove("d-none");
+                newCard.removeAttribute("id"); // Remove duplicate IDs
+    
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
+    
+                newCard.querySelector(".journal_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
+                newCard.querySelector(".blog-title").textContent = post.title || "No Title";
+                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+                newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
+    
+                blogContainer.appendChild(newCard);
+            }
+        });
+        // journal_temp
+        // blogContainer.innerHTML = "";
+    }else if(cat == "Case Studies") { 
+        filteredArtifacts?.forEach(post => {
+            if (post) {
+                let newCard = case_studies_temp.cloneNode(true);
+                newCard.classList.remove("d-none");
+                newCard.removeAttribute("id"); // Remove duplicate IDs
+    
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
+    
+                newCard.querySelector(".journal_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
+                newCard.querySelector(".blog-title").textContent = post.title || "No Title";
+                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+                newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
+    
+                blogContainer.appendChild(newCard);
+            }
+        });
+        
+    }else if(cat == "Book") { 
+        filteredArtifacts?.forEach(post => {
+            if (post) {
+                let newCard = book_temp.cloneNode(true);
+                newCard.classList.remove("d-none");
+                newCard.removeAttribute("id"); // Remove duplicate IDs
+    
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
+                newCard.querySelector(".book_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
+                newCard.querySelector(".blog-title").textContent = post.title || "No Title";
+                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+                newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
+    
+                blogContainer.appendChild(newCard);
+            }
+        });
+        
+    }
+    
 }
 
 // work on catogoty dropdown
