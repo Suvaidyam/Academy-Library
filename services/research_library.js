@@ -9,6 +9,9 @@ let journal_temp = document.getElementById("journal_temp");
 let case_studies_temp = document.getElementById("case_studies_temp");
 let book_temp = document.getElementById("book_temp");
 
+let allArtifacts = [];
+
+
 let categoryDropdown = document.getElementById("category-dropdown");
 let authorDropdown = document.getElementById("author-dropdown");
 let languageDropdown = document.getElementById("language-dropdown");
@@ -202,7 +205,7 @@ function displayArtifacts(filteredArtifacts) {
             </div>`;
         return;
     }
-    if(cat == "Article"){
+    else if(cat == "Article"){
         filteredArtifacts?.forEach(post => {
             if (post) {
                 let newCard = article_temp.cloneNode(true);
@@ -215,8 +218,6 @@ function displayArtifacts(filteredArtifacts) {
     
                 newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
-                newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
     
                 blogContainer.appendChild(newCard);
             }
@@ -249,14 +250,8 @@ function displayArtifacts(filteredArtifacts) {
                 newCard.classList.remove("d-none");
                 newCard.removeAttribute("id"); // Remove duplicate IDs
     
-                newCard.querySelector(".blog-img").src = post.thumbnail_image
-                    ? ENV.API_BASE_URL + post.thumbnail_image
-                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
-    
-                newCard.querySelector(".journal_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
+                newCard.querySelector(".case_studies_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
-                newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
     
                 blogContainer.appendChild(newCard);
             }
