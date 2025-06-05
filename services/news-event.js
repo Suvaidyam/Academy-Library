@@ -52,40 +52,50 @@ const renderNewsPage = () => {
   const end = start + itemsPerPage;
   const currentNews = allNewsData.slice(start, end);
 
-  currentNews.forEach(item => {
-    let news_date = formatDateForNews(item.datetime);
-    let link = `news-details?id=${encodeURIComponent(item?.name)}`;
-    let page = window.location.hash;
-    if (page === '#services') {
-      link = `/pages/news-details?id=${encodeURIComponent(item?.name)}`;
-    }
+  if(currentNews.length > 0){
+    document.getElementById("n_pagination").style.display = 'block';
+    currentNews.forEach(item => {
+      let news_date = formatDateForNews(item.datetime);
+      let link = `news-details?id=${encodeURIComponent(item?.name)}`;
+      let page = window.location.hash;
+      if (page === '#services') {
+        link = `/pages/news-details?id=${encodeURIComponent(item?.name)}`;
+      }
 
-    let card = `
-      <div class="col-md-6 " data-aos="fade-up" data-aos-delay="100">
-        <a href="${link}">
-          <div class="row newsCard">
-            <div class="col-md-4">
-              <img src="${ENV.API_BASE_URL + item?.image}" class="img-fluid" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="mb-2">${item?.title}</h5>
-                <p class="card-text">${truncateText(item?.description, 80)}</p>
-                <div class="post-meta">
-                  <p class="post-date">
-                    <time datetime="${item?.datetime}">${news_date}</time>
-                  </p>
+      let card = `
+        <div class="col-md-6 " data-aos="fade-up" data-aos-delay="100">
+          <a href="${link}">
+            <div class="row newsCard">
+              <div class="col-md-4">
+                <img src="${ENV.API_BASE_URL + item?.image}" class="img-fluid" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="mb-2">${item?.title}</h5>
+                  <p class="card-text">${truncateText(item?.description, 80)}</p>
+                  <div class="post-meta">
+                    <p class="post-date">
+                      <time datetime="${item?.datetime}">${news_date}</time>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>`;
+      newsContainer.insertAdjacentHTML("beforeend", card);
+    });
+    const totalPages = Math.ceil(allNewsData.length / itemsPerPage);
+    prevBtn.disabled = newsPage === 0;
+    nextBtn.disabled = newsPage >= totalPages - 1;
+  }else {
+    document.getElementById("n_pagination").style.display = 'none';
+    const noDataMessage = `
+      <div class="text-center py-5">
+          <h4>No News Found !</h4>
       </div>`;
-    newsContainer.insertAdjacentHTML("beforeend", card);
-  });
-  const totalPages = Math.ceil(allNewsData.length / itemsPerPage);
-  prevBtn.disabled = newsPage === 0;
-  nextBtn.disabled = newsPage >= totalPages - 1;
+      newsContainer.insertAdjacentHTML("beforeend", noDataMessage);
+    }
 };
 
 // -------- Get All Events ----------
@@ -120,6 +130,7 @@ const renderEventsPage = () => {
   const end = start + itemsPerPage;
   const currentEvents = allEventsData.slice(start, end);
   if (currentEvents.length > 0) {
+    document.getElementById("c_pagination").style.display = 'block';
     currentEvents.forEach(item => {
       let event_date = formatDate(item.datetime);
       const card = `
@@ -145,9 +156,10 @@ const renderEventsPage = () => {
       eventsContainer.insertAdjacentHTML("beforeend", card);
     });
   } else {
+    document.getElementById("c_pagination").style.display = 'none';
     const noDataMessage = `
       <div class="text-center py-5">
-          <h4>No Events Found</h4>
+          <h4>No Events Found !</h4>
       </div>`;
     eventsContainer.insertAdjacentHTML("beforeend", noDataMessage);
   }
