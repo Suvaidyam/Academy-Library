@@ -11,39 +11,30 @@ let book_temp = document.getElementById("book_temp");
 
 let allArtifacts = [];
 
-
 let categoryDropdown = document.getElementById("category-dropdown");
 let authorDropdown = document.getElementById("author-dropdown");
 let languageDropdown = document.getElementById("language-dropdown");
 let yearDropdown = document.getElementById("year-dropdown");
 let belongToInput = document.getElementById("belongToInput");
 
-// let searchButton = document.getElementById("search-btn");
-// let Keywords = document.getElementById("tagsInput");
-// let resetButton = document.getElementById("reset-btn"); // Reset button
-
 const c_dropdown = document.getElementById('category-dropdown1');
 let currentPage = 1;
 const pageSize = 4;
-
 
 export async function getLibraryList() {
     try {
         // ========== Fetch Knowledge Artifacts ==========
         let filter = {
             page: currentPage,
-            page_size: pageSize, page_size: pageSize,
+            page_size: pageSize,
         };
         filter["artifact_source"] = 'Internal'
+        
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
             let posts = response.message.data;
-            // console.log("post=========bb", posts,currentPage,Math.ceil(response.message.data.length / pageSize));
-
-            // next_btn.disabled = currentPage >= Math.ceil(response.message.data.length / pageSize);
             return posts
         }
-
 
         if (!article_temp) {
             console.error("Template not found!");
@@ -61,25 +52,34 @@ export async function getLibraryList() {
             console.error("Template not found!");
             return;
         }
-        
-        displayArtifacts()
 
-
-        // Initially display all internal artifacts
+        // Initially display all internal artifacts with proper filtering
         async function show_data() {
             let artifacts = await knowledge_data();
             if (artifacts) {
                 document.getElementById("loader").style.display = "none";
             }
-            // console.log(artifacts)
-            displayArtifacts(artifacts);
+            
+            // Apply initial filtering based on selected category
+            let selectedCategory = c_dropdown.value;
+            let filteredArtifacts = artifacts;
+            
+            // Filter by category if one is selected and it's not the default option
+            if (selectedCategory && selectedCategory !== "Select a Category") {
+                filteredArtifacts = artifacts.filter(artifact => 
+                    artifact.category === selectedCategory
+                );
+            }
+            
+            displayArtifacts(filteredArtifacts);
         }
         show_data()
+        
         // ========== Fetch Categories for Dropdown ==========
         let fieldMetaParams = { doctype: "Knowledge Artifact", fieldname: "category" };
         let fieldMetaResponse = await frappe_client.get('/get_field_meta', fieldMetaParams);
         let fieldMetaData = fieldMetaResponse.message;
-        // console.log(fieldMetaResponse)
+        
         if (fieldMetaData && fieldMetaData.length > 0) {
             categoryDropdown.innerHTML = `<option selected value=" ">Category</option>`;
             fieldMetaData.forEach(optionText => {
@@ -95,23 +95,17 @@ export async function getLibraryList() {
         ).join('');
         authorDropdown.innerHTML = dropdownOptionsauthor;
 
-
         // ============== LanguageDropdown =================
         let fieldlinkResponse = await frappe_client.get('/get_link_filed') || [];
-        // console.log(fieldlinkResponse.message, 'language');
         let dropdownOptions = `<option selected value="">Language</option>`;
         dropdownOptions += fieldlinkResponse.message?.lang?.map(item =>
             `<option value="${item.language_id}">${item.language_name}</option>`
         ).join('');
         languageDropdown.innerHTML = dropdownOptions;
 
-
         // ============== TagsDropdown =================
         let fieldtagsResponse = await frappe_client.get('/get_link_filed') || [];
-        // console.log(fieldtagsResponse.message.tag)
         const availableTags = fieldtagsResponse.message?.tag?.map(tag => tag.tag_name)
-
-
 
         // Initialize Tagify on input field
         const input = document.getElementById("tagsInput");
@@ -123,70 +117,6 @@ export async function getLibraryList() {
             }
         });
 
-        // ========== Search Button Click Event ==========
-        // searchButton.addEventListener("click", () => {
-        //     let selectedCategory = categoryDropdown.value;
-        //     let lan = languageDropdown.value
-        //     let authorDropdowns = authorDropdown.value
-        //     let Keyword = Keywords.value || []
-        //     if (Keyword.length) {
-        //         Keyword = JSON.parse(Keyword)?.map(keyword => keyword.value)
-        //     } else {
-        //         Keyword = []
-        //     }
-        //     // console.log(Keyword, 'Keyword', lan)
-        //     if (selectedCategory) {
-        //         filter["category"] = selectedCategory
-        //     } else {
-        //         filter["category"] = '';
-        //     }
-        //     if (lan) {
-        //         filter["language"] = lan
-        //     } else {
-        //         filter["language"] = '';
-        //     }
-        //     if (authorDropdowns) {
-        //         filter["internalauthor"] = authorDropdowns
-        //     } else {
-        //         filter["internalauthor"] = '';
-        //     }
-        //     if (Keyword) {
-        //         filter["tags"] = Keyword;
-        //     } else {
-        //         filter["tags"] = '';
-        //     }
-        //     // console.log(filter)
-        //     show_data()
-        // });
-
-        // ========== Reset Button Click Event ==========
-        // resetButton.addEventListener("click", () => {
-        //     filter = {
-        // page: currentPage,
-        // page_size: pageSize,};
-        //     filter["artifact_source"] = 'Internal'
-        //     Keywords.value = ''
-        //     authorDropdown.value = ''
-        //     languageDropdown.value = '';
-        //     categoryDropdown.value = "";
-        //     show_data() // Show all internal artifacts again
-        // });
-
-
-        // ========== Pagination Logic ==========
-
-
-        // document.querySelectorAll("#blog-pagination ul li a").forEach(function (link) {
-        //     link.addEventListener("click", function (event) {
-        //         event.preventDefault();
-        //         let pageNumber = this.textContent.trim();
-        //         if (!isNaN(pageNumber)) {
-        //             console.log("Clicked Page:", pageNumber);
-        //             filter['page'] = pageNumber
-        //             show_data()
-        //         }
-        //     });
-        // });
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -194,10 +124,12 @@ export async function getLibraryList() {
 
 function displayArtifacts(filteredArtifacts) {
     let cat = document.getElementById('category-dropdown1').value;
-    console.log("cat",cat);
+    console.log("cat", cat);
     blogContainer.innerHTML = ""; // Clear previous cards
     console.log("filteredArtifacts data", filteredArtifacts);
-    if (filteredArtifacts?.length === 0) {
+    
+    // Handle case when no artifacts are provided or empty array
+    if (!filteredArtifacts || filteredArtifacts.length === 0) {
         blogContainer.innerHTML = `
             <div class="no-results text-center">
                 <h4 class="mt-3">No results found</h4>
@@ -205,65 +137,84 @@ function displayArtifacts(filteredArtifacts) {
             </div>`;
         return;
     }
-    else if(cat == "Article"){
-        filteredArtifacts?.forEach(post => {
+    
+    // Filter artifacts based on selected category if not already filtered
+    let artifactsToDisplay = filteredArtifacts;
+    if (cat && cat !== "Select a Category") {
+        artifactsToDisplay = filteredArtifacts.filter(artifact => 
+            artifact.category === cat
+        );
+    }
+    
+    // If no artifacts match the category filter
+    if (artifactsToDisplay.length === 0) {
+        blogContainer.innerHTML = `
+            <div class="no-results text-center">
+                <h4 class="mt-3">No results found</h4>
+                <p class="text-muted">No ${cat} artifacts found.</p>
+            </div>`;
+        return;
+    }
+    
+    if (cat == "Article") {
+        artifactsToDisplay.forEach(post => {
             if (post) {
                 let newCard = article_temp.cloneNode(true);
                 newCard.classList.remove("d-none");
-                newCard.removeAttribute("id"); // Remove duplicate IDs
-    
+                newCard.removeAttribute("id");
+
                 newCard.querySelector(".blog-img").src = post.thumbnail_image
                     ? ENV.API_BASE_URL + post.thumbnail_image
                     : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
-    
+
                 newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-    
+                newCard.querySelector(".articles_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
+
                 blogContainer.appendChild(newCard);
             }
         });
-    }else if(cat == "Journal") {
-        filteredArtifacts?.forEach(post => {
+    } else if (cat == "Journal") {
+        artifactsToDisplay.forEach(post => {
             if (post) {
                 let newCard = journal_temp.cloneNode(true);
                 newCard.classList.remove("d-none");
-                newCard.removeAttribute("id"); // Remove duplicate IDs
-    
+                newCard.removeAttribute("id");
+
                 newCard.querySelector(".blog-img").src = post.thumbnail_image
                     ? ENV.API_BASE_URL + post.thumbnail_image
                     : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
-    
+
                 newCard.querySelector(".journal_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
                 newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
                 newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
-    
+                newCard.querySelector(".journals_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
+
                 blogContainer.appendChild(newCard);
             }
         });
-        // journal_temp
-        // blogContainer.innerHTML = "";
-    }else if(cat == "Case Studies") { 
-        filteredArtifacts?.forEach(post => {
+    } else if (cat == "Case Studies") {
+        artifactsToDisplay.forEach(post => {
             if (post) {
                 let newCard = case_studies_temp.cloneNode(true);
                 newCard.classList.remove("d-none");
-                newCard.removeAttribute("id"); // Remove duplicate IDs
-    
+                newCard.removeAttribute("id");
+
                 newCard.querySelector(".case_studies_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-    
+                newCard.querySelector(".case_studies_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
+
                 blogContainer.appendChild(newCard);
             }
         });
-        
-    }else if(cat == "Book") { 
-        filteredArtifacts?.forEach(post => {
+    } else if (cat == "Book") {
+        artifactsToDisplay.forEach(post => {
             if (post) {
                 let newCard = book_temp.cloneNode(true);
                 newCard.classList.remove("d-none");
-                newCard.removeAttribute("id"); // Remove duplicate IDs
-    
+                newCard.removeAttribute("id");
+
                 newCard.querySelector(".blog-img").src = post.thumbnail_image
                     ? ENV.API_BASE_URL + post.thumbnail_image
                     : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
@@ -271,23 +222,39 @@ function displayArtifacts(filteredArtifacts) {
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
                 newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
                 newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
-    
+                newCard.querySelector(".books_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
+
                 blogContainer.appendChild(newCard);
             }
         });
-        
+    } else {
+        // If no specific category is selected or category doesn't match known types
+        // Display all artifacts with a generic template (you can customize this)
+        artifactsToDisplay.forEach(post => {
+            if (post) {
+                let newCard = article_temp.cloneNode(true); // Use article template as default
+                newCard.classList.remove("d-none");
+                newCard.removeAttribute("id");
+
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
+
+                newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
+                newCard.querySelector(".blog-title").textContent = post.title || "No Title";
+
+                blogContainer.appendChild(newCard);
+            }
+        });
     }
-    
 }
 
-// work on catogoty dropdown
-
+// work on category dropdown
 c_dropdown.addEventListener('change', async function () {
     let languageDropdown = document.getElementById('language-dropdown');
     let authorDropdown = document.getElementById('author-dropdown');
     let yearDropdown = document.getElementById('year-dropdown');
     let keySearchInput = document.getElementById('tagsInput');
-
 
     const filter = {
         page: currentPage,
@@ -300,24 +267,20 @@ c_dropdown.addEventListener('change', async function () {
     };
     handletoshowbelongToInput(this.value);
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
-    // let posts = response.message.artifacts;
-    // console.log('Selected value:', this.value, response);
+    
     next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
     displayArtifacts(response.message.data)
-
-
 });
 
 const handletoshowbelongToInput = (cat) => {
     let BelongParentDiv = belongToInput.parentElement.parentElement;
 
     if (cat === "Case Studies") {
-        BelongParentDiv.classList.remove("d-none"); // show the author dropdown
+        BelongParentDiv.classList.remove("d-none");
     } else {
-        BelongParentDiv.classList.add("d-none"); // hide the author dropdown
+        BelongParentDiv.classList.add("d-none");
     }
 }
-
 
 authorDropdown.addEventListener('change', async function () {
     const language = document.getElementById('language-dropdown').value;
@@ -333,7 +296,6 @@ authorDropdown.addEventListener('change', async function () {
         ...(year !== "Select a Year" && { year }),
         ...(language !== "Select a Language" && { language }),
         ...(category !== "Select a Category" && { category }),
-        // artifact_source: 'Internal' // Uncomment if needed
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
@@ -342,10 +304,6 @@ authorDropdown.addEventListener('change', async function () {
     next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
     displayArtifacts(response.message.data);
 });
-
-
-
-
 
 const getAuthorList = async () => {
 
@@ -358,7 +316,6 @@ const getAuthorList = async () => {
     });
 
 }
-
 
 let handlelanguageDropdown = document.getElementById('language-dropdown')
 handlelanguageDropdown.addEventListener('change', async function () {
@@ -376,7 +333,6 @@ handlelanguageDropdown.addEventListener('change', async function () {
         ...(year !== "Select a Year" && { year }),
         ...(language && { language }),
         ...(category !== "Select a Category" && { category }),
-        // artifact_source: 'Internal' // Uncomment if needed
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
@@ -389,9 +345,6 @@ handlelanguageDropdown.addEventListener('change', async function () {
 // ========== Pagination Logic ==========
 let pre_btn = document.getElementById('prev-btn')
 let next_btn = document.getElementById('next-btn')
-
-
-
 
 pre_btn.addEventListener("click", async function () {
     currentPage--;
@@ -440,7 +393,7 @@ next_btn.addEventListener("click", async function () {
         ...(year !== "Select a Year" && { year }),
         ...(language !== "Select a Language" && { language }),
         ...(category !== "Select a Category" && { category }),
-        ...(author !=="Select a Author" && { author }),
+        ...(author !== "Select a Author" && { author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
@@ -472,7 +425,6 @@ handleclearbtn.addEventListener('click', () => {
 }
 )
 
-
 const getLanguageList = async () => {
     const args = {
         doctype: 'Language',
@@ -493,11 +445,7 @@ const getLanguageList = async () => {
 
 }
 
-
-displayArtifacts()
-
-//handle search from keywords
-
+// Handle search from keywords
 const keysearchInput = document.getElementById('tagsInput');
 
 keysearchInput.addEventListener('input', async () => {
@@ -523,7 +471,6 @@ keysearchInput.addEventListener('input', async () => {
     console.log('Search Query:', search, response);
 });
 
-
 const GetSetYearOps = async () => {
     let yearDropdown = document.getElementById('year-dropdown');
 
@@ -543,16 +490,15 @@ const GetSetYearOps = async () => {
 
     let addedYears = new Set();
 
-    // Collect unique years
     response.message.forEach(item => {
         if (item.date_of_creationpublication) {
             let year = item.date_of_creationpublication.slice(0, 4);
             addedYears.add(year);
         }
     });
-    // Convert to array and sort in ascending order
+    
     let sortedYears = Array.from(addedYears).sort();
-    // Append sorted options to dropdown
+    
     sortedYears.forEach(year => {
         let option = document.createElement('option');
         option.value = year;
@@ -560,7 +506,6 @@ const GetSetYearOps = async () => {
         yearDropdown.appendChild(option);
     });
 };
-
 
 yearDropdown.addEventListener('change', async function () {
     const author = document.getElementById('author-dropdown').value;
@@ -576,7 +521,6 @@ yearDropdown.addEventListener('change', async function () {
         ...(author !== "Select a Author" && { author }),
         ...(category !== "Select a Category" && { category }),
         ...(language !== "Select a Language" && { language }),
-        // artifact_source: 'Internal' // Uncomment if needed
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
@@ -601,7 +545,6 @@ belongToInput.addEventListener('input', async function () {
         ...(category !== "Select a Category" && { category }),
         ...(language !== "Select a Language" && { language }),
         ...(year !== "Select a Year" && { year }),
-        // artifact_source: 'Internal' // Uncomment if needed
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
@@ -610,15 +553,11 @@ belongToInput.addEventListener('input', async function () {
     displayArtifacts(response.message.data);
 });
 
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
     getLibraryList();
     getLanguageList();
     getAuthorList();
     GetSetYearOps();
 });
+
+// Remove the standalone displayArtifacts() call at the end
