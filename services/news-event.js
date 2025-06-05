@@ -140,11 +140,6 @@ const renderEventsPage = () => {
                       <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
                       <div class="bg-primary text-white fw-bold rounded d-inline-block position-absolute p-2"
                           style="top: 0; right: 0;">${event_date}</div>
-                      <div class="d-flex justify-content-between border-start border-end bg-white px-2 py-2 w-100 position-absolute"
-                          style="bottom: 0; left: 0; opacity: 0.8;">
-                          <a href="#" class="text-dark"><i class="fas fa-clock text-primary"></i> 08:00AM - 10:00PM</a>
-                          <a href="#" class="text-dark"><span class="fas fa-map-marker-alt text-primary"></span> New York</a>
-                      </div>
                   </div>
                   <div class="border border-top-0 rounded-bottom p-4">
                       <a href="#" class="h4 mb-3 d-block">${item.title}</a>
