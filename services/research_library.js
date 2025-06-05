@@ -29,7 +29,7 @@ export async function getLibraryList() {
             page_size: pageSize,
         };
         filter["artifact_source"] = 'Internal'
-        
+
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
             let posts = response.message.data;
@@ -59,27 +59,27 @@ export async function getLibraryList() {
             if (artifacts) {
                 document.getElementById("loader").style.display = "none";
             }
-            
+
             // Apply initial filtering based on selected category
             let selectedCategory = c_dropdown.value;
             let filteredArtifacts = artifacts;
-            
+
             // Filter by category if one is selected and it's not the default option
             if (selectedCategory && selectedCategory !== "Select a Category") {
-                filteredArtifacts = artifacts.filter(artifact => 
+                filteredArtifacts = artifacts.filter(artifact =>
                     artifact.category === selectedCategory
                 );
             }
-            
+
             displayArtifacts(filteredArtifacts);
         }
         show_data()
-        
+
         // ========== Fetch Categories for Dropdown ==========
         let fieldMetaParams = { doctype: "Knowledge Artifact", fieldname: "category" };
         let fieldMetaResponse = await frappe_client.get('/get_field_meta', fieldMetaParams);
         let fieldMetaData = fieldMetaResponse.message;
-        
+
         if (fieldMetaData && fieldMetaData.length > 0) {
             categoryDropdown.innerHTML = `<option selected value=" ">Category</option>`;
             fieldMetaData.forEach(optionText => {
@@ -127,35 +127,43 @@ function displayArtifacts(filteredArtifacts) {
     console.log("cat", cat);
     blogContainer.innerHTML = ""; // Clear previous cards
     console.log("filteredArtifacts data", filteredArtifacts);
-    
+
     // Handle case when no artifacts are provided or empty array
     if (!filteredArtifacts || filteredArtifacts.length === 0) {
         blogContainer.innerHTML = `
-            <div class="no-results text-center">
-                <h4 class="mt-3">No results found</h4>
-                <p class="text-muted">Try selecting a different category, author, or language.</p>
-            </div>`;
+        <div class="no-results text-center">
+            <h4 class="mt-3">No results found</h4>
+            <p class="text-muted">Try selecting a different category, author, or language.</p>
+        </div>`;
+        let Pagination = document.getElementById('pagination');
+        Pagination.classList.add('d-none');
         return;
+    } else {
+        let Pagination = document.getElementById('pagination');
+        Pagination.classList.remove('d-none');
     }
-    
+
+
     // Filter artifacts based on selected category if not already filtered
     let artifactsToDisplay = filteredArtifacts;
     if (cat && cat !== "Select a Category") {
-        artifactsToDisplay = filteredArtifacts.filter(artifact => 
+        artifactsToDisplay = filteredArtifacts.filter(artifact =>
             artifact.category === cat
         );
     }
-    
+
     // If no artifacts match the category filter
-    if (artifactsToDisplay.length === 0) {
-        blogContainer.innerHTML = `
-            <div class="no-results text-center">
-                <h4 class="mt-3">No results found</h4>
-                <p class="text-muted">No ${cat} artifacts found.</p>
-            </div>`;
-        return;
-    }
-    
+    // if (artifactsToDisplay.length === 0) {
+    //     // let Pagination = document.getElementById('pagination');
+    //     // Pagination.classList.add('d-none');
+    //     blogContainer.innerHTML = `
+    //         <div class="no-results text-center">
+    //             <h4 class="mt-3">No results found</h4>
+    //             <p class="text-muted">No ${cat} artifacts found.</p>
+    //         </div>`;
+    //     return;
+    // }
+
     if (cat == "Article") {
         artifactsToDisplay.forEach(post => {
             if (post) {
@@ -187,7 +195,8 @@ function displayArtifacts(filteredArtifacts) {
 
                 newCard.querySelector(".journal_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+                newCard.querySelector(".post-author").textContent = post.internalauthor_name.employee_name
+|| "Unknown";
                 newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
                 newCard.querySelector(".journals_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
 
@@ -267,7 +276,7 @@ c_dropdown.addEventListener('change', async function () {
     };
     handletoshowbelongToInput(this.value);
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
-    
+
     next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
     displayArtifacts(response.message.data)
 });
@@ -496,9 +505,9 @@ const GetSetYearOps = async () => {
             addedYears.add(year);
         }
     });
-    
+
     let sortedYears = Array.from(addedYears).sort();
-    
+
     sortedYears.forEach(year => {
         let option = document.createElement('option');
         option.value = year;
