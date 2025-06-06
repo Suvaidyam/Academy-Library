@@ -2900,3 +2900,4 @@ article:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 
 .form-check-input[type=checkbox] {
  border:1px solid #1e4356;
 }
+.blog-title{ font-weight: 700;}
