@@ -131,7 +131,7 @@ function displayArtifacts(filteredArtifacts) {
     // Handle case when no artifacts are provided or empty array
     if (!filteredArtifacts || filteredArtifacts.length === 0) {
         blogContainer.innerHTML = `
-        <div class="no-results text-center">
+        <div class="no-results text-center border">
             <h4 class="mt-3">No results found</h4>
             <p class="text-muted">Try selecting a different category, author, or language.</p>
         </div>`;
