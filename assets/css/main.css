@@ -945,6 +945,9 @@ color: #012970;
   scroll-margin-top: 90px;
   overflow: clip;
 }
+.publications-details{
+  margin: 0px 15px;
+}
 
 @media (max-width: 1199px) {
 
@@ -2142,8 +2145,8 @@ color: #012970;
 # Blog Posts Section
 --------------------------------------------------------------*/
 .blog-posts article {
-  /* background-color: var(--surface-color); */
-  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); */
+  background-color: var(--surface-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   /* padding: 30px; */
   height: 100%;
   /* border-radius: 10px; */
@@ -2885,13 +2888,13 @@ color: #012970;
 .noanchor{ 
   text-decoration: none !important;
   color: var(--default-color) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); */
   display: inline-block !important;
   padding: 5px 10px !important;
   border-radius: 4px !important;
   transition: background-color 0.3s ease !important;
 } 
-.noanchor:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
+article:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
 .card:hover{box-shadow: 0 4px 16px rgba(62, 161, 241, 0.2);}
 #searchResults img{ height: 100px;}
 .form-check-input[type=checkbox] {

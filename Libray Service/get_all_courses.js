@@ -97,11 +97,11 @@ cardBtn.addEventListener('click', function () {
 
 
     mainDivs.forEach(div => {
-        div.classList.add('col-lg-4');
-        div.classList.remove('col-12');
+        div.classList.add('col-lg-12');
+        // div.classList.remove('col-12');
 
-        div.classList.add('col-md-6');
-        div.classList.remove('col-md-12');
+        div.classList.add('col-md-12');
+        // div.classList.remove('col-md-12');
 
     })
 
