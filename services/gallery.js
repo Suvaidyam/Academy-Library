@@ -8,16 +8,27 @@ async function loadGallery() {
     const data = response?.message || [];
     const container = document.querySelector(".isotope-container");
     container.innerHTML = "";
+
+    const videoExtensions = ['mp4', 'mov', 'avi'];
+
     data.forEach(item => {
         const categoryClass = getCategoryClass(item.category);
+        const fileUrl = item.gallery_doc ? `${ENV.API_BASE_URL}${item.gallery_doc}` : null;
+
+        const isVideo = fileUrl && videoExtensions.some(ext => fileUrl.toLowerCase().endsWith(`.${ext}`));
+
+        const imageUrl = isVideo
+            ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMyDStQ1o2FxORHUz0xasvfaEioX1QAF-3mQ&s"
+            : (fileUrl );
+
         let cardHTML = `
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-${categoryClass}">
-              <div class="portfolio-content h-100">
-                <img src="${ENV.API_BASE_URL}${item.gallery_doc}" class="img-fluid rounded w-100 h-100" alt="">
+              <div class="portfolio-content h-100 position-relative">
+                <img src="${imageUrl}" class="img-fluid rounded w-100 h-100" alt="">
+                ${isVideo ? `<span class="position-absolute top-50 start-50 translate-middle text-white fs-2"><i class="bi bi-play-circle"></i></span>` : ""}
                 <div class="portfolio-info">
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="${ENV.API_BASE_URL}${item.gallery_doc}" title="${item.title || "Image"}" data-gallery="gallery-${categoryClass}"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <p>${item.title || "No Title"}</p>
+                  ${!isVideo ? `<a href="${fileUrl}" title="${item.title || "Media"}" data-gallery="gallery-${categoryClass}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>` : `<a href="${fileUrl}" title="${item.title || "Media"}" data-gallery="gallery-${categoryClass}" class="glightbox preview-link"><i class="bi bi-play-circle"></i></a>`}
                 </div>
               </div>
             </div>
@@ -29,6 +40,8 @@ async function loadGallery() {
         GLightbox({ selector: ".glightbox" });
     }
 }
+
+
 
 
 function getCategoryClass(category) {
