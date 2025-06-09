@@ -195,8 +195,7 @@ function displayArtifacts(filteredArtifacts) {
 
                 newCard.querySelector(".journal_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-                newCard.querySelector(".post-author").textContent = post.internalauthor_name.employee_name
-|| "Unknown";
+                newCard.querySelector(".post-author").textContent = post.internalauthor_name.employee_name || "Unknown";
                 newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
                 newCard.querySelector(".journals_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
 
@@ -232,7 +231,7 @@ function displayArtifacts(filteredArtifacts) {
                 newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
                 newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
                 newCard.querySelector(".books_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
-
+                // test
                 blogContainer.appendChild(newCard);
             }
         });
