@@ -2941,7 +2941,7 @@ article:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 
 }
 .blog-title{ font-weight: 700;}
 .hide{ display: none;}
-.rounded{    
+.rounded_leader{    
   
   width: 250px;
     border-radius: 50% !important;
