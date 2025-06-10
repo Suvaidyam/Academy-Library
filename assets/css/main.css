@@ -911,10 +911,22 @@ color: #012970;
   background-size: cover;
 }
 .page-library{
-  background: url("../img/counts-bg.jpg") right #949492;
+  background: url("../img/library.jpeg") right #949492;
   background-size: cover;
 }
-
+.page-gallery{
+  background: url("../img/gallery.jpeg") right #949492;
+  background-size: cover;
+}
+.page-publications{
+  background: url("../img/publications.jpeg") right #949492;
+  background-size: cover;
+}
+.page-global-information{
+  background: url("../img/global-information.jpeg") right #949492;
+  background-size: cover;
+}
+ 
 
 
 /* .page-title:before {
