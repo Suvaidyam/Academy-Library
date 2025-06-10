@@ -19,7 +19,7 @@ let belongToInput = document.getElementById("belongToInput");
 
 const c_dropdown = document.getElementById('category-dropdown1');
 let currentPage = 1;
-const pageSize = 4;
+const pageSize = 10;
 
 export async function getLibraryList() {
     try {
@@ -230,7 +230,7 @@ function displayArtifacts(filteredArtifacts) {
                     : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
                 newCard.querySelector(".book_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-                newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+                newCard.querySelector(".post-author").textContent = post.internalauthor_name.employee_name || "Unknown";
                 newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
                 newCard.querySelector(".books_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
                 // test
