@@ -911,10 +911,22 @@ color: #012970;
   background-size: cover;
 }
 .page-library{
-  background: url("../img/counts-bg.jpg") right #949492;
+  background: url("../img/library.jpeg") right #949492;
   background-size: cover;
 }
-
+.page-gallery{
+  background: url("../img/gallery.jpeg") right #949492;
+  background-size: cover;
+}
+.page-publications{
+  background: url("../img/publications.jpeg") right #949492;
+  background-size: cover;
+}
+.page-global-information{
+  background: url("../img/global-information.jpeg") right #949492;
+  background-size: cover;
+}
+ 
 
 
 /* .page-title:before {
@@ -2929,7 +2941,7 @@ article:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 
 }
 .blog-title{ font-weight: 700;}
 .hide{ display: none;}
-.rounded{    
+.rounded_leader{    
   
   width: 250px;
     border-radius: 50% !important;
