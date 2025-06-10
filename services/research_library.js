@@ -208,7 +208,9 @@ function displayArtifacts(filteredArtifacts) {
                 let newCard = case_studies_temp.cloneNode(true);
                 newCard.classList.remove("d-none");
                 newCard.removeAttribute("id");
-
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
                 newCard.querySelector(".case_studies_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
                 newCard.querySelector(".case_studies_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";

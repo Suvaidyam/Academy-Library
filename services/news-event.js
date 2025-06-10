@@ -144,7 +144,6 @@ const renderEventsPage = () => {
                   <div class="border border-top-0 rounded-bottom p-4">
                       <a href="#" class="h4 mb-3 d-block">${item.title}</a>
                       <p class="mb-3">${item.description}</p>
-                      <a class="btn btn-primary rounded-pill text-white py-2 px-4" href="#">Watch Now</a>
                   </div>
               </div>
           </div>`;
