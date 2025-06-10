@@ -907,8 +907,8 @@ color: #012970;
   background-size: contain;
 }
 .page-research{
-  background: url("../img/gallery/field-2.jpg")  repeat right top #949492;
-  background-size: unset;
+  background: url("../img/banner.jpg")  no-repeat right top #949492;
+  background-size: cover;
 }
 .page-library{
   background: url("../img/counts-bg.jpg") right #949492;
