@@ -29,7 +29,7 @@ export async function getLibraryList() {
             page_size: pageSize,
         };
         filter["artifact_source"] = 'Internal'
-
+        filter["category"] = 'Article'
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
             let posts = response.message.data;
