@@ -287,6 +287,7 @@ color: #012970;
 ------------------------------*/
 .scrolled .header {
   --background-color: #7f7f7f;
+   background-color: var(--background-color);
 }
 
 /*--------------------------------------------------------------
@@ -365,7 +366,7 @@ color: #012970;
   .navmenu li:hover>a,
   .navmenu .active,
   .navmenu .active:focus {
-    color: var(--nav-hover-color);
+    color: var(--nav-dropdown-background-color);
   }
 
   .navmenu .dropdown ul {
@@ -573,7 +574,7 @@ color: #012970;
   /* margin-top: 35px; */
 }
 
-.about .about-content ul i {
+.about .about-content  i {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -585,9 +586,9 @@ color: #012970;
   background: var(--accent-color);
   margin-right: 15px;
   line-height: 0;
-  border-radius: 5px;
+  border-radius: 50%;
 }
-.about .about-content ul i
+.about .about-content i
  img{
   width: 48px;
   height: 48px;
@@ -885,10 +886,9 @@ color: #012970;
 --------------------------------------------------------------*/
 .page-title {
   color: var(--default-color);
-  /* background-color: var(--background-color); */
-  background: linear-gradient(-45deg,   #23a6d5, #23d5ab);;
-  padding: 80px 0 60px 0;
-  text-align: center;
+  background-color: var(--background-color);
+  /* background: linear-gradient(-45deg,   #23a6d5, #23d5ab);; */
+  padding: 90px 0;
   position: relative;
 }
 .page-title-team {
@@ -898,18 +898,39 @@ color: #012970;
   padding: 120px 0 20px 0;
   text-align: center;
 }
+.page-about{
+  background: url("../img/2hero-bg.jpg") no-repeat;
+  background-size: cover;
+}
+.page-leaders{
+  background: url("../img/leaderbg.png") no-repeat right #949492;
+  background-size: contain;
+}
+.page-research{
+  background: url("../img/banner.jpg")  no-repeat right top #949492;
+  background-size: cover;
+}
+.page-library{
+  background: url("../img/counts-bg.jpg") right #949492;
+  background-size: cover;
+}
 
-.page-title:before {
+
+
+/* .page-title:before {
   content: "";
   background-color: color-mix(in srgb, var(--background-color), transparent 50%);
   position: absolute;
   inset: 0;
-}
+} */
 
 .page-title h1 {
   font-size: 42px;
   font-weight: 700;
   margin-bottom: 10px;
+  text-align: left;
+color: var(--contrast-color);   
+
 }
 
 .page-title .breadcrumbs ol {
@@ -2063,6 +2084,7 @@ color: #012970;
 --------------------------------------------------------------*/
 .team .member {
   position: relative;
+  
 }
 .img-shadow{
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -2071,6 +2093,10 @@ color: #012970;
 .team .member .member-img {
   overflow: hidden;
   position: relative;
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+  padding-bottom: 20px;
   
 }
 
@@ -2155,7 +2181,8 @@ color: #012970;
 
 .blog-posts .post-img {
   max-height: 240px;
-  margin: -30px -30px 15px -30px;
+  margin: 0px -10px ;
+  padding-bottom: 10px;
   overflow: hidden;
 }
 
@@ -2901,3 +2928,37 @@ article:hover, article:hover{cursor: pointer;   box-shadow: 0 4px 16px rgba(62, 
  border:1px solid #1e4356;
 }
 .blog-title{ font-weight: 700;}
+.hide{ display: none;}
+.rounded{    
+  
+  width: 250px;
+    border-radius: 50% !important;
+    margin: 20px auto;
+    position: relative;
+    z-index: 2;
+    border: 6px solid rgba(255, 255, 255, 0.2); transition: all .2s ease-in-out; }
+    .img-fluid{  transition: all .2s ease-in-out;  border: 1px solid rgb(218, 220, 224);}
+    .img-fluid:hover{   transform: scale(1.1);  border: 3px solid rgb(218, 220, 224) !important;} 
+
+
+ 
+.research-logo {
+    width: 120px;
+    height: 120PX;
+    border-radius: 50%;
+    z-index: 2;
+    border: 6px solid rgba(255, 255, 255, 0.2);
+}
+.research-card{
+  border: 1px solid rgb(218, 220, 224);
+  margin: 16px;
+  border-radius: 24px;
+}
+.research-card:hover{
+      background: rgb(248, 249, 250);
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+}
+.readMore-text{text-align: right; position: relative;
+    top: -80px;
+    right: 50px;
+    padding: 20px;}
