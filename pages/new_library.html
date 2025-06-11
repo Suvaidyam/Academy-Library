@@ -28,36 +28,39 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
+
+  <!-- Include Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <div id="header" class="header d-flex align-items-center fixed-top" ></div>
+  <div id="header" class="header d-flex align-items-center fixed-top"></div>
   <main class="main">
 
-  <div class="page-title page-library ">
-    <div class="container position-relative">
-      <h1>Library</h1>
-      <!-- <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
+    <div class="page-title page-library ">
+      <div class="container position-relative">
+        <h1>Library</h1>
+        <!-- <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
         molestias.</p> -->
-      <!-- <nav class="breadcrumbs">
+        <!-- <nav class="breadcrumbs">
         <ol>
           <li><a href="learning-library.html">Home</a></li>
           <li class="current">Library</li>
         </ol>
       </nav> -->
 
-      <!-- <div class="search-bar ">
+        <!-- <div class="search-bar ">
         <form class="search-form d-flex align-items-center " method="POST" action="#">
           <input type="text" name="query" placeholder="Search" title="Enter search keyword">
           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </form>
       </div> -->
-      <!-- End Search Bar -->
-    </div>
-  </div><!-- End Page Title -->
-  <div class="container-fluid px-0">
-    <!-- Header with navigation -->
-    <!-- <header class="header py-2 px-3 d-flex justify-content-between align-items-center">
+        <!-- End Search Bar -->
+      </div>
+    </div><!-- End Page Title -->
+    <div class="container-fluid px-0">
+      <!-- Header with navigation -->
+      <!-- <header class="header py-2 px-3 d-flex justify-content-between align-items-center">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item"><a href="#">Library</a></li>
@@ -68,231 +71,142 @@
     </header> -->
 
 
-    <div class="container mt-4">
-      <!-- <h4 class="mb-3">Library</h4> -->
+      <div class="container mt-4">
+        <!-- <h4 class="mb-3">Library</h4> -->
 
-      <!-- Nav Tabs -->
-      <ul class="nav nav-tabs" id="libraryTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
-            type="button" role="tab" aria-controls="course-content" aria-selected="true">
-            Course Content
-          </button>
-        </li>
-        <!-- <li class="nav-item" role="presentation">
-          <button class="nav-link" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button" role="tab"
-            aria-controls="books" aria-selected="false">
-            Books
-          </button>
-        </li> -->
-      </ul>
+        <!-- Nav Tabs - FIXED TO SHOW BOOKS AS DEFAULT -->
+        <ul class="nav nav-tabs" id="libraryTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button"
+              role="tab" aria-controls="books" aria-selected="true">
+              Books
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="course-content-tab" data-bs-toggle="tab"
+              data-bs-target="#course-content" type="button" role="tab" aria-controls="course-content"
+              aria-selected="false">
+              Course Content
+            </button>
+          </li>
+          
+        </ul>
 
-      <!-- Tab Content -->
-      <div class="tab-content p-3 border border-top-0" id="libraryTabContent">
-        <!-- Course Content Tab Pane -->
-        <div class="tab-pane fade show active" id="course-content" role="tabpanel" aria-labelledby="course-content-tab">
-          <!-- <p>Here goes the Course Content section — search sessions, filter modules, etc.</p> -->
-          <main class="container my-4">
-            <div class="row">
-              <!-- Search Section -->
-              <div class="col-lg-9 mb-4">
-                <!-- Global Search -->
-                <div class="search-bar mb-4 ">
-                  <form id="searchForm" class="search-form d-flex align-items-center " method="POST">
-                    <input type="text" id="searchInput" name="query" placeholder="Tags / keywords for generic / global searches"
-                      title="Enter search keyword">
-                    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-                  </form>
-                </div>
-                <!-- <div class="search-container mb-4">
-                  <label for="globalSearch" class="form-label mb-2">Search</label>
-                  <div class="input-group">
-                    <input type="text" id="globalSearch" class="form-control"
-                      placeholder="Tags / keywords for generic / global searches">
-                    <button class="btn btn-outline-secondary search-btn" type="button">
-                      <i class="bi bi-search"></i>
+        <!-- Tab Content -->
+        <div class="tab-content p-3 border border-top-0" id="libraryTabContent">
+          
+          <!-- Books Tab Pane - NOW ACTIVE BY DEFAULT -->
+          <div class="tab-pane fade show active" id="books" role="tabpanel" aria-labelledby="books-tab">
+            <!-- <p>Here goes the Books section — list of books, download links, or categorization.</p> -->
+            <div class="container py-4">
+
+              <div class="row">
+                <!-- Main Content - Featured Books -->
+                  <div class="col-lg-4 mt-8">
+                  <form>
+                    <!-- <div class="row mb-3">
+                  
+                    </div> -->
+                    
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select" id="year-dropdown" aria-label="Default select example">
+                          <option disabled selected>Select Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select" id="language-dropdown" aria-label="Default select example">
+                          <option disabled selected>Select  Language</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input id="author" class="form-control" placeholder="Search by Author">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input id="tagsInput" class="form-control" placeholder="Keywords">
+                      </div>
+                    </div>
+                    <div>
+
+                      <button type="button" id="clearbtn" style="width: 100%;" class="btn btn-outline-secondary">
+                        Clear
+                      </button>
+
+                      <!-- <div class="services-list"><button id="clear_btn" class="btn btn-outline-secondary">
+                      <i class="bi bi-x-circle"></i> Clear
                     </button>
-                  </div>
-                </div> -->
-
-                <!-- Course-specific Search -->
-                <div class="course-search-container mb-4">
-
-
-                  <!-- Course Dropdown -->
-
-
-                  <div class="mb-3">
-                    <div class="input-group">
-                      <select id="courseSearch" class="form-select">
-                        <option selected disabled>Select a Module</option>
-                        <!-- <option value="course1">Course 1</option>
-                        <option value="course2">Course 2</option> -->
-                      </select>
-                      <button class="btn btn-outline-secondary search-btn" type="button">
-                        <i class="bi bi-search"></i>
-                      </button>
+                    <a class="btn btn-success" id="search-btn"><span> <i class="bi bi-search"></i> Search</span></a>
+                    <a class="btn btn-danger" id="reset-btn"> <i class="bi bi-arrow-counterclockwise"></i>
+                      <span>Reset</span></a>
+                  </div> -->
                     </div>
-                  </div>
-
-                  <!-- Topic Dropdown -->
-
-
-                  <div class="mb-3">
-                    <div class="input-group">
-                      <select id="topicSearch" class="form-select">
-                        <option disabled selected>Select a Topic</option>
-
-                      </select>
-                      <button class="btn btn-outline-secondary search-btn" type="button">
-                        <i class="bi bi-search"></i>
-                      </button>
-                    </div>
-                  </div>
-
-
-
-
-                  <!-- Chapters Dropdown -->
-
-
-                  <div class="mb-3">
-                    <div class="input-group">
-                      <select id="chapterSearch" class="form-select">
-                        <option disabled selected>Select a Chapter</option>
-                      </select>
-                      <button class="btn btn-outline-secondary search-btn" type="button">
-                        <i class="bi bi-search"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- Results List -->
-                  <div class="results-container border rounded p-3 mt-4">
-                    <!-- <h6>Session List</h6> -->
-                     <div class="d-flex justify-content-between align-items-center mb-3">
-                      <h6 class="mb-0">Session List</h6>
-                      <div class="view-toggle mb-2">
-                        <button id="cardViewBtn" class="btn btn-primary btn-lg"><i class="bi bi-grid-3x3-gap-fill"></i></button>
-                        <button  id="listViewBtn" class="btn btn-outline-secondary btn-lg"> <i class="bi bi-list-ul"></i></button>
-                      </div>
-                    </div>
-                    <!-- <p class="text-muted small mb-2">e.g., (someone is searching for externalities)</p> -->
-                    <ul class="list-unstyled search-results row gy-4 isotope-container" id="searchResults">
-                    <p>loading Session list ............</p>
-
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- File Type Filters -->
-              <div class="col-lg-3">
-                <div class="file-type-container p-3 bg-light rounded">
-                  <h6 class="mb-3">File Type</h6>
-                  <div class="mb-2 file-type-option">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span>All</span>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="all" id="allFilesCheck">
-                        <label class="form-check-label" for="allFilesCheck"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-2 file-type-option">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span>Doc</span>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Docs" id="docFilesCheck">
-                        <label class="form-check-label" for="docFilesCheck"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-2 file-type-option">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span>PDF</span>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="PDF" id="pdfFilesCheck">
-                        <label class="form-check-label" for="pdfFilesCheck"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-2 file-type-option">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span>Video</span>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Video" id="videoFilesCheck">
-                        <label class="form-check-label" for="videoFilesCheck"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-2 file-type-option">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span>Image</span>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Image" id="presentationFilesCheck">
-                        <label class="form-check-label" for="presentationFilesCheck"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-2 file-type-option">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span>Presentation</span>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="PPT" id="presentationFilesCheck">
-                        <label class="form-check-label" for="presentationFilesCheck"></label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </main>
-          <!-- You can move your existing course/module/topic/chapter search UI here -->
-        </div>
-
-        <!-- Books Tab Pane -->
-        <div class="tab-pane fade" id="books" role="tabpanel" aria-labelledby="books-tab">
-          <!-- <p>Here goes the Books section — list of books, download links, or categorization.</p> -->
-          <div class="container py-4">
-
-
-
-            <div class="row">
-              <!-- Main Content - Featured Books -->
-              <div class="col-lg-8">
-                <!-- Global Search -->
-                <div class="search-bar mb-4 ">
-                  <form id="book_form_search" class="search-form d-flex align-items-center " method="POST" action="#">
-                    <input id="bookSearchInput" type="text" name="query" placeholder="Tags / keywords for generic / global searches"
-                      title="Enter search keyword">
-                    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                   </form>
+
+                  <!-- <div class="card sort-card mb-4">
+                  <div class="card-header bg-light">
+                    <h5 class="mb-0">Sort by</h5>
+                  </div>
+                  <div class="list-group list-group-flush" id="sortOptions">
+                    <label class="list-group-item">
+                      <input class="form-check-input me-1" type="radio" name="sortOption" value="year">
+                      Year
+                    </label>
+                    <label class="list-group-item">
+                      <input class="form-check-input me-1" type="radio" name="sortOption" value="author">
+                      Author
+                    </label>
+                    <label class="list-group-item">
+                      <input class="form-check-input me-1" type="radio" name="sortOption" value="alphabetic">
+                      Alphabetic
+                    </label>
+                  </div>
+                  <div class="card-footer text-end">
+                    <button id="clearSelection" class="btn btn-outline-secondary btn-sm">Clear Selection</button>
+                  </div>
                 </div>
-                <div class="featured-section mb-4">
-                  <!-- <div class="featured-label">These are the featured books</div> -->
-                  <div class="card">
-                    <div class="card-body" id="book-body">
-                      <!-- Book 1 -->
-                      <div class="row mb-4 book-card">
-                        <div class="col-md-3">
-                          <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgYjpfPcn_pQ_3Jb44iih2kVTat6xA5PJKEg&s"
-                            alt="Book cover showing water" class="img-fluid rounded book-img">
-                        </div>
-                        <div class="col-md-9">
-                          <h5 class="card-title">Description of the book</h5>
-                          <p class="card-text text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                          <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-                        </div>
+              </div> -->
+
+                </div>
+                <div class="col-lg-8">
+                  <!-- Global Search -->
+                  <!-- <div class="search-bar mb-4 "> -->
+                    <!-- <form id="book_form_search" class="search-form d-flex align-items-center " method="POST" action="#">
+                      <input id="bookSearchInput" type="text" name="query"
+                        placeholder="Tags / keywords for generic / global searches" title="Enter search keyword">
+                      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                    </form> -->
+                  <!-- </div> -->
+                  <div class="featured-section mb-4">
+                    <!-- <div class="featured-label">These are the featured books</div> -->
+                    <div class="card">
+                      <div class="card-body row " id="book-body">
+                        <!-- Book 1 -->
+                        <!-- <div class="row mb-4 book-card">
+                          <div class="col-md-3">
+                            <img
+                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgYjpfPcn_pQ_3Jb44iih2kVTat6xA5PJKEg&s"
+                              alt="Book cover showing water" class="img-fluid rounded book-img">
+                          </div>
+                          <div class="col-md-9">
+                            <h5 class="card-title">Description of the book</h5>
+                            <p class="card-text text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                              do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                          </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Other Books -->
-                <!-- <div class="card mb-4"> -->
+                  <!-- Other Books -->
+                  <!-- <div class="card mb-4"> -->
                   <!-- <div class="card-header bg-light">
                     <h5 class="mb-0">List of other books</h5>
                   </div> -->
@@ -339,93 +253,224 @@
                          
                         </div>
                       </div> -->
-                    <!-- </div> -->
+                      <!-- </div> -->
+                    </div>
                   </div>
                 </div>
+
               </div>
-
-             
-
-
-              <!-- Include Bootstrap 5 CSS -->
-              <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-              <div class="col-lg-4 mt-4">
-                <div class="card sort-card mb-4">
-                  <div class="card-header bg-light">
-                    <h5 class="mb-0">Sort by</h5>
-                  </div>
-                  <div class="list-group list-group-flush" id="sortOptions">
-                    <label class="list-group-item">
-                      <input class="form-check-input me-1" type="radio" name="sortOption" value="year">
-                      Year
-                    </label>
-                    <label class="list-group-item">
-                      <input class="form-check-input me-1" type="radio" name="sortOption" value="author">
-                      Author
-                    </label>
-                    <label class="list-group-item">
-                      <input class="form-check-input me-1" type="radio" name="sortOption" value="alphabetic">
-                      Alphabetic
-                    </label>
-                  </div>
-                  <div class="card-footer text-end">
-                    <button id="clearSelection" class="btn btn-outline-secondary btn-sm">Clear Selection</button>
-                  </div>
-                </div>
-              </div>
-
+              <!-- Add your books UI or content here -->
             </div>
           </div>
-          <!-- Add your books UI or content here -->
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="loginForm">
-            <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" required>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" required>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="rememberMe">
-                <label class="form-check-label" for="rememberMe">Remember me</label>
+          <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
+          <div class="tab-pane fade" id="course-content" role="tabpanel"
+            aria-labelledby="course-content-tab">
+            <!-- <p>Here goes the Course Content section — search sessions, filter modules, etc.</p> -->
+            <main class="container my-4">
+              <div class="row">
+                <!-- Search Section -->
+                <div class="col-lg-9 mb-4">
+                  <!-- Global Search -->
+                  <div class="search-bar mb-4 ">
+                    <form id="searchForm" class="search-form d-flex align-items-center " method="POST">
+                      <input type="text" id="searchInput" name="query"
+                        placeholder="Tags / keywords for generic / global searches" title="Enter search keyword">
+                      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                    </form>
+                  </div>
+                  <!-- <div class="search-container mb-4">
+                  <label for="globalSearch" class="form-label mb-2">Search</label>
+                  <div class="input-group">
+                    <input type="text" id="globalSearch" class="form-control"
+                      placeholder="Tags / keywords for generic / global searches">
+                    <button class="btn btn-outline-secondary search-btn" type="button">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                </div> -->
+
+                  <!-- Course-specific Search -->
+                  <div class="course-search-container mb-4">
+
+
+                    <!-- Course Dropdown -->
+
+
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <select id="courseSearch" class="form-select">
+                          <option selected disabled>Select a Module</option>
+                          <!-- <option value="course1">Course 1</option>
+                        <option value="course2">Course 2</option> -->
+                        </select>
+                        <button class="btn btn-outline-secondary search-btn" type="button">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Topic Dropdown -->
+
+
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <select id="topicSearch" class="form-select">
+                          <option disabled selected>Select a Topic</option>
+
+                        </select>
+                        <button class="btn btn-outline-secondary search-btn" type="button">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      </div>
+                    </div>
+
+
+
+
+                    <!-- Chapters Dropdown -->
+
+
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <select id="chapterSearch" class="form-select">
+                          <option disabled selected>Select a Chapter</option>
+                        </select>
+                        <button class="btn btn-outline-secondary search-btn" type="button">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Results List -->
+                    <div class="results-container border rounded p-3 mt-4">
+                      <!-- <h6>Session List</h6> -->
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="mb-0">Session List</h6>
+                        <div class="view-toggle mb-2">
+                          <button id="cardViewBtn" class="btn btn-primary btn-lg"><i
+                              class="bi bi-grid-3x3-gap-fill"></i></button>
+                          <button id="listViewBtn" class="btn btn-outline-secondary btn-lg"> <i
+                              class="bi bi-list-ul"></i></button>
+                        </div>
+                      </div>
+                      <!-- <p class="text-muted small mb-2">e.g., (someone is searching for externalities)</p> -->
+                      <ul class="list-unstyled search-results row gy-4 isotope-container" id="searchResults">
+                        <p>loading Session list ............</p>
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- File Type Filters -->
+                <div class="col-lg-3">
+                  <div class="file-type-container p-3 bg-light rounded">
+                    <h6 class="mb-3">File Type</h6>
+                    <div class="mb-2 file-type-option">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span>All</span>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="all" id="allFilesCheck">
+                          <label class="form-check-label" for="allFilesCheck"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-2 file-type-option">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span>Doc</span>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="Docs" id="docFilesCheck">
+                          <label class="form-check-label" for="docFilesCheck"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-2 file-type-option">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span>PDF</span>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="PDF" id="pdfFilesCheck">
+                          <label class="form-check-label" for="pdfFilesCheck"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-2 file-type-option">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span>Video</span>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="Video" id="videoFilesCheck">
+                          <label class="form-check-label" for="videoFilesCheck"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-2 file-type-option">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span>Image</span>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="Image" id="presentationFilesCheck">
+                          <label class="form-check-label" for="presentationFilesCheck"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-2 file-type-option">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span>Presentation</span>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="PPT" id="presentationFilesCheck">
+                          <label class="form-check-label" for="presentationFilesCheck"></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <a href="#" class="text-decoration-none">Forgot password?</a>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="loginBtn">Sign In</button>
+            </main>
+            <!-- You can move your existing course/module/topic/chapter search UI here -->
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</main>
+
+      <!-- Login Modal -->
+      <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" required>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                  </div>
+                  <a href="#" class="text-decoration-none">Forgot password?</a>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="loginBtn">Sign In</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
 
   <div id="footer" class="footer dark-background"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
   <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
-
-
 
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../vendor/php-email-form/validate.js"></script>
@@ -437,13 +482,11 @@
   <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-
   <!-- <script src="../services/FrappeApiClient.js"></script> -->
   <!-- <script src="../services/research_library.js"></script> -->
   <!-- <script src="../services/about.js"></script> -->
 
   <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
-
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
@@ -451,9 +494,7 @@
 
   <script type="module" src="../Libray Service/get_all_courses.js"></script>
   <script type="module" src="../Libray Service/handleFiletype.js"></script>
-  <!-- <script type="module" src="../Libray Service/get_book_list.js"></script> -->
-
-
+  <script type="module" src="../Libray Service/get_book_list.js"></script>
 
 </body>
 

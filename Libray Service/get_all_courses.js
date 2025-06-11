@@ -315,12 +315,20 @@ export function setSessionList(response) {
     updateButtonStyles();
     console.log('Current view:', currentView);
 }
+const course_tab=document.getElementById("course-content-tab")
 
-
-document.addEventListener('DOMContentLoaded', async () => {
+course_tab.addEventListener('click', async () => {
     get_all_courses()
     get_session_list()
 })
+
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     get_all_courses()
+//     get_session_list()
+// })
+
+
 
 
 // Handle global search
