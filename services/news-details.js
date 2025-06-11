@@ -58,7 +58,7 @@ function populateNewsDetails(news) {
 
   // Set Content
   const contentElement = document.querySelector('.content');
-  contentElement.innerHTML = `<p>${news?.description}</p>`;
+  contentElement.innerHTML = `<a href="${news?.news_link}" target="_blank">  <p>${news?.description}</p> </a>`;
 }
 
 function formatDate(dateStr) {
@@ -83,6 +83,7 @@ function set_remaining_news(remaining_news) {
     const recentNews = remaining_news.slice(0, 5);
 
     recentNews.forEach(item => {
+      // console.log("item",item);
       const postItem = document.createElement('div');
       postItem.classList.add('post-item');
 
@@ -102,9 +103,9 @@ function set_remaining_news(remaining_news) {
     // Add "See More" button
     const seeMoreBtn = document.createElement('div');
     seeMoreBtn.classList.add('see-more-container');
-    seeMoreBtn.innerHTML = `
-      <a href="news-events.html" class="see-more-button">See More</a>
-    `;
+    // seeMoreBtn.innerHTML = `
+    //   <a href="inde.html" class="see-more-button">See More</a>
+    // `;
     remaining_news_container.appendChild(seeMoreBtn);
   }
 }
