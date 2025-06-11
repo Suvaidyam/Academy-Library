@@ -9,6 +9,7 @@ const languageDropdown = document.getElementById("language-dropdown");
 const yearDropdown = document.getElementById("year-dropdown");
 const categoryDropdown = document.getElementById("category-dropdown");
 const authorInput = document.getElementById("author");
+const keySearchInput = document.getElementById("tagsInput");
 
 const get_all_books = async () => {
     try {
@@ -42,7 +43,7 @@ const GetSetYearOps = async () => {
         });
 
         const sortedYears = Array.from(addedYears).sort();
-        yearDropdown.innerHTML = `<option value="">Select Year</option>`;
+        // yearDropdown.innerHTML = `<option value="">Select Year</option>`;
         sortedYears.forEach(year => {
             const option = document.createElement('option');
             option.value = year;
@@ -136,9 +137,34 @@ if (bookbtn) {
 }
 document.addEventListener('DOMContentLoaded', async () => {
     get_all_books();
-        GetSetYearOps();
-        getLanguageList();
-})
+    GetSetYearOps();
+    getLanguageList();
+});
+
+if (keySearchInput) {
+    keySearchInput.addEventListener('input', async function () {
+        const year = yearDropdown?.value || '';
+        const language = languageDropdown?.value || '';
+        const author_search = authorInput?.value || '';
+        const search = keySearchInput.value.trim();
+
+        const filter = {
+            category: "Book",
+            ...(year && { year }),
+            ...(search && { keySearchInput: search }),
+            ...(author_search && { authorInput: author_search }),
+            ...(language && language !== "Select Language" && { language }),
+        };
+
+        try {
+            const response = await frappe_client.get('/get_knowledge_artificates', filter);
+            set_book_list(response);
+        } catch (err) {
+            console.error("Error in tags input filter:", err);
+        }
+    });
+}
+
 const searchInput = document.getElementById('bookSearchInput');
 if (searchInput) {
     searchInput.addEventListener('input', async (e) => {
@@ -168,8 +194,57 @@ if (handleclearbtn) {
         if (yearDropdown) yearDropdown.selectedIndex = 0;
         if (categoryDropdown) categoryDropdown.selectedIndex = 0;
         if (authorInput) authorInput.value = '';
-
+        if (keySearchInput) keySearchInput.value = '';
         get_all_books();
+    });
+}
+
+// Filter on author input change
+if (authorInput) {
+    authorInput.addEventListener('input', async function () {
+        const year = yearDropdown?.value || '';
+        const language = languageDropdown?.value || '';
+        const search = keySearchInput?.value || '';
+        const author_search = authorInput.value.trim();
+
+        const filter = {
+            category: "Book",
+            ...(year && { year }),
+            ...(search && { keySearchInput: search }),
+            ...(author_search && { authorInput: author_search }),
+            ...(language && language !== "Select Language" && { language }),
+        };
+
+        try {
+            const response = await frappe_client.get('/get_knowledge_artificates', filter);
+            set_book_list(response);
+        } catch (err) {
+            console.error("Error in author filter:", err);
+        }
+    });
+}
+
+// Filter on language change
+if (languageDropdown) {
+    languageDropdown.addEventListener('change', async function () {
+        const year = yearDropdown?.value || '';
+        const search = keySearchInput?.value || '';
+        const author_search = authorInput?.value || '';
+
+        const filter = {
+            category: "Book",
+            ...(year && { year }),
+            ...(search && { keySearchInput: search }),
+            ...(author_search && { authorInput: author_search }),
+            language: this.value,
+        };
+
+        try {
+            const response = await frappe_client.get('/get_knowledge_artificates', filter);
+            set_book_list(response);
+        } catch (err) {
+            console.error("Error in language filter:", err);
+        }
     });
 }
 
@@ -177,17 +252,14 @@ if (handleclearbtn) {
 if (yearDropdown) {
     yearDropdown.addEventListener('change', async function () {
         const language = languageDropdown?.value || '';
-        const search = document.getElementById('tagsInput')?.value || '';
-        const author_search = document.getElementById('author')?.value || '';
-
-        console.log("author_search",author_search);
-        
+        const search = keySearchInput?.value || '';
+        const author_search = authorInput?.value || '';
 
         const filter = {
-            category:"Book",
+            category: "Book",
             year: this.value,
             ...(search && { keySearchInput: search }),
-            ...(author_search && { author_search: author_search }),
+            ...(author_search && { authorInput: author_search }),
             ...(language && language !== "Select Language" && { language }),
         };
 
@@ -200,7 +272,6 @@ if (yearDropdown) {
                 next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
             }
 
-            // handlePaginationVisibility(totalCount);
             set_book_list(response);
         } catch (err) {
             console.error("Error in year filter:", err);
