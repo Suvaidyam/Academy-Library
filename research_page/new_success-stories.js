@@ -7,12 +7,24 @@ let all_success_stories_Data = [];
 let success_story_Page = 0;
 
 const itemsPerPage = 10;
+const paginationDiv=document.getElementById("pagination")
+
+
+function handlePaginationVisibility(totalCount) {
+    if (totalCount <= itemsPerPage) {
+        paginationDiv.classList.add('d-none');
+    } else {
+        paginationDiv.classList.remove('d-none');
+    }
+}
 
 // -------- Get All News ----------
 const get_all_success_stories = async () => {
 
   try {
     let response = await frappe_client.get('/success_story_list');
+
+    handlePaginationVisibility(response.message.length)
 
     all_success_stories_Data = response.message || [];
     renderSuccess_story_Page();
@@ -40,7 +52,14 @@ const renderSuccess_story_Page = () => {
   const nextBtn = document.getElementById("story-next-btn");
 
   successContainer.innerHTML = "";
-
+  if (all_success_stories_Data.length === 0) {
+        successContainer.innerHTML = `
+            <div class="col-12 text-center">
+                <h1 class="text-muted">No results found.</h1>
+            </div>`;
+        paginationDiv.classList.add('d-none');
+        return;
+    }
   const start = success_story_Page * itemsPerPage;
   const end = start + itemsPerPage;
   const currentCase_study = all_success_stories_Data.slice(start, end);

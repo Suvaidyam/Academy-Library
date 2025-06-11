@@ -173,7 +173,7 @@ function displayArtifacts(filteredArtifacts) {
                     ? ENV.API_BASE_URL + post.thumbnail_image
                     : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
 
-                newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
+                // newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
                 newCard.querySelector(".articles_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
 
