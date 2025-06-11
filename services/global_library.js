@@ -23,6 +23,21 @@ let currentPage = 1;
 let fullData = [];
 let total_count = "";
 
+let Pagination1=document.getElementById("pagination1")
+let Pagination2=document.getElementById("pagination2")
+
+
+
+function handlePaginationVisibility(totalCount) {
+    if (totalCount <= pageSize) {
+        Pagination1.classList.add('d-none');
+        Pagination2.classList.add('d-none');
+    } else {
+        Pagination1.classList.remove('d-none');
+        Pagination2.classList.remove('d-none');
+    }
+}
+
 
 const activeTabId = "subscribed"; // Default active tab ID
 
@@ -40,6 +55,7 @@ async function fetchAllData(filter = {}) {
         if (res.message) {
             total_count = res.message?.total_count || 0;
         }
+        handlePaginationVisibility(res.message?.total_count)
         return res.message?.data || [];
     } catch (error) {
         console.error("Failed to fetch data:", error);
@@ -275,6 +291,13 @@ const handTabBtn = () => {
 const SetAllTAbContainer = (fullData) => {
     const template = document.getElementById("general-template");
     template.innerHTML = ""; // Clear previous content
+
+    if (fullData.length === 0) {
+        template.innerHTML = `
+           <div class="no-results text-center"><h4>No results found</h4></div>`;
+        // paginationDiv.classList.add('d-none');
+        return;
+    }
     fullData.forEach(element => {
         let card = `
             <div class="col-lg-6 mb-4">
