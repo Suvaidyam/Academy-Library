@@ -20,6 +20,16 @@ let belongToInput = document.getElementById("belongToInput");
 const c_dropdown = document.getElementById('category-dropdown1');
 let currentPage = 1;
 const pageSize = 10;
+let Pagination = document.getElementById('pagination');
+
+// Helper function to handle pagination visibility
+function handlePaginationVisibility(totalCount) {
+    if (totalCount <= pageSize) {
+        Pagination.classList.add('d-none');
+    } else {
+        Pagination.classList.remove('d-none');
+    }
+}
 
 export async function getLibraryList() {
     try {
@@ -30,9 +40,15 @@ export async function getLibraryList() {
         };
         filter["artifact_source"] = 'Internal'
         filter["category"] = 'Article'
+        
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
             let posts = response.message.data;
+            let totalCount = response.message.total_count;
+            
+            next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+            handlePaginationVisibility(totalCount);
+            
             return posts
         }
 
@@ -65,7 +81,7 @@ export async function getLibraryList() {
             let filteredArtifacts = artifacts;
 
             // Filter by category if one is selected and it's not the default option
-            if (selectedCategory && selectedCategory !== "Select a Category") {
+            if (selectedCategory && selectedCategory !== "Select Category") {
                 filteredArtifacts = artifacts.filter(artifact =>
                     artifact.category === selectedCategory
                 );
@@ -135,34 +151,16 @@ function displayArtifacts(filteredArtifacts) {
             <h4 class="mt-3">No results found</h4>
             <p class="text-muted">Try selecting a different category, author, or language.</p>
         </div>`;
-        let Pagination = document.getElementById('pagination');
-        Pagination.classList.add('d-none');
         return;
-    } else {
-        let Pagination = document.getElementById('pagination');
-        Pagination.classList.remove('d-none');
     }
-
 
     // Filter artifacts based on selected category if not already filtered
     let artifactsToDisplay = filteredArtifacts;
-    if (cat && cat !== "Select a Category") {
+    if (cat && cat !== "Select Category") {
         artifactsToDisplay = filteredArtifacts.filter(artifact =>
             artifact.category === cat
         );
     }
-
-    // If no artifacts match the category filter
-    // if (artifactsToDisplay.length === 0) {
-    //     // let Pagination = document.getElementById('pagination');
-    //     // Pagination.classList.add('d-none');
-    //     blogContainer.innerHTML = `
-    //         <div class="no-results text-center">
-    //             <h4 class="mt-3">No results found</h4>
-    //             <p class="text-muted">No ${cat} artifacts found.</p>
-    //         </div>`;
-    //     return;
-    // }
 
     if (cat == "Article") {
         artifactsToDisplay.forEach(post => {
@@ -233,7 +231,7 @@ function displayArtifacts(filteredArtifacts) {
                 newCard.querySelector(".post-author").textContent = post.internalauthor_name.employee_name || "Unknown";
                 newCard.querySelector(".post-date").textContent = post.date_of_creationpublication || "No Date";
                 newCard.querySelector(".books_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
-                // test
+
                 blogContainer.appendChild(newCard);
             }
         });
@@ -270,16 +268,19 @@ c_dropdown.addEventListener('change', async function () {
         page: currentPage,
         page_size: pageSize,
         category: this.value,
-        ...(languageDropdown.value && languageDropdown.value !== 'Select a Language' && { language: languageDropdown.value }),
-        ...(authorDropdown.value && authorDropdown.value !== 'Select a Author' && { author: authorDropdown.value }),
-        ...(yearDropdown.value && yearDropdown.value !== 'Select a Year' && { year: yearDropdown.value }),
+        ...(languageDropdown.value && languageDropdown.value !== 'Select Language' && { language: languageDropdown.value }),
+        ...(authorDropdown.value && authorDropdown.value !== 'Select Author' && { author: authorDropdown.value }),
+        ...(yearDropdown.value && yearDropdown.value !== 'Select Year' && { year: yearDropdown.value }),
         ...(keySearchInput.value && { keySearchInput: keySearchInput.value })
     };
+    
     handletoshowbelongToInput(this.value);
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
 
-    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
-    displayArtifacts(response.message.data)
+    next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+    handlePaginationVisibility(totalCount);
+    displayArtifacts(response.message.data);
 });
 
 const handletoshowbelongToInput = (cat) => {
@@ -303,28 +304,28 @@ authorDropdown.addEventListener('change', async function () {
         page_size: pageSize,
         author: this.value,
         ...(search && { keySearchInput: search }),
-        ...(year !== "Select a Year" && { year }),
-        ...(language !== "Select a Language" && { language }),
-        ...(category !== "Select a Category" && { category }),
+        ...(year !== "Select Year" && { year }),
+        ...(language !== "Select Language" && { language }),
+        ...(category !== "Select Category" && { category }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
 
     console.log('Selected value:', this.value, category, response);
-    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+    handlePaginationVisibility(totalCount);
     displayArtifacts(response.message.data);
 });
 
 const getAuthorList = async () => {
-
     let response = await frappe_client.get('/get_assigned_author');
     response.message.forEach(author => {
         let option = document.createElement('option');
         option.value = author.name;
-        option.textContent = author.employee_name || author.name; // Fallback if `language_name` is missing
+        option.textContent = author.employee_name || author.name;
         authorDropdown.appendChild(option);
     });
-
 }
 
 let handlelanguageDropdown = document.getElementById('language-dropdown')
@@ -339,16 +340,18 @@ handlelanguageDropdown.addEventListener('change', async function () {
         page: currentPage,
         page_size: pageSize,
         ...(keySearch && { keySearchInput: keySearch }),
-        ...(author !== "Select a Author" && { author }),
-        ...(year !== "Select a Year" && { year }),
+        ...(author !== "Select Author" && { author }),
+        ...(year !== "Select Year" && { year }),
         ...(language && { language }),
-        ...(category !== "Select a Category" && { category }),
+        ...(category !== "Select Category" && { category }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
 
     console.log('Selected value:', language, category, response);
-    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+    handlePaginationVisibility(totalCount);
     displayArtifacts(response.message.data);
 });
 
@@ -370,18 +373,21 @@ pre_btn.addEventListener("click", async function () {
         page: currentPage,
         page_size: pageSize,
         ...(search && { keySearchInput: search }),
-        ...(year !== "Select a Year" && { year }),
-        ...(language !== "Select a Language" && { language }),
-        ...(category !== "Select a Category" && { category }),
-        ...(author !== "Select a Author" && { author }),
+        ...(year !== "Select Year" && { year }),
+        ...(language !== "Select Language" && { language }),
+        ...(category !== "Select Category" && { category }),
+        ...(author !== "Select Author" && { author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
+    
     displayArtifacts(response.message.data);
 
     pre_btn.disabled = currentPage === 1;
-    next_btn.disabled = false;
+    next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+    handlePaginationVisibility(totalCount);
 
     console.log('Previous Page:', category, currentPage);
 });
@@ -400,18 +406,21 @@ next_btn.addEventListener("click", async function () {
         page: currentPage,
         page_size: pageSize,
         ...(search && { keySearchInput: search }),
-        ...(year !== "Select a Year" && { year }),
-        ...(language !== "Select a Language" && { language }),
-        ...(category !== "Select a Category" && { category }),
-        ...(author !== "Select a Author" && { author }),
+        ...(year !== "Select Year" && { year }),
+        ...(language !== "Select Language" && { language }),
+        ...(category !== "Select Category" && { category }),
+        ...(author !== "Select Author" && { author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
+    
     displayArtifacts(response.message.data);
 
     pre_btn.disabled = currentPage === 1;
-    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+    handlePaginationVisibility(totalCount);
 
     console.log('Next Page:', category, currentPage);
 });
@@ -428,31 +437,23 @@ handleclearbtn.addEventListener('click', () => {
     handletoshowbelongToInput(c_dropdown.value);
     belongToInput.value = '';
 
-
-
     getLibraryList();
-
-}
-)
+})
 
 const getLanguageList = async () => {
     const args = {
         doctype: 'Language',
         fields: ['name', 'language_name'],
         filters: JSON.stringify({ enabled: '1' })
-
     };
-
-
 
     let response = await frappe_client.get('/get_doctype_list', args);
     response.message.forEach(lang => {
         let option = document.createElement('option');
         option.value = lang.name;
-        option.textContent = lang.language_name || lang.name; // Fallback if `language_name` is missing
+        option.textContent = lang.language_name || lang.name;
         handlelanguageDropdown.appendChild(option);
     });
-
 }
 
 // Handle search from keywords
@@ -469,14 +470,16 @@ keysearchInput.addEventListener('input', async () => {
         page: currentPage,
         page_size: pageSize,
         ...(search && { keySearchInput: search }),
-        ...(language !== "Select a Language" && { language }),
-        ...(category !== "Select a Category" && { category }),
-        ...(author !== "Select a Author" && { author }),
-        ...(year !== "Select a Year" && { year }),
+        ...(language !== "Select Language" && { language }),
+        ...(category !== "Select Category" && { category }),
+        ...(author !== "Select Author" && { author }),
+        ...(year !== "Select Year" && { year }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
 
+    handlePaginationVisibility(totalCount);
     displayArtifacts(response.message.data);
     console.log('Search Query:', search, response);
 });
@@ -517,6 +520,7 @@ const GetSetYearOps = async () => {
     });
 };
 
+
 yearDropdown.addEventListener('change', async function () {
     const author = document.getElementById('author-dropdown').value;
     const category = document.getElementById('category-dropdown1').value;
@@ -528,14 +532,16 @@ yearDropdown.addEventListener('change', async function () {
         page_size: pageSize,
         year: this.value,
         ...(search && { keySearchInput: search }),
-        ...(author !== "Select a Author" && { author }),
-        ...(category !== "Select a Category" && { category }),
-        ...(language !== "Select a Language" && { language }),
+        ...(author !== "Select Author" && { author }),
+        ...(category !== "Select Category" && { category }),
+        ...(language !== "Select Language" && { language }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
 
-    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+    handlePaginationVisibility(totalCount);
     displayArtifacts(response.message.data);
 });
 
@@ -551,15 +557,17 @@ belongToInput.addEventListener('input', async function () {
         page_size: pageSize,
         belongTo: this.value,
         ...(search && { keySearchInput: search }),
-        ...(author !== "Select a Author" && { author }),
-        ...(category !== "Select a Category" && { category }),
-        ...(language !== "Select a Language" && { language }),
-        ...(year !== "Select a Year" && { year }),
+        ...(author !== "Select Author" && { author }),
+        ...(category !== "Select Category" && { category }),
+        ...(language !== "Select Language" && { language }),
+        ...(year !== "Select Year" && { year }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
+    let totalCount = response.message.total_count;
 
-    next_btn.disabled = currentPage >= Math.ceil(response.message.total_count / pageSize);
+    next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+    handlePaginationVisibility(totalCount);
     displayArtifacts(response.message.data);
 });
 
@@ -569,5 +577,3 @@ document.addEventListener("DOMContentLoaded", () => {
     getAuthorList();
     GetSetYearOps();
 });
-
-// Remove the standalone displayArtifacts() call at the end

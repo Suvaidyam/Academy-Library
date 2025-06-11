@@ -100,57 +100,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // handle Book sorting 
 
-// import set_book_list from "./get_book_list.js";
+import set_book_list from "./get_book_list.js";
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const sortOptions = document.getElementById('sortOptions');
-//     const radioButtons = sortOptions.querySelectorAll('input[type="radio"]');
-//     const clearButton = document.getElementById('clearSelection');
-//     const searchInput = document.getElementById('bookSearchInput');
-//     // Handle selection change
-//     radioButtons.forEach(radio => {
-//         radio.addEventListener('change', async function () {
-//             if (this.checked) {
-//                 console.log('Selected sort option:', this.value);
-//                 if (searchInput.value) {
-//                     console.log("some value hai", searchInput.value);
-//                     try {
-//                         const response = await frappe_client.get('/filter_global_book', {
-//                             sort_type: this.value,
-//                             global_val: searchInput.value
-//                         });
-//                         console.log('Book list response:', response);
-//                         set_book_list(response)
-//                     } catch (error) {
-//                         console.error('Error fetching book list:', error);
-//                     }
-//                 } else {
-//                     console.log("Not any value ");
-//                     try {
-//                         const response = await frappe_client.get('/get_book_list', {
-//                             sort_type: this.value
-//                         });
-//                         console.log('Book list response:', response);
-//                         set_book_list(response)
-//                     } catch (error) {
-//                         console.error('Error fetching book list:', error);
-//                     }
-//                 }
+document.addEventListener('DOMContentLoaded', function () {
+    const sortOptions = document.getElementById('sortOptions');
+    const radioButtons = sortOptions.querySelectorAll('input[type="radio"]');
+    const clearButton = document.getElementById('clearSelection');
+    const searchInput = document.getElementById('bookSearchInput');
+    // Handle selection change
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', async function () {
+            if (this.checked) {
+                console.log('Selected sort option:', this.value);
+                if (searchInput.value) {
+                    console.log("some value hai", searchInput.value);
+                    try {
+                        const response = await frappe_client.get('/filter_global_book', {
+                            sort_type: this.value,
+                            global_val: searchInput.value
+                        });
+                        console.log('Book list response:', response);
+                        set_book_list(response)
+                    } catch (error) {
+                        console.error('Error fetching book list:', error);
+                    }
+                } else {
+                    console.log("Not any value ");
+                    try {
+                        const response = await frappe_client.get('/get_book_list', {
+                            sort_type: this.value
+                        });
+                        console.log('Book list response:', response);
+                        set_book_list(response)
+                    } catch (error) {
+                        console.error('Error fetching book list:', error);
+                    }
+                }
 
 
-//                 // Implement your sorting logic here based on this.value
-//             }
-//         });
-//     });
+                // Implement your sorting logic here based on this.value
+            }
+        });
+    });
 
-//     // Clear selection
-//     clearButton.addEventListener('click', function () {
-//         const searchInput = document.getElementById('bookSearchInput');
-//         searchInput.value = ''
-//         radioButtons.forEach(radio => {
-//             radio.checked = false;
-//         });
-//         // console.log('Selection cleared');
-//     });
-// });
+    // Clear selection
+    clearButton.addEventListener('click', function () {
+        const searchInput = document.getElementById('bookSearchInput');
+        searchInput.value = ''
+        radioButtons.forEach(radio => {
+            radio.checked = false;
+        });
+        // console.log('Selection cleared');
+    });
+});
