@@ -85,8 +85,8 @@ const set_book_list = (response) => {
     const books = response?.message?.data || [];
     if (!books.length) {
         bookdiv.innerHTML = `
-            <div class="alert-warning text-center mb-2.5" role="alert">
-                <i class="bi bi-exclamation-circle-fill me-2"></i>
+            <div class="alert-warning  mb-2.5" role="alert">
+                <i class="bi bi-exclamation-circle-fill"></i>
                 No Books are available at the moment. Please check back later!
             </div>`;
         return;
