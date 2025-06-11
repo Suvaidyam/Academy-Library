@@ -66,7 +66,7 @@ const getLanguageList = async () => {
 
     try {
         const response = await frappe_client.get('/get_doctype_list', args);
-        languageDropdown.innerHTML = `<option value="">Select Language</option>`;
+        // languageDropdown.innerHTML = `<option value="">Select Language</option>`;
         (response.message || []).forEach(lang => {
             const option = document.createElement('option');
             option.value = lang.name;
@@ -150,7 +150,7 @@ if (keySearchInput) {
 
         const filter = {
             category: "Book",
-            ...(year && { year }),
+            ...(year &&  year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
             ...(author_search && { authorInput: author_search }),
             ...(language && language !== "Select Language" && { language }),
@@ -209,7 +209,7 @@ if (authorInput) {
 
         const filter = {
             category: "Book",
-            ...(year && { year }),
+            ...(year &&  year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
             ...(author_search && { authorInput: author_search }),
             ...(language && language !== "Select Language" && { language }),
@@ -233,7 +233,7 @@ if (languageDropdown) {
 
         const filter = {
             category: "Book",
-            ...(year && { year }),
+            ...(year &&  year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
             ...(author_search && { authorInput: author_search }),
             language: this.value,
