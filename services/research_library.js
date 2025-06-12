@@ -173,7 +173,7 @@ function displayArtifacts(filteredArtifacts) {
                     ? ENV.API_BASE_URL + post.thumbnail_image
                     : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
 
-                newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
+                // newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
                 newCard.querySelector(".blog-title").textContent = post.title || "No Title";
                 newCard.querySelector(".articles_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
 
@@ -263,6 +263,9 @@ c_dropdown.addEventListener('change', async function () {
     let authorDropdown = document.getElementById('author-dropdown');
     let yearDropdown = document.getElementById('year-dropdown');
     let keySearchInput = document.getElementById('tagsInput');
+    let authorInput = document.getElementById("belongToInput")
+
+    setCategoryWiseBackgrounds(this.value);
 
     const filter = {
         page: currentPage,
@@ -271,10 +274,11 @@ c_dropdown.addEventListener('change', async function () {
         ...(languageDropdown.value && languageDropdown.value !== 'Select Language' && { language: languageDropdown.value }),
         ...(authorDropdown.value && authorDropdown.value !== 'Select Author' && { author: authorDropdown.value }),
         ...(yearDropdown.value && yearDropdown.value !== 'Select Year' && { year: yearDropdown.value }),
-        ...(keySearchInput.value && { keySearchInput: keySearchInput.value })
+        ...(keySearchInput.value && { keySearchInput: keySearchInput.value }),
+        ...(authorInput.value && { authorInput: authorInput.value })
     };
     
-    handletoshowbelongToInput(this.value);
+    // handletoshowbelongToInput(this.value);
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
     let totalCount = response.message.total_count;
 
@@ -334,12 +338,15 @@ handlelanguageDropdown.addEventListener('change', async function () {
     const category = document.getElementById('category-dropdown1').value;
     const year = document.getElementById('year-dropdown').value;
     const keySearch = document.getElementById('tagsInput').value;
+    let authorInput = document.getElementById("belongToInput").value
+
     const language = this.value;
 
     const filter = {
         page: currentPage,
         page_size: pageSize,
         ...(keySearch && { keySearchInput: keySearch }),
+        ...(authorInput && { authorInput: authorInput }),
         ...(author !== "Select Author" && { author }),
         ...(year !== "Select Year" && { year }),
         ...(language && { language }),
@@ -434,7 +441,7 @@ handleclearbtn.addEventListener('click', () => {
     authorDropdown.selectedIndex = 0;
     yearDropdown.selectedIndex = 0
 
-    handletoshowbelongToInput(c_dropdown.value);
+    // handletoshowbelongToInput(c_dropdown.value);
     belongToInput.value = '';
 
     getLibraryList();
@@ -465,11 +472,14 @@ keysearchInput.addEventListener('input', async () => {
     const language = document.getElementById('language-dropdown').value;
     const category = document.getElementById('category-dropdown1').value;
     const search = keysearchInput.value;
+    let authorInput = document.getElementById("belongToInput").value
+
 
     const filter = {
         page: currentPage,
         page_size: pageSize,
         ...(search && { keySearchInput: search }),
+        ...(authorInput && { authorInput: authorInput }),
         ...(language !== "Select Language" && { language }),
         ...(category !== "Select Category" && { category }),
         ...(author !== "Select Author" && { author }),
@@ -521,17 +531,40 @@ const GetSetYearOps = async () => {
 };
 
 
+function setCategoryWiseBackgrounds(category) {
+    if(category === "Case Studies") {
+        category = "Case_Studies";
+    }
+  const categoryImages = {
+    Article: "../assets/img/publications.jpeg",
+    Journal: "../assets/img/jonoural.png",
+    Case_Studies: "../assets/img/library.jpeg",
+  };
+
+  const elements = document.getElementsByClassName("page-title");
+
+  if (category && categoryImages[category] && elements.length > 0) {
+    elements[0].style.backgroundImage = `url('${categoryImages[category]}')`;
+    elements[0].style.backgroundSize = "cover";
+    elements[0].style.backgroundRepeat = "no-repeat";
+    elements[0].style.backgroundPosition = "center";
+  }
+}
+
 yearDropdown.addEventListener('change', async function () {
     const author = document.getElementById('author-dropdown').value;
     const category = document.getElementById('category-dropdown1').value;
     const language = document.getElementById('language-dropdown').value;
     const search = document.getElementById('tagsInput').value;
+    let authorInput = document.getElementById("belongToInput").value
+
 
     const filter = {
         page: currentPage,
         page_size: pageSize,
         year: this.value,
         ...(search && { keySearchInput: search }),
+        ...(authorInput && { authorInput: authorInput }),
         ...(author !== "Select Author" && { author }),
         ...(category !== "Select Category" && { category }),
         ...(language !== "Select Language" && { language }),
@@ -555,7 +588,7 @@ belongToInput.addEventListener('input', async function () {
     const filter = {
         page: currentPage,
         page_size: pageSize,
-        belongTo: this.value,
+        authorInput: this.value,
         ...(search && { keySearchInput: search }),
         ...(author !== "Select Author" && { author }),
         ...(category !== "Select Category" && { category }),
