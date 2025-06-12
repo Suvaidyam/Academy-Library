@@ -265,6 +265,8 @@ c_dropdown.addEventListener('change', async function () {
     let keySearchInput = document.getElementById('tagsInput');
     let authorInput = document.getElementById("belongToInput")
 
+    setCategoryWiseBackgrounds(this.value);
+
     const filter = {
         page: currentPage,
         page_size: pageSize,
@@ -528,6 +530,26 @@ const GetSetYearOps = async () => {
     });
 };
 
+
+function setCategoryWiseBackgrounds(category) {
+    if(category === "Case Studies") {
+        category = "Case_Studies";
+    }
+  const categoryImages = {
+    Article: "../assets/img/publications.jpeg",
+    Journal: "../assets/img/jonoural.png",
+    Case_Studies: "../assets/img/library.jpeg",
+  };
+
+  const elements = document.getElementsByClassName("page-title");
+
+  if (category && categoryImages[category] && elements.length > 0) {
+    elements[0].style.backgroundImage = `url('${categoryImages[category]}')`;
+    elements[0].style.backgroundSize = "cover";
+    elements[0].style.backgroundRepeat = "no-repeat";
+    elements[0].style.backgroundPosition = "center";
+  }
+}
 
 yearDropdown.addEventListener('change', async function () {
     const author = document.getElementById('author-dropdown').value;
