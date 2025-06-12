@@ -2960,7 +2960,13 @@ article:hover, article:hover{cursor: pointer;
     margin: 20px auto;
     position: relative;
     z-index: 2;
-    border: 6px solid rgba(255, 255, 255, 0.2); transition: all .2s ease-in-out; }
+    border: 6px solid rgba(255, 255, 255, 0.2); transition: all .2s ease-in-out;
+   transition: all .2s ease-in-out;  border: 1px solid rgb(218, 220, 224);
+  }
+  .rounded_leader:hover{    
+   transform: scale(1.1);  border: 3px solid rgb(218, 220, 224) !important;
+  }
+    
 
     /* .img-fluid{  transition: all .2s ease-in-out;  border: 1px solid rgb(218, 220, 224);}
     .img-fluid:hover{   transform: scale(1.1);  border: 3px solid rgb(218, 220, 224) !important;}  */
