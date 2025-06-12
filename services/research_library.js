@@ -532,16 +532,23 @@ const GetSetYearOps = async () => {
 
 
 function setCategoryWiseBackgrounds(category) {
-    if(category === "Case Studies") {
-        category = "Case_Studies";
-    }
+    category = category === "Article" ? "Articles" : category;
+    category = category === "Journal" ? "Journals" : category;
+
+    const elementDescription = document.getElementById("page-description");
+    if (elementDescription) {
+    elementDescription.textContent = category;
+  }
+  category = category === "Case Studies" ? "Case_Studies" : category;
   const categoryImages = {
-    Article: "../assets/img/publications.jpeg",
-    Journal: "../assets/img/jonoural.png",
+    Articles: "../assets/img/publications.jpeg",
+    Journals: "../assets/img/jonoural.png",
     Case_Studies: "../assets/img/library.jpeg",
   };
 
   const elements = document.getElementsByClassName("page-title");
+  
+  
 
   if (category && categoryImages[category] && elements.length > 0) {
     elements[0].style.backgroundImage = `url('${categoryImages[category]}')`;
