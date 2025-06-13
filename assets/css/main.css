@@ -2923,8 +2923,13 @@ color: var(--contrast-color);
 	padding-top: 22px;
 }
 .read-more{
-	display: inline;
-}.timeline-info {
+	 display: flex;
+   cursor: pointer;
+  justify-content: right;
+}
+ 
+
+.timeline-info {
 	position: relative;
 	background: #f3f1f1;
 	padding: 24px 20px 18px;
@@ -2999,6 +3004,25 @@ article:hover, article:hover{cursor: pointer;
       background: rgb(248, 249, 250);
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
 }
-.readMore-text{ font-style: italic; }
+ 
 
    .pr-2{ padding-right: 10px;}
+
+
+.owl-carousel .item{ background-color: #f3f1f1; max-width: 100%; height: 150px; display: flex; align-items: center; padding: 5px; justify-content: center;  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;}
+.owl-carousel img{  max-height: 140px; object-fit: contain; object-position: center; ; border-radius: 8px; transition: all .2s ease-in-out; }
+.owl-prev, .owl-next {
+  font-size: 40px !important;
+  line-height: 36px;
+  background-color: var(--nav-color) !important;
+  color:#fff !important;
+    margin: 0px 5px;
+    width: 40px !important;
+    line-height: 40px !important;
+    border-radius: 50%;
+} 
+.owl-nav{
+  display: flex;
+  justify-content: center;
+}
+ 
