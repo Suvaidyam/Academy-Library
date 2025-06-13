@@ -2923,8 +2923,13 @@ color: var(--contrast-color);
 	padding-top: 22px;
 }
 .read-more{
-	display: inline;
-}.timeline-info {
+	 display: flex;
+   cursor: pointer;
+  justify-content: right;
+}
+ 
+
+.timeline-info {
 	position: relative;
 	background: #f3f1f1;
 	padding: 24px 20px 18px;
@@ -2999,7 +3004,7 @@ article:hover, article:hover{cursor: pointer;
       background: rgb(248, 249, 250);
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
 }
-.readMore-text{ font-style: italic; }
+ 
 
    .pr-2{ padding-right: 10px;}
 
@@ -3011,12 +3016,13 @@ article:hover, article:hover{cursor: pointer;
   line-height: 36px;
   background-color: var(--nav-color) !important;
   color:#fff !important;
-  margin: 0px 5px;
-  width: 36px !important;
-  line-height: 40px !important;
-  justify-content: end;
+    margin: 0px 5px;
+    width: 40px !important;
+    line-height: 40px !important;
+    border-radius: 50%;
 } 
 .owl-nav{
   display: flex;
   justify-content: center;
 }
+ 
