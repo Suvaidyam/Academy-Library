@@ -120,7 +120,7 @@ const get_all_courses = async () => {
         //     doctype: 'LMS Course'
         // })
         let response = await frappe_client.get('/get_all_course_list', {
-            doctype: 'Course Module'
+            doctype: 'Module'
         })
         console.log("response00000", response);
         set_course_option(response)
