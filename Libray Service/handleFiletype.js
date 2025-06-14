@@ -76,7 +76,7 @@ if (chapterSelect && chapterSelect !== 'Select a Chapter') {
     payload.selected_chapter = chapterSelect;
 } else if (topicSelect && topicSelect !== 'Select a Topic') {
     payload.selected_topic = topicSelect;
-} else if (courseSelect && courseSelect !== 'Select a Course') {
+} else if (courseSelect && courseSelect !== 'Select a Module') {
     payload.selected_course = courseSelect;
 }
 
