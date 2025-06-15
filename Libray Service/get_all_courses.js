@@ -255,11 +255,14 @@ export function setSessionList(response) {
     }
 
     const docTemplates = {
-        PDF: "../assets/img/portfolio/pdf_109.webp",
-        Docs: "../assets/img/portfolio/doc.webp",
-        Video: "../assets/img/portfolio/branding-1.jpg",
-        Image: "../assets/img/portfolio/books-1.jpg",
-        PPT: "../assets/img/portfolio/powerpoint.jpg"
+        PDF: "../assets/img/portfolio/Pdf_img.png",
+        Docs: "../assets/img/portfolio/docs_img.png",
+        Video: "../assets/img/portfolio/Video_img.png",
+        Image: "../assets/img/portfolio/img.jpg",
+        PPT: "../assets/img/portfolio/PPT_img.png",
+        // Video: "../assets/img/portfolio/branding-1.jpg",
+        // Image: "../assets/img/portfolio/books-1.jpg",
+        // PPT: "../assets/img/portfolio/powerpoint.jpg"
     };
 
     const filterMap = {
