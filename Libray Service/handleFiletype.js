@@ -61,7 +61,7 @@ const get_seesion_list = async () => {
         .map(input => input.value);
     console.log(checkedValues);
 
-    if (checkedValues.length >= 4) {
+    if (checkedValues.length >= 5) {
         allCheckbox.checked = true;
     } else {
         allCheckbox.checked = false;
