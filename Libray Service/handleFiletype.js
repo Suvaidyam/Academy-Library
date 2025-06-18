@@ -61,7 +61,7 @@ const get_seesion_list = async () => {
         .map(input => input.value);
     console.log(checkedValues);
 
-    if (checkedValues.length >= 4) {
+    if (checkedValues.length >= 5) {
         allCheckbox.checked = true;
     } else {
         allCheckbox.checked = false;
@@ -76,7 +76,7 @@ if (chapterSelect && chapterSelect !== 'Select a Chapter') {
     payload.selected_chapter = chapterSelect;
 } else if (topicSelect && topicSelect !== 'Select a Topic') {
     payload.selected_topic = topicSelect;
-} else if (courseSelect && courseSelect !== 'Select a Course') {
+} else if (courseSelect && courseSelect !== 'Select a Module') {
     payload.selected_course = courseSelect;
 }
 
