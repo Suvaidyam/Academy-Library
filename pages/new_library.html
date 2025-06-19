@@ -83,18 +83,25 @@
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="course-content-tab" data-bs-toggle="tab"
-              data-bs-target="#course-content" type="button" role="tab" aria-controls="course-content"
-              aria-selected="false">
+            <button class="nav-link" id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
+              type="button" role="tab" aria-controls="course-content" aria-selected="false">
               Course Content
             </button>
           </li>
-          
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
+              type="button" role="tab" aria-controls="video-session" aria-selected="false">
+              Video Session
+            </button>
+          </li>
+
+
+
         </ul>
 
         <!-- Tab Content -->
         <div class="tab-content p-3 border border-top-0" id="libraryTabContent">
-          
+
           <!-- Books Tab Pane - NOW ACTIVE BY DEFAULT -->
           <div class="tab-pane fade show active" id="books" role="tabpanel" aria-labelledby="books-tab">
             <!-- <p>Here goes the Books section — list of books, download links, or categorization.</p> -->
@@ -102,12 +109,12 @@
 
               <div class="row">
                 <!-- Main Content - Featured Books -->
-                  <div class="col-lg-4 mt-8">
+                <div class="col-lg-4 mt-8">
                   <form>
                     <!-- <div class="row mb-3">
                   
                     </div> -->
-                    
+
                     <div class="row mb-3">
                       <div class="col-sm-12">
                         <select class="form-select" id="year-dropdown" aria-label="Default select example">
@@ -118,7 +125,7 @@
                     <div class="row mb-3">
                       <div class="col-sm-12">
                         <select class="form-select" id="language-dropdown" aria-label="Default select example">
-                          <option disabled selected>Select  Language</option>
+                          <option disabled selected>Select Language</option>
                         </select>
                       </div>
                     </div>
@@ -177,7 +184,7 @@
                 <div class="col-lg-8  d-flex align-items-center justify-content-center ">
                   <!-- Global Search -->
                   <!-- <div class="search-bar mb-4 "> -->
-                    <!-- <form id="book_form_search" class="search-form d-flex align-items-center " method="POST" action="#">
+                  <!-- <form id="book_form_search" class="search-form d-flex align-items-center " method="POST" action="#">
                       <input id="bookSearchInput" type="text" name="query"
                         placeholder="Tags / keywords for generic / global searches" title="Enter search keyword">
                       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -264,8 +271,7 @@
           </div>
 
           <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
-          <div class="tab-pane fade" id="course-content" role="tabpanel"
-            aria-labelledby="course-content-tab">
+          <div class="tab-pane fade" id="course-content" role="tabpanel" aria-labelledby="course-content-tab">
             <!-- <p>Here goes the Course Content section — search sessions, filter modules, etc.</p> -->
             <main class="container my-4">
               <div class="row">
@@ -426,6 +432,46 @@
               </div>
             </main>
             <!-- You can move your existing course/module/topic/chapter search UI here -->
+          </div>
+
+          <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
+          <div class="tab-pane fade" id="video-session" role="tabpanel" aria-labelledby="video-session-tab">
+            <main>
+              <div class="row g-2 " id="video-container">
+                <div class="col-lg-3 align-content-top article-card  rounded-2">
+                 <video width="260" controls>
+                    <source src="../assets/img/mov_bbb.mp4" type="video/mp4">
+                    <source src="../assets/img/mov_bbb.ogg" type="video/ogg">
+                    Your browser does not support HTML video.
+                  </video>
+                  <h5 class="p-2">Video Title</h5>
+                </div>
+                 <div class="col-lg-3 align-content-top article-card  rounded-2">
+                 <video width="260" controls>
+                    <source src="../assets/img/mov_bbb.mp4" type="video/mp4">
+                    <source src="../assets/img/mov_bbb.ogg" type="video/ogg">
+                    Your browser does not support HTML video.
+                  </video>
+                  <h5 class="p-2">Video Title</h5>
+                </div>
+                 <div class="col-lg-3 align-content-top article-card  rounded-2">
+                 <video width="260" controls>
+                    <source src="../assets/img/mov_bbb.mp4" type="video/mp4">
+                    <source src="../assets/img/mov_bbb.ogg" type="video/ogg">
+                    Your browser does not support HTML video.
+                  </video>
+                  <h5 class="p-2">Video Title</h5>
+                </div>
+                 <div class="col-lg-3 align-content-top article-card  rounded-2">
+                 <video width="260" controls>
+                    <source src="../assets/img/mov_bbb.mp4" type="video/mp4">
+                    <source src="../assets/img/mov_bbb.ogg" type="video/ogg">
+                    Your browser does not support HTML video.
+                  </video>
+                  <h5 class="p-2">Video Title</h5>
+                </div>
+              </div>
+            </main>
           </div>
         </div>
       </div>
