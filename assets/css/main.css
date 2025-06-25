@@ -933,6 +933,10 @@ h6 {
   background: url("../img/global-information.jpeg") right #949492;
   background-size: cover;
 }
+.page-webinar {
+  background: url("../img/webinar.jpg") right #949492;
+  background-size: contain;
+}
 
 /* .page-title:before {
   content: "";
@@ -3096,3 +3100,12 @@ article:hover {
     background-color: #f4f9f2 !important;
   } */
 small.text-body-secondary{ color: #059652 !important;}
+  .form-section {
+      padding: 60px 20px;
+      background: #ffffff;
+    }
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #4b6cb7;
+    }
+   
