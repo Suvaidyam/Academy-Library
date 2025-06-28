@@ -22,11 +22,12 @@ function handlePaginationVisibility(totalCount) {
 const get_all_success_stories = async () => {
 
   try {
-    let response = await frappe_client.get('/success_story_list');
+    let response = await frappe_client.get('/get_knowledge_artificates',{category:"Success Stories"});
+    // let response = await frappe_client.get('/success_story_list');
 
-    handlePaginationVisibility(response.message.length)
+    handlePaginationVisibility(response.message.data.length)
 
-    all_success_stories_Data = response.message || [];
+    all_success_stories_Data = response.message.data || [];
     renderSuccess_story_Page();
   } catch (error) {
     console.error('Error fetching success_stories:', error);
@@ -72,12 +73,12 @@ const renderSuccess_story_Page = () => {
         <a href="${link}">
           <div class="row successCard">
             <div class="col-md-4">
-              <img src="${ENV.API_BASE_URL + item?.cover_image}" class="img-fluid" alt="...">
+              <img src="${ENV.API_BASE_URL + item?.thumbnail_image}" class="img-fluid" alt="...">
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="mb-2">${item?.name1}</h5>
-                <p class="card-text">${truncateText(item?.introduction, 200)}</p>
+                <h5 class="mb-2">${item?.title}</h5>
+                <p class="card-text">${truncateText(item?.a_short_description_about_the_artifact, 200)}</p>
               </div>
             </div>
           </div>
