@@ -57,10 +57,14 @@ function populatestoriesDetails(stories) {
     const imgElement = document.querySelector('.post-img img');
     imgElement.src = ENV.API_BASE_URL + stories.cover_image  || '../assets/img/default-stories.jpg';
     imgElement.alt = stories.title;
+    
 
     // Set Content
     const contentElement = document.querySelector('.content');
     contentElement.innerHTML = `<p>${stories?.introduction}</p>`;
+
+    const storyDetails = document.querySelector('.success_story_pdf');
+    storyDetails.href = ENV.API_BASE_URL + stories.stories_doc;
 }
 
 

@@ -1,98 +1,280 @@
 import { FrappeApiClient } from "../services/FrappeApiClient.js";
 import ENV from "../config/config.js";
-let baseURL = new FrappeApiClient().baseURL;
 
 const frappe_client = new FrappeApiClient();
+const baseURL = frappe_client.baseURL;
+
+const authorDropdown = document.getElementById("author-dropdown");
+const languageDropdown = document.getElementById("language-dropdown");
+const yearDropdown = document.getElementById("year-dropdown");
+const categoryDropdown = document.getElementById("category-dropdown");
+const authorInput = document.getElementById("author");
+const keySearchInput = document.getElementById("tagsInput");
 
 const get_all_books = async () => {
     try {
-        const response = await frappe_client.get('/get_book_list');
+        const filter = { category: "Book" };
+        const response = await frappe_client.get('/get_knowledge_artificates', filter);
         console.log('Book list response:', response);
-        set_book_list(response)
-
-        // Example: render the books if needed
-        // renderBookList(response);
+        set_book_list(response);
     } catch (error) {
         console.error('Error fetching book list:', error);
     }
 };
 
-const set_book_list=(response)=>{
-    let bookdiv = document.getElementById('book-body')
-    bookdiv.innerHTML=''
-    if (response.message ==0) {
-        bookdiv.innerHTML=`<div class=" alert-warning text-center mb-2.5" role="alert">
-                        <i class="bi bi-exclamation-circle-fill me-2"></i>
-                        No Books are available at the moment. Please check back later!
-                      </div>`
-        // bookdiv.style.textAlign = "center";
-        
+const GetSetYearOps = async () => {
+    if (!yearDropdown) return;
+
+    const args = {
+        doctype: 'Knowledge Artifact',
+        fields: ['date_of_creationpublication'],
+        or_filters: JSON.stringify([{ category: 'Book' }])
+    };
+
+    try {
+        const response = await frappe_client.get('/get_doctype_list', args);
+        const addedYears = new Set();
+
+        (response.message || []).forEach(item => {
+            if (item.date_of_creationpublication) {
+                const year = item.date_of_creationpublication.slice(0, 4);
+                addedYears.add(year);
+            }
+        });
+
+        const sortedYears = Array.from(addedYears).sort();
+        // yearDropdown.innerHTML = `<option value="">Select Year</option>`;
+        sortedYears.forEach(year => {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            yearDropdown.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading year options:', error);
+    }
+};
+
+const getLanguageList = async () => {
+    if (!languageDropdown) return;
+
+    const args = {
+        doctype: 'Language',
+        fields: ['name', 'language_name'],
+        filters: JSON.stringify({ enabled: '1' })
+    };
+
+    try {
+        const response = await frappe_client.get('/get_doctype_list', args);
+        // languageDropdown.innerHTML = `<option value="">Select Language</option>`;
+        (response.message || []).forEach(lang => {
+            const option = document.createElement('option');
+            option.value = lang.name;
+            option.textContent = lang.language_name || lang.name;
+            languageDropdown.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading language list:', error);
+    }
+};
+
+const set_book_list = (response) => {
+    const bookdiv = document.getElementById('book-body');
+    bookdiv.innerHTML = '';
+
+    const books = response?.message?.data || [];
+    if (!books.length) {
+        bookdiv.innerHTML = `
+            <div class="alert-warning  mb-2.5" role="alert">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                No Books are available at the moment. Please check back later!
+            </div>`;
+        return;
     }
 
-    response.message.forEach(book => {
-
-
-        let book_card = ` 
-                  <div class="card mb-4 shadow-sm border-0 book-card">
-                    <div class="row g-0">
-                        <div class="col-md-3">
-                        <img src="${book.thumbnail_image}"
-                         onerror="this.onerror=null;this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVU3F0ghKN83Mv-wB7GCJWyWA4Ql6JiZ_k5A&s';" 
-                         class="img-fluid rounded-start h-100 object-fit-cover" alt="Book cover showing water">
-                        </div>
-                        <div class="col-md-9">
-                        <div class="card-body">
-                            <h5 class="card-title mb-2">${book.title}<span style="cursor: pointer;" title="Download pdf" onclick="window.open('${baseURL}${book.attachment}')" ><i class="bi bi-file-earmark-arrow-down"></i></span></button></h5>
-                            <p class="card-text text-muted">${book.a_short_description_about_the_artifact}</p>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-                `
-
-
-        bookdiv.insertAdjacentHTML("beforeend", book_card);
-
-    })
-}
+    books.forEach(book => {
+        const card = `
+        <article class="col-lg-12">
+          <div class="card p-0 m-0 my-2">
+            <a href="${book.attachment ? `${baseURL}${book.attachment}` : '#'}" 
+               target="_blank" 
+               class="noanchor books_pdf ${!book.attachment ? 'disabled' : ''}">
+              <div class="row no-gutters">
+                <div class="col-md-2 align-content-center">
+                  <img src="${book.thumbnail_image ? `${baseURL}${book.thumbnail_image}` : '/assets/images/default-book.jpg'}" 
+                       alt="${book.title || 'Book cover'}" 
+                       class="img-fluid rounded blog-img" 
+                       onerror="this.src='/assets/images/placeholder.jpg'">
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body">
+                    <h5 class="card-title blog-title">${book.title || 'Untitled Book'}</h5>
+                    <p class="card-text book_details">${book.a_short_description_about_the_artifact || 'No description available.'}</p>
+                    <p class="card-text">
+                      <small class="text-body-secondary post-author">${book.author || 'NaN'}</small> - 
+                      <small class="text-body-secondary post-date">${book.date_of_creationpublication || 'Date not available'}</small>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </article>`;
+        bookdiv.insertAdjacentHTML("beforeend", card);
+    });
+};
 
 export default set_book_list;
 
-let bookbtn = document.getElementById('books-tab')
-const clearButton = document.getElementById('clearSelection');
-clearButton.addEventListener('click', () => {
-    get_all_books();
-});
-
-bookbtn.addEventListener('click', () => {
-    get_all_books();
-});
-
-
-
-// Handle globle search
-
-const form = document.getElementById('book_form_search');
-const searchInput = document.getElementById('bookSearchInput');
-
-
-
-
-searchInput.addEventListener('input',async function (e) {
-    e.preventDefault(); // Prevent actual form submission
-    if (searchInput.value) {
-        let response = await frappe_client.get('/filter_global_book', {
-            global_val: searchInput.value
-        })
-        console.log('value haiiiiiiii');
-        set_book_list(response)
-    }
-    else{
+// Event Listeners
+const bookbtn = document.getElementById('books-tab');
+if (bookbtn) {
+    bookbtn.addEventListener('click', () => {
         get_all_books();
-    }
-   
-    console.log('Search Query:', searchInput.value,response); 
-    
-  });
+        GetSetYearOps();
+        getLanguageList();
+    });
+}
+document.addEventListener('DOMContentLoaded', async () => {
+    get_all_books();
+    GetSetYearOps();
+    getLanguageList();
+});
 
+if (keySearchInput) {
+    keySearchInput.addEventListener('input', async function () {
+        const year = yearDropdown?.value || '';
+        const language = languageDropdown?.value || '';
+        const author_search = authorInput?.value || '';
+        const search = keySearchInput.value.trim();
+
+        const filter = {
+            category: "Book",
+            ...(year &&  year !== "Select Year" && { year }),
+            ...(search && { keySearchInput: search }),
+            ...(author_search && { authorInput: author_search }),
+            ...(language && language !== "Select Language" && { language }),
+        };
+
+        try {
+            const response = await frappe_client.get('/get_knowledge_artificates', filter);
+            set_book_list(response);
+        } catch (err) {
+            console.error("Error in tags input filter:", err);
+        }
+    });
+}
+
+const searchInput = document.getElementById('bookSearchInput');
+if (searchInput) {
+    searchInput.addEventListener('input', async (e) => {
+        e.preventDefault();
+        try {
+            const value = searchInput.value.trim();
+            if (value) {
+                const response = await frappe_client.get('/filter_global_book', {
+                    global_val: value
+                });
+                set_book_list(response);
+            } else {
+                get_all_books();
+            }
+        } catch (error) {
+            console.error('Search error:', error);
+        }
+    });
+}
+
+// Clear button logic
+const handleclearbtn = document.getElementById('clearbtn');
+if (handleclearbtn) {
+    handleclearbtn.addEventListener('click', () => {
+        if (languageDropdown) languageDropdown.selectedIndex = 0;
+        if (authorDropdown) authorDropdown.selectedIndex = 0;
+        if (yearDropdown) yearDropdown.selectedIndex = 0;
+        if (categoryDropdown) categoryDropdown.selectedIndex = 0;
+        if (authorInput) authorInput.value = '';
+        if (keySearchInput) keySearchInput.value = '';
+        get_all_books();
+    });
+}
+
+// Filter on author input change
+if (authorInput) {
+    authorInput.addEventListener('input', async function () {
+        const year = yearDropdown?.value || '';
+        const language = languageDropdown?.value || '';
+        const search = keySearchInput?.value || '';
+        const author_search = authorInput.value.trim();
+
+        const filter = {
+            category: "Book",
+            ...(year &&  year !== "Select Year" && { year }),
+            ...(search && { keySearchInput: search }),
+            ...(author_search && { authorInput: author_search }),
+            ...(language && language !== "Select Language" && { language }),
+        };
+
+        try {
+            const response = await frappe_client.get('/get_knowledge_artificates', filter);
+            set_book_list(response);
+        } catch (err) {
+            console.error("Error in author filter:", err);
+        }
+    });
+}
+
+// Filter on language change
+if (languageDropdown) {
+    languageDropdown.addEventListener('change', async function () {
+        const year = yearDropdown?.value || '';
+        const search = keySearchInput?.value || '';
+        const author_search = authorInput?.value || '';
+
+        const filter = {
+            category: "Book",
+            ...(year &&  year !== "Select Year" && { year }),
+            ...(search && { keySearchInput: search }),
+            ...(author_search && { authorInput: author_search }),
+            language: this.value,
+        };
+
+        try {
+            const response = await frappe_client.get('/get_knowledge_artificates', filter);
+            set_book_list(response);
+        } catch (err) {
+            console.error("Error in language filter:", err);
+        }
+    });
+}
+
+// Filter on year change
+if (yearDropdown) {
+    yearDropdown.addEventListener('change', async function () {
+        const language = languageDropdown?.value || '';
+        const search = keySearchInput?.value || '';
+        const author_search = authorInput?.value || '';
+
+        const filter = {
+            category: "Book",
+            year: this.value,
+            ...(search && { keySearchInput: search }),
+            ...(author_search && { authorInput: author_search }),
+            ...(language && language !== "Select Language" && { language }),
+        };
+
+        try {
+            const response = await frappe_client.get('/get_knowledge_artificates', filter);
+            const totalCount = response.message.total_count;
+
+            const next_btn = document.getElementById("next-btn");
+            if (next_btn) {
+                next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
+            }
+
+            set_book_list(response);
+        } catch (err) {
+            console.error("Error in year filter:", err);
+        }
+    });
+}

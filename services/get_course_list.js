@@ -89,7 +89,7 @@ const set_dynamic_course = (response, navtype) => {
             <div class="col-md-6">
               <div class="card-body">
                 <h2 class="title mb-1">
-                  <a href="" class="blog-title text-break text-wrap">${item.title}</a>
+                  <a href="https://erp-ryss.ap.gov.in/lms/courses" target="_blank" class="blog-title text-break text-wrap">${item.title}</a>
                 </h2>
                 <div class="d-flex align-items-center">
                   <div class="post-meta">

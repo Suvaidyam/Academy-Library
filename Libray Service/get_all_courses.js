@@ -31,7 +31,7 @@ listBtn.addEventListener('click', function () {
     listBtn.disabled = true;
     cardBtn.disabled = false;
     // Convert HTMLCollection to an array using Array.from()
-    let mainDivs = Array.from(document.getElementsByClassName('main'));
+    let mainDivs = Array.from(document.getElementsByClassName('main1'));
     // let portfolioDiv = document.querySelector('.portfolio-content');
     let portfolioDiv = Array.from(document.getElementsByClassName('portfolio-content'));
     portfolioDiv.forEach(div => {
@@ -65,7 +65,7 @@ listBtn.addEventListener('click', function () {
     console.log(imgDivs, 'imgDiv');
 
     imgDivs.forEach(div => {
-        div.classList.add('col-4');
+        div.classList.add('col-3');
     })
 
     currentView = 'list';
@@ -79,7 +79,7 @@ cardBtn.addEventListener('click', function () {
     cardBtn.disabled = true;
     listBtn.disabled = false;
 
-    let mainDivs = Array.from(document.getElementsByClassName('main'));
+    let mainDivs = Array.from(document.getElementsByClassName('main1'));
     let imgDivs = Array.from(document.getElementsByClassName('img-fluid'));
     let portfolioDiv = Array.from(document.getElementsByClassName('portfolio-content'));
     portfolioDiv.forEach(div => {
@@ -92,16 +92,16 @@ cardBtn.addEventListener('click', function () {
         div.classList.remove('d-flex', 'align-items-center', 'justify-content-between', 'pe-5', 'border', 'rounded', 'p-3');
     })
     imgDivs.forEach(div => {
-        div.classList.remove('col-4');
+        div.classList.remove('col-3');
     })
 
 
     mainDivs.forEach(div => {
-        div.classList.add('col-lg-12');
-        // div.classList.remove('col-12');
+        div.classList.add('col-lg-4');
+        div.classList.remove('col-12');
 
-        div.classList.add('col-md-12');
-        // div.classList.remove('col-md-12');
+        div.classList.add('col-md-6');
+        div.classList.remove('col-md-12');
 
     })
 
@@ -116,8 +116,11 @@ cardBtn.addEventListener('click', function () {
 
 const get_all_courses = async () => {
     try {
+        // let response = await frappe_client.get('/get_all_course_list', {
+        //     doctype: 'LMS Course'
+        // })
         let response = await frappe_client.get('/get_all_course_list', {
-            doctype: 'LMS Course'
+            doctype: 'Module'
         })
         console.log("response00000", response);
         set_course_option(response)
@@ -252,11 +255,14 @@ export function setSessionList(response) {
     }
 
     const docTemplates = {
-        PDF: "../assets/img/portfolio/pdf_109.webp",
-        Docs: "../assets/img/portfolio/doc.webp",
-        Video: "../assets/img/portfolio/branding-1.jpg",
-        Image: "../assets/img/portfolio/books-1.jpg",
-        PPT: "../assets/img/portfolio/powerpoint.jpg"
+        PDF: "../assets/img/portfolio/Pdf_img.png",
+        Docs: "../assets/img/portfolio/docs_img.png",
+        Video: "../assets/img/portfolio/Video_img.png",
+        Image: "../assets/img/portfolio/img.jpg",
+        PPT: "../assets/img/portfolio/PPT_img.png",
+        // Video: "../assets/img/portfolio/branding-1.jpg",
+        // Image: "../assets/img/portfolio/books-1.jpg",
+        // PPT: "../assets/img/portfolio/powerpoint.jpg"
     };
 
     const filterMap = {
@@ -274,7 +280,7 @@ export function setSessionList(response) {
 
         // Card view template
         const result_card = `
-            <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
+            <div onclick="window.open('${baseURL}${element.session_doc}')" style="cursor: pointer;" class="main1 col-lg-4 col-md-6 portfolio-item isotope-item ${filterClass}">
               <div class="portfolio-content h-100">
                 <img src="${imgSrc}" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -315,12 +321,20 @@ export function setSessionList(response) {
     updateButtonStyles();
     console.log('Current view:', currentView);
 }
+const course_tab=document.getElementById("course-content-tab")
 
-
-document.addEventListener('DOMContentLoaded', async () => {
+course_tab.addEventListener('click', async () => {
     get_all_courses()
     get_session_list()
 })
+
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     get_all_courses()
+//     get_session_list()
+// })
+
+
 
 
 // Handle global search

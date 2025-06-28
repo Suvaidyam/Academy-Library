@@ -138,13 +138,12 @@ const renderEventsPage = () => {
               <div class="event-item rounded">
                   <div class="position-relative">
                       <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
-                      <div class="bg-primary text-white fw-bold rounded d-inline-block position-absolute p-2"
+                      <div class="bg-primary text-white fw-bold rounded d-inline-block position-absolute p-1"
                           style="top: 0; right: 0;">${event_date}</div>
                   </div>
                   <div class="border border-top-0 rounded-bottom p-4">
                       <a href="#" class="h4 mb-3 d-block">${item.title}</a>
                       <p class="mb-3">${item.description}</p>
-                      <a class="btn btn-primary rounded-pill text-white py-2 px-4" href="#">Watch Now</a>
                   </div>
               </div>
           </div>`;

@@ -37,9 +37,9 @@
   <main class="main">
 
     <!-- Page Title -->
-    <div class="page-title page-library dark-background">
+    <div class="page-title page-publications dark-background">
       <div class="container position-relative">
-        <h1>Publications</h1>
+        <h1 id="page-description">Articles</h1>
         <!-- <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
           molestias.</p>
         <nav class="breadcrumbs">
@@ -60,39 +60,39 @@
                 <div class="row mb-3">
                   <div class="col-sm-12">
                     <select class="form-select" id="category-dropdown1" aria-label="Default select example">
-                      <!-- <option disabled selected>Select a Category</option> -->
+                      <!-- <option disabled selected>Select Category</option> -->
                       <option value="Article" selected>Articles</option>
                       <!-- <option value="Publications">Publications</option> -->
                       <option value="Journal">Journals</option>
                       <option value="Case Studies">Case Studies</option>
-                      <option value="Book">Books</option>
+                      <!-- <option value="Book">Books</option> -->
                     </select>
                   </div>
                 </div>
-                <div class="row mb-3">
+                <div class="row mb-3 d-none">
                   <div class="col-sm-12">
                     <select class="form-select" id="author-dropdown" aria-label="Default select example">
-                      <option disabled selected>Select a Author</option>
+                      <option disabled selected>Select Author</option>
                     </select>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-sm-12">
                     <select class="form-select" id="year-dropdown" aria-label="Default select example">
-                      <option disabled selected>Select a Year</option>
+                      <option disabled selected>Select Year</option>
                     </select>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-sm-12">
                     <select class="form-select" id="language-dropdown" aria-label="Default select example">
-                      <option disabled selected>Select a Language</option>
+                      <option disabled selected>Select Language</option>
                     </select>
                   </div>
                 </div>
-                <div class="row mb-3 d-none">
+                <div class="row mb-3 ">
                   <div class="col-sm-12">
-                    <input id="belongToInput" class="form-control" placeholder="Search by Belong To">
+                    <input id="belongToInput" class="form-control" placeholder="Search by Author">
                   </div>
                 </div>
 
@@ -119,12 +119,12 @@
             </div><!-- End Services List -->
 
             <div class="help-box d-flex flex-column justify-content-center align-items-center">
-              <i class="bi bi-headset help-icon"></i>
+              <i class="bi bi-envelope help-icon"></i>
               <h4>Have a Question?</h4>
               <!-- <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1 5589 55488
                   55</span></p> -->
               <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a
-                  href="mailto:support@ryss.ap.gov.in">support@ryss.ap.gov.in</a></p>
+                  href="mailto:iggaarl@ryss.ap.gov.in">iggaarl@ryss.ap.gov.in</a></p>
             </div>
           </div>
 
@@ -165,8 +165,22 @@
                   <div id="loader"></div>
                   <div class="">
                     <div class="row gy-4" id="blog-container">
-                      <div class="col-lg-4 col-md-4 col-sm-4 d-none" id="article_temp">
-                        <article>
+                      <div class="col-lg-6 col-md-6 col-sm-4 d-none " id="article_temp">
+                       <div class="col-md-12 aos-init aos-animate " data-aos="fade-up" data-aos-delay="100">
+                             <a href="" target="_blank" class="articles_pdf noanchor">
+                                <div class="row newsCard">
+                                    <div class="col-md-4">
+                                      <img src="../assets/img/services-1.jpg" alt="" class="img-fluid blog-img" height="150">
+                                    </div>
+                                    <div class="col-md-8">
+                                      <!-- <p class="post-category"></p> -->
+                                       <p class="blog-title"></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                      
+                        <!-- <article>
                               <a href="" target="_blank" class="articles_pdf noanchor">
                                 <div class="post-img">
                                   <img src="../assets/img/services-1.jpg" alt="" class="img-fluid blog-img" height="150">
@@ -174,7 +188,7 @@
                                 <p class="post-category"></p>
                                 <p class="blog-title"></p>
                               </a>
-                        </article>
+                        </article> -->
                       </div>
                       <div class="col-lg-6 d-none" id="journal_temp">
                         <article>
@@ -200,16 +214,21 @@
                       </div>
                       <!-- Case Studies -->
                       <div class="col-lg-6 d-none" id="case_studies_temp">
-                        <article>
-                          <div class="card">
-                            <div class="card-body">
-                              <h5 class="blog-title"></h5>
-                              <p class="card-text case_studies_details"></p>
-                              <a href="" target="_blank" class="btn btn-sm btn-primary case_studies_pdf">View
-                                Case Study</a>
+                            <a href="" target="_blank" class="case_studies_pdf">
+                              <div class="row g-2 article-card p-1 rounded-2">
+                                  <div class="col-md-3 align-content-top">
+                                   <img src="" alt="" class="img-fluid blog-img" alt="Image">
+                                  </div>
+                                  <div class="col-md-9">
+                                    <div class="card-body">
+                                      <h5 class="blog-title"></h5>
+                                      <p class="card-text case_studies_details"></p>
+                                    </div>
+                                  </div>
+                                  </div>
+                              </a>
                             </div>
-                          </div>
-                        </article>
+
                       </div>
                       <!-- Books -->
                       <div class="col-lg-6 d-none" id="book_temp">
