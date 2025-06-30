@@ -35,16 +35,45 @@
     <div id="header" class="header d-flex align-items-center fixed-top"></div>
     <main class="main">
   <!-- Page Title -->
-    <div class="page-title dark-background">
+    <div class="page-title dark-background mb-4">
         <div class="container">
             <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <h1 class="mb-3 text-center">Webinar Registration</h1>
+                <h1 class="mb-3 text-center">Webinar Title</h1>
                 <p class="lead">Join our upcoming webinar and learn from industry experts.</p>
             </div>
             </div>
         </div>
     </div><!-- End Page Title -->
+ <section class="webinar-description-section container"> 
+    <div class="row">
+      <div class="col-md-6">
+        <div class="webinar-description">
+          <h2>Webinar Title</h2>
+          <p class="lead">Join us for an insightful webinar where we will explore the latest trends and technologies in our industry. This session is designed for professionals looking to enhance their knowledge and skills.</p>
+          <p>In this webinar, you will learn:</p>
+          <ul>
+            <li>Key industry trends and insights</li>
+            <li>Best practices from industry leaders</li>
+            <li>Q&A session with experts</li>   
+            </ul>
+            </div>
+          </div>
+
+      <div class="col-md-6">
+        <div class="embed-responsive  text-center"> 
+          <!--HTML5 Video-->
+          <video autoplay="" controls loop="" muted="" width="500" poster="video/poster.jpg">
+             <source src="../assets/img/mov_bbb.mp4" type="video/mp4">
+              <source src="../assets/img/mov_bbb.ogg" type="video/ogg">
+          </video>
+          <!--HTML5 Video end--> 
+          
+        </div>
+      </div>
+     
+    </div>
+    </section>
 
   <!-- Registration Form Section -->
   <section class="form-section">
@@ -53,9 +82,23 @@
         <div class="col-lg-6 col-md-8">
           <h3 class="mb-4 text-center">Register Now</h3>
           <form>
+            <div class="row mb-3">
+              <div class="col">
+                 <label for="fname" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="fname" required>
+              </div>
+              <div class="col">
+                <label for="lname" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lname" required>
+              </div>
+            </div>
             <div class="mb-3">
-              <label for="name" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="name" required>
+              <label for="organization" class="form-label">Organization</label>
+              <input type="text" class="form-control" id="organization" required>
+            </div>
+             <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <input type="text" class="form-control" id="role" required>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email Address</label>
@@ -64,6 +107,10 @@
             <div class="mb-3">
               <label for="phone" class="form-label">Phone Number</label>
               <input type="tel" class="form-control" id="phone">
+            </div>
+            <div class="mb-3">
+              <label for="interests" class="form-label">What interests you for attending this webinar?</label>
+              <textarea class="form-control" id="interests" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-success w-100">Reserve My Seat</button>
           </form>
@@ -86,24 +133,14 @@
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../vendor/php-email-form/validate.js"></script>
     <script src="../vendor/aos/aos.js"></script>
-    <script src="../vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="../vendor/swiper/swiper-bundle.min.js"></script>
     <script src="../vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
-
-
-    <script src="../services/FrappeApiClient.js"></script>
-    <script src="../services/research_library.js"></script>
-    <script src="../services/about.js"></script>
-
     <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
 
 
     <!-- Main JS File -->
     <script src="../assets/js/main.js"></script>
-    <script type="module" src="../services/report.js"></script>
 
 </body>
 
