@@ -22,7 +22,7 @@ const renderSuccess_story_Page = (response) => {
   video_session.innerHTML = "";
   
   response.forEach((item, index) => {
-    const videoSrc = item?.attachment || "../assets/img/mov_bbb.mp4";
+    const videoSrc = ENV.API_BASE_URL+ item?.attachment;
     const thumbanailSrc = item?.thumbnail_image || "../assets/img/1hero-bg.jpg";
     
     let cardHTML = `
