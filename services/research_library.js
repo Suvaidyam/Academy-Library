@@ -8,6 +8,7 @@ let article_temp = document.getElementById("article_temp");
 let journal_temp = document.getElementById("journal_temp");
 let case_studies_temp = document.getElementById("case_studies_temp");
 let book_temp = document.getElementById("book_temp");
+let newsletter_temp = document.getElementById("newsletter_temp");
 
 let allArtifacts = [];
 
@@ -235,7 +236,25 @@ function displayArtifacts(filteredArtifacts) {
                 blogContainer.appendChild(newCard);
             }
         });
-    } else {
+    } else if (cat == "Newsletter") {
+        artifactsToDisplay.forEach(post => {
+            if (post) {
+                let newCard = newsletter_temp.cloneNode(true);
+                newCard.classList.remove("d-none");
+                newCard.removeAttribute("id");
+
+                newCard.querySelector(".blog-img").src = post.thumbnail_image
+                    ? ENV.API_BASE_URL + post.thumbnail_image
+                    : "https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg";
+
+                newCard.querySelector(".newsletter_details").textContent = post.a_short_description_about_the_artifact || "Uncategorized";
+                // newCard.querySelector(".blog-title").textContent = post.title || "No Title";
+                newCard.querySelector(".newsletter_pdf").href = `${ENV.API_BASE_URL}${post.attachment}` || "#";
+
+                blogContainer.appendChild(newCard);
+            }
+        });
+    }  else {
         // If no specific category is selected or category doesn't match known types
         // Display all artifacts with a generic template (you can customize this)
         artifactsToDisplay.forEach(post => {
