@@ -7,7 +7,27 @@ async function loadGallery() {
     const response = await frappe_client.get("/get_gallery_data");
     const data = response?.message || [];
     const container = document.querySelector(".isotope-container");
+    const portfolioSection = document.getElementById("portfolio");
+    const noDataPlaceholder = document.getElementById("no-data-placeholder");
+
     container.innerHTML = "";
+
+    if (data.length === 0) {
+        // Hide gallery section
+        portfolioSection.style.display = "none";
+
+        // Load no-data.html
+        fetch("/components/nodata.html")
+            .then(res => res.text())
+            .then(html => {
+                noDataPlaceholder.innerHTML = html;
+            });
+        return;
+    }
+
+    // If data is available, show gallery section and hide no-data placeholder
+    portfolioSection.style.display = "block";
+    noDataPlaceholder.innerHTML = "";
 
     const videoExtensions = ['mp4', 'mov', 'avi'];
 
@@ -36,10 +56,12 @@ async function loadGallery() {
         container.insertAdjacentHTML("beforeend", cardHTML);
     });
 
+    // Initialize lightbox if available
     if (typeof GLightbox === 'function') {
         GLightbox({ selector: ".glightbox" });
     }
 }
+
 
 
 
