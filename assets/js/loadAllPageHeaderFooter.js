@@ -138,7 +138,6 @@ const get_home_element = () => {
       const signinBtn = document.getElementById("signin");
       const userData = sessionStorage.getItem("user_info");
       const loggedinUser = document.getElementById("loggedinUser");
-
       if (userData && signinBtn && loggedinUser) {
         const user = JSON.parse(userData);
         const firstLetter = user.full_name?.charAt(0).toUpperCase() || "U";
@@ -158,7 +157,7 @@ const get_home_element = () => {
           </div>
         `;
       }
-    }, 100);
+    }, 500);
   });
 
   // ✅ Define logout globally so it's accessible from inline onclick
