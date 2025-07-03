@@ -5,8 +5,12 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 let allNewsData = [];
 let newsPage = 0;
 
-let allEventsData = [];
-let eventsPage = 0;
+let allPastEvents = [];
+let pastEventsPage = 0;
+
+let allUpcomingEvents = [];
+let upcomingEventsPage = 0;
+
 
 const itemsPerPage = 10;
 
@@ -103,12 +107,21 @@ const get_all_events = async () => {
   let frappe_client = new FrappeApiClient();
   try {
     let response = await frappe_client.get('/get_events_list');
-    allEventsData = response.message || [];
-    renderEventsPage();
+    const allEvents = response.message || [];
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // ignore time part
+
+    allPastEvents = allEvents.filter(event => new Date(event.datetime) < today);
+    allUpcomingEvents = allEvents.filter(event => new Date(event.datetime) >= today);
+
+    renderPastEventsPage();
+    renderUpcomingEventsPage();
   } catch (error) {
     console.error("Error fetching events:", error);
   }
 };
+
 
 // -------- Format Date for Events ----------
 export function formatDate(dateStr) {
@@ -120,15 +133,16 @@ export function formatDate(dateStr) {
 }
 
 // -------- Set All Events ----------
-const renderEventsPage = () => {
+const renderPastEventsPage = () => {
   const eventsContainer = document.getElementById('events-container');
   const prevBtn = document.getElementById("events-prev-btn");
   const nextBtn = document.getElementById("events-next-btn");
   eventsContainer.innerHTML = "";
 
-  const start = eventsPage * itemsPerPage;
+  const start = pastEventsPage * itemsPerPage;
   const end = start + itemsPerPage;
-  const currentEvents = allEventsData.slice(start, end);
+  const currentEvents = allPastEvents.slice(start, end);
+
   if (currentEvents.length > 0) {
     document.getElementById("c_pagination").style.display = 'block';
     currentEvents.forEach(item => {
@@ -151,21 +165,63 @@ const renderEventsPage = () => {
     });
   } else {
     document.getElementById("c_pagination").style.display = 'none';
-    const noDataMessage = `
-      <div class="text-center py-5">
-          <h4>No Events Found !</h4>
-      </div>`;
-    eventsContainer.insertAdjacentHTML("beforeend", noDataMessage);
+    eventsContainer.innerHTML = `<div class="text-center py-5"><h4>No Past Events Found !</h4></div>`;
   }
 
-  const totalPages = Math.ceil(allEventsData.length / itemsPerPage);
-  prevBtn.disabled = eventsPage === 0;
-  nextBtn.disabled = eventsPage >= totalPages - 1;
+  const totalPages = Math.ceil(allPastEvents.length / itemsPerPage);
+  prevBtn.disabled = pastEventsPage === 0;
+  nextBtn.disabled = pastEventsPage >= totalPages - 1;
 };
+
+// -------- Set Upcoming Events ----------
+const renderUpcomingEventsPage = () => {
+  const container = document.getElementById('upcoming_events-container');
+  const prevBtn = document.getElementById("upcoming-prev-btn");
+  const nextBtn = document.getElementById("upcoming-next-btn");
+
+  container.innerHTML = "";
+
+  const start = upcomingEventsPage * itemsPerPage;
+  const end = start + itemsPerPage;
+  const currentEvents = allUpcomingEvents.slice(start, end);
+
+  if (currentEvents.length > 0) {
+    document.getElementById("upcoming_pagination").style.display = 'block';
+
+    currentEvents.forEach(item => {
+      let event_date = formatDate(item.datetime);
+      const card = `
+        <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="event-item rounded">
+                <div class="position-relative">
+                    <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
+                    <div class="bg-success text-white fw-bold rounded d-inline-block position-absolute p-1"
+                        style="top: 0; right: 0;">${event_date}</div>
+                </div>
+                <div class="border border-top-0 rounded-bottom p-4">
+                    <a href="#" class="h4 mb-3 d-block">${item.title}</a>
+                    <p class="mb-3">${item.description}</p>
+                </div>
+            </div>
+        </div>`;
+      container.insertAdjacentHTML("beforeend", card);
+    });
+
+    const totalPages = Math.ceil(allUpcomingEvents.length / itemsPerPage);
+    prevBtn.disabled = upcomingEventsPage === 0;
+    nextBtn.disabled = upcomingEventsPage >= totalPages - 1;
+
+  } else {
+    document.getElementById("upcoming_pagination").style.display = 'none';
+    container.innerHTML = `<div class="text-center py-5"><h4>No Upcoming Events Found !</h4></div>`;
+  }
+};
+
+
 
 // -------- Initialize on Page Load ----------
 document.addEventListener("DOMContentLoaded", () => {
-  // News Pagination
+  // News
   document.getElementById("news-next-btn")?.addEventListener("click", () => {
     const maxPage = Math.floor(allNewsData.length / itemsPerPage);
     if (newsPage < maxPage) {
@@ -173,7 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
       renderNewsPage();
     }
   });
-
   document.getElementById("news-prev-btn")?.addEventListener("click", () => {
     if (newsPage > 0) {
       newsPage--;
@@ -181,23 +236,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Events Pagination
+  // Events (Past)
   document.getElementById("events-next-btn")?.addEventListener("click", () => {
-    const maxPage = Math.floor(allEventsData.length / itemsPerPage);
-    if (eventsPage < maxPage) {
-      eventsPage++;
-      renderEventsPage();
+    const maxPage = Math.floor(allPastEvents.length / itemsPerPage);
+    if (pastEventsPage < maxPage) {
+      pastEventsPage++;
+      renderPastEventsPage();
     }
   });
-
   document.getElementById("events-prev-btn")?.addEventListener("click", () => {
-    if (eventsPage > 0) {
-      eventsPage--;
-      renderEventsPage();
+    if (pastEventsPage > 0) {
+      pastEventsPage--;
+      renderPastEventsPage();
     }
   });
 
-  // Initial Data Load
+    // Upcoming Events Pagination
+  document.getElementById("upcoming-next-btn")?.addEventListener("click", () => {
+    const maxPage = Math.floor(allUpcomingEvents.length / itemsPerPage);
+    if (upcomingEventsPage < maxPage) {
+      upcomingEventsPage++;
+      renderUpcomingEventsPage();
+    }
+  });
+
+  document.getElementById("upcoming-prev-btn")?.addEventListener("click", () => {
+    if (upcomingEventsPage > 0) {
+      upcomingEventsPage--;
+      renderUpcomingEventsPage();
+    }
+  });
+
+
+  // Initial Load
   get_all_news();
   get_all_events();
 });
+
