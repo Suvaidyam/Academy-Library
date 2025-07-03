@@ -41,7 +41,7 @@
           </div>
         `;
       }
-    }, 100);
+    }, 500);
   });
 
   // ✅ Define logout globally so it's accessible from inline onclick
