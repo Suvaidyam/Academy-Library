@@ -148,19 +148,26 @@ const renderPastEventsPage = () => {
     currentEvents.forEach(item => {
       let event_date = formatDate(item.datetime);
       const card = `
-          <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="event-item rounded">
-                  <div class="position-relative">
-                      <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
-                      <div class="bg-primary text-white fw-bold rounded d-inline-block position-absolute p-1"
-                          style="top: 0; right: 0;">${event_date}</div>
-                  </div>
-                  <div class="border border-top-0 rounded-bottom p-4">
-                      <a href="#" class="h4 mb-3 d-block">${item.title}</a>
-                      <p class="mb-3">${item.description}</p>
-                  </div>
+          <div class="col-md-12 " data-aos="fade-up" data-aos-delay="100">
+          <a href="#">
+            <div class="row newsCard">
+              <div class="col-md-2">
+                <img src="${item.cover_image}" class="  rounded-top w-100" alt="Image">
               </div>
-          </div>`;
+              <div class="col-md-10">
+                <div class="card-body">
+                  <h5 class="mb-2">${item.title}</h5>
+                  <p class="card-text">${truncateText(item?.description, 300)}</p>
+                  <div class="post-meta">
+                    <p class="post-date">
+                      <time datetime="${item?.datetime}">${event_date}</time>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>`;
       eventsContainer.insertAdjacentHTML("beforeend", card);
     });
   } else {
@@ -191,18 +198,25 @@ const renderUpcomingEventsPage = () => {
     currentEvents.forEach(item => {
       let event_date = formatDate(item.datetime);
       const card = `
-        <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="event-item rounded">
-                <div class="position-relative">
-                    <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
-                    <div class="bg-success text-white fw-bold rounded d-inline-block position-absolute p-1"
-                        style="top: 0; right: 0;">${event_date}</div>
+        <div class="col-md-12 " data-aos="fade-up" data-aos-delay="100">
+          <a href="#">
+            <div class="row newsCard">
+              <div class="col-md-2">
+                <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
+              </div>
+              <div class="col-md-10">
+                <div class="card-body">
+                  <h5 class="mb-2">${item.title}</h5>
+                  <p class="card-text">${truncateText(item?.description, 300)}</p>
+                  <div class="post-meta">
+                    <p class="post-date">
+                      <time datetime="${item?.datetime}">${event_date}</time>
+                    </p>
+                  </div>
                 </div>
-                <div class="border border-top-0 rounded-bottom p-4">
-                    <a href="#" class="h4 mb-3 d-block">${item.title}</a>
-                    <p class="mb-3">${item.description}</p>
-                </div>
+              </div>
             </div>
+          </a>
         </div>`;
       container.insertAdjacentHTML("beforeend", card);
     });
