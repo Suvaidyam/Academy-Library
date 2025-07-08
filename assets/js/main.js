@@ -7,7 +7,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
-(function() {
+(function () {
   "use strict";
   /**
    * Apply .scrolled class to the body as the page is scrolled down
@@ -38,7 +38,7 @@
    * Toggle mobile nav dropdowns
    */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
+    navmenu.addEventListener('click', function (e) {
       e.preventDefault();
       this.parentNode.classList.toggle('active');
       this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
@@ -119,7 +119,7 @@
    * Init swiper sliders
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+    document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -142,7 +142,7 @@
     new Waypoint({
       element: item,
       offset: '80%',
-      handler: function(direction) {
+      handler: function (direction) {
         let progress = item.querySelectorAll('.progress .progress-bar');
         progress.forEach(el => {
           el.style.width = el.getAttribute('aria-valuenow') + '%';
@@ -154,13 +154,13 @@
   /**
    * Init isotope layout and filters
    */
-  document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
+  document.querySelectorAll('.isotope-layout').forEach(function (isotopeItem) {
     let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
     let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
     let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
     let initIsotope;
-    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
+    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
       initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
         itemSelector: '.isotope-item',
         layoutMode: layout,
@@ -169,8 +169,8 @@
       });
     });
 
-    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
-      filters.addEventListener('click', function() {
+    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function (filters) {
+      filters.addEventListener('click', function () {
         isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
         this.classList.add('filter-active');
         initIsotope.arrange({
@@ -188,7 +188,7 @@
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
    */
-  window.addEventListener('load', function(e) {
+  window.addEventListener('load', function (e) {
     if (window.location.hash) {
       if (document.querySelector(window.location.hash)) {
         setTimeout(() => {
@@ -246,7 +246,7 @@
       link.addEventListener('click', function (e) {
         // Check if the link has a submenu
         const hasSubmenu = link.nextElementSibling && link.nextElementSibling.tagName === 'UL';
-        
+
         if (!hasSubmenu) {
           // No submenu = close mobile menu
           if (document.body.classList.contains('mobile-nav-active')) {
@@ -280,6 +280,55 @@ document.addEventListener("DOMContentLoaded", function () {
         this.classList.add("active");
       });
     });
-  }, 2000); 
+  }, 2000);
 });
+
+const get_UserInfo = async (user) => {
+  if (!user) {
+    toastr.error("Username is required.");
+    return;
+  }
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({ usr: user });
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      // "http://erp.localhost:8000/api/method/lms.lms.api.get_user_details",
+      "https://erp-ryss.ap.gov.in/api/method/lms.lms.api.get_user_details",
+      requestOptions
+    );
+
+    console.log("Response status:", response.status);
+
+    const result = await response.json();
+    
+    let userInfo = JSON.parse(sessionStorage.getItem("user_info"));
+    userInfo.roles = result.message.roles;  // Replace with dynamic value
+    sessionStorage.setItem("user_info", JSON.stringify(userInfo));
+
+
+  } catch (error) {
+    toastr.error("Error connecting to server.");
+    console.error("Login error:", error);
+  }
+
+};
+const userInfo = JSON.parse(sessionStorage.getItem("user_info"));
+const user = (userInfo)
+console.log("userInfo",userInfo);
+
+
+if(userInfo.message== "Logged In"){
+  get_UserInfo(userInfo.username);
+}
 
