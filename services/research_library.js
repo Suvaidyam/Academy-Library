@@ -573,7 +573,7 @@ function setCategoryWiseBackgrounds(category) {
     elements[0].style.backgroundImage = `url('${categoryImages[category]}')`;
     elements[0].style.backgroundSize = "cover";
     elements[0].style.backgroundRepeat = "no-repeat";
-    elements[0].style.backgroundPosition = "center";
+    // elements[0].style.backgroundPosition = "center";
   }
 }
 

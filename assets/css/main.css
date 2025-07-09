@@ -926,7 +926,7 @@ h6 {
   background-size: cover;
 }
 .page-publications {
-  background: url("../img/publications.jpeg") right #949492;
+  background: url("../img/publications.jpeg") right 10% #949492;
   background-size: cover;
 }
 .page-global-information {
