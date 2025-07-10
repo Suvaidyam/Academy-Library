@@ -910,8 +910,8 @@ h6 {
   background-size: cover;
 }
 .page-leaders {
-  background: url("../img/leaderbg.png") no-repeat right #949492;
-  background-size: contain;
+  background: url("../img/mentors.jpeg") no-repeat right #949492;
+  background-size: cover;
 }
 .page-research {
   background: url("../img/banner.jpg") no-repeat right top #949492;
