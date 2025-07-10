@@ -62,7 +62,7 @@ export async function getandSetDyanamicCourseDetailsAndName() {
     let ugCourseContent = 'Academy is currently offering one course under this program.  A under graduation course is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.  Graduation courses follows multiple entry-exit policy where students will be able to exit after each year, if necessary, and continue the course later through earned credits.​'
     let pgCourseContent = 'Academy is currently offering a two-year post graduation course that is earned through experiential learning.  This experiential learning program is conducted through classroom sessions, field classes, online classes, and field practice with much emphasis on learning by doing.​'
     let CertificationContent = 'Academy is currently offering two certificate courses.  Academy emphasis on the experiential learning even if these are certificate courses.  Certificate courses are either online or are delivered through the hybrid mode of learning like classroom sessions, field classes, online classes, and field practice. These are non-credit courses.  Certificates may have a validity period to keep-up with the new knowledge in the respective field.​'
-    if(courseCategoryType == "Certification"){
+    if(courseCategoryType == "Certificate"){
         document.getElementById("courseContentsDetails").innerHTML = CertificationContent;
     }else if(courseCategoryType == "Post Graduation"){
         document.getElementById("courseContentsDetails").innerHTML = pgCourseContent;
