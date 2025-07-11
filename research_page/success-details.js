@@ -83,12 +83,12 @@ function set_remaining_stories(remaining_stories) {
             const postItem = document.createElement('div');
             postItem.classList.add('post-item');
 
-            const imageUrl = item.cover_image ? `${ENV.API_BASE_URL}${item.thumbnail_image}` : '../assets/img/default-stories.jpg';
+            const imageUrl = item.thumbnail_image ? `${ENV.API_BASE_URL}${item.thumbnail_image}` : '../assets/img/default-stories.jpg';
 
             postItem.innerHTML = `
                 <img src="${imageUrl}" alt="${item.name1}" class="flex-shrink-0">
                 <div>
-                    <h4><a href="success-details?id=${encodeURIComponent(item.name)}">${item.name1}</a></h4>
+                    <h4><a href="success-details?id=${encodeURIComponent(item.name)}">  ${item.title}</a></h4>
                 </div>
             `;
 
