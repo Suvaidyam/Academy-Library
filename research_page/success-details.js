@@ -7,7 +7,6 @@ console.log("=====");
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const storiesId = urlParams.get('id');
-    console.log(storiesId);
 
     if (!storiesId) {
         console.error("No stories ID found in URL");
@@ -16,13 +15,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         let frappe_client = new FrappeApiClient();
-        let response = await frappe_client.get('/success_story_list');
+        let response = await frappe_client.get('/get_knowledge_artificates',{category:"Success Stories",page_size:4});
 
-        if (response && response.message) {
-            const storiesList = response.message;
+
+        if (response && response.message.data) {
+            const storiesList = response.message.data;
             const stories = storiesList.find(item => item.name === storiesId);
             console.log("stories", stories);
-            
+
 
             const remaining_stories = storiesList.filter(item => item.name !== storiesId);
             console.log(remaining_stories);
@@ -42,10 +42,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+
 function populatestoriesDetails(stories) {
     // Set Title
     const titleElement = document.querySelector('.title');
-    titleElement.textContent = stories.name1;
+    titleElement.textContent = stories.title;
 
     // Set Date
     // const dateElement = document.querySelector('.meta-top time');
@@ -55,16 +56,16 @@ function populatestoriesDetails(stories) {
 
     // Set Image
     const imgElement = document.querySelector('.post-img img');
-    imgElement.src = ENV.API_BASE_URL + stories.cover_image  || '../assets/img/default-stories.jpg';
+    imgElement.src = ENV.API_BASE_URL + stories.thumbnail_image || '../assets/img/default-stories.jpg';
     imgElement.alt = stories.title;
-    
+
 
     // Set Content
     const contentElement = document.querySelector('.content');
-    contentElement.innerHTML = `<p>${stories?.introduction}</p>`;
+    contentElement.innerHTML = `<p>${stories?.a_short_description_about_the_artifact}</p>`;
 
     const storyDetails = document.querySelector('.success_story_pdf');
-    storyDetails.href = ENV.API_BASE_URL + stories.stories_doc;
+    storyDetails.href = ENV.API_BASE_URL + stories.attachment;
 }
 
 
@@ -82,7 +83,7 @@ function set_remaining_stories(remaining_stories) {
             const postItem = document.createElement('div');
             postItem.classList.add('post-item');
 
-            const imageUrl = item.cover_image ? `${ENV.API_BASE_URL}${item.cover_image}` : '../assets/img/default-stories.jpg';
+            const imageUrl = item.cover_image ? `${ENV.API_BASE_URL}${item.thumbnail_image}` : '../assets/img/default-stories.jpg';
 
             postItem.innerHTML = `
                 <img src="${imageUrl}" alt="${item.name1}" class="flex-shrink-0">

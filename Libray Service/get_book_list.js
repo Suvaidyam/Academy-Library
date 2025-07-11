@@ -4,11 +4,11 @@ import ENV from "../config/config.js";
 const frappe_client = new FrappeApiClient();
 const baseURL = frappe_client.baseURL;
 
-const authorDropdown = document.getElementById("author-dropdown");
 const languageDropdown = document.getElementById("language-dropdown");
 const yearDropdown = document.getElementById("year-dropdown");
 const categoryDropdown = document.getElementById("category-dropdown");
-const authorInput = document.getElementById("author");
+// const authorDropdown = document.getElementById("author");
+const authorDropdown = document.getElementById("author");
 const keySearchInput = document.getElementById("tagsInput");
 
 const get_all_books = async () => {
@@ -59,24 +59,60 @@ const getLanguageList = async () => {
     if (!languageDropdown) return;
 
     const args = {
-        doctype: 'Language',
-        fields: ['name', 'language_name'],
-        filters: JSON.stringify({ enabled: '1' })
+        doctype: 'Knowledge Artifact',
+        fields: ['language'],
+        or_filters: JSON.stringify([{ category: 'Book' }])
     };
 
     try {
         const response = await frappe_client.get('/get_doctype_list', args);
-        // languageDropdown.innerHTML = `<option value="">Select Language</option>`;
-        (response.message || []).forEach(lang => {
-            const option = document.createElement('option');
+        const langCodes = [...new Set(response.message.map(item => item.language).filter(Boolean))];
+
+        // Fetch enabled languages in bulk
+        const langResponse = await frappe_client.get('/get_doctype_list', {
+            doctype: 'Language',
+            fields: ['name', 'language_name'],
+            filters: JSON.stringify({ enabled: '1', name: ['in', langCodes] })
+        });
+
+        const languages = langResponse.message || [];
+
+        languages.forEach(lang => {
+           const option = document.createElement('option');
             option.value = lang.name;
             option.textContent = lang.language_name || lang.name;
             languageDropdown.appendChild(option);
         });
+
+        console.log("Loaded languages:", languages);
     } catch (error) {
         console.error('Error loading language list:', error);
     }
 };
+
+const GetSetAuthorOps = async () => {
+    if (!authorDropdown) return;
+    const args = {
+        doctype: 'Knowledge Artifact',
+        fields: ['author'],
+        or_filters: JSON.stringify([{ category: 'Book' }])
+    };
+
+    try {
+        const response = await frappe_client.get('/get_doctype_list', args);
+        const uniqueAuthors = [...new Set(response.message.map(item => item.author))];
+
+        uniqueAuthors.forEach(year => {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            authorDropdown.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading year options:', error);
+    }
+};
+
 
 const set_book_list = (response) => {
     const bookdiv = document.getElementById('book-body');
@@ -139,20 +175,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     get_all_books();
     GetSetYearOps();
     getLanguageList();
+    GetSetAuthorOps()
 });
 
 if (keySearchInput) {
     keySearchInput.addEventListener('input', async function () {
         const year = yearDropdown?.value || '';
         const language = languageDropdown?.value || '';
-        const author_search = authorInput?.value || '';
+        const author_search = authorDropdown?.value || '';
         const search = keySearchInput.value.trim();
 
         const filter = {
             category: "Book",
-            ...(year &&  year !== "Select Year" && { year }),
+            ...(year && year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorInput: author_search }),
+            ...(author_search && { authorDropdown: author_search }),
             ...(language && language !== "Select Language" && { language }),
         };
 
@@ -193,25 +230,24 @@ if (handleclearbtn) {
         if (authorDropdown) authorDropdown.selectedIndex = 0;
         if (yearDropdown) yearDropdown.selectedIndex = 0;
         if (categoryDropdown) categoryDropdown.selectedIndex = 0;
-        if (authorInput) authorInput.value = '';
         if (keySearchInput) keySearchInput.value = '';
         get_all_books();
     });
 }
 
 // Filter on author input change
-if (authorInput) {
-    authorInput.addEventListener('input', async function () {
+if (authorDropdown) {
+    authorDropdown.addEventListener('change', async function () {
         const year = yearDropdown?.value || '';
         const language = languageDropdown?.value || '';
         const search = keySearchInput?.value || '';
-        const author_search = authorInput.value.trim();
+        const author_search = authorDropdown.value.trim();
 
         const filter = {
             category: "Book",
-            ...(year &&  year !== "Select Year" && { year }),
+            ...(year && year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorInput: author_search }),
+            ...(author_search && { authorDropdown: author_search }),
             ...(language && language !== "Select Language" && { language }),
         };
 
@@ -229,13 +265,13 @@ if (languageDropdown) {
     languageDropdown.addEventListener('change', async function () {
         const year = yearDropdown?.value || '';
         const search = keySearchInput?.value || '';
-        const author_search = authorInput?.value || '';
+        const author_search = authorDropdown?.value || '';
 
         const filter = {
             category: "Book",
-            ...(year &&  year !== "Select Year" && { year }),
+            ...(year && year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorInput: author_search }),
+            ...(author_search && { authorDropdown: author_search }),
             language: this.value,
         };
 
@@ -253,13 +289,13 @@ if (yearDropdown) {
     yearDropdown.addEventListener('change', async function () {
         const language = languageDropdown?.value || '';
         const search = keySearchInput?.value || '';
-        const author_search = authorInput?.value || '';
+        const author_search = authorDropdown?.value || '';
 
         const filter = {
             category: "Book",
             year: this.value,
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorInput: author_search }),
+            ...(author_search && { authorDropdown: author_search }),
             ...(language && language !== "Select Language" && { language }),
         };
 
