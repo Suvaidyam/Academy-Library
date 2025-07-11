@@ -563,6 +563,7 @@ function setCategoryWiseBackgrounds(category) {
     Articles: "../assets/img/publications.jpeg",
     Journals: "../assets/img/jonoural.png",
     Case_Studies: "../assets/img/library.jpeg",
+    Newsletter: "../assets/img/newsletter.jpeg",
   };
 
   const elements = document.getElementsByClassName("page-title");
