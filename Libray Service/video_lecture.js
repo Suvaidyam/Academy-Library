@@ -4,14 +4,38 @@ import ENV from "../config/config.js";
 let frappe_client = new FrappeApiClient();
 let all_video_lectures = [];
 
-const get_all_video_lectures = async () => {
+
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+
+let currentPage = 1;
+const pageSize = 8;
+let totalPages = 1;
+
+const updatePaginationButtons = () => {
+  prevBtn.disabled = currentPage <= 1;
+  nextBtn.disabled = currentPage >= totalPages;
+};
+
+prevBtn?.addEventListener("click", () => {
+  if (currentPage > 1) get_all_video_lectures(currentPage - 1);
+});
+nextBtn?.addEventListener("click", () => {
+  if (currentPage < totalPages) get_all_video_lectures(currentPage + 1);
+});
+const get_all_video_lectures = async (page = 1) => {
   try {
     let response = await frappe_client.get("/get_knowledge_artificates", {
       category: "Video Lecture",
+      page_size: pageSize,
+      page: page
     });
     
     all_video_lectures = response.message.data || [];
+    totalPages = response.message.total_pages || 1;
+    currentPage = response.message.page || 1;
     renderSuccess_story_Page(all_video_lectures);
+    updatePaginationButtons();
   } catch (error) {
     console.error("Error fetching video lectures:", error);
   }
