@@ -66,11 +66,13 @@ const renderSuccess_story_Page = () => {
   const currentCase_study = all_success_stories_Data.slice(start, end);
 
   currentCase_study.forEach(item => {
-    let link = `success-details?id=${encodeURIComponent(item?.name)}`;
+    // let link = `success-details?id=${encodeURIComponent(item?.name)}`;
+    let link = `${ENV.API_BASE_URL + item?.attachment}`;
+
 
     let cardHTML = ` 
       <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <a href="${link}">
+        <a href="${link}" target="_blank" class="text-decoration-none text-dark">
           <div class="row successCard">
             <div class="col-md-4">
               <img src="${ENV.API_BASE_URL + item?.thumbnail_image}" class="img-fluid" alt="...">
