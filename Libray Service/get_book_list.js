@@ -182,14 +182,14 @@ if (keySearchInput) {
     keySearchInput.addEventListener('input', async function () {
         const year = yearDropdown?.value || '';
         const language = languageDropdown?.value || '';
-        const author_search = authorDropdown?.value || '';
+        const author = authorDropdown?.value || '';
         const search = keySearchInput.value.trim();
 
         const filter = {
             category: "Book",
             ...(year && year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
+            ...(author && author !== "Select Author" && { authorDropdown: author }),
             ...(language && language !== "Select Language" && { language }),
         };
 
@@ -241,13 +241,13 @@ if (authorDropdown) {
         const year = yearDropdown?.value || '';
         const language = languageDropdown?.value || '';
         const search = keySearchInput?.value || '';
-        const author_search = authorDropdown.value.trim();
+        const author = authorDropdown.value || '';
 
         const filter = {
             category: "Book",
             ...(year && year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
+            ...(author && author !== "Select Author" && { authorDropdown: author }),
             ...(language && language !== "Select Language" && { language }),
         };
 
@@ -265,13 +265,13 @@ if (languageDropdown) {
     languageDropdown.addEventListener('change', async function () {
         const year = yearDropdown?.value || '';
         const search = keySearchInput?.value || '';
-        const author_search = authorDropdown?.value || '';
+        const author = authorDropdown?.value || '';
 
         const filter = {
             category: "Book",
             ...(year && year !== "Select Year" && { year }),
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
+            ...(author && author !== "Select Author" && { authorDropdown: author }),
             language: this.value,
         };
 
@@ -289,13 +289,13 @@ if (yearDropdown) {
     yearDropdown.addEventListener('change', async function () {
         const language = languageDropdown?.value || '';
         const search = keySearchInput?.value || '';
-        const author_search = authorDropdown?.value || '';
+        const author = authorDropdown?.value || '';
 
         const filter = {
             category: "Book",
             year: this.value,
             ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
+            ...(author && author !== "Select Author" && { authorDropdown: author }),
             ...(language && language !== "Select Language" && { language }),
         };
 
