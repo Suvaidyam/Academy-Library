@@ -71,7 +71,7 @@ const renderNewsPage = () => {
           <a href="${link}">
             <div class="row newsCard">
               <div class="col-md-4">
-                <img src="${ENV.API_BASE_URL + item?.image}" class="img-fluid" alt="...">
+                <img src="${ENV.API_BASE_URL + item?.image}" class="img169" alt="...">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -152,7 +152,7 @@ const renderPastEventsPage = () => {
           <a href="#">
             <div class="row newsCard">
               <div class="col-md-2">
-                <img src="${item.cover_image}" class="  rounded-top w-100" alt="Image">
+                <img src="${item.cover_image}" class=" img169 rounded-top " alt="Image">
               </div>
               <div class="col-md-10">
                 <div class="card-body">
@@ -202,7 +202,7 @@ const renderUpcomingEventsPage = () => {
           <a href="#">
             <div class="row newsCard">
               <div class="col-md-2">
-                <img src="${item.cover_image}" class="img-fluid rounded-top w-100 h-100" alt="Image">
+                <img src="${item.cover_image}" class="rounded-top img169" alt="Image">
               </div>
               <div class="col-md-10">
                 <div class="card-body">

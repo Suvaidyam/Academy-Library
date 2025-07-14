@@ -3373,3 +3373,14 @@ small.text-body-secondary{ color: #059652 !important;}
     margin-top: 10px;
 }
 .newsCard p{font-size: 14px;}
+.img169{     
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.img169 img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
