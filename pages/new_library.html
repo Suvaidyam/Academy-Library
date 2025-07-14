@@ -18,6 +18,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Vendor CSS Files -->
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,6 +34,25 @@
 
   <!-- Include Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @media (min-width: 200px) {
+      .top-md-40 {
+        top: 40%;
+      }
+
+      @media (min-width: 992px) {
+        .top-lg-30 {
+          top: 30%;
+        }
+      }
+
+      @media (min-width: 576px) and (max-width: 767.98px) {
+        .top-sm-40 {
+          top: 40%;
+        }
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -492,7 +514,7 @@
             <div id="videoModal" class="position-fixed bg-dark d-none align-items-center justify-content-center "
               style="top: 80px; left: 0; right: 0; bottom: 0; z-index: 9999; ">
               <div class="bg-white rounded p-4 position-relative max-w-[90%] max-h-[80vh] " style="width: 800px;">
-                <button id="closeModal" class="position-absolute text-white "
+                <button id="closeVideoModel" class="position-absolute text-white "
                   style="top: 10px; right: 15px; font-size: 24px; background: rgb(41, 40, 40); z-index: 10000; cursor: pointer;">&times;</button>
                 <video id="modalVideo" class="w-100 rounded" controls style="max-height: 70vh;">
                   <source id="modalSource" src="" type="video/mp4" />
@@ -500,8 +522,25 @@
                 </video>
               </div>
 
-            </div>
 
+
+
+
+            </div>
+            <!-- YouTube Modal (Tailwind-based) -->
+
+            <div id="youtubeModal" class="position-fixed bg-dark d-none align-items-center justify-content-center"
+              style="top: 80px; left: 0; right: 0; bottom: 0; z-index: 9999;">
+              <div class="bg-white rounded p-4 position-relative max-w-[90%] max-h-[80vh]" style="width: 800px;">
+                <button id="closeYouTubeModal" class="position-absolute text-white"
+                  style="top: 10px; right: 15px; font-size: 24px; background: rgb(41, 40, 40); z-index: 10000; cursor: pointer;">&times;</button>
+
+                <div class="ratio ratio-16x9" style="max-height: 70vh;">
+                  <iframe id="youtubeFrame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen
+                    class="w-100 rounded" style="max-height: 70vh;"></iframe>
+                </div>
+              </div>
+            </div>
 
 
           </div>
