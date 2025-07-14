@@ -13,7 +13,7 @@ const keySearchInput = document.getElementById("tagsInput");
 
 const get_all_books = async () => {
     try {
-        const filter = { category: "Book" };
+        const filter = { category: "Book" ,page_size: 10, page: 1};
         const response = await frappe_client.get('/get_knowledge_artificates', filter);
         console.log('Book list response:', response);
         set_book_list(response);
