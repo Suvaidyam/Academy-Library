@@ -28,7 +28,8 @@ const renderSuccess_story_Page = (response) => {
     let cardHTML = `
       <div class="col-lg-3 article-card rounded-2">
         <div class="cursor-pointer video-card" data-video-src="${videoSrc}" data-index="${index}">
-          <img src="${thumbanailSrc}" alt="Video" class="w-100 rounded">
+        <div class="playIcon"></div>
+        <img src="${thumbanailSrc}" alt="Video" class="w-100 rounded">
           <h5 class="p-2">${item?.a_short_description_about_the_artifact}</h5>
         </div>
       </div>

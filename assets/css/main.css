@@ -3384,3 +3384,29 @@ small.text-body-secondary{ color: #059652 !important;}
     object-fit: cover;
     object-position: center;
 }
+.video-card{position: relative;}
+.playIcon{
+   width: 64px;
+    height: 64px;
+    display: inline-block;
+    background-color: #00000085;
+    border-radius: 45px;
+    /* margin-left: 26px; */
+    position: absolute;
+    left: 110px;
+    bottom: 90px;
+}
+.playIcon:after {
+    content: '';
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 28px solid white;
+    width: 0;
+    height: 0;
+    display: inline-block;
+    position: absolute;
+    left: 23px;
+    right: 0;
+    bottom: 0;
+    top: 16px;
+}
