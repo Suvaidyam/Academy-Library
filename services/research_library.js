@@ -41,15 +41,15 @@ export async function getLibraryList() {
         };
         filter["artifact_source"] = 'Internal'
         filter["category"] = 'Article'
-        
+
         async function knowledge_data() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
             let posts = response.message.data;
             let totalCount = response.message.total_count;
-            
+
             next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
             handlePaginationVisibility(totalCount);
-            
+
             return posts
         }
 
@@ -254,7 +254,7 @@ function displayArtifacts(filteredArtifacts) {
                 blogContainer.appendChild(newCard);
             }
         });
-    }  else {
+    } else {
         // If no specific category is selected or category doesn't match known types
         // Display all artifacts with a generic template (you can customize this)
         artifactsToDisplay.forEach(post => {
@@ -291,12 +291,12 @@ c_dropdown.addEventListener('change', async function () {
         page_size: pageSize,
         category: this.value,
         ...(languageDropdown.value && languageDropdown.value !== 'Select Language' && { language: languageDropdown.value }),
-        ...(authorDropdown.value && authorDropdown.value !== 'Select Author' && { author: authorDropdown.value }),
+        ...(authorDropdown.value && authorDropdown.value !== 'Select Author' && { authorDropdown: authorDropdown.value }),
         ...(yearDropdown.value && yearDropdown.value !== 'Select Year' && { year: yearDropdown.value }),
         ...(keySearchInput.value && { keySearchInput: keySearchInput.value }),
         ...(authorInput.value && { authorInput: authorInput.value })
     };
-    
+
     // handletoshowbelongToInput(this.value);
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
     let totalCount = response.message.total_count;
@@ -325,7 +325,7 @@ authorDropdown.addEventListener('change', async function () {
     const filter = {
         page: currentPage,
         page_size: pageSize,
-        author: this.value,
+        authorDropdown: this.value,
         ...(search && { keySearchInput: search }),
         ...(year !== "Select Year" && { year }),
         ...(language !== "Select Language" && { language }),
@@ -341,15 +341,31 @@ authorDropdown.addEventListener('change', async function () {
     displayArtifacts(response.message.data);
 });
 
-const getAuthorList = async () => {
-    let response = await frappe_client.get('/get_assigned_author');
-    response.message.forEach(author => {
-        let option = document.createElement('option');
-        option.value = author.name;
-        option.textContent = author.employee_name || author.name;
-        authorDropdown.appendChild(option);
-    });
-}
+
+const GetSetAuthorOps = async () => {
+    if (!authorDropdown) return;
+    const args = {
+        doctype: 'Knowledge Artifact',
+        fields: ['author'],
+        or_filters: JSON.stringify([{ category: 'Article' }, { category: 'Journal' }, { category: 'Case Studies' }])
+    };
+
+    try {
+        const response = await frappe_client.get('/get_doctype_list', args);
+        const uniqueAuthors = [...new Set(response.message.map(item => item.author))];
+        console.log('uniqueAuthors:', uniqueAuthors, response.message);
+
+
+        uniqueAuthors.forEach(author => {
+            const option = document.createElement('option');
+            option.value = author;
+            option.textContent = author;
+            authorDropdown.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading year options:', error);
+    }
+};
 
 let handlelanguageDropdown = document.getElementById('language-dropdown')
 handlelanguageDropdown.addEventListener('change', async function () {
@@ -366,7 +382,7 @@ handlelanguageDropdown.addEventListener('change', async function () {
         page_size: pageSize,
         ...(keySearch && { keySearchInput: keySearch }),
         ...(authorInput && { authorInput: authorInput }),
-        ...(author !== "Select Author" && { author }),
+        ...(author !== "Select Author" && { authorDropdown : author }),
         ...(year !== "Select Year" && { year }),
         ...(language && { language }),
         ...(category !== "Select Category" && { category }),
@@ -402,13 +418,13 @@ pre_btn.addEventListener("click", async function () {
         ...(year !== "Select Year" && { year }),
         ...(language !== "Select Language" && { language }),
         ...(category !== "Select Category" && { category }),
-        ...(author !== "Select Author" && { author }),
+        ...(author !== "Select Author" && { authorDropdown : author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
     let totalCount = response.message.total_count;
-    
+
     displayArtifacts(response.message.data);
 
     pre_btn.disabled = currentPage === 1;
@@ -435,13 +451,13 @@ next_btn.addEventListener("click", async function () {
         ...(year !== "Select Year" && { year }),
         ...(language !== "Select Language" && { language }),
         ...(category !== "Select Category" && { category }),
-        ...(author !== "Select Author" && { author }),
+        ...(author !== "Select Author" && { authorDropdown : author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
     const response = await frappe_client.get('/get_knowledge_artificates', filter);
     let totalCount = response.message.total_count;
-    
+
     displayArtifacts(response.message.data);
 
     pre_btn.disabled = currentPage === 1;
@@ -465,22 +481,41 @@ handleclearbtn.addEventListener('click', () => {
 
     getLibraryList();
 })
-
 const getLanguageList = async () => {
+    if (!languageDropdown) return;
+
     const args = {
-        doctype: 'Language',
-        fields: ['name', 'language_name'],
-        filters: JSON.stringify({ enabled: '1' })
+        doctype: 'Knowledge Artifact',
+        fields: ['language'],
+        or_filters: JSON.stringify([{ category: 'Journal' }, { category: 'Article' }, { category: 'Case Studies' },{ category: 'Newsletter' }])
     };
 
-    let response = await frappe_client.get('/get_doctype_list', args);
-    response.message.forEach(lang => {
-        let option = document.createElement('option');
-        option.value = lang.name;
-        option.textContent = lang.language_name || lang.name;
-        handlelanguageDropdown.appendChild(option);
-    });
-}
+    try {
+        const response = await frappe_client.get('/get_doctype_list', args);
+        const langCodes = [...new Set(response.message.map(item => item.language).filter(Boolean))];
+
+        // Fetch enabled languages in bulk
+        const langResponse = await frappe_client.get('/get_doctype_list', {
+            doctype: 'Language',
+            fields: ['name', 'language_name'],
+            filters: JSON.stringify({ enabled: '1', name: ['in', langCodes] })
+        });
+
+        const languages = langResponse.message || [];
+
+        languages.forEach(lang => {
+           const option = document.createElement('option');
+            option.value = lang.name;
+            option.textContent = lang.language_name || lang.name;
+            handlelanguageDropdown.appendChild(option);
+        });
+
+        console.log("Loaded languages:", languages);
+    } catch (error) {
+        console.error('Error loading language list:', error);
+    }
+};
+
 
 // Handle search from keywords
 const keysearchInput = document.getElementById('tagsInput');
@@ -501,7 +536,7 @@ keysearchInput.addEventListener('input', async () => {
         ...(authorInput && { authorInput: authorInput }),
         ...(language !== "Select Language" && { language }),
         ...(category !== "Select Category" && { category }),
-        ...(author !== "Select Author" && { author }),
+        ...(author !== "Select Author" && { authorDropdown : author }),
         ...(year !== "Select Year" && { year }),
     };
 
@@ -556,26 +591,26 @@ function setCategoryWiseBackgrounds(category) {
 
     const elementDescription = document.getElementById("page-description");
     if (elementDescription) {
-    elementDescription.textContent = category;
-  }
-  category = category === "Case Studies" ? "Case_Studies" : category;
-  const categoryImages = {
-    Articles: "../assets/img/publications.jpeg",
-    Journals: "../assets/img/jonoural.png",
-    Case_Studies: "../assets/img/library.jpeg",
-    Newsletter: "../assets/img/newsletter.jpeg",
-  };
+        elementDescription.textContent = category;
+    }
+    category = category === "Case Studies" ? "Case_Studies" : category;
+    const categoryImages = {
+        Articles: "../assets/img/publications.jpeg",
+        Journals: "../assets/img/jonoural.png",
+        Case_Studies: "../assets/img/library.jpeg",
+        Newsletter: "../assets/img/newsletter.jpeg",
+    };
 
-  const elements = document.getElementsByClassName("page-title");
-  
-  
+    const elements = document.getElementsByClassName("page-title");
 
-  if (category && categoryImages[category] && elements.length > 0) {
-    elements[0].style.backgroundImage = `url('${categoryImages[category]}')`;
-    elements[0].style.backgroundSize = "cover";
-    elements[0].style.backgroundRepeat = "no-repeat";
-    // elements[0].style.backgroundPosition = "center";
-  }
+
+
+    if (category && categoryImages[category] && elements.length > 0) {
+        elements[0].style.backgroundImage = `url('${categoryImages[category]}')`;
+        elements[0].style.backgroundSize = "cover";
+        elements[0].style.backgroundRepeat = "no-repeat";
+        // elements[0].style.backgroundPosition = "center";
+    }
 }
 
 yearDropdown.addEventListener('change', async function () {
@@ -592,7 +627,7 @@ yearDropdown.addEventListener('change', async function () {
         year: this.value,
         ...(search && { keySearchInput: search }),
         ...(authorInput && { authorInput: authorInput }),
-        ...(author !== "Select Author" && { author }),
+        ...(author !== "Select Author" && { authorDropdown : author }),
         ...(category !== "Select Category" && { category }),
         ...(language !== "Select Language" && { language }),
     };
@@ -617,7 +652,7 @@ belongToInput.addEventListener('input', async function () {
         page_size: pageSize,
         authorInput: this.value,
         ...(search && { keySearchInput: search }),
-        ...(author !== "Select Author" && { author }),
+        ...(author !== "Select Author" && { authorDropdown : author }),
         ...(category !== "Select Category" && { category }),
         ...(language !== "Select Language" && { language }),
         ...(year !== "Select Year" && { year }),
@@ -634,6 +669,6 @@ belongToInput.addEventListener('input', async function () {
 document.addEventListener("DOMContentLoaded", () => {
     getLibraryList();
     getLanguageList();
-    getAuthorList();
+    GetSetAuthorOps();
     GetSetYearOps();
 });
