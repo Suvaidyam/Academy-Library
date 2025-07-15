@@ -61,7 +61,7 @@ const renderSuccess_story_Page = (response) => {
       <div class="col-lg-3  rounded-2">
         <div class="card shadow-sm video-card" data-video-src="${videoSrc}" data-index="${index}">
           <img src="${thumbanailSrc}" alt="Video" class="w-100 rounded">
-              <i data-video-src="${videoSrc}" class="video-card fa-solid fa-play position-absolute  start-50 translate-middle text-white bg-dark p-lg-4 p-sm-5 rounded-circle" style="font-size: 24px; top:40%; cursor: pointer;"></i>
+              <i data-video-src="${videoSrc}" class="video-card fa-solid fa-play position-absolute  start-50 translate-middle text-white bg-dark p-lg-3 p-sm-4 rounded-circle" style="font-size: 24px; top:40%; cursor: pointer;"></i>
 
           <h5 class="p-2">${item?.a_short_description_about_the_artifact}</h5>
         </div>
@@ -73,7 +73,7 @@ const renderSuccess_story_Page = (response) => {
     <img src="https://img.youtube.com/vi/${videoId}/0.jpg" class="card-img-top" alt="Video Thumbnail">
 
     <!-- Overlay Play Icon -->
-    <i data-video-id="${videoId}" class="youtube-card fa-solid fa-play position-absolute  start-50 translate-middle  top-lg-30 top-md-40 text-white bg-dark p-lg-4 p-sm-5 rounded-circle" style="font-size: 24px;  cursor: pointer;"></i>
+    <i data-video-id="${videoId}" class="youtube-card fa-solid fa-play position-absolute  start-50 translate-middle  top-lg-30 top-md-40 text-white bg-dark p-lg-3 p-sm-4 rounded-circle" style="font-size: 24px;  cursor: pointer;"></i>
 
     <div class="card-body">
       <h5 class="p-2">
