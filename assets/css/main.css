@@ -913,6 +913,7 @@ h6 {
 .page-leaders {
   background: url("../img/mentors.jpeg") no-repeat center #e8e5e6;
   background-size: contain;
+      /* animation: zoomloop 5s infinite alternate; */
 }
 .page-research {
   background: url("../img/banner.jpg") no-repeat right top #949492;
@@ -3414,3 +3415,12 @@ small.text-body-secondary{ color: #059652 !important;}
     bottom: 0;
     top: 22px;
 }
+
+@keyframes zoomloop {
+    0% {
+      background-size: 100% 100%;
+    }
+    100% {
+      background-size: 105% 105%;
+    }
+  }
