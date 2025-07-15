@@ -23,8 +23,8 @@ let currentPage = 1;
 let fullData = [];
 let total_count = "";
 
-let Pagination1=document.getElementById("pagination1")
-let Pagination2=document.getElementById("pagination2")
+let Pagination1 = document.getElementById("pagination1")
+let Pagination2 = document.getElementById("pagination2")
 
 
 
@@ -86,7 +86,7 @@ function displayArtifacts() {
 
         newCard.querySelector(".post-category").textContent = post.category || "Uncategorized";
         newCard.querySelector(".blog-title").textContent = post.title || "No Title";
-        newCard.querySelector(".post-author").textContent = post.internalauthor || "Unknown";
+        newCard.querySelector(".post-author").textContent = post.internalauthor || post.author|| "Unknown";
         newCard.querySelector(".post-date time").textContent = post.date_of_creationpublication || "No Date";
 
         blogContainer.appendChild(newCard);
@@ -268,6 +268,14 @@ AllTab.addEventListener("click", async () => {
         console.log("Total count of Global Resources:", total_count);
 
     }
+    const Externaldata = await fetchAllData({ source: 'External' });
+    fullData.push(...Externaldata);
+    console.log("Total count of Global Resources:", fullData);
+
+    if (total_count) {
+        console.log("Total count of External Resources:", total_count);
+
+    }
     SetAllTAbContainer(fullData);
     console.log("fullData", fullData);
     updatePaginationButtons();
@@ -308,13 +316,20 @@ const SetAllTAbContainer = (fullData) => {
                     <p class="post-category text-muted mb-1" style="font-size: 0.9rem;">${element.category || 'Global Resource'}</p>
 
                     <h5 class="card-title blog-title mb-3" style="text-transform: capitalize;">
-                    ${element.title || 'Untitled'}
-                    </h5>
+                        ${element.title
+                                        ? element.title
+                                        : element.a_short_description_about_the_artifact
+                                            ? element.a_short_description_about_the_artifact.length > 50
+                                                ? element.a_short_description_about_the_artifact.slice(0, 50) + '...'
+                                                : element.a_short_description_about_the_artifact
+                                            : 'No description available.'
+                                    }
+                        </h5>
 
                     <div class="d-flex align-items-center mb-2">
                     <img src="../assets/img/blog/blog-author.jpg" alt="Author" class="rounded-circle me-2" width="40" height="40" style="object-fit: cover;">
                     <div>
-                        <p class="mb-0 fw-bold post-author">${element.internalauthor || 'Unknown'}</p>
+                        <p class="mb-0 fw-bold post-author">${element.author || 'Unknown'}</p>
                         <p class="mb-0 text-muted post-date" style="font-size: 0.85rem;">
                         <time>${element.date_of_creationpublication || 'No Date'}</time>
                         </p>
@@ -420,7 +435,7 @@ searchInput.addEventListener('input', async (event) => {
     if (activeTab === "Subscribed") {
         console.log("Search Term:", searchTerm);
         if (searchTerm) {
-            const filter = { category: 'Global Resource', keySearchInput: searchTerm , Subscribe: '1' };
+            const filter = { category: 'Global Resource', keySearchInput: searchTerm, Subscribe: '1' };
 
             if (handlelanguageDropdown.value != "Language") {
                 filter.language = handlelanguageDropdown.value;
