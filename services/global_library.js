@@ -405,6 +405,8 @@ handlelanguageDropdown.addEventListener('change', async (event) => {
         }
     } else if (activeTab === "All") {
         const fullData = await fetchAllData({ category: 'Global Resource', language: selectedLanguage });
+        const Externaldata = await fetchAllData({ source: 'External', language: selectedLanguage });
+        fullData.push(...Externaldata);
         SetAllTAbContainer(fullData);
     }
 });
@@ -453,7 +455,10 @@ searchInput.addEventListener('input', async (event) => {
             filter.language = handlelanguageDropdown.value;
         }
         console.log('Filter:', filter);
-        SetAllTAbContainer(await fetchAllData(filter));
+        const fullData = await fetchAllData(filter);
+        const Externaldata = await fetchAllData({ source: 'External', keySearchInput: searchTerm });
+        fullData.push(...Externaldata);
+        SetAllTAbContainer(fullData );
         updatePaginationButtons();
     }
 });
