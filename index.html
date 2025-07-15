@@ -430,9 +430,9 @@
       </div>
       <hr>
       <div class="container">
-          <div class="container section-title" data-aos="fade-up">
-            <h2>Events</h2>
-          </div>
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Events</h2>
+        </div>
         <div class="row gy-4 mt-5" id="events-container">
           <!-- ENENTS  will be loaded here dynamically -->
         </div>
@@ -449,9 +449,9 @@
       </div>
       <hr>
       <div class="container">
-          <div class="container section-title" data-aos="fade-up">
-            <h2>Upcoming Events</h2>
-          </div>
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Upcoming Events</h2>
+        </div>
         <div class="row gy-4 mt-5" id="upcoming_events-container">
           <!-- ENENTS  will be loaded here dynamically -->
         </div>
@@ -473,11 +473,11 @@
     </section><!-- /Services Section -->
 
     <!-- research partners -->
-   <section id="research-partners" class="research section container " >
+    <section id="research-partners" class="research section container ">
       <div class="home-demo">
-         <div class="container  section-title" data-aos="fade-up">
-        <h2>Research Partners</h2>
-      </div><!-- End Section Title -->
+        <div class="container  section-title" data-aos="fade-up">
+          <h2>Research Partners</h2>
+        </div><!-- End Section Title -->
 
         <div class="owl-carousel">
           <div class="item"><img src="../assets/img/clients/aiims.jpeg" alt=""></div>
@@ -510,105 +510,110 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-    <section id="research" class="research section " style="padding: 60px 60px;">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <section id="research" class="research section " style="padding: 60px 60px;">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/php-email-form/validate.js"></script>
-  <script src="vendor/aos/aos.js"></script>
-  <script src="vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/php-email-form/validate.js"></script>
+    <script src="vendor/aos/aos.js"></script>
+    <script src="vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
 
 
-  <script>
-    // import { get_dynaic_course_list } from "../../services/get_course_list";
-    let under_graduation_btn = document.getElementById('under_graduation')
-    let post_graduation_btn = document.getElementById('post_graduation')
-    let certification_btn = document.getElementById('certification')
+    <script>
+      // import { get_dynaic_course_list } from "../../services/get_course_list";
+      let under_graduation_btn = document.getElementById('under_graduation')
+      let post_graduation_btn = document.getElementById('post_graduation')
+      let certification_btn = document.getElementById('certification')
 
-    let all_btn = [under_graduation_btn, post_graduation_btn, certification_btn]
+      let all_btn = [under_graduation_btn, post_graduation_btn, certification_btn]
 
-    all_btn.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault()
-        console.log("under_graduation_btn is clicked", under_graduation_btn);
-        let course_type = item.firstElementChild.textContent.trim()
+      all_btn.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault()
+          console.log("under_graduation_btn is clicked", under_graduation_btn);
+          let course_type = item.firstElementChild.textContent.trim()
+          if (course_type === "Graduation") {
+            course_type = "Under Graduation";
+          } else if (course_type === "Certificate") {
+            course_type = "Certification";
+          }
 
-        // get_dynaic_course_list('Post Graduation','1')
-        setInterval(() => {
-          window.location.href = 'pages/learning-library.html';
+          // get_dynaic_course_list('Post Graduation','1')
+          setInterval(() => {
+            window.location.href = 'pages/learning-library.html';
 
-        }, 1000);
-        localStorage.setItem('courseCategory', course_type)
+          }, 1000);
+          localStorage.setItem('courseCategory', course_type)
+
+        })
 
       })
 
-    })
+      document.addEventListener("DOMContentLoaded", () => {
+        function loadComponent(file, elementId) {
+          let el = document.getElementById(elementId);
+          if (!el) {
+            console.error(`Element '${elementId}' not found!`);
+            return;
+          }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      function loadComponent(file, elementId) {
-        let el = document.getElementById(elementId);
-        if (!el) {
-          console.error(`Element '${elementId}' not found!`);
-          return;
+          fetch(file)
+            .then(response => response.text())
+            .then(data => el.innerHTML = data)
+            .catch(error => console.error(`Error loading ${file}:`, error));
         }
-
-        fetch(file)
-          .then(response => response.text())
-          .then(data => el.innerHTML = data)
-          .catch(error => console.error(`Error loading ${file}:`, error));
-      }
-      loadComponent("components/header.html", "header");  // Load Header
-      loadComponent("components/footer.html", "footer");  // Load Footer
-    });
-
-    $(function () {
-      // Owl Carousel
-      var owl = $(".owl-carousel");
-      owl.owlCarousel({
-        items: 5,
-        margin: 10,
-        loop: true,
-        autoplay: true,
-        autoplayTimeout: 3000,
-        nav: true,
-        responsiveClass: true,
-        autoHeight: true,
-        smartSpeed: 800,
-         responsive: {
-    0: {
-      items: 1
-    },
-
-    600: {
-      items: 3
-    },
-
-    1024: {
-      items: 4
-    },
-
-    1366: {
-      items: 4
-    }
-  }
+        loadComponent("components/header.html", "header");  // Load Header
+        loadComponent("components/footer.html", "footer");  // Load Footer
       });
-    });
 
-  </script>
+      $(function () {
+        // Owl Carousel
+        var owl = $(".owl-carousel");
+        owl.owlCarousel({
+          items: 5,
+          margin: 10,
+          loop: true,
+          autoplay: true,
+          autoplayTimeout: 3000,
+          nav: true,
+          responsiveClass: true,
+          autoHeight: true,
+          smartSpeed: 800,
+          responsive: {
+            0: {
+              items: 1
+            },
 
-  <script src="assets/js/loadIndexHeaderFooter.js"></script>
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script type="module" src="services/news-event.js"></script>
+            600: {
+              items: 3
+            },
+
+            1024: {
+              items: 4
+            },
+
+            1366: {
+              items: 4
+            }
+          }
+        });
+      });
+
+    </script>
+
+    <script src="assets/js/loadIndexHeaderFooter.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script type="module" src="services/news-event.js"></script>
 
 
 </body>

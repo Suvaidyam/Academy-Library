@@ -38,18 +38,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add click event listener to each course category link
   const links = document.querySelectorAll('.services-list a');
+
   links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
-      const course = e.currentTarget.innerText.trim(); 
-      console.log("course",course);
-      // Get selected course name
-      localStorage.setItem('courseCategory', course); // Store it in session
-      getandSetDyanamicCourseDetailsAndName()
 
-      let navtype = localStorage.getItem("navtype"); // Get current tab type
-      if (course) {
-        get_dynaic_course_list(course, navtype); // Fetch course list
+      let course = e.currentTarget.innerText.trim(); 
+
+      // Normalize course name
+      if (course === "Graduation") {
+        course = "Under Graduation";
+      } else if (course === "Certificate") {
+        course = "Certification";
+      }
+
+      console.log("course", course);
+
+      // Store in localStorage
+      localStorage.setItem('courseCategory', course);
+
+      // Update course details
+      getandSetDyanamicCourseDetailsAndName();
+
+      // Fetch course list
+      const navtype = localStorage.getItem("navtype");
+      if (course && navtype) {
+        get_dynaic_course_list(course, navtype);
       }
     });
   });
@@ -156,31 +170,37 @@ Live_Courses_Btn.addEventListener('click', () => {
 // On page load, select first category and load "Under Graduation" live courses
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll('.services-list a');
+  const courseType = localStorage.getItem('courseCategory');
+
   links.forEach(link => {
-    let courseType = localStorage.getItem('courseCategory')
-    const course = link.textContent.trim();
+    let course = link.textContent.trim();
+
+    // Normalize course name
+    if (course === "Graduation") {
+      course = "Under Graduation";
+    } else if (course === "Certificate") {
+      course = "Certification";
+    }
+
     console.log("link", link, course);
+
+    // Highlight active link
     if (course === courseType) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
     }
-
-
   });
-  const firstLink = links[0];
 
-  // firstLink.classList.add("active");
+  // Load dynamic course list using courseType and navtype "1"
+  if (courseType) {
+    get_dynaic_course_list(courseType, "1");
+  }
 
-  // localStorage.setItem('courseCategory', 'Under Graduation');
-  // localStorage.setItem("navtype", "1");
-  let courseType = localStorage.getItem('courseCategory')
-
-  get_dynaic_course_list(courseType, "1");
-  let homebtn = document.getElementById("home")
+  // Log home button element
+  const homebtn = document.getElementById("home");
   console.log("home btn is clicked", homebtn);
-
-
 });
+
 
 
