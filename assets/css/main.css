@@ -301,6 +301,7 @@ h6 {
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
+
 /* Desktop Navigation */
 @media (min-width: 1200px) {
   .navmenu {
@@ -910,8 +911,8 @@ h6 {
   background-size: cover;
 }
 .page-leaders {
-  background: url("../img/mentors.jpeg") no-repeat right #949492;
-  background-size: cover;
+  background: url("../img/mentors.jpeg") no-repeat center #e8e5e6;
+  background-size: contain;
 }
 .page-research {
   background: url("../img/banner.jpg") no-repeat right top #949492;
@@ -926,7 +927,7 @@ h6 {
   background-size: cover;
 }
 .page-publications {
-  background: url("../img/publications.jpeg") right 10% #949492;
+  background: url("../img/publications.jpeg") right 10% #e8e5e6;
   background-size: cover;
 }
 .page-global-information {
@@ -1100,6 +1101,8 @@ h6 {
   /* border-top: 4px solid var(--accent-color); */
   z-index: 3;
 }
+
+
 
 @media (max-width: 1200px) {
   .hero .container {
@@ -3395,18 +3398,19 @@ small.text-body-secondary{ color: #059652 !important;}
     position: absolute;
     left: 110px;
     bottom: 90px;
+    cursor: pointer;
 }
 .playIcon:after {
-    content: '';
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 28px solid white;
+        content: '';
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 18px solid white;
     width: 0;
     height: 0;
     display: inline-block;
     position: absolute;
-    left: 23px;
+    left: 25px;
     right: 0;
     bottom: 0;
-    top: 16px;
+    top: 22px;
 }

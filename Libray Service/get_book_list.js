@@ -11,12 +11,49 @@ const categoryDropdown = document.getElementById("category-dropdown");
 const authorDropdown = document.getElementById("author");
 const keySearchInput = document.getElementById("tagsInput");
 
-const get_all_books = async () => {
+const prevBtn = document.getElementById("book-prev-btn");
+const nextBtn = document.getElementById("book-next-btn");
+
+let currentPage = 1;
+const pageSize = 8;
+let totalPages = 1;
+
+const updatePaginationButtons = () => {
+  prevBtn.disabled = currentPage <= 1;
+  nextBtn.disabled = currentPage >= totalPages;
+};
+
+prevBtn?.addEventListener("click", () => {
+  if (currentPage > 1) get_all_books(currentPage - 1);
+});
+nextBtn?.addEventListener("click", () => {
+  if (currentPage < totalPages) get_all_books(currentPage + 1);
+});
+
+let activeFilters = {
+    year: '',
+    language: '',
+    author: '',
+    keySearchInput: ''
+};
+
+const get_all_books = async (page=1) => {
     try {
-        const filter = { category: "Book" };
+        const filter = {
+            category: "Book",
+            page_size: pageSize,
+            page,
+            ...(activeFilters.year && { year: activeFilters.year }),
+            ...(activeFilters.language && { language: activeFilters.language }),
+            ...(activeFilters.author && { authorDropdown: activeFilters.author }),
+            ...(activeFilters.keySearchInput && { keySearchInput: activeFilters.keySearchInput }),
+        };
         const response = await frappe_client.get('/get_knowledge_artificates', filter);
         console.log('Book list response:', response);
         set_book_list(response);
+        totalPages = response.message.total_pages || 1;
+        currentPage = response.message.page || 1;
+        updatePaginationButtons();
     } catch (error) {
         console.error('Error fetching book list:', error);
     }
@@ -164,13 +201,13 @@ export default set_book_list;
 
 // Event Listeners
 const bookbtn = document.getElementById('books-tab');
-if (bookbtn) {
-    bookbtn.addEventListener('click', () => {
-        get_all_books();
-        GetSetYearOps();
-        getLanguageList();
-    });
-}
+// if (bookbtn) {
+//     bookbtn.addEventListener('click', () => {
+//         get_all_books();
+//         GetSetYearOps();
+//         getLanguageList();
+//     });
+// }
 document.addEventListener('DOMContentLoaded', async () => {
     get_all_books();
     GetSetYearOps();
@@ -178,139 +215,55 @@ document.addEventListener('DOMContentLoaded', async () => {
     GetSetAuthorOps()
 });
 
-if (keySearchInput) {
-    keySearchInput.addEventListener('input', async function () {
-        const year = yearDropdown?.value || '';
-        const language = languageDropdown?.value || '';
-        const author_search = authorDropdown?.value || '';
-        const search = keySearchInput.value.trim();
+keySearchInput?.addEventListener('input', async function () {
+    activeFilters.keySearchInput = keySearchInput.value.trim();
+    get_all_books(1);
+});
 
-        const filter = {
-            category: "Book",
-            ...(year && year !== "Select Year" && { year }),
-            ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
-            ...(language && language !== "Select Language" && { language }),
-        };
 
-        try {
-            const response = await frappe_client.get('/get_knowledge_artificates', filter);
-            set_book_list(response);
-        } catch (err) {
-            console.error("Error in tags input filter:", err);
-        }
-    });
-}
 
-const searchInput = document.getElementById('bookSearchInput');
-if (searchInput) {
-    searchInput.addEventListener('input', async (e) => {
-        e.preventDefault();
-        try {
-            const value = searchInput.value.trim();
-            if (value) {
-                const response = await frappe_client.get('/filter_global_book', {
-                    global_val: value
-                });
-                set_book_list(response);
-            } else {
-                get_all_books();
-            }
-        } catch (error) {
-            console.error('Search error:', error);
-        }
-    });
-}
 
 // Clear button logic
 const handleclearbtn = document.getElementById('clearbtn');
-if (handleclearbtn) {
-    handleclearbtn.addEventListener('click', () => {
-        if (languageDropdown) languageDropdown.selectedIndex = 0;
-        if (authorDropdown) authorDropdown.selectedIndex = 0;
-        if (yearDropdown) yearDropdown.selectedIndex = 0;
-        if (categoryDropdown) categoryDropdown.selectedIndex = 0;
-        if (keySearchInput) keySearchInput.value = '';
-        get_all_books();
-    });
-}
 
-// Filter on author input change
-if (authorDropdown) {
-    authorDropdown.addEventListener('change', async function () {
-        const year = yearDropdown?.value || '';
-        const language = languageDropdown?.value || '';
-        const search = keySearchInput?.value || '';
-        const author_search = authorDropdown.value.trim();
+handleclearbtn?.addEventListener('click', () => {
+    activeFilters = {
+        year: '',
+        language: '',
+        author: '',
+        keySearchInput: ''
+    };
+    if (languageDropdown) languageDropdown.selectedIndex = 0;
+    if (authorDropdown) authorDropdown.selectedIndex = 0;
+    if (yearDropdown) yearDropdown.selectedIndex = 0;
+    if (categoryDropdown) categoryDropdown.selectedIndex = 0;
+    if (keySearchInput) keySearchInput.value = '';
+    get_all_books(1);
+});
 
-        const filter = {
-            category: "Book",
-            ...(year && year !== "Select Year" && { year }),
-            ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
-            ...(language && language !== "Select Language" && { language }),
-        };
+// Filter on author dropdown change
 
-        try {
-            const response = await frappe_client.get('/get_knowledge_artificates', filter);
-            set_book_list(response);
-        } catch (err) {
-            console.error("Error in author filter:", err);
-        }
-    });
-}
+authorDropdown?.addEventListener('change', async function () {
+    activeFilters.author = this.value;
+    get_all_books(1);
+});
+
+
+
 
 // Filter on language change
-if (languageDropdown) {
-    languageDropdown.addEventListener('change', async function () {
-        const year = yearDropdown?.value || '';
-        const search = keySearchInput?.value || '';
-        const author_search = authorDropdown?.value || '';
+languageDropdown?.addEventListener('change', async function () {
+    activeFilters.language = this.value;
+    get_all_books(1);
+});
 
-        const filter = {
-            category: "Book",
-            ...(year && year !== "Select Year" && { year }),
-            ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
-            language: this.value,
-        };
 
-        try {
-            const response = await frappe_client.get('/get_knowledge_artificates', filter);
-            set_book_list(response);
-        } catch (err) {
-            console.error("Error in language filter:", err);
-        }
-    });
-}
 
 // Filter on year change
-if (yearDropdown) {
-    yearDropdown.addEventListener('change', async function () {
-        const language = languageDropdown?.value || '';
-        const search = keySearchInput?.value || '';
-        const author_search = authorDropdown?.value || '';
+yearDropdown?.addEventListener('change', async function () {
+    activeFilters.year = this.value;
+    get_all_books(1);
+});
 
-        const filter = {
-            category: "Book",
-            year: this.value,
-            ...(search && { keySearchInput: search }),
-            ...(author_search && { authorDropdown: author_search }),
-            ...(language && language !== "Select Language" && { language }),
-        };
 
-        try {
-            const response = await frappe_client.get('/get_knowledge_artificates', filter);
-            const totalCount = response.message.total_count;
 
-            const next_btn = document.getElementById("next-btn");
-            if (next_btn) {
-                next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
-            }
-
-            set_book_list(response);
-        } catch (err) {
-            console.error("Error in year filter:", err);
-        }
-    });
-}
