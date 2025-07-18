@@ -230,14 +230,16 @@
    */
   setTimeout(function () {
     const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-
     function mobileNavToggle() {
-      document.querySelector('body').classList.toggle('mobile-nav-active');
+      document.body.classList.toggle('mobile-nav-active');
       mobileNavToggleBtn.classList.toggle('bi-list');
       mobileNavToggleBtn.classList.toggle('bi-x');
     }
+    if (mobileNavToggleBtn) {
 
-    mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
+
+      mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
+    }
 
     // Handle click on nav links
     const navLinks = document.querySelectorAll('nav a'); // Change selector based on your menu
@@ -311,7 +313,7 @@ const get_UserInfo = async (user) => {
     console.log("Response status:", response.status);
 
     const result = await response.json();
-    
+
     let userInfo = JSON.parse(sessionStorage.getItem("user_info"));
     userInfo.roles = result.message.roles;  // Replace with dynamic value
     sessionStorage.setItem("user_info", JSON.stringify(userInfo));
@@ -325,10 +327,10 @@ const get_UserInfo = async (user) => {
 };
 const userInfo = JSON.parse(sessionStorage.getItem("user_info"));
 const user = (userInfo)
-console.log("userInfo",userInfo);
-
-
-if(userInfo.message== "Logged In"){
-  get_UserInfo(userInfo.username);
+if (userInfo.message == "Logged In") {
+  if (!sessionStorage.getItem("logged_in_once")) {
+    sessionStorage.setItem("logged_in_once", "true");
+    get_UserInfo(userInfo.username);
+  }
 }
 
