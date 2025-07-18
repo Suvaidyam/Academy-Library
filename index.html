@@ -558,22 +558,22 @@
 
       })
 
-      document.addEventListener("DOMContentLoaded", () => {
-        function loadComponent(file, elementId) {
-          let el = document.getElementById(elementId);
-          if (!el) {
-            console.error(`Element '${elementId}' not found!`);
-            return;
-          }
+      // document.addEventListener("DOMContentLoaded", () => {
+      //   function loadComponent(file, elementId) {
+      //     let el = document.getElementById(elementId);
+      //     if (!el) {
+      //       console.error(`Element '${elementId}' not found!`);
+      //       return;
+      //     }
 
-          fetch(file)
-            .then(response => response.text())
-            .then(data => el.innerHTML = data)
-            .catch(error => console.error(`Error loading ${file}:`, error));
-        }
-        loadComponent("components/header.html", "header");  // Load Header
-        loadComponent("components/footer.html", "footer");  // Load Footer
-      });
+      //     fetch(file)
+      //       .then(response => response.text())
+      //       .then(data => el.innerHTML = data)
+      //       .catch(error => console.error(`Error loading ${file}:`, error));
+      //   }
+      //   loadComponent("components/header.html", "header");  // Load Header
+      //   loadComponent("components/footer.html", "footer");  // Load Footer
+      // });
 
       $(function () {
         // Owl Carousel
@@ -610,7 +610,8 @@
 
     </script>
 
-    <script src="assets/js/loadIndexHeaderFooter.js"></script>
+    <!-- <script src="assets/js/loadIndexHeaderFooter.js"></script> -->
+    <script src="assets/js/loadAllPageHeaderFooter.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <script type="module" src="services/news-event.js"></script>
