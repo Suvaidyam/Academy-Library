@@ -285,6 +285,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 2000);
 });
 
+import { Encryption , Decryption } from "./encryption.js";
+
+
+
+
 const get_UserInfo = async (user) => {
   if (!user) {
     toastr.error("Username is required.");
@@ -320,7 +325,7 @@ const get_UserInfo = async (user) => {
     const result = await response.json();
 
     let userInfo = JSON.parse(sessionStorage.getItem("user_info"));
-    userInfo.roles = result.message.roles;  // Replace with dynamic value
+    userInfo.roles = Encryption(result.message.roles);  // Replace with dynamic value
     sessionStorage.setItem("user_info", JSON.stringify(userInfo));
 
 
