@@ -1,4 +1,5 @@
 // Load CryptoJS from CDN dynamically
+import CryptoJS from "crypto-js";
 function loadCryptoJS() {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
