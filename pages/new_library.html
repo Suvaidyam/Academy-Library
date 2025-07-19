@@ -587,13 +587,13 @@
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
-<!-- CDN Links For encryption -->
+  <!-- CDN Links For encryption -->
   <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
-    
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- <script src="js/app.js"></script> -->
-  
+
 
 
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -610,11 +610,11 @@
   <!-- <script src="../services/research_library.js"></script> -->
   <!-- <script src="../services/about.js"></script> -->
 
-<script src="../assets/js/loadAllPageHeaderFooter.js"></script>
+  <script src="../assets/js/loadAllPageHeaderFooter.js"></script>
 
 
   <!-- Main JS File -->
-  <script type="module"  src="../assets/js/main.js"></script>
+  <script type="module" src="../assets/js/main.js"></script>
   <!-- <script src="../Libray/searchService.js"></script> -->
 
   <script type="module" src="../Libray Service/get_all_courses.js"></script>
@@ -624,8 +624,17 @@
 
 
   <script type="module">
-    import { Encryption, Decryption } from '../assets/js/encryption.js';
-  
+    function Decryption(ciphertext) {
+      try {
+        const decrypted = CryptoJS.AES.decrypt(ciphertext, "your-secret-key").toString(CryptoJS.enc.Utf8);
+        return decrypted ? JSON.parse(decrypted) : null;
+      } catch (e) {
+        console.error("Decryption error:", e);
+        return null;
+      }
+    }
+
+
     const valid_roles = ['District Point Person(DPP)', 'G-TPP', 'GL', 'TPP', 'YRF', 'PLA', 'SA'];
 
     let user_roles = [];

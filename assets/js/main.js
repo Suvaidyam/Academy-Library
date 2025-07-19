@@ -285,17 +285,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 2000);
 });
 
-import { Encryption , Decryption } from "./encryption.js";
+
 
 
 
 
 const get_UserInfo = async (user) => {
+  function Encryption(data) {
+  const secretKey = "your-secret-key";
+  const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+  return ciphertext;
+  } 
+  
+  
+
   if (!user) {
     toastr.error("Username is required.");
     return;
   }
-
+  
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -320,9 +328,9 @@ const get_UserInfo = async (user) => {
     //   requestOptions
     // );
 
-    console.log("Response status:", response.status);
-
+    
     const result = await response.json();
+    
 
     let userInfo = JSON.parse(sessionStorage.getItem("user_info"));
     userInfo.roles = Encryption(result.message.roles);  // Replace with dynamic value
@@ -330,7 +338,7 @@ const get_UserInfo = async (user) => {
 
 
   } catch (error) {
-    toastr.error("Error connecting to server.");
+    // toastr.error("Error connecting to server.");
     console.error("Login error:", error);
   }
 
