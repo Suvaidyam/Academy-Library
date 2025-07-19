@@ -105,8 +105,9 @@ import set_book_list from "./get_book_list.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     const sortOptions = document.getElementById('sortOptions');
-    const radioButtons = sortOptions.querySelectorAll('input[type="radio"]');
-    const clearButton = document.getElementById('clearSelection');
+    // const radioButtons = sortOptions.querySelectorAll('input[type="radio"]');
+    const radioButtons = []
+    // const clearButton = document.getElementById('clearSelection');
     const searchInput = document.getElementById('bookSearchInput');
     // Handle selection change
     radioButtons.forEach(radio => {
@@ -145,12 +146,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Clear selection
-    clearButton.addEventListener('click', function () {
-        const searchInput = document.getElementById('bookSearchInput');
-        searchInput.value = ''
-        radioButtons.forEach(radio => {
-            radio.checked = false;
-        });
-        // console.log('Selection cleared');
-    });
+    // clearButton.addEventListener('click', function () {
+    //     const searchInput = document.getElementById('bookSearchInput');
+    //     searchInput.value = ''
+    //     radioButtons.forEach(radio => {
+    //         radio.checked = false;
+    //     });
+    //     // console.log('Selection cleared');
+    // });
 });

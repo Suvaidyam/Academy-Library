@@ -111,7 +111,7 @@
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
+            <button class="nav-link d-none" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
               type="button" role="tab" aria-controls="video-session" aria-selected="false">
               Video lecture
             </button>
@@ -584,12 +584,15 @@
   </main>
 
   <div id="footer" class="footer dark-background"></div>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/app.js"></script>
-  <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
+  <!-- <script src="js/app.js"></script> -->
+  
+
 
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../vendor/php-email-form/validate.js"></script>
@@ -605,7 +608,8 @@
   <!-- <script src="../services/research_library.js"></script> -->
   <!-- <script src="../services/about.js"></script> -->
 
-  <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
+<script src="../assets/js/loadAllPageHeaderFooter.js"></script>
+
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
@@ -615,6 +619,32 @@
   <script type="module" src="../Libray Service/handleFiletype.js"></script>
   <script type="module" src="../Libray Service/get_book_list.js"></script>
   <script type="module" src="../Libray Service/video_lecture.js"></script>
+
+
+  <script type="module">
+    const valid_roles = ['District Point Person(DPP)', 'G-TPP', 'GL', 'TPP', 'YRF', 'PLA', 'SA'];
+
+    let user_roles = [];
+    const get_login_user_details = async () => {
+      const userDetails = sessionStorage.getItem('user_info');
+      console.log('userDetails', userDetails);
+
+      if (userDetails) {
+        const user = JSON.parse(userDetails);
+        const user_roles = user.roles || [];
+
+        const hasValidRole = user_roles.some(role => valid_roles.includes(role));
+        console.log('hasValidRole', hasValidRole);
+        let videoSessionTab = document.getElementById('video-session-tab');
+        hasValidRole ? videoSessionTab.classList.remove('d-none') : videoSessionTab.classList.add('d-none');
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      get_login_user_details();
+
+    });
+  </script>
 
 
 </body>

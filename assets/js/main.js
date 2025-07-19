@@ -306,9 +306,14 @@ const get_UserInfo = async (user) => {
   try {
     const response = await fetch(
       // "http://erp.localhost:8000/api/method/lms.lms.api.get_user_details",
-      "https://erp-ryss.ap.gov.in/api/method/lms.lms.api.get_user_details",
+      "https://erp-ryss.ap.gov.in/api/method/get_user_details",
       requestOptions
     );
+    // const response1 = await fetch(
+    //   // "http://erp.localhost:8000/api/method/lms.lms.api.get_user_details",
+    //   "https://erp-ryss.ap.gov.in/api/method/lms.lms.api.get_user_details",
+    //   requestOptions
+    // );
 
     console.log("Response status:", response.status);
 

@@ -55,7 +55,7 @@ const renderSuccess_story_Page = (response) => {
     const videoId = getYouTubeVideoID(videoSrc) || "hbs9j9Y7wcw"; // Default ID if not found
 
 
-    let a = '../assets/img/gallery/Play-btn.jpeg'
+    // let a = '../assets/img/gallery/Play-btn.jpeg'
 
     let Videocard = `
       <div class="col-lg-3  rounded-2">
