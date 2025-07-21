@@ -637,7 +637,7 @@
     }
 
 
-    const valid_roles = ['District Point Person(DPP)', 'G-TPP', 'GL', 'TPP', 'YRF', 'PLA', 'SA'];
+    const valid_roles = ['Academics User','Administrator', 'District Point Person(DPP)', 'G-TPP', 'GL', 'TPP', 'YRF', 'PLA', 'SA'];
 
     let user_roles = [];
     const get_login_user_details = async () => {
@@ -649,6 +649,7 @@
         const user_roles = Decryption(user.roles) || [];
 
         const hasValidRole = user_roles.some(role => valid_roles.includes(role));
+        console.log('user_roles', user_roles);
         console.log('hasValidRole', hasValidRole);
         let videoSessionTab = document.getElementById('video-session-tab');
         hasValidRole ? videoSessionTab.classList.remove('d-none') : videoSessionTab.classList.add('d-none');
