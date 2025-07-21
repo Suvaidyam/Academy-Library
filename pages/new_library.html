@@ -640,7 +640,7 @@
     }
     const valid_roles = async () => {
       let response = await frappe_client.get('/get_role_wise_permissions')
-      console.log('response', response.message);
+      // console.log('response', response.message);
       return response;
     };
 
@@ -649,7 +649,7 @@
     let user_roles = [];
     const get_login_user_details = async () => {
       const userDetails = sessionStorage.getItem('user_info');
-      console.log('userDetails', userDetails);
+      // console.log('userDetails', userDetails);
 
       if (userDetails) {
         const user = JSON.parse(userDetails);
@@ -658,7 +658,7 @@
         const validRoles = validRolesResponse.message || [];
 
         const hasValidRole = user_roles.some(role => validRoles.includes(role));
-        console.log('user_roles', user_roles);
+        // console.log('user_roles', user_roles);
         console.log('hasValidRole', hasValidRole);
         let videoSessionTab = document.getElementById('video-session-tab');
         hasValidRole ? videoSessionTab.classList.remove('d-none') : videoSessionTab.classList.add('d-none');

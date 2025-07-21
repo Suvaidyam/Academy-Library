@@ -44,7 +44,8 @@
       width: 200px;
       object-fit: cover;
     }
-    .card{
+
+    .card {
       /* border: none; */
       /* border-radius: 1rem; */
       /* box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1); */
@@ -62,9 +63,34 @@
     .container {
       margin-top: 6%;
     }
+
     .px-6 {
       padding-left: 4rem !important;
       padding-right: 4rem !important;
+    }
+
+    .loader1 {
+      border: 3px solid #f3f3f3;
+      /* Light gray */
+      border-top: 4px solid #3498db;
+      /* Blue */
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 0.8s linear infinite;
+      margin: auto;
+      display: none;
+      /* Initially hidden */
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -91,10 +117,13 @@
               <i class="bi bi-eye-slash" id="eyeIcon"></i>
             </span>
           </div>
-          
+
           <div class="text-center">
-            <button type="submit" class="btn btn-color px-5 mb-5 w-100">
-              Login
+            <button type="submit"
+              class="btn btn-color px-5 mb-5 w-100 d-flex justify-content-center align-items-center">
+              <span class="d-flex justify-content-center gap-2 align-items-center">Login <div class="loader1"
+                  id="loader1"></div></span>
+
             </button>
           </div>
           <!-- <div id="emailHelp" class="form-text text-center mb-3 text-dark">
@@ -167,6 +196,11 @@
     });
 
   async function login(username, password) {
+    const loader = document.getElementById("loader1");
+    const loginbtn=document.querySelector("button[type='submit']");
+    loginbtn.disabled = true; // Disable the button to prevent multiple clicks
+    loader.style.display = "inline-block"; // Show loader
+    
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -219,6 +253,10 @@
     } catch (error) {
       toastr.error("Error connecting to server.");
       console.error("Login error:", error);
+    }
+    finally {
+      loader.style.display = "none"; // Hide loader after processing
+      loginbtn.disabled = false; // Re-enable the button
     }
   }
 

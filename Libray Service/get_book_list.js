@@ -49,7 +49,7 @@ const get_all_books = async (page=1) => {
             ...(activeFilters.keySearchInput && { keySearchInput: activeFilters.keySearchInput }),
         };
         const response = await frappe_client.get('/get_knowledge_artificates', filter);
-        console.log('Book list response:', response);
+        // console.log('Book list response:', response);
         set_book_list(response);
         totalPages = response.message.total_pages || 1;
         currentPage = response.message.page || 1;
@@ -121,7 +121,7 @@ const getLanguageList = async () => {
             languageDropdown.appendChild(option);
         });
 
-        console.log("Loaded languages:", languages);
+        // console.log("Loaded languages:", languages);
     } catch (error) {
         console.error('Error loading language list:', error);
     }
