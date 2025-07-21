@@ -626,6 +626,9 @@
 
 
   <script type="module">
+    import { FrappeApiClient } from "../services/FrappeApiClient.js";
+    let frappe_client = new FrappeApiClient()
+
     function Decryption(ciphertext) {
       try {
         const decrypted = CryptoJS.AES.decrypt(ciphertext, "your-secret-key").toString(CryptoJS.enc.Utf8);
@@ -635,9 +638,13 @@
         return null;
       }
     }
+    const valid_roles = async () => {
+      let response = await frappe_client.get('/get_role_wise_permissions')
+      console.log('response', response.message);
+      return response;
+    };
 
-
-    const valid_roles = ['Academics User','Administrator', 'District Point Person(DPP)', 'G-TPP', 'GL', 'TPP', 'YRF', 'PLA', 'SA'];
+    // const valid_roles = ['Academic Admin','Administrator', 'District Point Person(DPP)', 'G-TPP', 'GL', 'TPP', 'YRF', 'PLA', 'SA'];
 
     let user_roles = [];
     const get_login_user_details = async () => {
@@ -647,8 +654,10 @@
       if (userDetails) {
         const user = JSON.parse(userDetails);
         const user_roles = Decryption(user.roles) || [];
+        const validRolesResponse = await valid_roles();
+        const validRoles = validRolesResponse.message || [];
 
-        const hasValidRole = user_roles.some(role => valid_roles.includes(role));
+        const hasValidRole = user_roles.some(role => validRoles.includes(role));
         console.log('user_roles', user_roles);
         console.log('hasValidRole', hasValidRole);
         let videoSessionTab = document.getElementById('video-session-tab');
@@ -658,6 +667,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       get_login_user_details();
+      valid_roles();
 
     });
   </script>
