@@ -149,7 +149,7 @@ const renderPastEventsPage = () => {
       let event_date = formatDate(item.datetime);
       const card = `
           <div class="col-md-12 " data-aos="fade-up" data-aos-delay="100">
-          <a href="#">
+          <a href="" onclick="return false;">
             <div class="row newsCard">
               <div class="col-md-2">
                 <img src="${item.cover_image}" class=" img169 rounded-top " alt="Image">
@@ -199,7 +199,7 @@ const renderUpcomingEventsPage = () => {
       let event_date = formatDate(item.datetime);
       const card = `
         <div class="col-md-12 " data-aos="fade-up" data-aos-delay="100">
-          <a href="#">
+          <a href="" onclick="return false;">
             <div class="row newsCard">
               <div class="col-md-2">
                 <img src="${item.cover_image}" class="rounded-top img169" alt="Image">
