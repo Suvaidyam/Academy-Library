@@ -1,7 +1,20 @@
-<header id="header" class="header align-items-end fixed-top">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header id="header" class="header align-items-end fixed-top">
 
 
-  <!-- <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+    <!-- <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
       <a href="/#hero" class="logo d-flex align-items-center">
         <img src="../assets/img/logo-350x66.png">         
@@ -12,77 +25,106 @@
        </div>
 
     </div>   -->
-  <div class="container-fluid container-xl position-relative d-flex justify-content-between align-items-center">
-    <a href="/#hero" class="logo ">
-      <img src="../assets/img/logo.png">
-    </a>
-    <div class=" d-flex d-sm-block align-items-center">
-      
-  <div class="d-flex justify-content-end align-items-end">
-      <div class="btn-group mx-2">
-        <button type="button" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Announcements"   class="btn btn-success btn-sm" ><i class="bi bi-megaphone-fill"></i></button>
-        <button type="button" class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-globe2"></i> 
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">English</a></li>
-            <li><a class="dropdown-item" href="#">Telugu</a></li>
-            <li><a class="dropdown-item" href="#">German</a></li>
-        </ul>
-      </div> 
-      <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm mt-1">Sign in</a>
-      <div id="loggedinUser" ></div>
-    </div>
-      
+    <div class="container-fluid container-xl position-relative d-flex justify-content-between align-items-center">
+      <a href="/#hero" class="logo ">
+        <img src="../assets/img/logo.png">
+      </a>
+      <div class=" d-flex d-sm-block align-items-center">
 
-      <nav id="navmenu" class="navmenu align-content-end">
-        <ul>
+        <div class="d-flex justify-content-end align-items-end">
 
-          <!-- <li><a href="/#hero" class="tab-link active">Home</a></li> -->
+          <div class="btn-group mx-2">
 
-          <li class="dropdown"><a href="javascript:void(0)"><span>Home</span><i
-                class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="/pages/about.html" class="tab-link">About</a></li>
-              <li><a href="/pages/our-leaders.html" class="tab-link">Our Mentors</a></li>
-              <li><a href="/#research-partners" class="tab-link">Research Partners</a></li>
+            <!-- <button type="button" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Announcements"
+              class="btn btn-success btn-sm dropdown-toggle "><i class="bi bi-megaphone-fill"></i></button> -->
+            <button type="button" data-bs-placement="left"
+              class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-megaphone-fill"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <h6 class="dropdown-header">Latest Announcements</h6>
+              </li>
+              <div id="announcementList">
+              </div>
             </ul>
-          </li>
+            <div>
+              <button style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;"
+                type="button" class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-globe2"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">English</a></li>
+                <li><a class="dropdown-item" href="#">Telugu</a></li>
+                <li><a class="dropdown-item" href="#">German</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm mt-1">Sign in</a>
+          <div id="loggedinUser"></div>
+        </div>
+
+
+        <nav id="navmenu" class="navmenu align-content-end">
+          <ul>
+
+            <!-- <li><a href="/#hero" class="tab-link active">Home</a></li> -->
+
+            <li class="dropdown"><a href="javascript:void(0)"><span>Home</span><i
+                  class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="/pages/about.html" class="tab-link">About</a></li>
+                <li><a href="/pages/our-leaders.html" class="tab-link">Our Mentors</a></li>
+                <li><a href="/#research-partners" class="tab-link">Research Partners</a></li>
+              </ul>
+            </li>
 
 
 
-          <!-- <li><a href="/pages/learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')">Academics</a></li> -->
-          <li><a href="/#academics" class="tab-link">Academics</a></li>
-          <li><a href="/#research" class="tab-link">Research</a></li>
-          <!-- <li><a href="/#admissions" class="tab-link">Admissions</a></li> -->
-          <li class="dropdown"><a href="javascript:void(0)" class="tab-link"><span>Resources</span>
-              <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
+            <!-- <li><a href="/pages/learning-library.html" onclick="sessionStorage.setItem('courseCategory', 'Under Graduation')">Academics</a></li> -->
+            <li><a href="/#academics" class="tab-link">Academics</a></li>
+            <li><a href="/#research" class="tab-link">Research</a></li>
+            <!-- <li><a href="/#admissions" class="tab-link">Admissions</a></li> -->
+            <li class="dropdown"><a href="javascript:void(0)" class="tab-link"><span>Resources</span>
+                <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
 
-              <li><a href="/pages/new_library.html" class="tab-link">Library</a></li>
-              <!-- <li><a href="/pages/library-courseContent.html" class="tab-link">Library</a></li> -->
-              <li><a href="/pages/research-library" class="tab-link">Publications</a></li>
-              <li><a href="/pages/global-library.html" class="tab-link">Global Resources</a></li>
-              <!-- <li><a href="/pages/assignment_bank.html" class="tab-link">Assessment </a> </li> -->
-              <!-- <li><a href="/pages/question-library.html" class="tab-link">Question Bank</a></li>
+                <li><a href="/pages/new_library.html" class="tab-link">Library</a></li>
+                <!-- <li><a href="/pages/library-courseContent.html" class="tab-link">Library</a></li> -->
+                <li><a href="/pages/research-library" class="tab-link">Publications</a></li>
+                <li><a href="/pages/global-library.html" class="tab-link">Global Resources</a></li>
+                <!-- <li><a href="/pages/assignment_bank.html" class="tab-link">Assessment </a> </li> -->
+                <!-- <li><a href="/pages/question-library.html" class="tab-link">Question Bank</a></li>
             <li><a href="/research_page/new_case-studies.html" class="tab-link">Case Studies</a></li> -->
-              <li><a href="/research_page/new_success-stories.html" class="tab-link">Success Stories</a></li>
-              <li><a href="/pages/reports.html" class="tab-link">Reports</a></li>
-            </ul>
-          </li>
-          <li><a href="/#services" class="tab-link">News & Events</a></li>
-          <li><a href="/pages/new_gallery.html" class="tab-link">Gallery</a></li>
-          
-          <!-- <li><a href="#" class="tab-link">Blogs</a></li>
+                <li><a href="/research_page/new_success-stories.html" class="tab-link">Success Stories</a></li>
+                <li><a href="/pages/reports.html" class="tab-link">Reports</a></li>
+              </ul>
+            </li>
+            <li><a href="/#services" class="tab-link">News & Events</a></li>
+            <li><a href="/pages/new_gallery.html" class="tab-link">Gallery</a></li>
+
+            <!-- <li><a href="#" class="tab-link">Blogs</a></li>
         <li><a href="#" class="tab-link">Careers</a></li> -->
 
-          <!-- <li><a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign in</a></li> -->
-          <!-- <li id="signin"><a href="/pages/login.html">Sign in</a></li> -->
-          <!-- <li id="loggedinUser"></li> -->
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+            <!-- <li><a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign in</a></li> -->
+            <!-- <li id="signin"><a href="/pages/login.html">Sign in</a></li> -->
+            <!-- <li id="loggedinUser"></li> -->
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
 
+  </header>
+
+
+
+
+
+</body>
+
+</html>

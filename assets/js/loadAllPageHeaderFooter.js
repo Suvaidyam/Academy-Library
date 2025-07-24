@@ -32,6 +32,7 @@
 // }
 
 (function () {
+
   "use strict";
 
   // DOM Ready
@@ -40,6 +41,7 @@
       updateUserInterface();
       getHeaderElements();
       getHomeElements();
+      setAnnouncementslist();
     });
 
     loadComponent("../components/footer.html", "footer");
@@ -142,4 +144,25 @@
       });
     });
   }
+  // const frappe_client = new FrappeApiClient();
+  async function setAnnouncementslist() {
+    const announcementList = document.getElementById("announcementList");
+    const response = await fetch(`https://erp-ryss.ap.gov.in/api/method/get_announcement_list`);
+    const announcements = await response.json();
+    console.log("Announcements:", announcements.message);
+    announcementList.innerHTML = ""; // Clear existing items
+    announcements.message.length>0?
+    announcements.message.forEach(announcement => {
+      const li = document.createElement("li");
+      li.className = "border-bottom mx-2";
+      li.innerHTML = `<button class="dropdown-item">${announcement.title}</button>`;
+      announcementList.appendChild(li);
+    })
+    : announcementList.innerHTML = `<li class="border-bottom mx-2"><button class="dropdown-item" href="#">No Announcements</button></li>`;
+
+  }
 })();
+
+
+  
+  

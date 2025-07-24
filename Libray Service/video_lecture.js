@@ -214,5 +214,9 @@ document.addEventListener('DOMContentLoaded', function () {
 // Make functions globally available
 window.openVideoModal = openVideoModal;
 window.closeVideoModal = closeVideoModal;
-
-get_all_video_lectures();
+let video_btn = document.getElementById("video-session-tab");
+if (video_btn) {
+  video_btn.addEventListener("click", () => {
+    get_all_video_lectures(currentPage);
+  });
+}
