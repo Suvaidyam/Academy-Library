@@ -39,6 +39,8 @@ let activeFilters = {
 
 const get_all_books = async (page=1) => {
     try {
+        prevBtn.classList.add('d-none');
+        nextBtn.classList.add('d-none');
         const filter = {
             category: "Book",
             page_size: pageSize,
@@ -56,6 +58,9 @@ const get_all_books = async (page=1) => {
         updatePaginationButtons();
     } catch (error) {
         console.error('Error fetching book list:', error);
+    }finally {
+        prevBtn.classList.remove('d-none');
+        nextBtn.classList.remove('d-none');
     }
 };
 
