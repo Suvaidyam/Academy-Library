@@ -8,6 +8,17 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
     rel="stylesheet">
+  <style>
+    .logo-img {
+      height: 60px;
+    }
+
+    @media (max-width: 576px) {
+      .logo-img {
+        height: 35px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -25,88 +36,103 @@
        </div>
 
     </div>   -->
-    <div class="container-fluid container-xl position-relative" style="padding-top:0;">
-      <!-- First row: logo + text (left), controls (right) -->
-      <div class="d-flex justify-content-between align-items-center position-relative" style="z-index:2; min-height:48px; margin-top:0;">
-        <div class="d-flex align-items-center">
-          <img src="../assets/img/logo.png" style="height:40px;">
+    <div class="container-fluid container-xl position-relative px-sm-4" style="padding-top:0;">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <img src="../assets/img/logo.png" class="logo-img">
           <div class="ms-2">
-            <div class="fw-bold" style="font-size:1.1rem; line-height:1.1;">Indo-German Global Academy</div>
-            <div style="font-size:0.92rem; line-height:1.1;">for Agroecology Research and Learning<br>(IGGAARL)</div>
+            <!-- <div class="fw-bold" style="font-size:1.1rem; line-height:1.1;">Indo-German Global Academy</div> -->
+            <!-- <div style="font-size:0.92rem; line-height:1.1;">for Agroecology Research and Learning<br>(IGGAARL)</div> -->
           </div>
         </div>
-        <div class="d-flex align-items-center gap-2">
-          <!-- Announcements Dropdown -->
-          <div class="dropdown">
-            <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-megaphone-fill"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <h6 class="dropdown-header">Latest Announcements</h6>
-              </li>
-              <li id="announcementList"></li>
-            </ul>
+        <div>
+          <div class="d-flex justify-content-end   align-items-center position-relative"
+            style="z-index:2; min-height:48px; margin-top:0;">
+
+            <div class="d-flex align-items-center gap-2">
+              <!-- Announcements Dropdown -->
+              <div class="dropdown">
+                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-megaphone-fill"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <h6 class="dropdown-header">Latest Announcements</h6>
+                  </li>
+                  <li id="announcementList"></li>
+                </ul>
+              </div>
+
+              <!-- Language Dropdown -->
+              <div class="dropdown">
+                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-globe2"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">English</a></li>
+                  <li><a class="dropdown-item" href="#">Telugu</a></li>
+                  <li><a class="dropdown-item" href="#">German</a></li>
+                </ul>
+              </div>
+
+              <!-- Sign in Button -->
+              <div class="z-index-1000">
+                <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
+                <div id="loggedinUser"></div>
+              </div>
+            </div>
           </div>
 
-          <!-- Language Dropdown -->
-          <div class="dropdown">
-            <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-globe2"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">English</a></li>
-              <li><a class="dropdown-item" href="#">Telugu</a></li>
-              <li><a class="dropdown-item" href="#">German</a></li>
-            </ul>
-          </div>
+          <div class="d-flex" style="z-index:1; margin-top:-2px;">
+            <!-- Spacer to push menu right of logo/text, adjust as needed -->
+            <nav id="navmenu" class="navmenu align-content-end ms-auto">
+              <ul>
 
-          <!-- Sign in Button -->
-          <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
-          <div id="loggedinUser"></div>
+                <!-- Home Dropdown -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownHome" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Home
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownHome">
+                    <li><a class="dropdown-item" href="/pages/about.html">About</a></li>
+                    <li><a class="dropdown-item" href="/pages/our-leaders.html">Our Mentors</a></li>
+                    <li><a class="dropdown-item" href="/#research-partners">Research Partners</a></li>
+                  </ul>
+                </li>
+
+                <li><a href="/#academics" class="tab-link">Academics</a></li>
+                <li><a href="/#research" class="tab-link">Research</a></li>
+
+                <!-- Resources Dropdown -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownResources" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Resources
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownResources">
+                    <li><a class="dropdown-item" href="/pages/new_library.html">Library</a></li>
+                    <li><a class="dropdown-item" href="/pages/research-library">Publications</a></li>
+                    <li><a class="dropdown-item" href="/pages/global-library.html">Global Resources</a></li>
+                    <li><a class="dropdown-item" href="/research_page/new_success-stories.html">Success Stories</a></li>
+                    <li><a class="dropdown-item" href="/pages/reports.html">Reports</a></li>
+                  </ul>
+                </li>
+
+                <li><a href="/#services" class="tab-link">News & Events</a></li>
+                <li><a href="/pages/new_gallery.html" class="tab-link">Gallery</a></li>
+              </ul>
+              <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+          </div>
         </div>
       </div>
+      <!-- First row: logo + text (left), controls (right) -->
+
       <!-- Second row: navigation menu, right-aligned, not full width -->
-      <div class="d-flex" style="z-index:1; margin-top:-2px;">
-        <div style="min-width:270px;"></div> <!-- Spacer to push menu right of logo/text, adjust as needed -->
-        <nav id="navmenu" class="navmenu align-content-end ms-auto">
-          <ul>
 
-            <!-- Home Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownHome" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Home
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownHome">
-                <li><a class="dropdown-item" href="/pages/about.html">About</a></li>
-                <li><a class="dropdown-item" href="/pages/our-leaders.html">Our Mentors</a></li>
-                <li><a class="dropdown-item" href="/#research-partners">Research Partners</a></li>
-              </ul>
-            </li>
-
-            <li><a href="/#academics" class="tab-link">Academics</a></li>
-            <li><a href="/#research" class="tab-link">Research</a></li>
-
-            <!-- Resources Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownResources" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Resources
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownResources">
-                <li><a class="dropdown-item" href="/pages/new_library.html">Library</a></li>
-                <li><a class="dropdown-item" href="/pages/research-library">Publications</a></li>
-                <li><a class="dropdown-item" href="/pages/global-library.html">Global Resources</a></li>
-                <li><a class="dropdown-item" href="/research_page/new_success-stories.html">Success Stories</a></li>
-                <li><a class="dropdown-item" href="/pages/reports.html">Reports</a></li>
-              </ul>
-            </li>
-
-            <li><a href="/#services" class="tab-link">News & Events</a></li>
-            <li><a href="/pages/new_gallery.html" class="tab-link">Gallery</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-      </div>
     </div>
 
   </header>
@@ -115,7 +141,7 @@
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
