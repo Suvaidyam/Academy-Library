@@ -77,7 +77,9 @@ a {
   color: var(--accent-color);
   text-decoration: none !important;
   transition: 0.3s;
+  cursor: pointer;
 }
+#researchPartners{ padding-top:100px}
 
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
