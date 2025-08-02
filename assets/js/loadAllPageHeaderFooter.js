@@ -149,7 +149,7 @@
     const announcementList = document.getElementById("announcementList");
     const response = await fetch(`https://erp-ryss.ap.gov.in/api/method/get_announcement_list`);
     const announcements = await response.json();
-    console.log("Announcements:", announcements.message);
+    // console.log("Announcements:", announcements.message);
     announcementList.innerHTML = ""; // Clear existing items
     announcements.message.length>0?
     announcements.message.forEach(announcement => {

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Academic Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../vendor/aos/aos.css" rel="stylesheet">
+    <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+
+
+</head>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .form-container {
+        max-width: 900px;
+        margin: 30px auto;
+    }
+</style>
+
+
+<body class="service-details-page">
+    <div id="header" class="header d-flex align-items-center fixed-top"></div>
+    <main class="main" style="margin-top: 100px;">
+        <div class="container form-container">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Academic Registration Form</h4>
+                </div>
+                <div class="card-body">
+                    <form id="registrationForm" class="px-3">
+
+                        <!-- Candidate Profile -->
+                        <h5 class="bg-light p-2 rounded border-start border-5 border-success">Candidate Profile</h5>
+                        <div class="row g-3 mb-4 px-2">
+                            <div class="col-md-6">
+                                <label class="form-label">Candidate Name <span class="text-danger">*</span></label>
+                                <input type="text" name="candidate_name" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Surname <span class="text-danger">*</span></label>
+                                <input type="text" name="surname" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Date of Birth (as per SSC) <span class="text-danger">*</span></label>
+                                <input type="date" name="dob" class="form-control" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Age <span class="text-danger">*</span></label>
+                                <input type="number" name="age" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Gender <span class="text-danger">*</span></label>
+                                <select name="gender" class="form-select" required>
+                                    <option value="">Select</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Social Category <span class="text-danger">*</span></label>
+                                <select name="social_category" class="form-select" required>
+                                    <option value="">Select</option>
+                                    <option>SC</option>
+                                    <option>ST</option>
+                                    <option>BC</option>
+                                    <option>General</option>
+                                    <option>Minority</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Father/Husband Name <span class="text-danger">*</span></label>
+                                <input type="text" name="so_or_wo" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Relation <span class="text-danger">*</span></label>
+                                <select name="relation" class="form-select" required>
+                                    <option value="">Select</option>
+                                    <option>Self</option>
+                                    <option>Wife</option>
+                                    <option>Mother</option>
+                                    <option>Mother in Law</option>
+                                    <option>Father</option>
+                                    <option>Other Family Member</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Mobile No <span class="text-danger">*</span></label>
+                                <input type="tel" name="mobile_no" class="form-control" maxlength="10" pattern="[0-9]{10}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Education Qualification <span class="text-danger">*</span></label>
+                                <select name="education_qualification" class="form-select" required>
+                                    <option value="">Select</option>
+                                    <option>Intermediate</option>
+                                    <option>Diploma</option>
+                                    <option>U.G-Under Graduate</option>
+                                    <option>P.G-Diploma</option>
+                                    <option>P.G-Post Graduate</option>
+                                    <option>P.H.D</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Education (Specialization) <span class="text-danger">*</span></label>
+                                <input type="text" name="education_specialization" id="education_specialization" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <!-- Location Information -->
+                        <h5 class="bg-light p-2 rounded border-start border-5 border-success">Location Information</h5>
+                        <div class="row g-3 mb-4 px-2">
+                            <div class="col-md-4">
+                                <label class="form-label">District <span class="text-danger">*</span></label>
+                                <input type="text" name="district_name" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Mandal <span class="text-danger">*</span></label>
+                                <input type="text" name="mandal" class="form-control" required>
+                            </div>
+                             <div class="col-md-4">
+                                <label class="form-label">GP Name <span class="text-danger">*</span></label>
+                                <input type="text" name="gp_name" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Vo Name <span class="text-danger">*</span></label>
+                                <input type="text" name="gp_name" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Village Name <span class="text-danger">*</span></label>
+                                <input type="text" name="village" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">RSK Name <span class="text-danger">*</span></label>
+                                <input type="text" name="rsk" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">SHG Name</label>
+                                <input type="text" name="shg_name" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Member</label>
+                                <input type="text" name="member" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Own Field Information -->
+                        <h5 class="bg-light p-2 rounded border-start border-5 border-success">Own Field Information</h5>
+                        <div class="row g-3 mb-4 px-2">
+                            
+                            <div class="col-md-6">
+                                <label class="form-label">Application For <span class="text-danger">*</span></label>
+                                <select name="application_for" class="form-select" required>
+                                    <option value="">Select</option>
+                                    <option>Mentor Intern</option>
+                                    <option>Farmer scientist</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Own Land (Acres) <span class="text-danger">*</span></label>
+                                <input type="number" name="own_land" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Leased Land (Acres) <span class="text-danger">*</span></label>
+                                <input type="number" name="leased_land" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Total Area (Acres) <span class="text-danger">*</span></label>
+                                <input type="number" name="total_area" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Natural Farming Started Year</label>
+                                <input type="text" name="nf_started_year" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Natural Farming Experience (Years)</label>
+                                <input type="number" name="nf_experience" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">PMDS Experience (Years)</label>
+                                <input type="number" name="pmds_experience" class="form-control">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Is Practicing S2S</label>
+                                <select name="is_practicing_s2s" class="form-select"></select>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h5 class="bg-light p-2 rounded border-start border-5 border-success">Others Information</h5>
+                        <div class="row g-3 mb-4 px-2">
+                            
+                            <div class="col-md-6">
+                                <label class="form-label">Upload Application Form (Image)</label>
+                                <input type="file" name="application_form" class="form-control" accept="image/*">
+                            </div>
+                             <div class="col-md-6">
+                                <label class="form-label">Remarks <span class="text-danger">*</span></label>
+                                <textarea name="remarks" class="form-control" rows="3" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success w-100 py-2 fs-5">Submit Registration</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer" class="footer dark-background"></div>
+    <!-- Footer will be loaded here -->
+
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/php-email-form/validate.js"></script>
+    <script src="../vendor/aos/aos.js"></script>
+    <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script src="../assets/js/loadAllPageHeaderFooter.js"></script>
+    <!-- Main JS File -->
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            console.log("Form Data Submitted:", formObject);
+            alert("Form submitted! Check console for data.");
+        });
+    </script>
+</body>
+
+</html>
