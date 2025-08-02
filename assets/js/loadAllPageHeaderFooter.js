@@ -103,6 +103,17 @@
 
     headers.forEach((header) => {
       header.addEventListener("click", (e) => {
+        // Don't prevent default for dropdown items or anchor links
+        const clickedNav = header.querySelector("a");
+        if (clickedNav && clickedNav.classList.contains("dropdown-toggle")) {
+          return; // Let dropdown toggle work normally
+        }
+
+        // For anchor links, let them work naturally
+        if (clickedNav && clickedNav.getAttribute("href") && clickedNav.getAttribute("href").includes("#")) {
+          return; // Let anchor links work normally
+        }
+
         e.preventDefault();
 
         // Remove active class from all
@@ -111,7 +122,6 @@
           if (nav) nav.classList.remove("active");
         });
 
-        const clickedNav = header.querySelector("a");
         if (clickedNav) {
           clickedNav.classList.add("active");
           const href = clickedNav.getAttribute("href");
