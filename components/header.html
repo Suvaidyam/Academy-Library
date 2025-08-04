@@ -50,10 +50,9 @@
             <!-- <div class="fw-bold" style="font-size:1.1rem; line-height:1.1;">Indo-German Global Academy</div> -->
             <!-- <div style="font-size:0.92rem; line-height:1.1;">for Agroecology Research and Learning<br>(IGGAARL)</div> -->
         </div>
-        <div>
+        <div class="mobd-flex">
           <div class="d-flex justify-content-end   align-items-center position-relative"
             style="z-index:2; min-height:48px; margin-top:0;">
-
             <div class="d-flex align-items-center gap-2">
             
                
@@ -84,11 +83,14 @@
                   <li><a class="dropdown-item overridecss" href="#">German</a></li>
                 </ul>
               </div>
+             
                <!-- Sign in Button -->
-            <!-- <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-success btn-sm"> <i class="bi bi-broadcast-pin"></i></a> -->
+                <div class="z-index-1000 mob">
+                  <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-success btn-sm"> <i class="bi bi-broadcast-pin"></i></a>
+                </div>
                
               <!-- Sign in Button -->
-              <div class="z-index-1000">
+              <div class="z-index-1000 mob">
                 <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
                 <div id="loggedinUser"></div>
               </div>
@@ -133,9 +135,21 @@
 
                 <li><a href="/#services" class="tab-link">News & Events</a></li>
                 <li><a href="/pages/new_gallery.html" class="tab-link">Gallery</a></li>
+             
+             <li> <div class="z-index-1000 mob mobvisible">
+                  <a href="/pages/podcast.html" id="podcast" type="button" class=" "> Podcast</a>
+                </div>
+               
+              <!-- Sign in Button -->
+              <div class="z-index-1000 mob mobvisible">
+                <a href="/pages/login.html" id="signin" type="button" class=" ">Sign in</a>
+                <div id="loggedinUser"></div>
+              </div></li>
               </ul>
               <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+              
             </nav>
+             
           </div>
         </div>
       </div>
