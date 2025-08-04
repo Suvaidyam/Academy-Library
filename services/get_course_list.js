@@ -98,31 +98,31 @@ const set_dynamic_course = (response, navtype) => {
     const newo = `
       <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
       <article>
-        <div class="row newsCard">
-        <div class="col-md-3" class="post-img">
-          <img src="${ENV.API_BASE_URL + item.image}" alt="" class="img-fluid blog-img ">
-        </div>
-        <div class="col-md-6">
-          <div class="card-body">
-          <h2 class="title mb-1">
-            <a href="https://erp-ryss.ap.gov.in/lms/courses" target="_blank" class="blog-title text-break text-wrap">${item.title}</a>
-          </h2>
-          <div class="d-flex align-items-center">
-            <div class="post-meta">
-            <p class="short_introduction my-0">${item.short_introduction}</p>
-            <p class="published_on"><time>${item.published_on}</time></p>
-            </div>
-          </div>
-          </div>
-        </div>
-        <div class=" col-md-3">
-          <div class="download-catalog">
-            <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ${!isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ''} ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
-            <a href="../pages/Academic-Register" ${!isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ''}><i class="bi bi-journal-plus"></i> Apply</a>
-           </div>
+      <div class="row newsCard">
+      <div class="col-md-3" class="post-img">
+        <img src="${ENV.API_BASE_URL + item.image}" alt="" class="img-fluid blog-img ">
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+        <h2 class="title mb-1">
+        <a href="https://erp-ryss.ap.gov.in/lms/courses" target="_blank" class="blog-title text-break text-wrap">${item.title}</a>
+        </h2>
+        <div class="d-flex align-items-center">
+        <div class="post-meta">
+        <p class="short_introduction my-0">${item.short_introduction}</p>
+        <p class="published_on"><time>${item.published_on}</time></p>
         </div>
         </div>
-        <p>${description}</p>
+        </div>
+      </div>
+      <div class=" col-md-3">
+        <div class="download-catalog">
+        <a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')" ${!isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ''} ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
+        <a href="#" onclick="window.open('https://erp-ryss.ap.gov.in/app/registration/new-registration-wzzgqbwkwc#application_form_tab')" ${!isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ''}><i class="bi bi-journal-plus"></i>  Apply</a>
+         </div>
+      </div>
+      </div>
+      <p>${description}</p>
       </article>
       </div>`;
 
