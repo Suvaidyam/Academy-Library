@@ -10,12 +10,12 @@
     rel="stylesheet">
   <style>
     .logo-img {
-      height: 60px;
+      width: 300px;
     }
 
     @media (max-width: 576px) {
       .logo-img {
-        height: 35px;
+        width: 200px;
       }
     }
     
@@ -55,6 +55,9 @@
             style="z-index:2; min-height:48px; margin-top:0;">
 
             <div class="d-flex align-items-center gap-2">
+            
+               
+              
               <!-- Announcements Dropdown -->
               <div class="dropdown">
                 <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
@@ -81,7 +84,9 @@
                   <li><a class="dropdown-item overridecss" href="#">German</a></li>
                 </ul>
               </div>
-
+               <!-- Sign in Button -->
+            <!-- <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-success btn-sm"> <i class="bi bi-broadcast-pin"></i></a> -->
+               
               <!-- Sign in Button -->
               <div class="z-index-1000">
                 <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
@@ -97,11 +102,11 @@
 
                 <!-- Home Dropdown -->
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownHome" role="button"
+                  <a class="" href="#" id="navbarDropdownHome" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    Home
+                    Home <i class="bi bi-chevron-down toggle-dropdown"></i>
                   </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownHome">
+                  <ul class="dropdown" aria-labelledby="navbarDropdownHome">
                     <li><a class="dropdown-item overridecss" href="/pages/about.html">About</a></li>
                     <li><a class="dropdown-item overridecss" href="/pages/our-leaders.html">Our Mentors</a></li>
                     <li><a class="dropdown-item overridecss" href="/index.html#researchPartners">Research Partners</a></li>
@@ -113,11 +118,11 @@
 
                 <!-- Resources Dropdown -->
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownResources" role="button"
+                  <a class="" href="#" id="navbarDropdownResources" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    Resources
+                    Resources <i class="bi bi-chevron-down toggle-dropdown"></i>
                   </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownResources">
+                  <ul class="dropdown" aria-labelledby="navbarDropdownResources">
                     <li><a class="dropdown-item overridecss" href="/pages/new_library.html">Library</a></li>
                     <li><a class="dropdown-item overridecss" href="/pages/research-library">Publications</a></li>
                     <li><a class="dropdown-item overridecss" href="/pages/global-library.html">Global Resources</a></li>
