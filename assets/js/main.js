@@ -292,18 +292,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const get_UserInfo = async (user) => {
   function Encryption(data) {
-  const secretKey = "your-secret-key";
-  const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
-  return ciphertext;
-  } 
-  
-  
+    const secretKey = "your-secret-key";
+    const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+    return ciphertext;
+  }
+
+
 
   if (!user) {
     toastr.error("Username is required.");
     return;
   }
-  
+
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -315,6 +315,7 @@ const get_UserInfo = async (user) => {
     body: raw,
     redirect: "follow",
   };
+
 
   try {
     const response = await fetch(
@@ -328,9 +329,9 @@ const get_UserInfo = async (user) => {
     //   requestOptions
     // );
 
-    
+
     const result = await response.json();
-    
+
 
     let userInfo = JSON.parse(sessionStorage.getItem("user_info"));
     userInfo.roles = Encryption(result.message.roles);  // Replace with dynamic value
@@ -343,6 +344,18 @@ const get_UserInfo = async (user) => {
   }
 
 };
+setTimeout(async() => {
+  try {
+  const response = await fetch("https://erp-ryss.ap.gov.in/api/method/get_calendar_events");
+   const data = await response.json();
+   let calendar_badge=document.getElementById('calendar-badge')
+   calendar_badge.innerHTML=data?.message?.future_event_count
+    console.log("get_calendar_eventsget_calendar_eventsget_calendar_events",data.message.future_event_count,calendar_badge);
+} catch (error) {
+  console.error("Login error:", error);
+}
+  
+}, 2000);
 const userInfo = JSON.parse(sessionStorage.getItem("user_info"));
 const user = (userInfo)
 if (userInfo.message == "Logged In") {
@@ -351,4 +364,5 @@ if (userInfo.message == "Logged In") {
     get_UserInfo(userInfo.username);
   }
 }
+
 
