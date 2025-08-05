@@ -57,11 +57,20 @@
             <div class="d-flex align-items-center gap-2">
 
               <!-- calendar icon -->
-             
-              <div class="z-index-1000">
-                <a href="/pages/Calendar.html" id="podcast" type="button" class="btn btn-success btn-sm"> <i
-                    class="bi bi-calendar-check"></i></a>
+
+              <div class="position-relative z-index-1000">
+                <a href="/pages/Calendar.html" id="podcast" type="button"
+                  class="btn btn-success btn-sm position-relative">
+                  <i class="bi bi-calendar-check"></i>
+
+                  <!-- Bootstrap badge -->
+                  <span id="calendar-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    5
+                    
+                  </span>
+                </a>
               </div>
+
 
               <!-- Announcements Dropdown -->
               <div class="dropdown">
@@ -172,9 +181,7 @@
     </div>
 
   </header>
-
-
-
+  
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
