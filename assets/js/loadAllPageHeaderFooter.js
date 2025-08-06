@@ -42,6 +42,7 @@
       getHeaderElements();
       getHomeElements();
       setAnnouncementslist();
+      set_calender_badge()
     });
 
     loadComponent("../components/footer.html", "footer");
@@ -159,20 +160,50 @@
     const announcementList = document.getElementById("announcementList");
     const response = await fetch(`https://erp-ryss.ap.gov.in/api/method/get_announcement_list`);
     const announcements = await response.json();
+    if (announcements.message.length > 0) {
+      let Announcement_icon = document.getElementById("Announcement_icon")
+      console.log(Announcement_icon);
+
+      const badge = `<span id="calendar-badge"
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      ${announcements.message.length}
+                    </span>`;
+      Announcement_icon.insertAdjacentHTML('beforeend', badge);
+    }
     // console.log("Announcements:", announcements.message);
     announcementList.innerHTML = ""; // Clear existing items
-    announcements.message.length>0?
-    announcements.message.forEach(announcement => {
-      const li = document.createElement("li");
-      li.className = "border-bottom mx-2";
-      li.innerHTML = `<button class="dropdown-item">${announcement.title}</button>`;
-      announcementList.appendChild(li);
-    })
-    : announcementList.innerHTML = `<li class="border-bottom mx-2"><button class="dropdown-item" href="#">No Announcements</button></li>`;
+    announcements.message.length > 0 ?
+      announcements.message.forEach(announcement => {
+        const li = document.createElement("li");
+        li.className = "border-bottom mx-2";
+        li.innerHTML = `<button class="dropdown-item">${announcement.title}</button>`;
+        announcementList.appendChild(li);
+      })
+      : announcementList.innerHTML = `<li class="border-bottom mx-2"><button class="dropdown-item" href="#">No Announcements</button></li>`;
 
+  }
+  async function set_calender_badge(params) {
+    try {
+      const response = await fetch("https://erp-ryss.ap.gov.in/api/method/get_calendar_events");
+      const data = await response.json();
+      if (data.message.future_event_count > 0) {
+        let calendar_icon = document.querySelector(".calendar_icon");
+        console.log(calendar_icon);
+
+
+      const badge = `<span id="calendar-badge"
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      ${data.message.future_event_count}
+                    </span>`;
+      calendar_icon.insertAdjacentHTML('beforeend', badge);
+    }
+     
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   }
 })();
 
 
-  
-  
+
+

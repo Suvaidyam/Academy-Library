@@ -2,11 +2,11 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 
 let frappe_client = new FrappeApiClient()
 
-let ev = []
+let events = []
 
 async function get_calendar_events() {
     let response = await frappe_client.get('/get_calendar_events')
-    ev = response.message.all_events.map(event => ({
+    events = response.message.all_events.map(event => ({
         title: event.title,
         start: event.start.replace(' ', 'T'),
         // color: event.color || '#f54458',
@@ -14,7 +14,7 @@ async function get_calendar_events() {
         url: event.url || "",
         description: event.description
     }))
-    console.log("Calendar events loaded:", ev, events) // Log after events are set
+    // console.log("Calendar events loaded:", ev) // Log after events are set
     render_calendar()
 }
 
@@ -22,35 +22,6 @@ get_calendar_events().catch(error => {
     console.error("Error fetching calendar events:", error)
 })
 
-
-
-
-
-let events = [
-    {
-        title: 'Team Meeting',
-        start: '2025-08-03T10:30:00',
-        end: '2025-08-03T11:00:00',
-        url: null
-    },
-    {
-        title: 'Doctor Appointment',
-        start: '2025-08-05T14:00:00',
-        color: '#f54458', // event background
-        textColor: 'white', // event text color s
-        url: 'https://www.google.com',
-        description: "this is my description"
-    },
-    {
-        title: 'Event 2', start: '2025-08-12',
-        color: '#f54458', // event background
-        textColor: 'white', // event text color ,
-        className: 'urgent-event'
-    }
-]
-document.addEventListener('DOMContentLoaded', function () {
-
-});
 
 function render_calendar(event) {
     const calendarEl = document.getElementById('calendar');
@@ -66,14 +37,17 @@ function render_calendar(event) {
         },
 
         // optional: your event data
-        events: ev,
+        events: events,
+        eventClick: function(info) {
+            info.jsEvent.preventDefault() // Stop default navigation
+
+            if (info.event.url) {
+                window.open(info.event.url, '_blank') // ✅ Open in new tab
+            }
+        },
         eventDidMount: function (info) {
             const eventDate = new Date(info.event.start);
             const today = new Date();
-
-
-            // eventDate.setHours(0, 0, 0, 0);
-            // today.setHours(0, 0, 0, 0);
 
             if (eventDate < today) {
                 info.el.style.backgroundColor = '#d9534f';  // Red
