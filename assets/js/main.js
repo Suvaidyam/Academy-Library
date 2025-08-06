@@ -349,13 +349,13 @@ setTimeout(async() => {
   const response = await fetch("https://erp-ryss.ap.gov.in/api/method/get_calendar_events");
    const data = await response.json();
    let calendar_badge=document.getElementById('calendar-badge')
-   calendar_badge.innerHTML=data?.message?.future_event_count
+   calendar_badge.innerHTML=data?.message?.future_event_count || 0
     console.log("get_calendar_eventsget_calendar_eventsget_calendar_events",data.message.future_event_count,calendar_badge);
 } catch (error) {
   console.error("Login error:", error);
 }
   
-}, 2000);
+}, 100);
 const userInfo = JSON.parse(sessionStorage.getItem("user_info"));
 const user = (userInfo)
 if (userInfo.message == "Logged In") {
