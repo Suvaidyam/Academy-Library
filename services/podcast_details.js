@@ -2,14 +2,26 @@ import { FrappeApiClient } from '../services/FrappeApiClient.js'
 
 let frappe_client = new FrappeApiClient();
 let episodes = [];
+let podcastDetails = {};
 
 async function fetchPodcast(id) {
     try {
         let res = await frappe_client.get('/get_podcast_details', { name: id });
-        episodes = res?.message?.data?.episodes || [];
+        const { episodes: eps, ...rest } = res?.message?.data || {};
+        episodes = eps || [];
+        podcastDetails = rest || {};
+
+        // Set show title
+        let show_title1 = document.getElementById('show_title');
+        show_title1.innerHTML = podcastDetails?.title || '';
+
         renderEpisodes();
-        playEpisode(0);
-    } catch (err) { console.error(err); }
+        if (episodes.length > 0 && episodes[0].source === "Internal") {
+            playEpisode(0);
+        }
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 function getVideoDuration(url, callback) {
@@ -27,13 +39,12 @@ function getVideoDuration(url, callback) {
 function getVideoThumbnail(url, callback) {
     let video = document.createElement('video');
     video.src = url;
-    video.crossOrigin = "anonymous"; // in case of CORS
+    video.crossOrigin = "anonymous";
     video.preload = 'metadata';
-    video.muted = true; // needed in some browsers for autoplay
+    video.muted = true;
     video.playsInline = true;
 
     video.onloadeddata = () => {
-        // Seek to 1 second to avoid black frames
         video.currentTime = 1;
     };
 
@@ -47,50 +58,90 @@ function getVideoThumbnail(url, callback) {
     };
 }
 
-
-
-
 function playEpisode(i) {
     if (!episodes[i]) return;
+
+    if (episodes[i].source === "External") {
+        window.open(episodes[i].podcast_file, "_blank");
+        return;
+    }
+
     let src = (frappe_client.baseURL || location.origin) + episodes[i].podcast_file;
     document.getElementById('video_source').src = src;
+
+    let episode_title = document.getElementById('episode_title');
+    episode_title.innerHTML = episodes[i]?.title || '';
+
     let player = document.getElementById('video_player');
-    player.load(); player.play();
+    player.load();
+    player.play();
+}
+function getYoutubeThumbnail(url) {
+    const videoId = url.split('v=')[1]?.split('&')[0];
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 }
 
-getVideoDuration(`${frappe_client.baseURL}/files/podcast_episode.mp4`, (duration) => {
-    console.log("Video Duration:", duration);
-});
 
 function renderEpisodes() {
     let list = document.getElementById("episode_list");
     list.innerHTML = '';
+
     episodes.forEach((ep, i) => {
-        let videoUrl = `${frappe_client.baseURL}${ep.podcast_file}`;
-        getVideoDuration(videoUrl, (duration) => {
-            getVideoThumbnail(videoUrl, (thumbnail) => {
-                list.insertAdjacentHTML("beforeend", `
-                    <a href="#" class="list-group-item d-flex w-100 justify-content-between">
-                        <div class="pr-2">
-                            <img src="${thumbnail}" class="img-fluid" width="100">
+        let videoUrl = ep.source === 'Internal'
+            ? `${frappe_client.baseURL}${ep.podcast_file}`
+            : ep.podcast_file;
+
+        console.log("ep.videoUrl", videoUrl);
+
+        if (ep.source === "External") {
+            // No need to fetch metadata for external links
+            list.insertAdjacentHTML("beforeend", `
+                
+                <a href="#" class="list-group-item d-flex w-100 justify-content-between">
+                    <div class="pr-2">
+                        <img src=${getYoutubeThumbnail(videoUrl)} class="img-fluid" width="100" alt="No thumbnail">
+                    </div>
+                    <div class="w-100">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5>${ep?.title || "No Title"}</h5>
+                            <small>External Link</small>
                         </div>
-                        <div class="w-100">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5>${ep?.title || "No Title"}</h5><small>${duration}</small>
-                            </div><small>Jay Thadeshwar</small>
-                        </div>
-                    </a>
-                `);
-                list.lastElementChild.addEventListener("click", e => {
-                    e.preventDefault();
-                    playEpisode(i);
+                        <small>${podcastDetails?.guests_name || ''}</small>
+                    </div>
+                </a>
+            `);
+            list.lastElementChild.addEventListener("click", e => {
+                e.preventDefault();
+                window.open(ep.podcast_file, "_blank");
+            });
+        } else {
+            // Internal videos: fetch metadata
+            getVideoDuration(videoUrl, (duration) => {
+                getVideoThumbnail(videoUrl, (thumbnail) => {
+                    list.insertAdjacentHTML("beforeend", `
+                        
+                        <a href="#" class="list-group-item d-flex w-100 justify-content-between">
+                            <div class="pr-2">
+                                <img src="${thumbnail || ''}" class="img-fluid" width="100">
+                            </div>
+                            <div class="w-100">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5>${ep?.title || "No Title"}</h5>
+                                    <small>${duration}</small>
+                                </div>
+                                <small>${podcastDetails?.guests_name || ''}</small>
+                            </div>
+                        </a>
+                    `);
+                    list.lastElementChild.addEventListener("click", e => {
+                        e.preventDefault();
+                        playEpisode(i);
+                    });
                 });
             });
-        });
+        }
     });
 }
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
     fetchPodcast(new URLSearchParams(location.search).get('id'));
