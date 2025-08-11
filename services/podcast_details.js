@@ -35,6 +35,20 @@ function getVideoDuration(url, callback) {
         callback(`${minutes}:${secs.toString().padStart(2, '0')}`);
     };
 }
+function getAudioDuration(url, callback) {
+    const audio = document.createElement("audio");
+    audio.src = url;
+    audio.addEventListener("loadedmetadata", () => {
+        let seconds = audio.duration;
+        let h = String(Math.floor(seconds / 3600)).padStart(2, '0');
+        let m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        let s = String(Math.floor(seconds % 60)).padStart(2, '0');
+        callback(`${h}:${m}:${s}`);
+    });
+    audio.addEventListener("error", () => {
+        callback("Unknown");
+    });
+}
 
 function getVideoThumbnail(url, callback) {
     let video = document.createElement('video');
@@ -93,28 +107,7 @@ function renderEpisodes() {
 
         console.log("ep.videoUrl", videoUrl);
 
-        if (ep.source === "External") {
-            // No need to fetch metadata for external links
-            list.insertAdjacentHTML("beforeend", `
-                
-                <a href="#" class="list-group-item d-flex w-100 justify-content-between">
-                    <div class="pr-2">
-                        <img src=${getYoutubeThumbnail(videoUrl)} class="img-fluid" width="100" alt="No thumbnail">
-                    </div>
-                    <div class="w-100">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5>${ep?.title || "No Title"}</h5>
-                            <small>External Link</small>
-                        </div>
-                        <small>${podcastDetails?.guests_name || ''}</small>
-                    </div>
-                </a>
-            `);
-            list.lastElementChild.addEventListener("click", e => {
-                e.preventDefault();
-                window.open(ep.podcast_file, "_blank");
-            });
-        } else {
+        if (ep.source === "Internal" && ep.file_type=="Video"){
             // Internal videos: fetch metadata
             getVideoDuration(videoUrl, (duration) => {
                 getVideoThumbnail(videoUrl, (thumbnail) => {
@@ -139,7 +132,52 @@ function renderEpisodes() {
                     });
                 });
             });
+        }else if (ep.source === "Internal" && ep.file_type == "Audio") {
+            // Internal audios: fetch audio metadata
+            getAudioDuration(videoUrl, (duration) => {
+                list.insertAdjacentHTML("beforeend", `
+                    <a href="#" class="list-group-item d-flex w-100 justify-content-between">
+                        <div class="pr-2">
+                            <img src="../assets/img/audio_img.png" class="img-fluid" width="100" alt="Audio">
+                        </div>
+                        <div class="w-100">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5>${ep?.title || "No Title"}</h5>
+                                <small>${duration}</small>
+                            </div>
+                            <small>${podcastDetails?.guests_name || ''}</small>
+                        </div>
+                    </a>
+                `);
+                list.lastElementChild.addEventListener("click", e => {
+                    e.preventDefault();
+                    playEpisode(i);
+                });
+            });
+
         }
+        else {
+            // No need to fetch metadata for external links
+            list.insertAdjacentHTML("beforeend", `
+                
+                <a href="#" class="list-group-item d-flex w-100 justify-content-between">
+                    <div class="pr-2">
+                        <img src=${getYoutubeThumbnail(videoUrl)} class="img-fluid" width="100" alt="No thumbnail">
+                    </div>
+                    <div class="w-100">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5>${ep?.title || "No Title"}</h5>
+                            <small>External Link</small>
+                        </div>
+                        <small>${podcastDetails?.guests_name || ''}</small>
+                    </div>
+                </a>
+            `);
+            list.lastElementChild.addEventListener("click", e => {
+                e.preventDefault();
+                window.open(ep.podcast_file, "_blank");
+            });
+        }  
     });
 }
 
