@@ -80,7 +80,7 @@ function playEpisode(i) {
         return;
     }
 
-    let src = (frappe_client.baseURL || location.origin) + episodes[i].podcast_file;
+    let src = (frappe_client.baseURL ) + episodes[i].podcast_file;
     document.getElementById('video_source').src = src;
 
     let episode_title = document.getElementById('episode_title');
