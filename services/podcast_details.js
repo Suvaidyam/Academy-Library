@@ -129,7 +129,7 @@ function renderEpisodes() {
 
         console.log("ep.videoUrl", videoUrl);
 
-        if (ep.source === "Internal" && ep.file_type=="Video"){
+        if (ep.source === "Internal" && ep.file_type == "Video") {
             // Internal videos: fetch metadata
             getVideoDuration(videoUrl, (duration) => {
                 getVideoThumbnail(videoUrl, (thumbnail) => {
@@ -154,7 +154,7 @@ function renderEpisodes() {
                     });
                 });
             });
-        }else if (ep.source === "Internal" && ep.file_type == "Audio") {
+        } else if (ep.source === "Internal" && ep.file_type == "Audio") {
             // Internal audios: fetch audio metadata
             getAudioDuration(videoUrl, (duration) => {
                 list.insertAdjacentHTML("beforeend", `
@@ -198,8 +198,14 @@ function renderEpisodes() {
             list.lastElementChild.addEventListener("click", e => {
                 e.preventDefault();
                 window.open(ep.podcast_file, "_blank");
+                const videoPlayer = document.getElementById('video_player');
+                const audioPlayer = document.getElementById('audio_player');
+                videoPlayer.pause();
+                videoPlayer.currentTime = 0;
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
             });
-        }  
+        }
     });
 }
 
