@@ -75,20 +75,42 @@ function getVideoThumbnail(url, callback) {
 function playEpisode(i) {
     if (!episodes[i]) return;
 
-    if (episodes[i].source === "External") {
-        window.open(episodes[i].podcast_file, "_blank");
+    const ep = episodes[i];
+
+    // Handle external links
+    if (ep.source === "External") {
+        window.open(ep.podcast_file, "_blank");
         return;
     }
 
-    let src = (frappe_client.baseURL ) + episodes[i].podcast_file;
-    document.getElementById('video_source').src = src;
+    const src = frappe_client.baseURL + ep.podcast_file;
+    const videoPlayer = document.getElementById('video_player');
+    const audioPlayer = document.getElementById('audio_player');
+    const episodeTitle = document.getElementById('episode_title');
 
-    let episode_title = document.getElementById('episode_title');
-    episode_title.innerHTML = episodes[i]?.title || '';
+    episodeTitle.innerHTML = ep?.title || '';
 
-    let player = document.getElementById('video_player');
-    player.load();
-    player.play();
+    if (ep?.file_type === "Audio") {
+        // Hide video player, show audio player
+        videoPlayer.pause();
+        videoPlayer.currentTime = 0;
+        videoPlayer.classList.add("d-none");
+        audioPlayer.classList.remove("d-none");
+
+        document.getElementById('audio_source').src = src;
+        audioPlayer.load();
+        audioPlayer.play();
+    } else if (ep?.file_type === "Video") {
+        // Hide audio player, show video player
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+        audioPlayer.classList.add("d-none");
+        videoPlayer.classList.remove("d-none");
+
+        document.getElementById('video_source').src = src;
+        videoPlayer.load();
+        videoPlayer.play();
+    }
 }
 function getYoutubeThumbnail(url) {
     const videoId = url.split('v=')[1]?.split('&')[0];

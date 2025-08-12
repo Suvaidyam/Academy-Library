@@ -40,13 +40,23 @@
         <section id="about" class="section about">
             <div class="container">
                 <h4 id="episode_title">Springs Dance</h4>
-                <div class="row g-4 justify-content-center">
+                <div class="row g-4 align-items-center justify-content-center">
                     <div class="col-md-7 col-lg-7 col-xl-7 wow fadeInUp" data-wow-delay="0.1s">
-                        <video id="video_player" width="100%" controls>
-                            <source id="video_source" src="" type="video/mp4">
-                            <source src="mov_bbb.ogg" type="video/ogg">
-                            Your browser does not support HTML video.
-                        </video>
+                        <div class="d-flex justify-content-center align-items-center">
+
+                            <video id="video_player" width="100%" controls>
+                                <source id="video_source" src="" type="video/mp4">
+                                Your browser does not support HTML video.
+                            </video>
+
+
+                            <audio id="audio_player"  class="d-none w-100"  width="100%"  controls>
+                                <source id="audio_source" src="" 
+                                    type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+
                     </div>
                     <div class="col-md-5 col-lg-5 col-xl-5 wow fadeInUp" data-wow-delay="0.7s">
                         <h3 id="show_title">The Jay Thadeshwar Show</h3>
@@ -89,6 +99,9 @@
     <script src="../vendor/waypoints/noframework.waypoints.js"></script>
     <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+    <!-- Tailwind Aspect Ratio Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/aspect-ratio@0.4.2"></script>
 
 
     <script src="../services/FrappeApiClient.js"></script>
