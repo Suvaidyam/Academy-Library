@@ -55,13 +55,13 @@
           <div class="d-flex justify-content-end   align-items-center position-relative"
             style="z-index:2; min-height:48px; margin-top:0;">
             <div class="d-flex align-items-center gap-2">
-
+        <div class="float-container">
               <!-- calendar icon -->
 
-              <div class="position-relative z-index-1000 pe-2">
+              <div class="position-relative z-index-1000 listItem">
                 <a href="/pages/Calendar.html" id="podcast" type="button"
-                  class="btn btn-success btn-sm position-relative calendar_icon">
-                  <i class="bi bi-calendar-check"></i>
+                  class="btn btn-sm position-relative calendar_icon">
+                  <i class="bi bi-calendar-check"></i>&nbsp; Calendar
 
                   <!-- Bootstrap badge -->
                   <!-- <span id="calendar-badge"
@@ -70,15 +70,15 @@
 
                   </span> -->
                 </a>
+                
               </div>
 
 
               <!-- Announcements Dropdown -->
-              <div class="dropdown position-relative z-index-1000 me-2">
-                <button type="button" id="Announcement_icon" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+              <div class="dropdown position-relative z-index-1000 listItem">
+                <button type="button" id="Announcement_icon" class="btn  btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <i class="bi bi-megaphone-fill"></i>
-                  
+                  <i class="bi bi-megaphone-fill"></i>&nbsp; Announcements
                 </button>
                 <ul class="dropdown-menu">
                   <li>
@@ -86,11 +86,22 @@
                   </li>
                   <li id="announcementList"></li>
                 </ul>
+                
               </div>
 
 
               <!-- Language Dropdown -->
-              <div class="dropdown">
+             
+
+              <!-- podcast in Button -->
+              <div class="z-index-1000 listItem">
+                <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-sm"> <i
+                    class="bi bi-broadcast-pin"></i>&nbsp; Podcast </a>
+                    
+              </div>
+</div>
+
+              <div class="dropdown listItem">
                 <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   <i class="bi bi-globe2"></i>
@@ -101,15 +112,9 @@
                   <li><a class="dropdown-item overridecss" href="#">German</a></li>
                 </ul>
               </div>
-
-              <!-- podcast in Button -->
-              <div class="z-index-1000 mob">
-                <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-success btn-sm"> <i
-                    class="bi bi-broadcast-pin"></i></a>
-              </div>
-
               <!-- Sign in Button -->
-              <div class="z-index-1000 mob">
+              <!-- <div class="z-index-1000 mob"> -->
+                <div class="z-index-1000 "> 
                 <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
                 <div id="loggedinUser"></div>
               </div>
@@ -157,17 +162,18 @@
                 <li><a href="/#services" class="tab-link">News & Events</a></li>
                 <li><a href="/pages/new_gallery.html" class="tab-link">Gallery</a></li>
 
-                <li>
-                  <div class="z-index-1000 mob mobvisible">
+                <!-- <li>
+                  <div class="z-index-1000 ">
                     <a href="/pages/podcast.html" id="podcast" type="button" class=" "> Podcast</a>
-                  </div>
+                  </div> -->
 
                   <!-- Sign in Button -->
-                  <div class="z-index-1000 mob mobvisible">
+                  <!-- <div class="z-index-1000 mob mobvisible"> -->
+                  <!-- <div class="z-index-1000">
                     <a href="/pages/login.html" id="signin" type="button" class=" ">Sign in</a>
                     <div id="loggedinUser"></div>
                   </div>
-                </li>
+                </li> -->
               </ul>
               <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 

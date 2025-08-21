@@ -30,7 +30,7 @@ function truncateText(text, maxLength) {
   }
 
   const truncated = text.substring(0, maxLength).trim();
-  return `${truncated}... <span style="color: #8FBEDE; font-weight: 800;">More</span>`;
+  return `${truncated}... <span style="font-weight: 700;">More</span>`;
 }
 
 // -------- Set All cases ----------
