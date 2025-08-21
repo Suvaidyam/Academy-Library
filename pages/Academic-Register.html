@@ -150,7 +150,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Vo Name <span class="text-danger">*</span></label>
-                                <input type="text" name="gp_name" class="form-control" required>
+                                <input type="text" name="vo_name" class="form-control" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Village Name <span class="text-danger">*</span></label>
@@ -174,7 +174,7 @@
                         <h5 class="bg-light p-2 rounded border-start border-5 border-success">Own Field Information</h5>
                         <div class="row g-3 mb-4 px-2">
                             
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="form-label">Application For <span class="text-danger">*</span></label>
                                 <select name="application_for" class="form-select" required>
                                     <option value="">Select</option>
@@ -188,6 +188,10 @@
                                 <input type="number" name="own_land" class="form-control" required>
                             </div>
                             <div class="col-md-4">
+                                <label class="form-label">NF Extent <span class="text-danger">*</span></label>
+                                <input type="number" name="nf_extent" class="form-control">
+                            </div>
+                            <div class="col-md-4">
                                 <label class="form-label">Leased Land (Acres) <span class="text-danger">*</span></label>
                                 <input type="number" name="leased_land" class="form-control" required>
                             </div>
@@ -197,23 +201,24 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label class="form-label">Natural Farming Started Year</label>
+                                <label class="form-label">Natural Farming Started Year <span class="text-danger">*</span></label>
                                 <input type="text" name="nf_started_year" class="form-control">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Natural Farming Experience (Years)</label>
+                                <label class="form-label">Natural Farming Experience (Years) <span class="text-danger">*</span></label>
                                 <input type="number" name="nf_experience" class="form-control">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">PMDS Experience (Years)</label>
+                                <label class="form-label">PMDS Experience (Years) <span class="text-danger">*</span></label>
                                 <input type="number" name="pmds_experience" class="form-control">
                             </div>
 
                             <div class="col-md-4">
-                                <label class="form-label">Is Practicing S2S</label>
-                                <select name="is_practicing_s2s" class="form-select"></select>
-                                    <option>Yes</option>
-                                    <option>No</option>
+                                <label class="form-label">Is Practicing S2S <span class="text-danger">*</span></label>
+                                <select name="is_practicing_s2s" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                 </select>
                             </div>
                         </div>
@@ -266,19 +271,23 @@
 
     <script src="../assets/js/loadAllPageHeaderFooter.js"></script>
     <!-- Main JS File -->
-    <script src="../assets/js/main.js"></script>
+    <script type="module" src="../assets/js/main.js"></script>
+  <script type="module" src="../services/adcadmic_register.js"></script>
 
-    <script>
-        document.getElementById("registrationForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            console.log("Form Data Submitted:", formObject);
-            alert("Form submitted! Check console for data.");
-        });
+
+    <script type="module">
+// import { FrappeApiClient } from "../../";
+ 
+//         document.getElementById("registrationForm").addEventListener("submit", function (e) {
+//             e.preventDefault();
+//             const formData = new FormData(this);
+//             const formObject = {};
+//             formData.forEach((value, key) => {
+//                 formObject[key] = value;
+//             });
+//             console.log("Form Data Submitted:", formObject);
+//             alert("Form submitted! Check console for data.");
+//         });
     </script>
 </body>
 

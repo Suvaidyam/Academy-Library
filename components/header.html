@@ -18,10 +18,11 @@
         width: 200px;
       }
     }
-    
+
     .overridecss:active {
-  background: #1d8453 !important; /* red background on active */
-}
+      background: #1d8453 !important;
+      /* red background on active */
+    }
   </style>
 </head>
 
@@ -47,21 +48,37 @@
             <img src="../assets/img/logo.png" class="logo-img">
           </a>
           <!-- <div class="ms-2"> -->
-            <!-- <div class="fw-bold" style="font-size:1.1rem; line-height:1.1;">Indo-German Global Academy</div> -->
-            <!-- <div style="font-size:0.92rem; line-height:1.1;">for Agroecology Research and Learning<br>(IGGAARL)</div> -->
+          <!-- <div class="fw-bold" style="font-size:1.1rem; line-height:1.1;">Indo-German Global Academy</div> -->
+          <!-- <div style="font-size:0.92rem; line-height:1.1;">for Agroecology Research and Learning<br>(IGGAARL)</div> -->
         </div>
         <div class="mobd-flex">
           <div class="d-flex justify-content-end   align-items-center position-relative"
             style="z-index:2; min-height:48px; margin-top:0;">
             <div class="d-flex align-items-center gap-2">
-            
-               
-              
+        <div class="float-container">
+              <!-- calendar icon -->
+
+              <div class="position-relative z-index-1000 listItem">
+                <a href="/pages/Calendar.html" id="podcast" type="button"
+                  class="btn btn-sm position-relative calendar_icon">
+                  <i class="bi bi-calendar-check"></i>&nbsp; Calendar
+
+                  <!-- Bootstrap badge -->
+                  <!-- <span id="calendar-badge"
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+
+                  </span> -->
+                </a>
+                
+              </div>
+
+
               <!-- Announcements Dropdown -->
-              <div class="dropdown">
-                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+              <div class="dropdown position-relative z-index-1000 listItem">
+                <button type="button" id="Announcement_icon" class="btn  btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <i class="bi bi-megaphone-fill"></i>
+                  <i class="bi bi-megaphone-fill"></i>&nbsp; Announcements
                 </button>
                 <ul class="dropdown-menu">
                   <li>
@@ -69,10 +86,22 @@
                   </li>
                   <li id="announcementList"></li>
                 </ul>
+                
               </div>
 
+
               <!-- Language Dropdown -->
-              <div class="dropdown">
+             
+
+              <!-- podcast in Button -->
+              <div class="z-index-1000 listItem">
+                <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-sm"> <i
+                    class="bi bi-broadcast-pin"></i>&nbsp; Podcast </a>
+                    
+              </div>
+</div>
+
+              <div class="dropdown listItem">
                 <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   <i class="bi bi-globe2"></i>
@@ -83,35 +112,31 @@
                   <li><a class="dropdown-item overridecss" href="#">German</a></li>
                 </ul>
               </div>
-             
-               <!-- Sign in Button -->
-                <div class="z-index-1000 mob">
-                  <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-success btn-sm"> <i class="bi bi-broadcast-pin"></i></a>
-                </div>
-               
               <!-- Sign in Button -->
-              <div class="z-index-1000 mob">
+              <!-- <div class="z-index-1000 mob"> -->
+                <div class="z-index-1000 "> 
                 <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
                 <div id="loggedinUser"></div>
               </div>
             </div>
           </div>
 
-          <div class="d-flex" >
+          <div class="d-flex">
             <!-- Spacer to push menu right of logo/text, adjust as needed -->
             <nav id="navmenu" class="navmenu align-content-end ms-auto">
               <ul>
 
                 <!-- Home Dropdown -->
                 <li class="nav-item dropdown">
-                  <a class="" href="#" id="navbarDropdownHome" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="" href="#" id="navbarDropdownHome" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     Home <i class="bi bi-chevron-down toggle-dropdown"></i>
                   </a>
                   <ul class="dropdown" aria-labelledby="navbarDropdownHome">
                     <li><a class="dropdown-item overridecss" href="/pages/about.html">About</a></li>
                     <li><a class="dropdown-item overridecss" href="/pages/our-leaders.html">Our Mentors</a></li>
-                    <li><a class="dropdown-item overridecss" href="/index.html#researchPartners">Research Partners</a></li>
+                    <li><a class="dropdown-item overridecss" href="/index.html#researchPartners">Research Partners</a>
+                    </li>
                   </ul>
                 </li>
 
@@ -120,36 +145,40 @@
 
                 <!-- Resources Dropdown -->
                 <li class="nav-item dropdown">
-                  <a class="" href="#" id="navbarDropdownResources" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="" href="#" id="navbarDropdownResources" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     Resources <i class="bi bi-chevron-down toggle-dropdown"></i>
                   </a>
                   <ul class="dropdown" aria-labelledby="navbarDropdownResources">
                     <li><a class="dropdown-item overridecss" href="/pages/new_library.html">Library</a></li>
                     <li><a class="dropdown-item overridecss" href="/pages/research-library">Publications</a></li>
                     <li><a class="dropdown-item overridecss" href="/pages/global-library.html">Global Resources</a></li>
-                    <li><a class="dropdown-item overridecss" href="/research_page/new_success-stories.html">Success Stories</a></li>
+                    <li><a class="dropdown-item overridecss" href="/research_page/new_success-stories.html">Success
+                        Stories</a></li>
                     <li><a class="dropdown-item overridecss" href="/pages/reports.html">Reports</a></li>
                   </ul>
                 </li>
 
                 <li><a href="/#services" class="tab-link">News & Events</a></li>
                 <li><a href="/pages/new_gallery.html" class="tab-link">Gallery</a></li>
-             
-             <li> <div class="z-index-1000 mob mobvisible">
-                  <a href="/pages/podcast.html" id="podcast" type="button" class=" "> Podcast</a>
-                </div>
-               
-              <!-- Sign in Button -->
-              <div class="z-index-1000 mob mobvisible">
-                <a href="/pages/login.html" id="signin" type="button" class=" ">Sign in</a>
-                <div id="loggedinUser"></div>
-              </div></li>
+
+                <!-- <li>
+                  <div class="z-index-1000 ">
+                    <a href="/pages/podcast.html" id="podcast" type="button" class=" "> Podcast</a>
+                  </div> -->
+
+                  <!-- Sign in Button -->
+                  <!-- <div class="z-index-1000 mob mobvisible"> -->
+                  <!-- <div class="z-index-1000">
+                    <a href="/pages/login.html" id="signin" type="button" class=" ">Sign in</a>
+                    <div id="loggedinUser"></div>
+                  </div>
+                </li> -->
               </ul>
               <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-              
+
             </nav>
-             
+
           </div>
         </div>
       </div>
@@ -160,8 +189,6 @@
     </div>
 
   </header>
-
-
 
 
 
