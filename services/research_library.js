@@ -32,6 +32,8 @@ function handlePaginationVisibility(totalCount) {
     }
 }
 
+let authors = []
+
 export async function getLibraryList() {
     try {
         // ========== Fetch Knowledge Artifacts ==========
@@ -46,9 +48,11 @@ export async function getLibraryList() {
             let response = await frappe_client.get('/get_knowledge_artificates', filter);
             let posts = response.message.data;
             let totalCount = response.message.total_count;
-
+            authors = posts.map(item => ({ author: item.author }));
+            console.log("authors", authors);
             next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
             handlePaginationVisibility(totalCount);
+            GetSetAuthorOps(authors);
 
             return posts
         }
@@ -299,6 +303,8 @@ c_dropdown.addEventListener('change', async function () {
 
     // handletoshowbelongToInput(this.value);
     let response = await frappe_client.get('/get_knowledge_artificates', filter);
+    authors = response.message.data.map(item => ({ author: item.author }));
+    GetSetAuthorOps(authors);
     let totalCount = response.message.total_count;
 
     next_btn.disabled = currentPage >= Math.ceil(totalCount / pageSize);
@@ -342,29 +348,34 @@ authorDropdown.addEventListener('change', async function () {
 });
 
 
-const GetSetAuthorOps = async () => {
+const GetSetAuthorOps = async (authors) => {
+    console.log('Authors:', authors);
+
     if (!authorDropdown) return;
-    const args = {
-        doctype: 'Knowledge Artifact',
-        fields: ['author'],
-        or_filters: JSON.stringify([{ category: 'Article' }, { category: 'Journal' }, { category: 'Case Studies' }])
-    };
+    authorDropdown.innerHTML = "<option selected disabled value=''>Select Author</option>";
+    const uniqueAuthors = [...new Set(authors.map(item => item.author))];
+    console.log('uniqueAuthors:', uniqueAuthors);
+    if (uniqueAuthors.length === 0) {
 
-    try {
-        const response = await frappe_client.get('/get_doctype_list', args);
-        const uniqueAuthors = [...new Set(response.message.map(item => item.author))];
-        console.log('uniqueAuthors:', uniqueAuthors, response.message);
+        // const option = document.createElement('option');
+        // option.value = "Select Author";
+        console.log('No unique authors found.');
 
+        return;
 
+    } else {
         uniqueAuthors.forEach(author => {
             const option = document.createElement('option');
             option.value = author;
             option.textContent = author;
             authorDropdown.appendChild(option);
         });
-    } catch (error) {
-        console.error('Error loading year options:', error);
     }
+
+
+
+
+
 };
 
 let handlelanguageDropdown = document.getElementById('language-dropdown')
@@ -382,7 +393,7 @@ handlelanguageDropdown.addEventListener('change', async function () {
         page_size: pageSize,
         ...(keySearch && { keySearchInput: keySearch }),
         ...(authorInput && { authorInput: authorInput }),
-        ...(author !== "Select Author" && { authorDropdown : author }),
+        ...(author !== "Select Author" && { authorDropdown: author }),
         ...(year !== "Select Year" && { year }),
         ...(language && { language }),
         ...(category !== "Select Category" && { category }),
@@ -418,7 +429,7 @@ pre_btn.addEventListener("click", async function () {
         ...(year !== "Select Year" && { year }),
         ...(language !== "Select Language" && { language }),
         ...(category !== "Select Category" && { category }),
-        ...(author !== "Select Author" && { authorDropdown : author }),
+        ...(author !== "Select Author" && { authorDropdown: author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
@@ -451,7 +462,7 @@ next_btn.addEventListener("click", async function () {
         ...(year !== "Select Year" && { year }),
         ...(language !== "Select Language" && { language }),
         ...(category !== "Select Category" && { category }),
-        ...(author !== "Select Author" && { authorDropdown : author }),
+        ...(author !== "Select Author" && { authorDropdown: author }),
         ...(belongTo && { belong_to: belongTo }),
     };
 
@@ -470,6 +481,7 @@ next_btn.addEventListener("click", async function () {
 let handleclearbtn = document.getElementById('clearbtn')
 
 handleclearbtn.addEventListener('click', () => {
+
     c_dropdown.selectedIndex = 0;
     languageDropdown.selectedIndex = 0;
     keysearchInput.value = '';
@@ -478,8 +490,10 @@ handleclearbtn.addEventListener('click', () => {
 
     // handletoshowbelongToInput(c_dropdown.value);
     belongToInput.value = '';
-
+    authors = []
     getLibraryList();
+    console.log(authors, "//////////////");
+
 })
 const getLanguageList = async () => {
     if (!languageDropdown) return;
@@ -487,7 +501,7 @@ const getLanguageList = async () => {
     const args = {
         doctype: 'Knowledge Artifact',
         fields: ['language'],
-        or_filters: JSON.stringify([{ category: 'Journal' }, { category: 'Article' }, { category: 'Case Studies' },{ category: 'Newsletter' }])
+        or_filters: JSON.stringify([{ category: 'Journal' }, { category: 'Article' }, { category: 'Case Studies' }, { category: 'Newsletter' }])
     };
 
     try {
@@ -504,7 +518,7 @@ const getLanguageList = async () => {
         const languages = langResponse.message || [];
 
         languages.forEach(lang => {
-           const option = document.createElement('option');
+            const option = document.createElement('option');
             option.value = lang.name;
             option.textContent = lang.language_name || lang.name;
             handlelanguageDropdown.appendChild(option);
@@ -536,7 +550,7 @@ keysearchInput.addEventListener('input', async () => {
         ...(authorInput && { authorInput: authorInput }),
         ...(language !== "Select Language" && { language }),
         ...(category !== "Select Category" && { category }),
-        ...(author !== "Select Author" && { authorDropdown : author }),
+        ...(author !== "Select Author" && { authorDropdown: author }),
         ...(year !== "Select Year" && { year }),
     };
 
@@ -627,7 +641,7 @@ yearDropdown.addEventListener('change', async function () {
         year: this.value,
         ...(search && { keySearchInput: search }),
         ...(authorInput && { authorInput: authorInput }),
-        ...(author !== "Select Author" && { authorDropdown : author }),
+        ...(author !== "Select Author" && { authorDropdown: author }),
         ...(category !== "Select Category" && { category }),
         ...(language !== "Select Language" && { language }),
     };
@@ -652,7 +666,7 @@ belongToInput.addEventListener('input', async function () {
         page_size: pageSize,
         authorInput: this.value,
         ...(search && { keySearchInput: search }),
-        ...(author !== "Select Author" && { authorDropdown : author }),
+        ...(author !== "Select Author" && { authorDropdown: author }),
         ...(category !== "Select Category" && { category }),
         ...(language !== "Select Language" && { language }),
         ...(year !== "Select Year" && { year }),
@@ -669,6 +683,6 @@ belongToInput.addEventListener('input', async function () {
 document.addEventListener("DOMContentLoaded", () => {
     getLibraryList();
     getLanguageList();
-    GetSetAuthorOps();
+
     GetSetYearOps();
 });
