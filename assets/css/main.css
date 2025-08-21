@@ -3506,3 +3506,8 @@ small.text-body-secondary{ color: #059652 !important;}
     left: 24px !important;
 }
 #news-container a, #events-container a, #upcoming_events-container a, .content a{ color: var(--accent-color);}
+.terms h3, .terms p{ margin-top: 0px !important; }
+.terms p { padding-left: 2rem !important; }
+.terms div{ padding-bottom: 10px;}
+.footer-links a{ color: #fff; padding-right: 10px;}
+.footer-links a:hover{ color: #000; text-decoration: underline;}
