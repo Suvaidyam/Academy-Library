@@ -77,16 +77,18 @@ function playEpisode(i) {
 
     const ep = episodes[i];
 
+    const videoPlayer = document.getElementById('video_player');
+    const audioPlayer = document.getElementById('audio_player');
     // Handle external links
     if (ep.source === "External") {
         window.open(ep.podcast_file, "_blank");
+        videoPlayer.pause();
+        audioPlayer.pause();
         return;
     }
-
-    const src = frappe_client.baseURL + ep.podcast_file;
-    const videoPlayer = document.getElementById('video_player');
-    const audioPlayer = document.getElementById('audio_player');
+    
     const episodeTitle = document.getElementById('episode_title');
+    const src = frappe_client.baseURL + ep.podcast_file;
 
     episodeTitle.innerHTML = ep?.title || '';
 
@@ -119,44 +121,48 @@ function getYoutubeThumbnail(url) {
 
 
 async function renderEpisodes() {
-    let list = document.getElementById("episode_list");
-    list.innerHTML = '';
+  let list = document.getElementById("episode_list");
+  list.innerHTML = "";
 
-    const episodePromises = episodes.map((ep, i) => {
-        let videoUrl = ep.source === 'Internal'
-            ? `${frappe_client.baseURL}${ep.podcast_file}`
-            : ep.podcast_file;
+  const episodePromises = episodes.map((ep, i) => {
+    let videoUrl =
+      ep.source === "Internal"
+        ? `${frappe_client.baseURL}${ep.podcast_file}`
+        : ep.podcast_file;
 
-        if (ep.source === "Internal" && ep.file_type === "Video") {
-            return new Promise(resolve => {
-                getVideoDuration(videoUrl, (duration) => {
-                    getVideoThumbnail(videoUrl, (thumbnail) => {
-                        resolve({
-                            html: `
-                                <a href="#" class="list-group-item d-flex w-100 justify-content-between">
+    if (ep.source === "Internal" && ep.file_type === "Video") {
+      return new Promise((resolve) => {
+        getVideoDuration(videoUrl, (duration) => {
+          getVideoThumbnail(videoUrl, (thumbnail) => {
+            resolve({
+              html: `
+                                <a href="#" class="episode-item list-group-item d-flex w-100 justify-content-between" data-index="${i}">
                                     <div class="pr-2">
-                                        <img src="${thumbnail || ''}" class="img-fluid" width="100">
+                                        <img src="${
+                                          thumbnail || ""
+                                        }" class="img-fluid" width="100">
                                     </div>
                                     <div class="w-100">
                                         <div class="d-flex w-100 justify-content-between">
                                             <h5>${ep?.title || "No Title"}</h5>
                                             <small>${duration}</small>
                                         </div>
-                                        <small>${podcastDetails?.guests_name || ''}</small>
+                                        <small>${
+                                          podcastDetails?.guests_name || ""
+                                        }</small>
                                     </div>
                                 </a>
                             `,
-                            index: i
-                        });
-                    });
-                });
             });
-        } else if (ep.source === "Internal" && ep.file_type === "Audio") {
-            return new Promise(resolve => {
-                getAudioDuration(videoUrl, (duration) => {
-                    resolve({
-                        html: `
-                            <a href="#" class="list-group-item d-flex w-100 justify-content-between">
+          });
+        });
+      });
+    } else if (ep.source === "Internal" && ep.file_type === "Audio") {
+      return new Promise((resolve) => {
+        getAudioDuration(videoUrl, (duration) => {
+          resolve({
+            html: `
+                            <a href="#" class="episode-item list-group-item d-flex w-100 justify-content-between" data-index="${i}">
                                 <div class="pr-2">
                                     <img src="../assets/img/audio_img.png" class="img-fluid" width="100" alt="Audio">
                                 </div>
@@ -165,39 +171,53 @@ async function renderEpisodes() {
                                         <h5>${ep?.title || "No Title"}</h5>
                                         <small>${duration}</small>
                                     </div>
-                                    <small>${podcastDetails?.guests_name || ''}</small>
+                                    <small>${
+                                      podcastDetails?.guests_name || ""
+                                    }</small>
                                 </div>
                             </a>
                         `,
-                        index: i
-                    });
-                });
-            });
-        } else {
-            return Promise.resolve({
-                html: `
-                    <a href="#" class="list-group-item d-flex w-100 justify-content-between">
+          });
+        });
+      });
+    } else {
+      return Promise.resolve({
+        html: `
+                    <a href="#" class="episode-item list-group-item d-flex w-100 justify-content-between" data-index="${i}">
                         <div class="pr-2">
-                            <img src=${getYoutubeThumbnail(videoUrl)} class="img-fluid" width="100" alt="No thumbnail">
+                            <img src=${getYoutubeThumbnail(
+                              videoUrl
+                            )} class="img-fluid" width="100" alt="No thumbnail">
                         </div>
                         <div class="w-100">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5>${ep?.title || "No Title"}</h5>
                                 <small>External Link</small>
                             </div>
-                            <small>${podcastDetails?.guests_name || ''}</small>
+                            <small>${podcastDetails?.guests_name || ""}</small>
                         </div>
                     </a>
                 `,
-                index: i
-            });
-        }
-    });
+      });
+    }
+  });
 
-    const results = await Promise.all(episodePromises);
-    results.sort((a, b) => a.index - b.index); // Ensure original order
-    results.forEach(item => list.insertAdjacentHTML("beforeend", item.html));
+  const results = await Promise.all(episodePromises);
+
+  results.forEach((item) => {
+    list.insertAdjacentHTML("beforeend", item.html);
+  });
+
+  // ✅ Attach click event listeners AFTER inserting
+  list.querySelectorAll(".episode-item").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const index = parseInt(el.dataset.index, 10);
+      playEpisode(index);
+    });
+  });
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     fetchPodcast(new URLSearchParams(location.search).get('id'));
