@@ -2,7 +2,7 @@ import { FrappeApiClient } from '../services/FrappeApiClient.js'
 
 let frappe_client = new FrappeApiClient()
 
-const page_length=2
+const page_length=3
 
 const fetch_podcast_lists = async (currentPage = 1) => {
     let response = await frappe_client.get('/get_podcast_data',
@@ -87,7 +87,7 @@ const render_podcast_lists = (response) => {
 
         let podcast_card = `
             
-            <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp pt-2" data-wow-delay="0.1s">
+            <div class="col-md-4 col-lg-4 col-xl-3 wow fadeInUp pt-2" data-wow-delay="0.1s">
             <div class="event-item rounded">
                 ${linkStart}
                 <div class="position-relative">
