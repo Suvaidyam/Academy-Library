@@ -105,7 +105,7 @@
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
+            <button class="nav-link"  id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
               type="button" role="tab" aria-controls="course-content" aria-selected="false">
               Course Content
             </button>
@@ -316,30 +316,40 @@
                       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                     </form>
                   </div>
-                  <!-- <div class="search-container mb-4">
-                  <label for="globalSearch" class="form-label mb-2">Search</label>
-                  <div class="input-group">
-                    <input type="text" id="globalSearch" class="form-control"
-                      placeholder="Tags / keywords for generic / global searches">
-                    <button class="btn btn-outline-secondary search-btn" type="button">
-                      <i class="bi bi-search"></i>
-                    </button>
-                  </div>
-                </div> -->
-
+                
                   <!-- Course-specific Search -->
                   <div class="course-search-container mb-4">
 
 
-                    <!-- Course Dropdown -->
-
-
-                    <div class="mb-3">
+                     <!-- Course Dropdown -->
+                     <div class="mb-3">
                       <div class="input-group">
                         <select id="courseSearch" class="form-select">
+                          <option selected disabled>Select a Course</option>
+                        </select>
+                        <button class="btn btn-outline-secondary search-btn" type="button">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Semester Dropdown -->
+                     <div class="mb-3">
+                      <div class="input-group">
+                        <select id="semesterSearch" class="form-select">
+                          <option selected disabled>Select a Semester</option>
+                        </select>
+                        <button class="btn btn-outline-secondary search-btn" type="button">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Course Module Dropdown -->
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <select id="moduleSearch" class="form-select">
                           <option selected disabled>Select a Module</option>
-                          <!-- <option value="course1">Course 1</option>
-                        <option value="course2">Course 2</option> -->
                         </select>
                         <button class="btn btn-outline-secondary search-btn" type="button">
                           <i class="bi bi-search"></i>
@@ -394,7 +404,6 @@
                       <!-- <p class="text-muted small mb-2">e.g., (someone is searching for externalities)</p> -->
                       <ul class="list-unstyled search-results row gy-4 isotope-container" id="searchResults">
                         <p>loading Session list ............</p>
-
                       </ul>
                     </div>
                   </div>
