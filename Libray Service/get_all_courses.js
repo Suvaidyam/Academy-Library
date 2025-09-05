@@ -416,13 +416,41 @@ export function setSessionList(response) {
     Image: "filter-books",
     PPT: "filter-books",
   };
+  function getFileFilter(url) {
+    if (!url) return;
+    let filename = "";
+    try {
+      let pathname = new URL(url, window.location.origin).pathname;
+      filename = decodeURIComponent(pathname.split("/").pop());
+    } catch (e) {
+      // Fallback: just use the string directly
+      filename = decodeURIComponent(url.split("/").pop());
+    }
+    let ext = filename.includes(".")
+      ? filename.split(".").pop().toLowerCase()
+      : "";
+
+    // map extension → type
+    let type = "";
+    if (ext === "pdf") type = "PDF";
+    else if (["doc", "docx", "odt"].includes(ext)) type = "Docs";
+    else if (["mp4", "mkv", "avi", "mov"].includes(ext)) type = "Video";
+    else if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext))
+      type = "Image";
+    else if (["ppt", "pptx", "odp"].includes(ext)) type = "PPT";
+
+    return type || null; // return mapped filter or null if not supported
+  }
+
+
+
 
   response.message.data.forEach((element) => {
-    const imgSrc = docTemplates[element.doc_type] || default_img;
+    // const imgSrc = docTemplates[element.doc_type] || default_img;
     const filterClass = filterMap[element.doc_type] || "";
-    const description = element.description || `${element?.doc_type} File` || "b";
+    // const description = element.description || `${element?.doc_type} File` || "";
     const title = element.title || element.name || "Untitled";
-    const docUrl = `${baseURL}${element.session_doc}`;
+    // const docUrl = `${baseURL}${element.session_doc}`;
     
     let a;
     if(element.content){
@@ -437,6 +465,10 @@ export function setSessionList(response) {
       });
     }
     let b = `${baseURL}${encodeURI(a)}`;
+    const imgSrc = docTemplates[getFileFilter(b)] || default_img;
+    const description = getFileFilter(b) || "not available";
+
+    console.log("type",getFileFilter(b));
     let b1 = a
       ? ` <div style="cursor: pointer;" onclick=" window.open('${b}')" title="${b}" class="glightbox preview-link">
                 <i class="bi bi-eye"></i>
@@ -455,7 +487,7 @@ export function setSessionList(response) {
           <div class="portfolio-info">
             <h6>${title}</h6>
             <div class="d-flex justify-content-between pe-3">
-              <p>${description}</p>
+              <p>${description} File</p>
               ${b1}
             </div>
           </div>
