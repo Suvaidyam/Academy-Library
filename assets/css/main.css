@@ -1145,7 +1145,7 @@ h6 {
   transition: 0.5s;
   margin: 10px;
   border-radius: 50px;
-  color: var(--contrast-color);
+  color: var(--contrast-color) !important;
   background: var(--accent-color);
 }
 
