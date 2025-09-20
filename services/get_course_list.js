@@ -117,13 +117,15 @@ const set_dynamic_course = (response, navtype) => {
       </div>
       <div class=" col-md-3">
         <div class="download-catalog">
-        <a href="#" onclick="window.open('${baseURL}${
-      item.custom_course_doc
-    }')" ${
-      !isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ""
-    } ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>
-       <!-- <a href="#" onclick="window.open('https://erp-ryss.ap.gov.in/app/registration/new-registration-wzzgqbwkwc#application_form_tab')" ${!isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ""}><i class="bi bi-journal-plus"></i>  Apply</a> -->
-       <a href="#" id="apply-btn" ${!isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ""}><i class="bi bi-journal-plus"></i>  Apply</a>
+        ${
+          item.custom_course_doc
+            ? `<a href="#" onclick="window.open('${baseURL}${item.custom_course_doc}')"  ><i class="bi bi-file-earmark-word"></i><span>Brochure</span></a>`
+            : '<span class="text-muted">No Brochure</span>'
+        }
+       <!-- <a href="#" onclick="window.open('https://erp-ryss.ap.gov.in/app/registration/new-registration-wzzgqbwkwc#application_form_tab')" ${
+         !isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ""
+       }><i class="bi bi-journal-plus"></i>  Apply</a> -->
+      
          </div>
       </div>
       </div>
