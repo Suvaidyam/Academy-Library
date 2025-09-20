@@ -501,7 +501,7 @@ export function setSessionList(response) {
           <div class="portfolio-info w-100 px-3">
             <h4>${title}</h4>
             <div class="d-flex justify-content-between pe-3">
-              <p>${description}</p>
+              <p>${description} File</p>
               ${b1}
             </div>
           </div>
