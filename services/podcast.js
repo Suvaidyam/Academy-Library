@@ -1,45 +1,42 @@
-import { FrappeApiClient } from '../services/FrappeApiClient.js'
+import { FrappeApiClient } from "../services/FrappeApiClient.js";
 
-let frappe_client = new FrappeApiClient()
+let frappe_client = new FrappeApiClient();
 
-const page_length=3
+const page_length = 3;
 
 const fetch_podcast_lists = async (currentPage = 1) => {
-    let response = await frappe_client.get('/get_podcast_data',
-        {
-            page_length: page_length,
-            page: currentPage
-        }
-    )
-    console.log(response, "response")
-    render_podcast_lists(response)
-    updatePaginationButtons(response?.message?.page, response?.message?.total, response?.message?.page_length)
-}
+  let response = await frappe_client.get("/get_podcast_data", {
+    page_length: page_length,
+    page: currentPage,
+  });
+  console.log(response, "response");
+  render_podcast_lists(response);
+  updatePaginationButtons(response?.message?.page, response?.message?.total, response?.message?.page_length);
+};
 const trimWords = (text, wordLimit = 7) => {
-    if (!text) return "";
-    let words = text.split(/\s+/).slice(0, wordLimit);
-    return words.join(" ") + (words.length >= wordLimit ? "..." : "");
-}
+  if (!text) return "";
+  let words = text.split(/\s+/).slice(0, wordLimit);
+  return words.join(" ") + (words.length >= wordLimit ? "..." : "");
+};
 
 let currentPage = 1;
-let prev_btn = document.getElementById('prev-btn')
-let next_btn = document.getElementById('next-btn')
+let prev_btn = document.getElementById("prev-btn");
+let next_btn = document.getElementById("next-btn");
 
 next_btn.addEventListener("click", () => {
-    currentPage++;
-    fetch_podcast_lists(currentPage);
-    
+  currentPage++;
+  fetch_podcast_lists(currentPage);
 });
 
 prev_btn.addEventListener("click", () => {
-    currentPage--;
-    fetch_podcast_lists(currentPage);
+  currentPage--;
+  fetch_podcast_lists(currentPage);
 });
 
 // Update button states after fetching data
 const updatePaginationButtons = (page, total, page_length) => {
-    prev_btn.disabled = page <= 1;
-    next_btn.disabled = page * page_length >= total;
+  prev_btn.disabled = page <= 1;
+  next_btn.disabled = page * page_length >= total;
 };
 
 // Modify fetch_podcast_lists to update buttons
@@ -58,34 +55,28 @@ const updatePaginationButtons = (page, total, page_length) => {
 //     );
 // };
 
-
-
-
-
 const render_podcast_lists = (response) => {
-    let podcast_container = document.getElementById('podcast_container')
-    let popular_podcast = document.getElementById('popular_podcast')
+  let podcast_container = document.getElementById("podcast_container");
+  let popular_podcast = document.getElementById("popular_podcast");
 
-    // Clear containers first
-    podcast_container.innerHTML = ""
-    popular_podcast.innerHTML = ""
+  // Clear containers first
+  podcast_container.innerHTML = "";
+  popular_podcast.innerHTML = "";
 
-    response.message.data.forEach((podcast, index) => {
-        const hasEpisodes = podcast?.episode_cout > 0;
+  response.message.data.forEach((podcast, index) => {
+    const hasEpisodes = podcast?.episode_cout > 0;
 
-        let linkStart = hasEpisodes
-        ? `<a href="podcast-details?id=${podcast.name}" class="text-decoration-none text-dark">`
-        : `<div class="text-muted">`;
+    let linkStart = hasEpisodes ? `<a href="podcast-details?id=${podcast.name}" class="text-decoration-none text-dark">` : `<div class="text-muted">`;
 
-         let playOrNoEpisode = hasEpisodes
-        ? `<span class="btn btn-success rounded-pill text-white py-1 px-4">
+    let playOrNoEpisode = hasEpisodes
+      ? `<span class="btn btn-success rounded-pill text-white py-1 px-4">
                 <i class="bi bi-collection-play-fill"></i> Play all
            </span>`
-        : `<span class="btn disabled btn-success rounded-pill text-white py-1 px-4">
+      : `<span class="btn disabled btn-success rounded-pill text-white py-1 px-4">
                 <i class="bi bi-collection-play-fill"></i> Play all
            </span>`;
 
-        let podcast_card = `
+    let podcast_card = `
             
             <div class="col-md-4 col-lg-4 col-xl-3 wow fadeInUp pt-2" data-wow-delay="0.1s">
             <div class="event-item rounded">
@@ -93,7 +84,7 @@ const render_podcast_lists = (response) => {
                 <div class="position-relative">
                     <img src="${frappe_client?.baseURL}${podcast?.cover_image}" class="rounded-t md:h-[200px] w-full h-[250px] object-cover" alt="Image">
                     <div class="d-flex justify-content-between border-start border-end bg-white px-2 py-2 w-100 position-absolute" style="bottom: 0; left: 0; opacity: 0.8;">
-                    <span class="bi bi-broadcast-pin pr-1"> ${podcast?.episode_cout || '0'} episodes</span>
+                    <span class="bi bi-broadcast-pin pr-1"> ${podcast?.episode_cout || "0"} episodes</span>
                     </div>
                 </div>
                 <div class="border border-top-0 rounded-bottom p-3">
@@ -105,32 +96,21 @@ const render_podcast_lists = (response) => {
                 </div>
                 </a>
             </div>
-            </div>`
+            </div>`;
 
-        // Render to main list
-        podcast_container.insertAdjacentHTML('beforeend', podcast_card)
+    // Render to main list
+    podcast_container.insertAdjacentHTML("beforeend", podcast_card);
 
-        // Only first few (e.g., top 4) to popular
-        popular_podcast.insertAdjacentHTML('beforeend', podcast_card)
-
-    })
-}
+    // Only first few (e.g., top 4) to popular
+    popular_podcast.insertAdjacentHTML("beforeend", podcast_card);
+  });
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetch_podcast_lists()
-})
+  fetch_podcast_lists();
+});
 
-
-
-
-
-
-
-
-
-
-
-let preview_podcast_card=`<div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
+let preview_podcast_card = `<div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
                             <div class="w-full p-2">
                                 <div class="bg-white rounded shadow overflow-hidden">
                                     <div
@@ -144,4 +124,4 @@ let preview_podcast_card=`<div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" d
                                 </div>
                             </div>
 
-                        </div>`
+                        </div>`;
