@@ -2,7 +2,7 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 const frappe_client = new FrappeApiClient();
 
 let page = 1;
-let rowPerPage = 2;
+let rowPerPage = 3;
 let totalRow;
 
 const linkParent = document.querySelector("#linkParent");
@@ -38,7 +38,6 @@ async function getLimitedData(page, rowPerPage) {
     console.error("API Error:", err);
   }
 }
-
 
 // Event listeners for pagination buttons
 prevBtn.addEventListener("click", () => {
