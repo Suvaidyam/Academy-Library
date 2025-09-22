@@ -40,17 +40,17 @@ async function getLimitedData(page, rowPerPage) {
 }
 
 // Event listeners for pagination buttons
-prevBtn.addEventListener("click", () => {
-  if (page > 1) {
-    page--;
-    getLimitedData(page, rowPerPage);
-  }
-});
+// prevBtn.addEventListener("click", () => {
+//   if (page > 1) {
+//     page--;
+//     getLimitedData(page, rowPerPage);
+//   }
+// });
 
-nextBtn.addEventListener("click", () => {
-  page++;
-  getLimitedData(page, rowPerPage);
-});
+// nextBtn.addEventListener("click", () => {
+//   page++;
+//   getLimitedData(page, rowPerPage);
+// });
 
 // Initial fetch
 getLimitedData(page, rowPerPage);
