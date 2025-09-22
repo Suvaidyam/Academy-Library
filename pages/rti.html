@@ -36,35 +36,83 @@
     <!-- Main CSS File -->
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      .rti {
+        background: url("../assets/img/rti.avif");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 400px;
+        display: flex;
+        align-items: center;
+      }
+
+      .rti h1 {
+        font-weight: 700;
+        margin-left: 300px;
+      }
+
+      .rti-container {
+        width: 100%;
+        margin: auto;
+        padding-left: 280px;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+      }
+
+      .rti-body {
+        overflow-y: auto;
+        padding: 0 10px;
+      }
+
+      #linkParent li {
+        padding: 2px;
+      }
+
+      #linkParent li a {
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #linkParent li a:hover {
+        color: rgb(79, 79, 223);
+      }
+
+      .rti-pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .rti-pagination i {
+        font-size: 24px;
+        color: #007bff;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
     <div id="header" class="header d-flex align-items-center fixed-top"></div>
     <main class="main" style="margin-top: 100px">
-      <div class="container card-container">
-        <div class="card shadow-sm border-0">
-          <div class="card-header text-center py-3">
-            <h5 class="card-title mb-0"><i class="bi bi-link-45deg me-2"></i>RTI Links</h5>
-          </div>
-          <div class="card-body bg-light overflow-auto p-3" style="height: 320px">
-            <ul id="linkParent" class="list-group list-group-flush small"></ul>
-          </div>
-          <div id="pagination" class="card-footer py-3 pagination-controls">
-            <div class="d-flex justify-content-between align-items-center">
-              <i class="bi bi-arrow-left-circle-fill fs-4 text-primary" style="cursor: pointer" id="prev-btn"></i>
-              <i class="bi bi-arrow-right-circle-fill fs-4 text-primary" style="cursor: pointer" id="next-btn"></i>
-            </div>
-          </div>
+      <div class="rti">
+        <h1>RTI</h1>
+      </div>
+
+      <div class="rti-container">
+        <div class="rti-body">
+          <ul id="linkParent"></ul>
         </div>
 
-        <div class="container-fluid px-0 mt-5">
-          <p class="text-center text-muted">Your fluid content here</p>
+        <div id="pagination" class="rti-footer">
+          <div class="rti-pagination">
+            <i class="bi bi-arrow-left-circle-fill" id="prev-btn"></i>
+            <i class="bi bi-arrow-right-circle-fill" id="next-btn"></i>
+          </div>
         </div>
       </div>
 
-      <div class="container-fluid px-0">
-        <!-- Your fluid content here -->
-      </div>
+      <div class="container-fluid px-0"></div>
     </main>
 
     <div id="footer" class="footer dark-background"></div>
