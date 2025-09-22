@@ -2,7 +2,7 @@ import { FrappeApiClient } from "./FrappeApiClient.js";
 const frappe_client = new FrappeApiClient();
 
 let page = 1;
-let rowPerPage = 3;
+let rowPerPage = 10;
 let totalRow;
 
 const linkParent = document.querySelector("#linkParent");
@@ -23,7 +23,7 @@ async function getLimitedData(page, rowPerPage) {
     data.forEach((item) => {
       let src = item.attachment.includes("http") ? item.attachment : `${frappe_client.baseURL}${encodeURI(item.attachment)}`;
 
-      let list = `<li class="list-group-item"><a target="_blank" href="${src}" style="width:100%; display: block;">${item.title}</a></li>`;
+      let list = `<li class=""><a target="" href="${src}" style="width:100%; display: block;">${item.title}</a></li>`;
       linkParent.insertAdjacentHTML("beforeend", list);
     });
 
