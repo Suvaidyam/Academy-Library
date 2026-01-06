@@ -32,7 +32,8 @@ async function loadGallery() {
     const videoExtensions = ['mp4', 'mov', 'avi'];
 
     data.forEach(item => {
-        const categoryClass = getCategoryClass(item.category);
+      const categoryClass = getCategoryClass(item.category);
+      
         const fileUrl = item.gallery_doc ? `${ENV.API_BASE_URL}${item.gallery_doc}` : null;
 
         const isVideo = fileUrl && videoExtensions.some(ext => fileUrl.toLowerCase().endsWith(`.${ext}`));
@@ -65,27 +66,14 @@ async function loadGallery() {
 
 
 
-
-function getCategoryClass(category) {
-  switch ((category || "").toLowerCase()) {
-    case "campus":
-      return "campus";
-    case "visitors":
-      return "visitors";
-    case "farm models":
-      return "farm_models"; // Match this exactly with HTML filter
-    case "field visit":
-      return "field_visit";
-    case "classroom":
-      return "classroom";
-    case "field classes":
-      return "field_classess"; // Be careful with spelling here
-    case "labs":
-      return "labs";
-    default:
-      return "";
-  }
+function getCategoryClass(category = "") {
+  return category
+    .toLowerCase()
+    .replace(/\//g, "_") // ✅ IMPORTANT
+    .replace(/\s+/g, "_")
+    .replace(/[^\w-]/g, "");
 }
+
 
 
 
@@ -116,8 +104,12 @@ function initIsotope() {
         button.addEventListener('click', function () {
             const filterValue = this.getAttribute('data-filter');
             if (iso) {
-                iso.arrange({ filter: filterValue });
+              iso.arrange({ filter: filterValue });
             }
         });
     });
 }
+
+
+
+
