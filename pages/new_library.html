@@ -110,6 +110,12 @@
               Course Content
             </button>
           </li>
+            <li class="nav-item" role="presentation">
+            <button class="nav-link" id="famr-model-tab" data-bs-toggle="tab" data-bs-target="#famr-model"
+              type="button" role="tab" aria-controls="famr-model" aria-selected="false">
+             Farm Models
+            </button>
+          </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link d-none" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
               type="button" role="tab" aria-controls="video-session" aria-selected="false">
@@ -465,6 +471,77 @@
             <!-- You can move your existing course/module/topic/chapter search UI here -->
           </div>
 
+          <div class="tab-pane fade" id="famr-model" role="tabpanel" aria-labelledby="famr-model-tab">
+            <main class="container my-4">
+              <div class="row">
+                 
+                   <div class="col-lg-4 mt-8">
+                  <form>
+                  
+
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select" id="farm-model-dropdown" aria-label="Default select example">
+                          <option disabled selected>Farm Model</option>
+                          <option>ATM</option>
+                          <option>A-Grade</option>
+                          <option>Half Acre</option>
+                          <option>Drought Proof</option>
+                          <option>Five Layer</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select" id="crop-dropdown" aria-label="Default select example">
+                          <option disabled selected>Crop</option>
+                          <option>Chilli</option>
+                          <option>Rice</option>
+                          <option>Wehat</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select" id="associated-crop-dropdown" aria-label="Default select example">
+                          <!-- <option disabled selected>Associated Crop </option> -->
+                          <option>Associated Crop </option>
+                          <option>Associated Crop </option>
+                          <option>Associated Crop </option>
+                        </select>
+                      </div>
+                    </div>
+                    
+
+                    <div class="mb-3">
+                      <!-- <label for="formFileMultiple" class="form-label">&nbsp</label> -->
+                      <input class="form-control" type="file" id="formFileMultiple" multiple>
+                    </div>
+                  <div class="mb-3">
+                     <button type="button" id="uploadbtn" style="width: 100%;" class="btn btn-outline-secondary">
+                        Upload
+                      </button>
+
+                      </div>
+
+                       
+                  </form>
+
+                
+
+                </div>
+
+                <div class="col-lg-8  d-flex align-items-center justify-content-center ">
+                  <div class="featured-section mb-4">
+                    sample information
+                    
+                  </div>
+                </div>
+              </div>
+            </main>
+
+          
           <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
           <div class="tab-pane fade" id="video-session" role="tabpanel" aria-labelledby="video-session-tab">
             <main>
