@@ -1028,12 +1028,10 @@ h6 {
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
-  /* color: #b14ce5;
-  background-image: linear-gradient(45deg, #b14ce5 , #1BCF0E 50%, #9fd6a1 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block; */
+  background-image: linear-gradient(45deg, #b14ce5 40%, #1BCF0E 60%, #9fd6a1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .section-title h2:before {
@@ -2210,6 +2208,9 @@ h6 {
   font-weight: 700;
   margin-bottom: 6px;
   font-size: 18px;
+  -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(45deg, rgb(38, 39, 250), rgb(255, 84, 79) 80%) text;
+  background: linear-gradient(45deg, rgb(38, 39, 250), rgb(255, 84, 79) 80%) text;
 }
 
 .team .member .member-info span {
@@ -3094,20 +3095,25 @@ article:hover {
     border-bottom-right-radius: 8px;
     /* box-shadow: 0 2px 30px 0 rgba(31, 38, 103, .2); */
 } 
-.newsCard:hover,
-#book-body .card:hover {
+.newsCard:hover
+{
     /* background-image: linear-gradient(to right bottom, #eeaeca, #deb0d9, #c8b3e4, #afb7ea, #94bbe9); */
    background-image: linear-gradient(to right top, #ecfef1, #e7faec, #e2f5e8, #def1e3, #d9eddf);
+   
     /* background-image: linear-gradient(to left top, #ecfef1, #e7faec, #e2f5e8, #def1e3, #d9eddf); */
 } 
 #book-body .card{
          background: #fff;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    box-shadow: 0 2px 30px 0 rgba(31, 38, 103, .2);
+    /* box-shadow: 0 2px 30px 0 rgba(31, 38, 103, .2); */
     border: none;
+        background-image: linear-gradient(-90deg, #e0ecfc 7%, #d2d2d2);
+    padding: 10px !important;
 }
 
+
+#book-body .card:hover { background-image: linear-gradient(90deg, #e0ecfc 7%, #d2d2d2);}
 .article-card {
   border: 1px solid rgb(218, 220, 224);
   margin: 0px 16px;
