@@ -3673,3 +3673,5 @@ small.text-body-secondary{ color: #059652 !important;}
   -webkit-text-fill-color: transparent;
    background: -webkit-linear-gradient(45deg, #b14ce5 , #1BCF0E 50%, #9fd6a1  80%) text;
   }
+
+  #hero-carousel{min-height: 70vh !important;}
