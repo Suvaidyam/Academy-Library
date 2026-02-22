@@ -1306,6 +1306,10 @@ h6 {
   color: var(--cyan-color);
 }
 
+.featured-services .service-item.item-cyan a h3 {
+  color: var(--cyan-color);
+}
+
 .featured-services .service-item.item-cyan:hover {
   border-color: var(--cyan-color);
 }
@@ -1334,6 +1338,10 @@ h6 {
   background-color: var(--orange-color);
 }
 
+.featured-services .service-item.item-orange a h3 {
+  color: var(--orange-color);
+}
+
 .featured-services .service-item.item-orange:hover .icon i {
   color: var(--contrast-color);
 }
@@ -1356,6 +1364,10 @@ h6 {
 
 .featured-services .service-item.item-teal:hover .icon i {
   color: var(--contrast-color);
+}
+
+.featured-services .service-item.item-teal a h3 {
+   color: var(--teal-color);
 }
 
 .featured-services .service-item.item-red .icon {
