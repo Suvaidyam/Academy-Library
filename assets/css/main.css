@@ -2277,6 +2277,7 @@ h6 {
 .blog-posts .title a {
   color: var(--heading-color);
   transition: 0.3s;
+  text-transform: capitalize;
 }
 
 .blog-posts .title a:hover {
