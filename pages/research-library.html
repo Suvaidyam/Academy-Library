@@ -59,7 +59,7 @@
               <form>
                 <div class="row mb-3">
                   <div class="col-sm-12">
-                    <select class="form-select" id="category-dropdown1" aria-label="Default select example">
+                    <select class="form-select" id="category-dropdown1" aria-label="Default select example" disabled>
                       <!-- <option disabled selected>Select Category</option> -->
                       <option value="Article" selected>Articles</option>
                       <!-- <option value="Publications">Publications</option> -->
@@ -68,6 +68,10 @@
                       <option value="Newsletter">Newsletter</option>
                       <!-- <option value="Book">Books</option> -->
                     </select>
+                    <small id="login-hint" class="text-muted mt-1 d-block" style="font-size: 0.72rem;">
+                      <i class="bi bi-lock-fill me-1"></i>Enable when you are logged in &mdash;
+                      <a href="login.html" class="text-decoration-none fw-semibold" style="color: #2f6646;">Login first</a>
+                    </small>
                   </div>
                 </div>
                 
@@ -130,7 +134,7 @@
             </div>
           </div>
 
-          <div class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-9 ps-lg-5 d-none" id="research-content" data-aos="fade-up" data-aos-delay="200">
 
 
             <!-- <ul class="nav nav-tabs" id="articlesTab" role="tablist">
@@ -357,6 +361,56 @@
   <script type="module" src="../services/research_library.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
 
+  <!-- CDN Links For encryption -->
+  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+
+  <script type="module">
+    import { FrappeApiClient } from "../services/FrappeApiClient.js";
+    let frappe_client = new FrappeApiClient();
+
+    function Decryption(ciphertext) {
+      try {
+        const decrypted = CryptoJS.AES.decrypt(ciphertext, "your-secret-key").toString(CryptoJS.enc.Utf8);
+        return decrypted ? JSON.parse(decrypted) : null;
+      } catch (e) {
+        console.error("Decryption error:", e);
+        return null;
+      }
+    }
+
+    const valid_roles = async () => {
+      let response = await frappe_client.get('/get_role_wise_permissions');
+      return response;
+    };
+
+    const get_login_user_details = async () => {
+      const userDetails = sessionStorage.getItem('user_info');
+      if (userDetails) {
+        const user = JSON.parse(userDetails);
+        const user_roles = Decryption(user.roles) || [];
+        const validRolesResponse = await valid_roles();
+        const validRoles = validRolesResponse.message || [];
+        const hasValidRole = user_roles.some(role => validRoles.includes(role));
+
+        const researchContent = document.getElementById('research-content');
+        const categoryDropdown = document.getElementById('category-dropdown1');
+        if (researchContent) {
+          hasValidRole ? researchContent.classList.remove('d-none') : researchContent.classList.add('d-none');
+        }
+        if (categoryDropdown) {
+          categoryDropdown.disabled = !hasValidRole;
+        }
+        const loginHint = document.getElementById('login-hint');
+        if (loginHint) {
+          hasValidRole ? loginHint.classList.add('d-none') : loginHint.classList.remove('d-none');
+        }
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      get_login_user_details();
+    });
+  </script>
 
 </body>
 
