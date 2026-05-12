@@ -99,13 +99,13 @@
         <!-- Nav Tabs - FIXED TO SHOW BOOKS AS DEFAULT -->
         <ul class="nav nav-tabs" id="libraryTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button"
+            <button class="nav-link active d-none" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button"
               role="tab" aria-controls="books" aria-selected="true">
               Books
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
+            <button class="nav-link d-none" id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
               type="button" role="tab" aria-controls="course-content" aria-selected="false">
               Course Content
             </button>
@@ -738,7 +738,17 @@
         // console.log('user_roles', user_roles);
         console.log('hasValidRole', hasValidRole);
         let videoSessionTab = document.getElementById('video-session-tab');
-        hasValidRole ? videoSessionTab.classList.remove('d-none') : videoSessionTab.classList.add('d-none');
+        let booksTab = document.getElementById('books-tab');
+        let courseContentTab = document.getElementById('course-content-tab');
+        if (hasValidRole) {
+          videoSessionTab.classList.remove('d-none');
+          booksTab.classList.remove('d-none');
+          courseContentTab.classList.remove('d-none');
+        } else {
+          videoSessionTab.classList.add('d-none');
+          booksTab.classList.add('d-none');
+          courseContentTab.classList.add('d-none');
+        }
       }
     };
 
