@@ -81,12 +81,24 @@
         </button>
     </li>
       <li class="nav-item">
-        <button class="nav-link"
+        <button class="nav-link" id="case-studies-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#case-studies">
            Case Studies
         </button>
     </li>
+
+    <!-- Toast for login required -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+      <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            <i class="bi bi-lock-fill me-2"></i> Please sign in to access Case Studies.
+          </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
 
     
 </ul>
@@ -999,6 +1011,26 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       get_login_user_details();
+
+      const caseStudiesTab = document.getElementById('case-studies-tab');
+      const isLoggedIn = !!sessionStorage.getItem('user_info');
+
+      if (!isLoggedIn && caseStudiesTab) {
+        caseStudiesTab.removeAttribute('data-bs-toggle');
+        caseStudiesTab.removeAttribute('data-bs-target');
+        caseStudiesTab.style.opacity = '0.55';
+        caseStudiesTab.style.cursor = 'pointer';
+        caseStudiesTab.innerHTML = '<i class="bi bi-lock-fill me-1"></i>Case Studies';
+
+        caseStudiesTab.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const toastEl = document.getElementById('loginRequiredToast');
+          const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+          toast.show();
+          setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
+        });
+      }
     });
   </script>
 

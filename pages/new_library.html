@@ -128,7 +128,19 @@
               type="button" role="tab" aria-controls="learning-resource" aria-selected="false">
             Learning Resource
             </button>
-          </li>  
+          </li>
+
+          <!-- Toast for login required -->
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+            <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body">
+                  <i class="bi bi-lock-fill me-2"></i> Please sign in to access Learning Resources.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
           
           <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
@@ -1169,6 +1181,25 @@
       get_login_user_details();
       valid_roles();
 
+      const learningTab = document.getElementById('learning-resource-tab');
+      const isLoggedIn = !!sessionStorage.getItem('user_info');
+
+      if (!isLoggedIn && learningTab) {
+        learningTab.removeAttribute('data-bs-toggle');
+        learningTab.removeAttribute('data-bs-target');
+        learningTab.style.opacity = '0.55';
+        learningTab.style.cursor = 'pointer';
+        learningTab.innerHTML = '<i class="bi bi-lock-fill me-1"></i>Learning Resource';
+
+        learningTab.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const toastEl = document.getElementById('loginRequiredToast');
+          const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+          toast.show();
+          setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
+        });
+      }
     });
   </script>
 
