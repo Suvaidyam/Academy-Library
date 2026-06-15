@@ -93,7 +93,7 @@
       <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
           <div class="toast-body">
-            <i class="bi bi-lock-fill me-2"></i> Please sign in to access Case Studies.
+            <i class="bi bi-lock-fill me-2"></i> Please sign in to access Longitudinal Self-case Studies Data.
           </div>
           <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -298,10 +298,10 @@
                 <div class="nav flex-column nav-pills"
                      role="tablist">
 
-                    <button class="nav-link active"
+                    <button class="nav-link active" id="longitudinal-data-tab"
                             data-bs-toggle="pill"
                             data-bs-target="#training">
-                      Longitudinal Self-case Studies Data (sign-in)
+                      Longitudinal Self-case Studies Data
                     </button>
 
                     <button class="nav-link"
@@ -313,7 +313,7 @@
                     <button class="nav-link"
                             data-bs-toggle="pill"
                             data-bs-target="#webinars">
-                      Socio-economic studies
+                      Socio-economic Studies
                     </button>
 
                 </div>
@@ -1012,17 +1012,30 @@
     document.addEventListener('DOMContentLoaded', () => {
       get_login_user_details();
 
-      const caseStudiesTab = document.getElementById('case-studies-tab');
       const isLoggedIn = !!sessionStorage.getItem('user_info');
 
-      if (!isLoggedIn && caseStudiesTab) {
-        caseStudiesTab.removeAttribute('data-bs-toggle');
-        caseStudiesTab.removeAttribute('data-bs-target');
-        caseStudiesTab.style.opacity = '0.55';
-        caseStudiesTab.style.cursor = 'pointer';
-        caseStudiesTab.innerHTML = '<i class="bi bi-lock-fill me-1"></i>Case Studies';
+      // Case Studies tab is open to everyone, but the
+      // "Longitudinal Self-case Studies Data" sub-tab is locked for guests.
+      const longitudinalDataTab = document.getElementById('longitudinal-data-tab');
 
-        caseStudiesTab.addEventListener('click', (e) => {
+      if (!isLoggedIn && longitudinalDataTab) {
+        longitudinalDataTab.removeAttribute('data-bs-toggle');
+        longitudinalDataTab.removeAttribute('data-bs-target');
+        longitudinalDataTab.classList.remove('active');
+        longitudinalDataTab.style.opacity = '0.55';
+        longitudinalDataTab.style.cursor = 'pointer';
+        longitudinalDataTab.innerHTML = '<i class="bi bi-lock-fill me-1"></i>Longitudinal Self-case Studies Data';
+
+        // Don't show its content by default — activate the next sub-tab instead.
+        const trainingPane = document.getElementById('training');
+        if (trainingPane) trainingPane.classList.remove('show', 'active');
+
+        const farmerTabBtn = document.querySelector('[data-bs-target="#farmer"]');
+        const farmerPane = document.getElementById('farmer');
+        if (farmerTabBtn) farmerTabBtn.classList.add('active');
+        if (farmerPane) farmerPane.classList.add('show', 'active');
+
+        longitudinalDataTab.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           const toastEl = document.getElementById('loginRequiredToast');
