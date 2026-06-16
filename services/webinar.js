@@ -11,16 +11,14 @@ const get_webinars = async (page = 1) => {
   try {
     const response = await frappe_client.get("/get_webinar_list", {
       page,
-      page_size: pageSize
+      page_size: pageSize,
     });
-
-    console.log("Webinars Response:", response);
 
     if (response?.message?.data) {
       renderWebinars(response.message.data);
       updatePaginationControls(
         parseInt(response.message.page),
-        parseInt(response.message.total_pages)
+        parseInt(response.message.total_pages),
       );
     }
   } catch (error) {
@@ -38,15 +36,15 @@ const renderWebinars = (webinars = []) => {
     return;
   }
 
-  webinars.forEach(webinar => {
+  webinars.forEach((webinar) => {
     let dateObj = new Date(webinar.date_time);
     let day = dateObj.getDate();
-    let month = dateObj.toLocaleString('default', { month: 'short' });
+    let month = dateObj.toLocaleString("default", { month: "short" });
     let year = dateObj.getFullYear();
     let time = dateObj.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     });
 
     let duration = webinar.duration ? webinar.duration / 3600 : 2;

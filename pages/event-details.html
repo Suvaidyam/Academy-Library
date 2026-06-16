@@ -29,6 +29,19 @@
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
+  <style>
+    @keyframes sk-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+.sk-pulse {
+  background: linear-gradient(90deg, #e8e8e8 25%, #f0f0f0 50%, #e8e8e8 75%);
+  background-size: 600px 100%;
+  animation: sk-shimmer 1.4s infinite;
+  display: block;
+}
+  </style>
+
 </head>
 
 <body class="blog-details-page">
@@ -117,49 +130,31 @@
 
 
               <div id="remaining_news">
-
-
-                <div class="post-item">
-                  <img src="../assets/img/blog/blog-recent-1.jpg" alt="" class="flex-shrink-0">
-                  <div>
-                    <h4><a href="blog-details.html">Nihil blanditiis at in nihil autem</a></h4>
-                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                  </div>
-                </div><!-- End recent post item-->
-
-                <div class="post-item">
-                  <img src="../assets/img/blog/blog-recent-2.jpg" alt="" class="flex-shrink-0">
-                  <div>
-                    <h4><a href="blog-details.html">Quidem autem et impedit</a></h4>
-                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                  </div>
-                </div><!-- End recent post item-->
-
-                <div class="post-item">
-                  <img src="../assets/img/blog/blog-recent-3.jpg" alt="" class="flex-shrink-0">
-                  <div>
-                    <h4><a href="blog-details.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                  </div>
-                </div><!-- End recent post item-->
-
-                <div class="post-item">
-                  <img src="../assets/img/blog/blog-recent-4.jpg" alt="" class="flex-shrink-0">
-                  <div>
-                    <h4><a href="blog-details.html">Laborum corporis quo dara net para</a></h4>
-                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                  </div>
-                </div><!-- End recent post item-->
-
-                <div class="post-item">
-                  <img src="../assets/img/blog/blog-recent-5.jpg" alt="" class="flex-shrink-0">
-                  <div>
-                    <h4><a href="blog-details.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                  </div>
-                </div><!-- End recent post item-->
-
-              </div><!--/Recent Posts Widget -->
+  <!-- Skeleton for sidebar -->
+  <div id="sidebar-skeleton">
+    <div class="post-item" style="align-items:flex-start;">
+      <div class="sk-pulse flex-shrink-0" style="width:72px;height:72px;border-radius:6px;"></div>
+      <div style="flex:1">
+        <div class="sk-pulse" style="height:14px;width:100%;margin-bottom:6px;border-radius:4px;"></div>
+        <div class="sk-pulse" style="height:12px;width:80px;border-radius:4px;"></div>
+      </div>
+    </div>
+    <div class="post-item" style="align-items:flex-start;">
+      <div class="sk-pulse flex-shrink-0" style="width:72px;height:72px;border-radius:6px;"></div>
+      <div style="flex:1">
+        <div class="sk-pulse" style="height:14px;width:100%;margin-bottom:6px;border-radius:4px;"></div>
+        <div class="sk-pulse" style="height:12px;width:80px;border-radius:4px;"></div>
+      </div>
+    </div>
+    <div class="post-item" style="align-items:flex-start;">
+      <div class="sk-pulse flex-shrink-0" style="width:72px;height:72px;border-radius:6px;"></div>
+      <div style="flex:1">
+        <div class="sk-pulse" style="height:14px;width:100%;margin-bottom:6px;border-radius:4px;"></div>
+        <div class="sk-pulse" style="height:12px;width:80px;border-radius:4px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
             </div>
 
 

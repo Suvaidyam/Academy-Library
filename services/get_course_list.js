@@ -118,8 +118,6 @@ export async function get_dynaic_course_list(courseType, navtype) {
   document.getElementById("loader").style.display = "none";
 }
 export async function get_dynaic_course_list_bk(courseType, navtype) {
-  // console.log("courseType==11", courseType);
-
   let frappe_client = new FrappeApiClient();
   try {
     // Make GET request to backend with courseType and navtype as params
@@ -187,15 +185,11 @@ const set_dynamic_course = (response, navtype) => {
   const blogContainer = document.getElementById("blog-container");
   const blogContainer2 = document.getElementById("blog-container-2");
 
-  // console.log("set_dynamic_course is called", blogContainer);
-  // console.log("navtype=", navtype);
-
   // Clear existing course list depending on navtype
   if (navtype === "1") blogContainer.innerHTML = "";
   if (navtype === "0") blogContainer2.innerHTML = "";
 
   if (response.message.length === 0) {
-    console.log("set_dynamic_course length===", response.message.length);
     document.getElementById("no-alvailable-corses").style.display = "block";
   } else {
     document.getElementById("no-alvailable-corses").style.display = "none";
@@ -205,7 +199,6 @@ const set_dynamic_course = (response, navtype) => {
   response.message.forEach((item) => {
     let isLogin = sessionStorage.getItem("user_info");
 
-    // console.log("Item being rendered:", item);
     const description = item.description.split(" ").slice(0, 20).join(" ");
     const newo = `
       <div class="col-lg-12" id="blog-template" data-aos="fade-up" data-aos-delay="100">
@@ -311,8 +304,6 @@ document.addEventListener("DOMContentLoaded", () => {
       course = "Certification";
     }
 
-    console.log("link", link, course);
-
     // Highlight active link
     if (course === courseType) {
       link.classList.add("active");
@@ -328,5 +319,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Log home button element
   const homebtn = document.getElementById("home");
-  console.log("home btn is clicked", homebtn);
 });

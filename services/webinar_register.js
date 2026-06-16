@@ -27,15 +27,15 @@ async function registerForWebinar(webinarId, userData) {
       userData: JSON.stringify(userData), // send JSON string
     });
 
-    console.log("Registration successful:", response);
-
     if (response?.message?.success === true) {
       toastr.success(response.message.message);
       setTimeout(() => {
         // window.location.href = "/pages/webinar";
       }, 1500);
-    }else {
-      toastr.error(response.message.error || "Registration failed. Please try again.");
+    } else {
+      toastr.error(
+        response.message.error || "Registration failed. Please try again.",
+      );
     }
   } catch (error) {
     console.error("Error registering for webinar:", error);
@@ -55,7 +55,9 @@ document.querySelector("form").addEventListener("submit", async function (e) {
   const phone = document.getElementById("phone").value.trim();
   const interests = document.getElementById("interests").value.trim();
 
-  const webinarId = new URLSearchParams(window.location.search).get("webinar_id");
+  const webinarId = new URLSearchParams(window.location.search).get(
+    "webinar_id",
+  );
 
   if (!webinarId) {
     toastr.error("Webinar ID is missing in URL.");
@@ -72,8 +74,6 @@ document.querySelector("form").addEventListener("submit", async function (e) {
     interests,
   };
 
-  console.log("Submitting webinar form:", userData);
-
   try {
     await registerForWebinar(webinarId, userData);
     document.querySelector("form").reset();
@@ -86,28 +86,25 @@ document.querySelector("form").addEventListener("submit", async function (e) {
 const GetSetRoles = async () => {
   try {
     const response = await frappe_client.get("/get_doctype_list", {
-        doctype: "Role Profile",
-        fields: ["name", "role_profile"]
-        
+      doctype: "Role Profile",
+      fields: ["name", "role_profile"],
     });
     if (response?.message) {
-      console.log("Roles Response:", response);
       const rolesSelect = document.getElementById("role");
-    //   rolesSelect.innerHTML = ""; // Clear existing options
+      //   rolesSelect.innerHTML = ""; // Clear existing options
 
-      response.message.forEach(role => {
+      response.message.forEach((role) => {
         const option = document.createElement("option");
         option.value = role.name;
         option.textContent = role.name;
         rolesSelect.appendChild(option);
       });
     }
-    console.log("Roles Response:", response);
     if (response?.message?.data) {
       const rolesSelect = document.getElementById("role");
       rolesSelect.innerHTML = ""; // Clear existing options
 
-      response.message.data.forEach(role => {
+      response.message.data.forEach((role) => {
         const option = document.createElement("option");
         option.value = role.name;
         option.textContent = role.role_name;
@@ -117,7 +114,7 @@ const GetSetRoles = async () => {
   } catch (error) {
     console.error("Error fetching roles:", error);
   }
-}
-window.onload =  () => {
-GetSetRoles();
+};
+window.onload = () => {
+  GetSetRoles();
 };

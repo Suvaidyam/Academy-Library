@@ -9,9 +9,12 @@ const fetch_podcast_lists = async (currentPage = 1) => {
     page_length: page_length,
     page: currentPage,
   });
-  console.log(response, "response");
   render_podcast_lists(response);
-  updatePaginationButtons(response?.message?.page, response?.message?.total, response?.message?.page_length);
+  updatePaginationButtons(
+    response?.message?.page,
+    response?.message?.total,
+    response?.message?.page_length,
+  );
 };
 const trimWords = (text, wordLimit = 7) => {
   if (!text) return "";
@@ -39,22 +42,6 @@ const updatePaginationButtons = (page, total, page_length) => {
   next_btn.disabled = page * page_length >= total;
 };
 
-// Modify fetch_podcast_lists to update buttons
-// const fetch_podcast_lists = async (currentPage = 1) => {
-//     let response = await frappe_client.get('/get_podcast_data', {
-//         page_length: 4,
-//         page: currentPage
-//     });
-//     console.log(response, "response");
-//     render_podcast_lists(response);
-//     // Update button states
-//     updatePaginationButtons(
-//         response.message.page,
-//         response.message.total,
-//         response.message.page_length
-//     );
-// };
-
 const render_podcast_lists = (response) => {
   let podcast_container = document.getElementById("podcast_container");
   let popular_podcast = document.getElementById("popular_podcast");
@@ -66,7 +53,9 @@ const render_podcast_lists = (response) => {
   response.message.data.forEach((podcast, index) => {
     const hasEpisodes = podcast?.episode_cout > 0;
 
-    let linkStart = hasEpisodes ? `<a href="podcast-details?id=${podcast.name}" class="text-decoration-none text-dark">` : `<div class="text-muted">`;
+    let linkStart = hasEpisodes
+      ? `<a href="podcast-details?id=${podcast.name}" class="text-decoration-none text-dark">`
+      : `<div class="text-muted">`;
 
     let playOrNoEpisode = hasEpisodes
       ? `<span class="btn btn-success rounded-pill text-white py-1 px-4">

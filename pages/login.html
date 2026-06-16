@@ -1,273 +1,299 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Login</title>
-  <meta name="description" content="" />
-  <meta name="keywords" content="" />
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon" />
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-  <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon" />
-  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect" />
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet" />
+    <!-- Vendor CSS Files -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="../vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="../vendor/aos/aos.css" rel="stylesheet" />
+    <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Vendor CSS Files -->
-  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-  <link href="../vendor/aos/aos.css" rel="stylesheet" />
-  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <!-- Main CSS File -->
+    <link href="../assets/css/main.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-  <!-- Main CSS File -->
-  <link href="../assets/css/main.css" rel="stylesheet" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-
-  <style>
-    .btn-color {
-      background-color: #0e1c36 !important;
-      color: #ffffff !important;
-    }
-
-    .profile-image-pic {
-      height: 200px;
-      width: 200px;
-      object-fit: cover;
-    }
-
-    .card {
-      /* border: none; */
-      /* border-radius: 1rem; */
-      /* box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1); */
-      width: 400px;
-    }
-
-    .cardbody-color {
-      background-color: #ffffff !important;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .container {
-      margin-top: 6%;
-    }
-
-    .px-6 {
-      padding-left: 4rem !important;
-      padding-right: 4rem !important;
-    }
-
-    .loader1 {
-      border: 3px solid #f3f3f3;
-      /* Light gray */
-      border-top: 4px solid #3498db;
-      /* Blue */
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      animation: spin 0.8s linear infinite;
-      margin: auto;
-      display: none;
-      /* Initially hidden */
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
+    <style>
+      .btn-color {
+        background-color: #0e1c36 !important;
+        color: #ffffff !important;
       }
 
-      100% {
-        transform: rotate(360deg);
+      .profile-image-pic {
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
       }
-    }
-  </style>
-</head>
 
-<div class="container">
-  <div class="row">
-    <div class="d-flex justify-content-center align-items-center">
-      <!-- <h2 class="text-center text-dark mt-5">Login Form</h2> -->
-      <!-- <div class="text-center mb-5 text-dark">Made with bootstrap</div> -->
-      <div class="card ">
-        <form id="loginForm" class="card-body cardbody-color px-6 py-lg-2">
-          <div class="text-center">
-            <img src="/assets/img/login_logo.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-              width="200px" alt="profile" />
-          </div>
+      .card {
+        /* border: none; */
+        /* border-radius: 1rem; */
+        /* box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1); */
+        width: 400px;
+      }
 
-          <div class="mb-3">
-            <input type="text" class="form-control" id="username" required placeholder="User Name" />
-          </div>
-          <div class="mb-3 position-relative">
-            <input type="password" class="form-control" id="password" required placeholder="Password" />
-            <span class="position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"
-              onclick="togglePassword()" id="togglePasswordIcon">
-              <i class="bi bi-eye-slash" id="eyeIcon"></i>
-            </span>
-          </div>
+      .cardbody-color {
+        background-color: #ffffff !important;
+      }
 
-          <div class="text-center">
-            <button type="submit"
-              class="btn btn-color px-5 mb-5 w-100 d-flex justify-content-center align-items-center">
-              <span class="d-flex justify-content-center gap-2 align-items-center">Login <div class="loader1"
-                  id="loader1"></div></span>
+      a {
+        text-decoration: none;
+      }
 
-            </button>
-          </div>
-          <!-- <div id="emailHelp" class="form-text text-center mb-3 text-dark">
+      .container {
+        margin-top: 6%;
+      }
+
+      .px-6 {
+        padding-left: 4rem !important;
+        padding-right: 4rem !important;
+      }
+
+      .loader1 {
+        border: 3px solid #f3f3f3;
+        /* Light gray */
+        border-top: 4px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 0.8s linear infinite;
+        margin: auto;
+        display: none;
+        /* Initially hidden */
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <div class="container">
+    <div class="row">
+      <div class="d-flex justify-content-center align-items-center">
+        <!-- <h2 class="text-center text-dark mt-5">Login Form</h2> -->
+        <!-- <div class="text-center mb-5 text-dark">Made with bootstrap</div> -->
+        <div class="card">
+          <form id="loginForm" class="card-body cardbody-color px-6 py-lg-2">
+            <div class="text-center">
+              <img
+                src="/assets/img/login_logo.png"
+                class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                width="200px"
+                alt="profile"
+              />
+            </div>
+
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                required
+                placeholder="User Name"
+              />
+            </div>
+            <div class="mb-3 position-relative">
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                required
+                placeholder="Password"
+              />
+              <span
+                class="position-absolute top-50 end-0 translate-middle-y pe-3"
+                style="cursor: pointer"
+                onclick="togglePassword()"
+                id="togglePasswordIcon"
+              >
+                <i class="bi bi-eye-slash" id="eyeIcon"></i>
+              </span>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                class="btn btn-color px-5 mb-5 w-100 d-flex justify-content-center align-items-center"
+              >
+                <span
+                  class="d-flex justify-content-center gap-2 align-items-center"
+                  >Login
+                  <div class="loader1" id="loader1"></div
+                ></span>
+              </button>
+            </div>
+            <!-- <div id="emailHelp" class="form-text text-center mb-3 text-dark">
             Not Registered?
             <a href="signup.html" class="text-dark fw-bold">
               Create an Account</a>
           </div> -->
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Vendor JS Files -->
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../vendor/php-email-form/validate.js"></script>
-<script src="../vendor/aos/aos.js"></script>
-<script src="../vendor/glightbox/js/glightbox.min.js"></script>
-<script src="../vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="../vendor/swiper/swiper-bundle.min.js"></script>
-<script src="../vendor/waypoints/noframework.waypoints.js"></script>
-<script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-<script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/php-email-form/validate.js"></script>
+  <script src="../vendor/aos/aos.js"></script>
+  <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-<script type="module" src="../services/authService.js"></script>
+  <script type="module" src="../services/authService.js"></script>
 
-<!-- Main JS File -->
-<script src="../assets/js/main.js"></script>
-<script>
-  window.onload = function () {
-    toastr.options = {
-      closeButton: true,
-      debug: false,
-      newestOnTop: false,
-      progressBar: false,
-      positionClass: "toast-top-right",
-      preventDuplicates: false,
-      showDuration: "1000",
-      hideDuration: "1000",
-      timeOut: "5000",
-      extendedTimeOut: "1000",
-      showEasing: "swing",
-      hideEasing: "linear",
-      showMethod: "fadeIn",
-      hideMethod: "fadeOut",
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+  <script>
+    window.onload = function () {
+      toastr.options = {
+        closeButton: true,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: "toast-top-right",
+        preventDuplicates: false,
+        showDuration: "1000",
+        hideDuration: "1000",
+        timeOut: "5000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut",
+      };
     };
-  };
-  function togglePassword() {
-    const passwordField = document.getElementById("password");
-    const eyeIcon = document.getElementById("eyeIcon");
-    if (passwordField.type === "password") {
-      passwordField.type = "text";
-      eyeIcon.classList.remove("bi-eye-slash");
-      eyeIcon.classList.add("bi-eye");
-    } else {
-      passwordField.type = "password";
-      eyeIcon.classList.remove("bi-eye");
-      eyeIcon.classList.add("bi-eye-slash");
-    }
-  }
-
-  document
-    .getElementById("loginForm")
-    .addEventListener("submit", async function (e) {
-      e.preventDefault(); // Prevent form from submitting
-      console.log("Form submitted");
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      login(username, password);
-    });
-
-  async function login(username, password) {
-    const loader = document.getElementById("loader1");
-    const loginbtn=document.querySelector("button[type='submit']");
-    loginbtn.disabled = true; // Disable the button to prevent multiple clicks
-    loader.style.display = "inline-block"; // Show loader
-    
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      cmd: "login",
-      usr: username,
-      pwd: password,
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    try {
-      const response = await fetch(
-        "https://erp-ryss.ap.gov.in/api/method/login",
-        // "http://erp.localhost:8000/api/method/login",
-
-        requestOptions
-      );
-      console.log("Response status:", response);
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Login result:", result);
-
-        // If login is successful (check `message` or use session info if needed)
-        if (result.message === "Logged In") {
-          sessionStorage.setItem("user_info", JSON.stringify(result));
-          let userInfo = JSON.parse(sessionStorage.getItem("user_info") || "{}");
-          userInfo.username = username;  // Replace with dynamic value
-          sessionStorage.setItem("user_info", JSON.stringify(userInfo));
-
-          toastr.success("Login successful! Redirecting...");
-          setTimeout(() => {
-            window.location.href = "/index.html";
-          }, 2000); // 2 seconds delay before redirect
-        } else {
-          toastr.error("Login failed. Please check your credentials.");
-        }
+    function togglePassword() {
+      const passwordField = document.getElementById("password");
+      const eyeIcon = document.getElementById("eyeIcon");
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.classList.remove("bi-eye-slash");
+        eyeIcon.classList.add("bi-eye");
       } else {
-        const errorResult = await response.json();
-        toastr.error(
-          errorResult.message || "Login failed. Please try again."
-        );
+        passwordField.type = "password";
+        eyeIcon.classList.remove("bi-eye");
+        eyeIcon.classList.add("bi-eye-slash");
       }
-    } catch (error) {
-      toastr.error("Error connecting to server.");
-      console.error("Login error:", error);
     }
-    finally {
-      loader.style.display = "none"; // Hide loader after processing
-      loginbtn.disabled = false; // Re-enable the button
+
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", async function (e) {
+        e.preventDefault(); // Prevent form from submitting
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        login(username, password);
+      });
+
+    async function login(username, password) {
+      const loader = document.getElementById("loader1");
+      const loginbtn = document.querySelector("button[type='submit']");
+      loginbtn.disabled = true; // Disable the button to prevent multiple clicks
+      loader.style.display = "inline-block"; // Show loader
+
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        cmd: "login",
+        usr: username,
+        pwd: password,
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      try {
+        const response = await fetch(
+          "https://erp-ryss.ap.gov.in/api/method/login",
+          // "http://erp.localhost:8000/api/method/login",
+
+          requestOptions,
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+
+          // If login is successful (check `message` or use session info if needed)
+          if (result.message === "Logged In") {
+            sessionStorage.setItem("user_info", JSON.stringify(result));
+            let userInfo = JSON.parse(
+              sessionStorage.getItem("user_info") || "{}",
+            );
+            userInfo.username = username; // Replace with dynamic value
+            sessionStorage.setItem("user_info", JSON.stringify(userInfo));
+
+            toastr.success("Login successful! Redirecting...");
+            setTimeout(() => {
+              window.location.href = "/index.html";
+            }, 2000); // 2 seconds delay before redirect
+          } else {
+            toastr.error("Login failed. Please check your credentials.");
+          }
+        } else {
+          const errorResult = await response.json();
+          toastr.error(
+            errorResult.message || "Login failed. Please try again.",
+          );
+        }
+      } catch (error) {
+        toastr.error("Error connecting to server.");
+        console.error("Login error:", error);
+      } finally {
+        loader.style.display = "none"; // Hide loader after processing
+        loginbtn.disabled = false; // Re-enable the button
+      }
     }
-  }
 
-  function getCSRFToken() {
-    return (
-      document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("sid="))
-        ?.split("=")[1] || ""
-    );
-  }
-</script>
-
+    function getCSRFToken() {
+      return (
+        document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("sid="))
+          ?.split("=")[1] || ""
+      );
+    }
+  </script>
 </html>

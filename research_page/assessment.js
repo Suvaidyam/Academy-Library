@@ -2,60 +2,49 @@ import ENV from "../config/config.js";
 import { FrappeApiClient } from "../services/FrappeApiClient.js";
 
 let frappe_client = new FrappeApiClient();
-const assignment_tab = document.getElementById('assignment-tab');
-const question_tab = document.getElementById('question-tab');
-
-
-
+const assignment_tab = document.getElementById("assignment-tab");
+const question_tab = document.getElementById("question-tab");
 
 const get_tab_details = async () => {
-    let response = await frappe_client.get('/get_assessment_list', {
-        doctype: "Assignment",
-    });
-    console.log("get_tab_details", response);
-      
-    
-    console.log("get_tab_details", tab_type, response);
-    if (tab_type == 'Assignment') {
-        set_all_assignment(response);
-    }
-    if (tab_type == 'LMS Question') {
-        set_all_questions(response);
-    }
-}
-assignment_tab.addEventListener('click', () => {
-    get_tab_details('Assignment')
+  let response = await frappe_client.get("/get_assessment_list", {
+    doctype: "Assignment",
+  });
 
+  if (tab_type == "Assignment") {
+    set_all_assignment(response);
+  }
+  if (tab_type == "LMS Question") {
+    set_all_questions(response);
+  }
+};
+assignment_tab.addEventListener("click", () => {
+  get_tab_details("Assignment");
 });
-question_tab.addEventListener('click', () => {
-    get_tab_details('LMS Question')
-
+question_tab.addEventListener("click", () => {
+  get_tab_details("LMS Question");
 });
-
 
 const get_all_assignments = async () => {
-    try {
-        let response = await frappe_client.get('/get_articles_list',
-            { tab: 'Assignment' }
-        );
-        console.log("get_articles_list", response);
+  try {
+    let response = await frappe_client.get("/get_articles_list", {
+      tab: "Assignment",
+    });
 
-        set_all_assignment(response);
-    } catch (error) {
-        console.error('Error fetching news:', error);
-    }
+    set_all_assignment(response);
+  } catch (error) {
+    console.error("Error fetching news:", error);
+  }
 };
 
-
 const set_all_assignment = (response) => {
-    if (response) {
-        const assignment_card = document.getElementById('assignment-container');
-        assignment_card.innerHTML = ""
+  if (response) {
+    const assignment_card = document.getElementById("assignment-container");
+    assignment_card.innerHTML = "";
 
-        response.message.forEach(item => {
-            // let article_date = formatDate(item.datetime);
+    response.message.forEach((item) => {
+      // let article_date = formatDate(item.datetime);
 
-            let cards = ` 
+      let cards = ` 
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body d-flex flex-column">
@@ -68,22 +57,20 @@ const set_all_assignment = (response) => {
                             <p class="card-text flex-grow-1">${item.description}</p>
                         </div>
                     </div>
-                </div>`
-            assignment_card.insertAdjacentHTML("beforeend", cards);
-        });
-    }
+                </div>`;
+      assignment_card.insertAdjacentHTML("beforeend", cards);
+    });
+  }
 };
 const set_all_questions = (response) => {
-    if (response) {
-        const question_card = document.getElementById('questions-container');
-        question_card.innerHTML = ""
-        console.log(question_card, '======journals_card');
+  if (response) {
+    const question_card = document.getElementById("questions-container");
+    question_card.innerHTML = "";
 
+    response.message.forEach((item) => {
+      // let article_date = formatDate(item.datetime);
 
-        response.message.forEach(item => {
-            // let article_date = formatDate(item.datetime);
-
-            let cards = ` 
+      let cards = ` 
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body d-flex flex-column">
@@ -93,18 +80,14 @@ const set_all_questions = (response) => {
                             <h6 class="card-text flex-grow-1">${item.frequency}</h6>
                         </div>
                     </div>
-                </div>`
-            question_card.insertAdjacentHTML("beforeend", cards);
-        });
-    }
+                </div>`;
+      question_card.insertAdjacentHTML("beforeend", cards);
+    });
+  }
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-    get_all_assignments();
-    get_tab_details();
-    // get_tab_details('Articles');
-})
-
-
-
-
+  get_all_assignments();
+  get_tab_details();
+  // get_tab_details('Articles');
+});

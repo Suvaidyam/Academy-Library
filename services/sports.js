@@ -1,21 +1,21 @@
-import { FrappeApiClient } from './FrappeApiClient.js'
-const frappeClient = new FrappeApiClient()
+import { FrappeApiClient } from "./FrappeApiClient.js";
+const frappeClient = new FrappeApiClient();
 
-const prevBtn = document.getElementById("news-prev-btn")
-const nextBtn = document.getElementById("news-next-btn")
-let page = 1
-let data = []
+const prevBtn = document.getElementById("news-prev-btn");
+const nextBtn = document.getElementById("news-next-btn");
+let page = 1;
+let data = [];
 
 const fetchURL = async (page) => {
-  const url = `https://newsapi.org/v2/everything?q=sport&sortBy=publishedAt&pageSize=2&page=${page}&apiKey=8bf6dadf32f14b818d34c2f1c1d9d1d5`
+  const url = `https://newsapi.org/v2/everything?q=sport&sortBy=publishedAt&pageSize=2&page=${page}&apiKey=8bf6dadf32f14b818d34c2f1c1d9d1d5`;
   try {
-    const fetchData = await fetch(url)
-    const response = await fetchData.json()
-    data = response.articles
+    const fetchData = await fetch(url);
+    const response = await fetchData.json();
+    data = response.articles;
   } catch (err) {
-    console.log(err)
+    console.error(err);
   }
-}
+};
 
 nextBtn.addEventListener("click", async () => {
   page++;
@@ -36,13 +36,14 @@ prevBtn.addEventListener("click", async () => {
   }
 });
 
-
 const showDummyCards = (count = 3) => {
   const container = document.getElementById("container");
-  container.innerHTML = '';
+  container.innerHTML = "";
 
   for (let i = 0; i < count; i++) {
-    container.insertAdjacentHTML("beforeend", `
+    container.insertAdjacentHTML(
+      "beforeend",
+      `
       <div class="card mb-4 shadow-sm border-0 placeholder-glow">
         <div class="row g-0">
           <div class="col-md-4 bg-secondary placeholder" style="height: 200px;"></div>
@@ -62,7 +63,8 @@ const showDummyCards = (count = 3) => {
           </div>
         </div>
       </div>
-    `);
+    `,
+    );
   }
 };
 
@@ -71,9 +73,9 @@ const renderData = async (page = 1) => {
 
   showDummyCards(2);
   await fetchURL(page);
-  container.innerHTML = '';
+  container.innerHTML = "";
 
-  data.forEach(obj => {
+  data.forEach((obj) => {
     let card = `
       <div class="card mb-4 shadow-sm border-0">
         <div class="row g-0">
@@ -84,12 +86,12 @@ const renderData = async (page = 1) => {
             <div class="card-body d-flex flex-column justify-content-between h-100">
               <div>
                 <h5 class="card-title">${obj.title}</h5>
-                <p class="card-text small text-muted">${obj.description || ''}</p>
+                <p class="card-text small text-muted">${obj.description || ""}</p>
               </div>
               <div>
                 <p class="card-text">
                   <small class="text-muted">
-                    Source: ${obj.source.name || 'Unknown'} | Published: ${new Date(obj.publishedAt).toLocaleDateString()}
+                    Source: ${obj.source.name || "Unknown"} | Published: ${new Date(obj.publishedAt).toLocaleDateString()}
                   </small>
                 </p>
                 <a href="${obj.url}" target="_blank" class="btn btn-sm btn-primary">Read Full Article →</a>
@@ -101,6 +103,6 @@ const renderData = async (page = 1) => {
     `;
     container.insertAdjacentHTML("beforeend", card);
   });
-}
+};
 
-document.addEventListener("DOMContentLoaded", renderData)
+document.addEventListener("DOMContentLoaded", renderData);

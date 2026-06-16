@@ -489,7 +489,6 @@
       try {
         const res = await fetch(`${base_url}/api/method/get_carousel_img`);
         const data = await res.json();
-        console.log("Fetched carousel data:", data.message);
         buildCarousel(data.message);
       } catch (err) {
         console.error("Error fetching carousel images:", err);
@@ -547,7 +546,6 @@
       all_btn.forEach(item => {
         item.addEventListener('click', (e) => {
           e.preventDefault()
-          console.log("under_graduation_btn is clicked", under_graduation_btn);
           let course_type = item.firstElementChild.textContent.trim()
           if (course_type === "Graduation") {
             course_type = "Under Graduation";

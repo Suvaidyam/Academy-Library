@@ -9,7 +9,6 @@ export async function getCourseList() {
     if (response) {
       document.getElementById("loader").style.display = "none";
     }
-    console.log("response", response);
     // Live Cources
     let liveCources = response.message.live;
     if (liveCources.length > 0) {
@@ -36,7 +35,6 @@ export async function getCourseList() {
     }
     // New Cources ...
     let newCources = response.message.new;
-    console.log("newCources", newCources);
     if (newCources.length > 0) {
       let template2 = document.getElementById("blog-template-2");
       let blogContainer2 = document.getElementById("blog-container-2");
@@ -93,7 +91,6 @@ export async function showEnrolledCourseList() {
   const cardDetailsList = document.getElementById("enrolledCourses");
   const signinTab = document.getElementById("signin");
   const userLoginStatus = JSON.parse(localStorage.getItem("user_info"));
-  // console.log("userLoginStatus",userLoginStatus);
   if (userLoginStatus.message == "Logged In") {
     LoginCard.style.display = "none"; // hide it
     cardDetailsList.style.display = "block"; // show it
