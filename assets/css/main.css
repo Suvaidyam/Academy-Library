@@ -3630,7 +3630,8 @@ small.text-body-secondary{ color: #059652 !important;}
 }
 .open-book .scroll-tab-image {
     background-color: #faf3dc;
-    padding: 40px 0 0 50px
+    /* padding: 40px 0 0 50px */
+    padding:0px;
 }
 .scroll-tab-image {
     line-height: 0;
