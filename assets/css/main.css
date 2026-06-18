@@ -621,7 +621,7 @@ h6 {
 # Services Section
 --------------------------------------------------------------*/
 .services{
-       background-image: linear-gradient(-90deg, #e0ecfc 7%, #d2d2d2)
+       background-image: linear-gradient(-90deg, #e0ecfc 7%, #e0ecfc)
 }
 .services .service-item {
   background-color: var(--surface-color);
@@ -998,7 +998,7 @@ h6 {
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;
+  padding: 30px 0;
   scroll-margin-top: 90px;
   overflow: clip;
 }
@@ -2206,16 +2206,16 @@ h6 {
 }
 
 .team .member .member-info {
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 .team .member .member-info h4 {
   font-weight: 700;
   margin-bottom: 6px;
   font-size: 18px;
-  -webkit-text-fill-color: transparent;
+  /* -webkit-text-fill-color: transparent;
   background: -webkit-linear-gradient(45deg, rgb(38, 39, 250), rgb(255, 84, 79) 80%) text;
-  background: linear-gradient(45deg, rgb(38, 39, 250), rgb(255, 84, 79) 80%) text;
+  background: linear-gradient(45deg, rgb(38, 39, 250), rgb(255, 84, 79) 80%) text; */
 }
 
 .team .member .member-info span {
@@ -2999,7 +2999,7 @@ h6 {
 
 .read-more-content {
   display: none;
-  padding-top: 22px;
+  padding-top: 8px;
 }
 .read-more {
   display: flex;
@@ -3047,18 +3047,18 @@ article:hover {
 }
 .rounded_leader {
   width: 250px;
-  border-radius: 50% !important;
+  /* border-radius: 50% !important; */
   margin: 20px auto;
   position: relative;
   z-index: 2;
   border: 6px solid rgba(255, 255, 255, 0.2);
   transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-  border: 1px solid rgb(218, 220, 224);
+  /* border: 1px solid rgb(218, 220, 224); */
 }
 .rounded_leader:hover {
   transform: scale(1.1);
-  border: 3px solid rgb(218, 220, 224) !important;
+  /* border: 3px solid rgb(218, 220, 224) !important; */
 }
 
 /* .img-fluid{  transition: all .2s ease-in-out;  border: 1px solid rgb(218, 220, 224);}
@@ -3987,3 +3987,7 @@ small.text-body-secondary{ color: #059652 !important;}
     font-weight:600;
     color:#198754;
 }
+
+.section p{ text-align: justify; }
+.vision-mission{ min-height: 250px !important; }
+.owl-prev span, .owl-next span{ height: 40px; width: 40px; display: flex; justify-content: center; align-items: center;    padding-bottom: 5px; }
