@@ -99,29 +99,55 @@
         <!-- Nav Tabs - FIXED TO SHOW BOOKS AS DEFAULT -->
         <ul class="nav nav-tabs" id="libraryTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button"
+            <button class="nav-link active " id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button"
               role="tab" aria-controls="books" aria-selected="true">
               Books
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
+            <button class="nav-link " id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
               type="button" role="tab" aria-controls="course-content" aria-selected="false">
               Course Content
             </button>
           </li>
-            <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="famr-model-tab" data-bs-toggle="tab" data-bs-target="#famr-model"
-              type="button" role="tab" aria-controls="famr-model" aria-selected="false">
-             Farm Models
+           
+           <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reference-material-tab" data-bs-toggle="tab" data-bs-target="#reference-material"
+              type="button" role="tab" aria-controls="reference-material" aria-selected="false">
+             Reference Materials
             </button>
-          </li> -->
-          <li class="nav-item" role="presentation">
-            <button class="nav-link d-none" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
+          </li>  
+           <li class="nav-item" role="presentation">
+            <button class="nav-link" id="global-resource-tab" data-bs-toggle="tab" data-bs-target="#global-resource"
+              type="button" role="tab" aria-controls="global-resource" aria-selected="false">
+            Global Resource
+            </button>
+          </li>  
+           <li class="nav-item" role="presentation">
+            <button class="nav-link" id="learning-resource-tab" data-bs-toggle="tab" data-bs-target="#learning-resource"
+              type="button" role="tab" aria-controls="learning-resource" aria-selected="false">
+            Learning Resource
+            </button>
+          </li>
+
+          <!-- Toast for login required -->
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+            <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body">
+                  <i class="bi bi-lock-fill me-2"></i> Please sign in to access Learning Resources.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- <li class="nav-item" role="presentation">
+            <button class="nav-link" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
               type="button" role="tab" aria-controls="video-session" aria-selected="false">
               Video lecture
             </button>
-          </li>
+          </li> -->
         </ul>
 
         <!-- Tab Content -->
@@ -212,7 +238,7 @@
               </div> -->
 
                 </div>
-                <div class="col-lg-8  d-flex align-items-center justify-content-center ">
+                <div class="col-lg-8  d-flex align-items-sm-start justify-content-center ">
                   <!-- Global Search -->
                   <!-- <div class="search-bar mb-4 "> -->
                   <!-- <form id="book_form_search" class="search-form d-flex align-items-center " method="POST" action="#">
@@ -221,9 +247,16 @@
                       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                     </form> -->
                   <!-- </div> -->
-                  <div class="featured-section mb-4">
+                  <div class="featured-section mb-4" style="width: 100%;">
                     <!-- <div class="featured-label">These are the featured books</div> -->
+                     <div id="pagination" class="d-flex justify-content-end align-items-center">
+                        <button id="book-prev-btn" disabled class="btn border-0 bg-transparent"><i
+                            class="bi bi-arrow-left-circle fs-1 "></i></button>
+                        <button id="book-next-btn" class="btn border-0 bg-transparent"><i
+                            class="bi bi-arrow-right-circle fs-1 "></i></button>
+                      </div>
                     <div class="">
+                      
                       <div class="card-body row" id="book-body">
                         <!-- Book 1 -->
                         <!-- <div class="row mb-4 book-card">
@@ -240,12 +273,7 @@
                           </div>
                         </div> -->
                       </div>
-                      <div id="pagination" class="d-flex justify-content-between align-items-center">
-                        <button id="book-prev-btn" disabled class="btn border-0 bg-transparent"><i
-                            class="bi bi-arrow-left-circle fs-1 "></i></button>
-                        <button id="book-next-btn" class="btn border-0 bg-transparent"><i
-                            class="bi bi-arrow-right-circle fs-1 "></i></button>
-                      </div>
+                      
                     </div>
                   </div>
 
@@ -471,78 +499,477 @@
             <!-- You can move your existing course/module/topic/chapter search UI here -->
           </div>
 
-          <div class="tab-pane fade" id="famr-model" role="tabpanel" aria-labelledby="famr-model-tab">
+       
+
+        <div class="tab-pane fade" id="reference-material" role="tabpanel" aria-labelledby="reference-material-tab">
             <main class="container my-4">
               <div class="row">
-                 
-                   <div class="col-lg-4 mt-8">
-                  <form>
-                  
 
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" id="farm-model-dropdown" aria-label="Default select example">
-                          <option disabled selected>Farm Model</option>
-                          <option>ATM</option>
-                          <option>A-Grade</option>
-                          <option>Half Acre</option>
-                          <option>Drought Proof</option>
-                          <option>Five Layer</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" id="crop-dropdown" aria-label="Default select example">
-                          <option disabled selected>Crop</option>
-                          <option>Chilli</option>
-                          <option>Rice</option>
-                          <option>Wehat</option>
-                        </select>
-                      </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" id="associated-crop-dropdown" aria-label="Default select example">
-                          <!-- <option disabled selected>Associated Crop </option> -->
-                          <option>Associated Crop </option>
-                          <option>Associated Crop </option>
-                          <option>Associated Crop </option>
-                        </select>
-                      </div>
-                    </div>
-                    
-
-                    <div class="mb-3">
-                      <!-- <label for="formFileMultiple" class="form-label">&nbsp</label> -->
-                      <input class="form-control" type="file" id="formFileMultiple" multiple>
-                    </div>
-                  <div class="mb-3">
-                     <button type="button" id="uploadbtn" style="width: 100%;" class="btn btn-outline-secondary">
-                        Upload
-                      </button>
-
-                      </div>
-
-                       
-                  </form>
-
-                
-
-                </div>
-
-                <div class="col-lg-8  d-flex align-items-center justify-content-center ">
+                <div class="col-lg-12  d-flex align-items-center justify-content-center ">
                   <div class="featured-section mb-4">
-                    sample information
+                    <div class="row g-4">
+
+                          <div class=" col-md-4">
+                             <div class="resource-card card h-100 shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <span class="badge bg-success">Crop Management</span>
+                                        <span class="resource-type pdf">PDF</span>
+                                    </div>
+
+                                    <h5 class="card-title">
+                                        Integrated Pest Management Guide
+                                    </h5>
+
+                                    <p class="card-text text-muted">
+                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                                    </p>
+
+                                    <div class="resource-meta">
+                                        <span>🌐 English</span>
+                                        <span>📄 24 Pages</span>
+                                        <span>⭐ Beginner</span>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            Updated: May 2026
+                                        </small>
+
+                                        <a href="#" class="btn btn-success btn-sm">
+                                            View Resource
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                          </div>
+
+                            <div class=" col-md-4">
+                             <div class="resource-card card h-100 shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <span class="badge bg-success">Crop Management</span>
+                                        <span class="resource-type doc">Doc</span>
+                                    </div>
+
+                                    <h5 class="card-title">
+                                        Integrated Pest Management Guide
+                                    </h5>
+
+                                    <p class="card-text text-muted">
+                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                                    </p>
+
+                                    <div class="resource-meta">
+                                        <span>🌐 English</span>
+                                        <span>📄 24 Pages</span>
+                                        <span>⭐ Beginner</span>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            Updated: May 2026
+                                        </small>
+
+                                        <a href="#" class="btn btn-success btn-sm">
+                                            View Resource
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                          </div>
+                             <div class=" col-md-4">
+                             <div class="resource-card card h-100 shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <span class="badge bg-success">Crop Management</span>
+                                        <span class="resource-type pdf">PDF</span>
+                                    </div>
+
+                                    <h5 class="card-title">
+                                        Integrated Pest Management Guide
+                                    </h5>
+
+                                    <p class="card-text text-muted">
+                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                                    </p>
+
+                                    <div class="resource-meta">
+                                        <span>🌐 English</span>
+                                        <span>📄 24 Pages</span>
+                                        <span>⭐ Beginner</span>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            Updated: May 2026
+                                        </small>
+
+                                        <a href="#" class="btn btn-success btn-sm">
+                                            View Resource
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                          </div>
+                             <div class=" col-md-4">
+                             <div class="resource-card card h-100 shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <span class="badge bg-success">Crop Management</span>
+                                        <span class="resource-type pdf">PDF</span>
+                                    </div>
+
+                                    <h5 class="card-title">
+                                        Integrated Pest Management Guide
+                                    </h5>
+
+                                    <p class="card-text text-muted">
+                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                                    </p>
+
+                                    <div class="resource-meta">
+                                        <span>🌐 English</span>
+                                        <span>📄 24 Pages</span>
+                                        <span>⭐ Beginner</span>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            Updated: May 2026
+                                        </small>
+
+                                        <a href="#" class="btn btn-success btn-sm">
+                                            View Resource
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                          </div>
+
+                      </div>
                     
                   </div>
                 </div>
               </div>
             </main>
+        </div>
 
-          
-          <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
+        <div class="tab-pane fade" id="global-resource" role="tabpanel" aria-labelledby="global-resource-tab">
+            <main class="container">
+                <!-- Sub Tabs -->
+         <div class="row">
+
+            <!-- Vertical Sub Tabs -->
+            <div class="col-md-3 leftpane">
+                <div class="nav flex-column nav-pills"
+                     role="tablist">
+
+                    <button class="nav-link active"
+                            data-bs-toggle="pill"
+                            data-bs-target="#ebooks">
+                      E-Books & Reference Materials
+                    </button>
+
+                    <button class="nav-link"
+                            data-bs-toggle="pill"
+                            data-bs-target="#researchArticles">
+                       Research Articles
+                    </button>
+
+                    <button class="nav-link"
+                            data-bs-toggle="pill"
+                            data-bs-target="#successJournals">
+                       Success Journals
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Sub Tab Content -->
+            <div class="col-md-9">
+                <div class="tab-content">
+
+                    <div class="tab-pane fade show active"
+                         id="ebooks">
+                       <div class="book-shelf">
+
+                        <div class="book-item">
+                            <img src="/assets/img/cover1.jpeg">
+                            <h6>Natural Farming</h6>
+                        </div>
+
+                        <div class="book-item">
+                            <img src="/assets/img/cover2.jpeg">
+                            <h6>Soil Health</h6>
+                        </div>
+
+                        <div class="book-item">
+                            <img src="/assets/img/cover3.jpeg">
+                            <h6>Pest Management</h6>
+                        </div>
+
+                        <div class="book-item">
+                            <img src="/assets/img/cover1.jpeg">
+                            <h6>Natural Farming</h6>
+                        </div>
+
+                        <div class="book-item">
+                            <img src="/assets/img/cover2.jpeg">
+                            <h6>Soil Health</h6>
+                        </div>
+
+                        <div class="book-item">
+                            <img src="/assets/img/cover3.jpeg">
+                            <h6>Pest Management</h6>
+                        </div>
+
+
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="researchArticles">
+                    <div class="row g-4">
+
+                          <div class=" col-md-4">
+        <div class="research-card">
+            <span class="research-badge">🔬 Research Article</span>
+
+            <h5>
+                Impact of Natural Farming on Soil Health
+            </h5>
+
+            <p class="authors">
+                APCNF Research Team
+            </p>
+
+            <p class="summary">
+                Assessment of soil biological activity and organic carbon under natural farming systems.
+            </p>
+
+            <div class="keywords">
+                <span>Soil Health</span>
+                <span>Carbon</span>
+            </div>
+
+            <div class="research-footer">
+                <small>May 2026</small>
+                <a href="#" class="btn btn-success btn-sm">
+                    View PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="research-card">
+            <span class="research-badge">📊 Research Report</span>
+
+            <h5>
+                Climate Resilience through Natural Farming
+            </h5>
+
+            <p class="authors">
+                Sustainable Agriculture Division
+            </p>
+
+            <p class="summary">
+                Study on crop performance under drought and extreme weather conditions.
+            </p>
+
+            <div class="keywords">
+                <span>Climate</span>
+                <span>Resilience</span>
+            </div>
+
+            <div class="research-footer">
+                <small>March 2026</small>
+                <a href="#" class="btn btn-success btn-sm">
+                    View PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="research-card">
+            <span class="research-badge">📈 Case Study</span>
+
+            <h5>
+                Farmer Income Improvement Analysis
+            </h5>
+
+            <p class="authors">
+                APCNF Monitoring Team
+            </p>
+
+            <p class="summary">
+                Comparative study of farm economics before and after natural farming adoption.
+            </p>
+
+            <div class="keywords">
+                <span>Income</span>
+                <span>Economics</span>
+            </div>
+
+            <div class="research-footer">
+                <small>January 2026</small>
+                <a href="#" class="btn btn-success btn-sm">
+                    View PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+                    </div>
+
+                    <div class="tab-pane fade"  id="successJournals">
+
+                         <div class="row g-4">
+
+                          
+                       <div class="journal-card">
+                          <div class="journal-icon">
+                              📑
+                          </div>
+
+                          <div class="journal-content">
+                              <h5>
+                                  Natural Farming and Climate Resilience:
+                                  Evidence from Andhra Pradesh
+                              </h5>
+
+                              <p>
+                                  Published in Agricultural Sustainability Journal
+                              </p>
+
+                              <small>
+                                  Authors: APCNF Research Division | 2026
+                              </small>
+
+                              <div class="mt-3">
+                                  <button class="btn btn-sm btn-success">
+                                      View Publication
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                        
+                       <div class="journal-card">
+                          <div class="journal-icon">
+                              📑
+                          </div>
+
+                          <div class="journal-content">
+                              <h5>
+                                  Natural Farming and Climate Resilience:
+                                  Evidence from Andhra Pradesh
+                              </h5>
+
+                              <p>
+                                  Published in Agricultural Sustainability Journal
+                              </p>
+
+                              <small>
+                                  Authors: APCNF Research Division | 2026
+                              </small>
+
+                              <div class="mt-3">
+                                  <button class="btn btn-sm btn-success">
+                                      View Publication
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                      
+                    </div>
+
+                </div>
+            </div>
+              <!-- <div class="row">
+
+                <div class="col-lg-8  d-flex align-items-center justify-content-center ">
+                  <div class="featured-section mb-4">
+                  global resources
+                    
+                  </div>
+                </div>
+              </div> -->
+            </main>
+        </div>
+
+        <div class="tab-pane fade" id="learning-resource" role="tabpanel" aria-labelledby="learning-resource-tab">
+            <main class="container my-4">
+              <div class="row">
+
+                <div class="col-lg-12  d-flex align-items-center justify-content-center ">
+                  <div class="featured-section mb-4">
+                 <div class="row g-4">
+
+    <!-- PDF -->
+    <div class="col-lg-3 col-md-6">
+        <a href="/assets/img/farmerbook.pdf" target="_blank" class="resource-card">
+            <div class="resource-icon">📕</div>
+            <h5>PDF Resources</h5>
+            <p>Training manuals, guides and reference materials.</p>
+        </a>
+    </div>
+
+    <!-- Videos -->
+    <div class="col-lg-3 col-md-6">
+        <a href="/assets/img/farmerbook.pdf" class="resource-card">
+            <div class="resource-icon">🎥</div>
+            <h5>Videos</h5>
+            <p>Training videos, demonstrations and webinars.</p>
+        </a>
+    </div>
+
+    <!-- Documents -->
+    <div class="col-lg-3 col-md-6">
+        <a href="/assets/img/farmerbook.pdf" class="resource-card">
+            <div class="resource-icon">📄</div>
+            <h5>Documents</h5>
+            <p>Reports, case studies and technical documents.</p>
+        </a>
+    </div>
+
+    <!-- Presentations -->
+    <div class="col-lg-3 col-md-6">
+        <a href="/assets/img/farmerbook.pdf" class="resource-card">
+            <div class="resource-icon">📊</div>
+            <h5>Presentations</h5>
+            <p>Training presentations and workshop materials.</p>
+        </a>
+    </div>
+
+</div>
+                    
+                  </div>
+                </div>
+              </div>
+            </main>
+        </div>
+
+
+
+         <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
           <div class="tab-pane fade" id="video-session" role="tabpanel" aria-labelledby="video-session-tab">
             <main>
               <div class="row g-2 " id="video-container">
@@ -615,13 +1042,13 @@
                 <div class="ratio ratio-16x9" style="max-height: 70vh;">
                   <iframe id="youtubeFrame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen
                     class="w-100 rounded" style="max-height: 70vh;"></iframe>
+                    No videos available
                 </div>
               </div>
             </div>
 
 
           </div>
-        </div>
       </div>
 
       <!-- Login Modal -->
@@ -738,7 +1165,17 @@
         // console.log('user_roles', user_roles);
         console.log('hasValidRole', hasValidRole);
         let videoSessionTab = document.getElementById('video-session-tab');
-        hasValidRole ? videoSessionTab.classList.remove('d-none') : videoSessionTab.classList.add('d-none');
+        let booksTab = document.getElementById('books-tab');
+        let courseContentTab = document.getElementById('course-content-tab');
+        // if (hasValidRole) {
+        //   videoSessionTab.classList.remove('d-none');
+        //   booksTab.classList.remove('d-none');
+        //   courseContentTab.classList.remove('d-none');
+        // } else {
+        //   videoSessionTab.classList.add('d-none');
+        //   booksTab.classList.add('d-none');
+        //   courseContentTab.classList.add('d-none');
+        // }
       }
     };
 
@@ -746,6 +1183,25 @@
       get_login_user_details();
       valid_roles();
 
+      const learningTab = document.getElementById('learning-resource-tab');
+      const isLoggedIn = !!sessionStorage.getItem('user_info');
+
+      if (!isLoggedIn && learningTab) {
+        learningTab.removeAttribute('data-bs-toggle');
+        learningTab.removeAttribute('data-bs-target');
+        learningTab.style.opacity = '0.55';
+        learningTab.style.cursor = 'pointer';
+        learningTab.innerHTML = '<i class="bi bi-lock-fill me-1"></i>Learning Resource';
+
+        learningTab.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const toastEl = document.getElementById('loginRequiredToast');
+          const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+          toast.show();
+          setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
+        });
+      }
     });
   </script>
 

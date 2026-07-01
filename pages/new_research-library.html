@@ -112,15 +112,15 @@
                     <div class="col-lg-9 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="articles-tab" data-bs-toggle="tab" href="#articles"
+                                <a class="nav-link active d-none" id="articles-tab" data-bs-toggle="tab" href="#articles"
                                     role="tab" aria-controls="articles" aria-selected="true">Articles</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="journals-tab" data-bs-toggle="tab" href="#journals" role="tab"
+                                <a class="nav-link d-none" id="journals-tab" data-bs-toggle="tab" href="#journals" role="tab"
                                     aria-controls="journals" aria-selected="false">Journals</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="publications-tab" data-bs-toggle="tab" href="#publications"
+                                <a class="nav-link d-none" id="publications-tab" data-bs-toggle="tab" href="#publications"
                                     role="tab" aria-controls="publications" aria-selected="false">Publications</a>
                             </li>
                         </ul>
@@ -218,6 +218,51 @@
     <!-- <script type="module" src="../services/research_library.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
 
+    <!-- CDN Links For encryption -->
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+
+    <script type="module">
+      import { FrappeApiClient } from "../services/FrappeApiClient.js";
+      let frappe_client = new FrappeApiClient();
+
+      function Decryption(ciphertext) {
+        try {
+          const decrypted = CryptoJS.AES.decrypt(ciphertext, "your-secret-key").toString(CryptoJS.enc.Utf8);
+          return decrypted ? JSON.parse(decrypted) : null;
+        } catch (e) {
+          console.error("Decryption error:", e);
+          return null;
+        }
+      }
+
+      const valid_roles = async () => {
+        let response = await frappe_client.get('/get_role_wise_permissions');
+        return response;
+      };
+
+      const get_login_user_details = async () => {
+        const userDetails = sessionStorage.getItem('user_info');
+        if (userDetails) {
+          const user = JSON.parse(userDetails);
+          const user_roles = Decryption(user.roles) || [];
+          const validRolesResponse = await valid_roles();
+          const validRoles = validRolesResponse.message || [];
+          const hasValidRole = user_roles.some(role => validRoles.includes(role));
+
+          const tabIds = ['articles-tab', 'journals-tab', 'publications-tab'];
+          tabIds.forEach(id => {
+            const tab = document.getElementById(id);
+            if (tab) {
+              hasValidRole ? tab.classList.remove('d-none') : tab.classList.add('d-none');
+            }
+          });
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        get_login_user_details();
+      });
+    </script>
 
 </body>
 

@@ -6,6 +6,118 @@ let baseURL = new FrappeApiClient().baseURL;
 
 // Fetch and render the course list dynamically based on course type and navtype (live/upcoming)
 export async function get_dynaic_course_list(courseType, navtype) {
+  // based on navtype I have to set static contenct against each navtype, no APUI call is needed
+  const blogContainer = document.getElementById("nav-home");
+  let pg = `<div style="background:#fff; padding:20px; border-radius:10px; border:1px solid #e5e5e5; width:100%; font-family:Arial, sans-serif; line-height:1.6; color:#333;">
+
+  <h2 style="margin-top:0; font-size:20px; color:#2c3e50;">
+    PG Diploma in Natural Farming (NF)
+  </h2>
+
+  <p style="font-size:14px;">
+    The PG Diploma in Natural Farming for Mentors is a two-year, advanced program designed to develop skilled practitioners into effective trainers, facilitators, and leaders in agroecology.
+  </p>
+
+  <p style="font-size:14px;">
+    Combining deep technical knowledge with field-based learning, the course equips participants to guide farmers in adopting sustainable, evidence-based natural farming practices.
+  </p>
+
+  <p style="font-size:14px;">
+    It emphasizes systems thinking, soil and ecosystem health, and participatory extension approaches, enabling mentors to support experimentation, problem-solving, and innovation at the grassroots.
+  </p>
+
+  <p style="font-size:14px;">
+    Through immersive field engagement, peer learning, and expert guidance, participants become capable of nurturing climate-resilient farming communities and scaling natural farming practices across regions.
+  </p>
+
+  <p style="font-size:14px; margin-bottom:0;">
+    <strong>Contact:</strong><br>
+    <a href="mailto:academics.iggaarl@ryss.ap.gov.in" style="color:#1a73e8; text-decoration:none;">
+      academics.iggaarl@ryss.ap.gov.in
+    </a>
+  </p>
+
+</div>`;
+  let ug = `<div style="background:#fff; padding:20px; border-radius:10px; border:1px solid #e5e5e5; width:100%; box-sizing:border-box; font-family:Arial, sans-serif; line-height:1.6; color:#333;">
+
+  <h2 style="margin-top:0; font-size:20px; color:#2c3e50;">
+    Farmer Scientist Course (B.Sc. in Natural Farming)
+  </h2>
+
+  <p style="font-size:14px;">
+    The Farmer Scientist Course is a four-year B.Sc. in Natural Farming, designed as a hands-on, practice-oriented program to empower farmers with scientific understanding, critical thinking, and field-based problem-solving skills.
+  </p>
+
+  <p style="font-size:14px;">
+    Blending traditional knowledge with modern agroecological principles, the course enables participants to observe, experiment, and innovate within their own farms.
+  </p>
+
+  <p style="font-size:14px;">
+    Farmers learn to analyse soil health, crop performance, biodiversity, and local ecosystems, and to apply evidence-based practices that enhance productivity, resilience, and sustainability.
+  </p>
+
+  <p style="font-size:14px;">
+    Through guided fieldwork, peer learning, and expert mentorship, participants evolve from knowledge recipients into “farmer scientists” capable of generating and sharing locally relevant solutions for sustainable agriculture and making their villages climate resilient.
+  </p>
+
+  <p style="font-size:14px; margin-bottom:0;">
+    <strong>Contact:</strong><br>
+    <a href="mailto:academics.iggaarl@ryss.ap.gov.in" style="color:#1a73e8; text-decoration:none;">
+      academics.iggaarl@ryss.ap.gov.in
+    </a>
+  </p>
+
+</div>`;
+  let cert = `<div style="background:#fff; padding:20px; border-radius:10px; border:1px solid #e5e5e5; width:100%; font-family:Arial, sans-serif; line-height:1.6; color:#333;">
+
+  <h2 style="margin-top:0; font-size:20px; color:#2c3e50;">
+    Model Maker Certification Program
+  </h2>
+
+  <p style="font-size:14px;">
+    The Certification Program for Natural Farming Cadres and Practitioners is designed to build deep, practical expertise in the diverse farm models innovated by APCNF.
+  </p>
+
+  <p style="font-size:14px;">
+    The program equips participants with in-depth knowledge and hands-on experience to mentor fellow farmers in transitioning from conventional to natural farming through structured learning and continuous handholding support.
+  </p>
+
+  <p style="font-size:14px;">
+    Tailored to different levels of experience:
+  </p>
+
+  <ul style="font-size:14px; padding-left:18px; margin-top:0;">
+    <li>45-day course for mature natural farming cadres</li>
+    <li>12-month course for practitioners (2+ years experience)</li>
+    <li>18-month course for beginners</li>
+  </ul>
+
+  <p style="font-size:14px;">
+    The <strong>Certified Model Maker</strong> track enables participants to develop specialized skills and pursue livelihoods as trainers and facilitators in natural farming model development.
+  </p>
+
+  <p style="font-size:14px; margin-bottom:0;">
+    <strong>Contact:</strong><br>
+    <a href="mailto:academics.iggaarl@ryss.ap.gov.in" style="color:#1a73e8; text-decoration:none;">
+      academics.iggaarl@ryss.ap.gov.in
+    </a>
+  </p>
+
+</div>`;
+
+  if (courseType == "Under Graduation") {
+    blogContainer.innerHTML = ug;
+  }
+  if (courseType == "Certification") {
+    blogContainer.innerHTML = cert;
+  }
+  if (courseType == "Post Graduation") {
+    blogContainer.innerHTML = pg;
+  }
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("loader").style.display = "none";
+}
+export async function get_dynaic_course_list_bk(courseType, navtype) {
   // console.log("courseType==11", courseType);
 
   let frappe_client = new FrappeApiClient();
@@ -33,6 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
   localStorage.setItem("navtype", "1");
   getandSetDyanamicCourseDetailsAndName();
 
+  let courseCategory = localStorage.getItem("courseCategory");
+  if (!courseCategory) {
+    courseCategory = "Under Graduation";
+    localStorage.setItem("courseCategory", courseCategory);
+  }
+
   // Add click event listener to each course category link
   const links = document.querySelectorAll(".services-list a");
 
@@ -49,10 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
         course = "Certification";
       }
 
-      console.log("course", course);
-
       // Store in localStorage
-      localStorage.setItem("courseCategory", course);
+      localStorage.setItem("courseCategory", course ?? "Certification");
 
       // Update course details
       getandSetDyanamicCourseDetailsAndName();
@@ -125,7 +241,7 @@ const set_dynamic_course = (response, navtype) => {
        <!-- <a href="#" onclick="window.open('https://erp-ryss.ap.gov.in/app/registration/new-registration-wzzgqbwkwc#application_form_tab')" ${
          !isLogin ? 'disabled style="pointer-events: none; opacity: 0.6;"' : ""
        }><i class="bi bi-journal-plus"></i>  Apply</a> -->
-      
+
          </div>
       </div>
       </div>
@@ -150,7 +266,7 @@ function showApplyModal() {
     applyBtn.addEventListener("click", () => {
       // Show the modal
       const applyModal = new bootstrap.Modal(
-        document.getElementById("applyModal")
+        document.getElementById("applyModal"),
       );
       applyModal.show();
       // window.open("https://erp-ryss.ap.gov.in/app/registration/new-registration-wzzgqbwkwc#application_form_tab");
