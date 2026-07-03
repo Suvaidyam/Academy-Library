@@ -2,7 +2,7 @@ import { FrappeApiClient } from "../services/FrappeApiClient.js";
 
 const frappe_client = new FrappeApiClient();
 const baseURL = frappe_client.baseURL;
-const DEFAULT_THUMBNAIL = "/assets/img/ebook_thumnail_img.jpeg";
+const DEFAULT_THUMBNAIL = "/assets/img/new_ebook_thumnail_img.jpeg";
 
 const titleInput = document.getElementById("ebook-title");
 const subtitleInput = document.getElementById("ebook-subtitle");
@@ -40,6 +40,16 @@ let activeFilters = {
   publisher: "",
   isbn: "",
   book_keywords: "",
+};
+
+const isValidHttpUrl = (value) => {
+  if (!value) return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
 };
 
 const debounce = (fn, delay = 350) => {
@@ -89,12 +99,15 @@ const renderEbooks = (rows) => {
       .map((value) => `<span>${value}</span>`)
       .join("");
 
-    const thumbnail = book.thumbnail_image ? `${baseURL}${book.thumbnail_image}` : DEFAULT_THUMBNAIL;
+    const thumbnail = book.book_thumbnail_image ? `${baseURL}${book.book_thumbnail_image}` : DEFAULT_THUMBNAIL;
+    const hasValidLink = isValidHttpUrl(book.resource_link);
+    const resourceLink = hasValidLink ? book.resource_link : "#";
+    const linkTarget = hasValidLink ? `target="_blank" rel="noopener noreferrer"` : "";
 
     const card = `
       <div class="col-md-6">
         <div class="ebook-card">
-          <a href="${book.resource_link || "#"}" target="_blank" rel="noopener noreferrer">
+          <a href="${resourceLink}" ${linkTarget}>
             <img src="${thumbnail}" alt="${book.book_title || "E-Book"}" class="ebook-thumbnail"
                  onerror="this.onerror=null;this.src='${DEFAULT_THUMBNAIL}'">
           </a>
