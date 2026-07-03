@@ -1,6 +1,7 @@
 import { FrappeApiClient } from "../services/FrappeApiClient.js";
 
 const frappe_client = new FrappeApiClient();
+let ebookList = [];
 const baseURL = frappe_client.baseURL;
 const DEFAULT_THUMBNAIL = "/assets/img/new_ebook_thumnail_img.jpeg";
 
