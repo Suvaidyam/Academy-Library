@@ -2,7 +2,7 @@ import { FrappeApiClient } from "../services/FrappeApiClient.js";
 
 const frappe_client = new FrappeApiClient();
 const baseURL = frappe_client.baseURL;
-const DEFAULT_THUMBNAIL = "/assets/img/ebook_thumnail_img.png";
+const DEFAULT_THUMBNAIL = "/assets/img/ebook_thumnail_img.jpeg";
 
 const titleInput = document.getElementById("ebook-title");
 const subtitleInput = document.getElementById("ebook-subtitle");
@@ -13,6 +13,7 @@ const subcategoryDropdown = document.getElementById("ebook-subcategory-dropdown"
 const authorInput = document.getElementById("ebook-author");
 const publisherInput = document.getElementById("ebook-publisher");
 const isbnInput = document.getElementById("ebook-isbn");
+const keywordsInput = document.getElementById("ebook-keywords");
 const clearBtn = document.getElementById("ebook-clearbtn");
 
 const prevBtn = document.getElementById("ebook-prev-btn");
@@ -20,13 +21,14 @@ const nextBtn = document.getElementById("ebook-next-btn");
 const pageInfo = document.getElementById("ebook-page-info");
 const ebookBody = document.getElementById("ebook-body");
 
-const rowPerPage = 9;
+const rowPerPage = 4;
 let currentPage = 1;
 let totalPages = 1;
 
 // Note: the /get_ebooks_lists API currently only accepts
 // book_title, sub_title, theme, book_category, book_subcategory, author, isbn, publisher.
-// "type" has no matching field on the backend yet, so it's sent but has no effect until added there.
+// "type" and "book_keywords" have no matching field on the backend yet, so they're sent
+// but have no effect until those fields are added to the backend's `fields` list.
 let activeFilters = {
   book_title: "",
   sub_title: "",
@@ -37,6 +39,7 @@ let activeFilters = {
   author: "",
   publisher: "",
   isbn: "",
+  book_keywords: "",
 };
 
 const debounce = (fn, delay = 350) => {
@@ -89,7 +92,7 @@ const renderEbooks = (rows) => {
     const thumbnail = book.thumbnail_image ? `${baseURL}${book.thumbnail_image}` : DEFAULT_THUMBNAIL;
 
     const card = `
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="ebook-card">
           <a href="${book.resource_link || "#"}" target="_blank" rel="noopener noreferrer">
             <img src="${thumbnail}" alt="${book.book_title || "E-Book"}" class="ebook-thumbnail"
@@ -168,6 +171,7 @@ bindTextFilter("theme", themeInput);
 bindTextFilter("author", authorInput);
 bindTextFilter("publisher", publisherInput);
 bindTextFilter("isbn", isbnInput);
+bindTextFilter("book_keywords", keywordsInput);
 
 categoryDropdown?.addEventListener("change", () => {
   activeFilters.book_category = categoryDropdown.value;
@@ -198,6 +202,7 @@ clearBtn?.addEventListener("click", () => {
     author: "",
     publisher: "",
     isbn: "",
+    book_keywords: "",
   };
 
   if (titleInput) titleInput.value = "";
@@ -209,6 +214,7 @@ clearBtn?.addEventListener("click", () => {
   if (authorInput) authorInput.value = "";
   if (publisherInput) publisherInput.value = "";
   if (isbnInput) isbnInput.value = "";
+  if (keywordsInput) keywordsInput.value = "";
 
   getEbookList(1);
 });
