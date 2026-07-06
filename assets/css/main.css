@@ -3133,6 +3133,12 @@ article:hover {
 .pr-2 {
   padding-right: 10px;
 }
+.font18{
+  font-size: 18px;
+}
+.lh-16{
+  line-height: 16px;
+}
 
 .owl-carousel .item {
   background-color: #fff;
