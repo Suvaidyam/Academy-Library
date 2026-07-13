@@ -29,6 +29,105 @@
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+  <style>
+    .library-filter-card {
+      background: #fff;
+      border: 1px solid #eef0f2;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
+    }
+
+    .library-filter-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e4356;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .library-filter-card .form-select,
+    .library-filter-card .form-control {
+      border-radius: 8px;
+      border-color: #dfe3e6;
+    }
+
+    .library-filter-card .form-select:focus,
+    .library-filter-card .form-control:focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 .2rem rgba(25, 135, 84, .15);
+    }
+
+    .library-filter-card .btn-outline-secondary {
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .library-filter-card .btn-outline-secondary:hover {
+      background-color: #198754;
+      border-color: #198754;
+    }
+
+    /* Case Studies hover dropdown */
+    #pubTabs .hover-dropdown {
+      position: relative;
+    }
+
+    #pubTabs .hover-dropdown .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: auto;
+      right: 0;
+      z-index: 1050;
+      display: block;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .18s ease, transform .18s ease;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .14);
+      padding: 8px;
+      margin-top: 4px;
+      min-width: 270px;
+    }
+
+    #pubTabs .hover-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #pubTabs .hover-dropdown .dropdown-item {
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: #333;
+      white-space: normal;
+    }
+
+    #pubTabs .hover-dropdown .dropdown-item:hover {
+      background-color: #f4f9f2;
+      color: #198754;
+    }
+
+    #pubTabs .hover-dropdown .dropdown-item.active {
+      background-color: #198754;
+      color: #fff;
+    }
+
+    #cs-active-category-label {
+      color: #1e4356;
+      font-weight: 700;
+      border-left: 4px solid #198754;
+      padding-left: 12px;
+      margin-bottom: 18px;
+    }
+  </style>
 </head>
 
 <body class="blog-page">
@@ -57,7 +156,7 @@
     <section id="service-details" class="service-details publications-details section ">
         <div class="container">
           <!-- Parent Tabs -->
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" id="pubTabs">
     <li class="nav-item">
         <button class="nav-link active"
                 data-bs-toggle="tab"
@@ -80,12 +179,17 @@
             News Letters
         </button>
     </li>
-      <li class="nav-item">
+      <li class="nav-item dropdown hover-dropdown">
         <button class="nav-link" id="case-studies-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#case-studies">
-           Case Studies
+           Case Studies <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
         </button>
+        <ul class="dropdown-menu" aria-labelledby="case-studies-tab">
+          <li><a class="dropdown-item cs-category-link active" href="#" id="longitudinal-data-tab" data-category="training">Longitudinal Self-case Studies Data</a></li>
+          <li><a class="dropdown-item cs-category-link" href="#" data-category="farmer">Longitudinal Self-case Studies</a></li>
+          <li><a class="dropdown-item cs-category-link" href="#" data-category="webinars">Socio-economic Studies</a></li>
+        </ul>
     </li>
 
     <!-- Toast for login required -->
@@ -107,11 +211,85 @@
 
     <!-- Videos Tab -->
     <div class="tab-pane fade show active" id="videos">
+      <div class="row">
+        <!-- Research Articles Filters -->
+        <div class="col-lg-3 mt-2">
+          <div class="library-filter-card">
+            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Research Articles</div>
+            <form>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control ra-filter" data-filter="keyword" placeholder="Keyword(s)">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control ra-filter" data-filter="author" placeholder="Author">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select ra-filter" data-filter="theme">
+                    <option value="">Research Theme</option>
+                    <option value="Soil">Soil</option>
+                    <option value="Water">Water</option>
+                    <option value="Crop">Crop</option>
+                    <option value="Climate">Climate</option>
+                    <option value="Biodiversity">Biodiversity</option>
+                    <option value="Economics">Economics</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select ra-filter" data-filter="year" id="ra-year-select">
+                    <option value="">Publication Year</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control ra-filter" data-filter="journal" placeholder="Journal Name">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control ra-filter" data-filter="country" placeholder="Country">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select ra-filter" data-filter="language" id="ra-language-select">
+                    <option value="">Language</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select ra-filter" data-filter="doctype">
+                    <option value="">Document Type</option>
+                    <option value="Article">Article</option>
+                    <option value="Review">Review</option>
+                    <option value="Conference Paper">Conference Paper</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <button type="button" id="ra-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
-      <div class="row g-4">
+        <div class="col-lg-9">
+      <div class="row g-4" id="ra-results">
 
-                          <div class=" col-md-4">
-        <div class="research-card">
+                          <div class=" col-md-4 ra-card-col">
+        <div class="research-card" data-keyword="soil health carbon organic" data-author="APCNF Research Team"
+             data-theme="Soil" data-year="2026" data-journal="Journal of Sustainable Agriculture"
+             data-country="India" data-language="English" data-doctype="Article">
             <span class="research-badge">🔬 Research Article</span>
 
             <h5>
@@ -140,8 +318,10 @@
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="research-card">
+    <div class="col-md-4 ra-card-col">
+        <div class="research-card" data-keyword="climate resilience drought" data-author="Sustainable Agriculture Division"
+             data-theme="Climate" data-year="2026" data-journal="Climate Adaptation Review"
+             data-country="India" data-language="English" data-doctype="Review">
             <span class="research-badge">📊 Research Report</span>
 
             <h5>
@@ -170,8 +350,10 @@
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="research-card">
+    <div class="col-md-4 ra-card-col">
+        <div class="research-card" data-keyword="income economics farm" data-author="APCNF Monitoring Team"
+             data-theme="Economics" data-year="2026" data-journal="Agricultural Economics Bulletin"
+             data-country="India" data-language="English" data-doctype="Conference Paper">
             <span class="research-badge">📈 Case Study</span>
 
             <h5>
@@ -201,13 +383,88 @@
     </div>
 
 </div>
-
+      <div class="no-results text-center py-4 d-none" id="ra-no-results">
+        <h5 class="mt-2">No research articles match your filters</h5>
+        <p class="text-muted">Try adjusting or clearing the filters above.</p>
+      </div>
+        </div>
+      </div>
     </div>
 
     <!-- Photos Tab -->
     <div class="tab-pane fade" id="photos">
-           
-                       <div class="journal-card">
+      <div class="row">
+        <!-- Journals Filters -->
+        <div class="col-lg-3 mt-2">
+          <div class="library-filter-card">
+            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Journals</div>
+            <form>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control jr-filter" data-filter="keyword" placeholder="Keyword(s)">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control jr-filter" data-filter="journal" placeholder="Journal Name">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select jr-filter" data-filter="year" id="jr-year-select">
+                    <option value="">Publication Year</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control jr-filter" data-filter="volume" placeholder="Volume & Issue">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control jr-filter" data-filter="publisher" placeholder="Publisher">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select jr-filter" data-filter="language" id="jr-language-select">
+                    <option value="">Language</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select jr-filter" data-filter="peer">
+                    <option value="">Peer Reviewed</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select jr-filter" data-filter="access">
+                    <option value="">Open Access</option>
+                    <option value="Free">Free</option>
+                    <option value="Subscription">Subscription</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <button type="button" id="jr-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+      <div id="jr-results">
+                       <div class="journal-card" data-keyword="climate resilience natural farming" data-journal="Agricultural Sustainability Journal"
+                            data-year="2026" data-volume="Vol 12, Issue 3" data-publisher="Elsevier"
+                            data-language="English" data-peer="Yes" data-access="Subscription">
                           <div class="journal-icon">
                               📑
                           </div>
@@ -233,8 +490,10 @@
                               </div>
                           </div>
                       </div>
-                          
-                       <div class="journal-card">
+
+                       <div class="journal-card" data-keyword="climate resilience natural farming" data-journal="Agricultural Sustainability Journal"
+                            data-year="2025" data-volume="Vol 11, Issue 4" data-publisher="Springer"
+                            data-language="English" data-peer="Yes" data-access="Free">
                           <div class="journal-icon">
                               📑
                           </div>
@@ -260,8 +519,10 @@
                               </div>
                           </div>
                       </div>
-                          
-                       <div class="journal-card">
+
+                       <div class="journal-card" data-keyword="climate resilience natural farming" data-journal="Agricultural Sustainability Journal"
+                            data-year="2025" data-volume="Vol 10, Issue 2" data-publisher="Taylor & Francis"
+                            data-language="Telugu" data-peer="No" data-access="Subscription">
                           <div class="journal-icon">
                               📑
                           </div>
@@ -287,47 +548,91 @@
                               </div>
                           </div>
                       </div>
+      </div>
+      <div class="no-results text-center py-4 d-none" id="jr-no-results">
+        <h5 class="mt-2">No journals match your filters</h5>
+        <p class="text-muted">Try adjusting or clearing the filters above.</p>
+      </div>
+        </div>
+      </div>
     </div>
 
     <!-- Case Studies Tab -->
-    <div class="tab-pane fade" id="case-studies"> 
-       <div class="row">
-
-            <!-- Vertical Sub Tabs -->
-            <div class="col-md-3 leftpane">
-                <div class="nav flex-column nav-pills"
-                     role="tablist">
-
-                    <button class="nav-link active" id="longitudinal-data-tab"
-                            data-bs-toggle="pill"
-                            data-bs-target="#training">
-                      Longitudinal Self-case Studies Data
-                    </button>
-
-                    <button class="nav-link"
-                            data-bs-toggle="pill"
-                            data-bs-target="#farmer">
-                      Longitudinal Self-case Studies
-                    </button>
-
-                    <button class="nav-link"
-                            data-bs-toggle="pill"
-                            data-bs-target="#webinars">
-                      Socio-economic Studies
-                    </button>
-
+    <div class="tab-pane fade" id="case-studies">
+      <div class="row">
+        <!-- Case Studies Filters -->
+        <div class="col-lg-3 mt-2">
+          <div class="library-filter-card">
+            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Case Studies</div>
+            <form>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control cs-filter" data-filter="keyword" placeholder="Keywords">
                 </div>
-            </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select cs-filter" data-filter="theme">
+                    <option value="">Theme</option>
+                    <option value="Crop">Crop</option>
+                    <option value="Livestock">Livestock</option>
+                    <option value="Water">Water</option>
+                    <option value="Soil">Soil</option>
+                    <option value="Women's Empowerment">Women's Empowerment</option>
+                    <option value="Livelihood">Livelihood</option>
+                    <option value="H&N">H&N</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control cs-filter" data-filter="location" placeholder="Location (State/District)">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select cs-filter" data-filter="year" id="cs-year-select">
+                    <option value="">Year</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control cs-filter" data-filter="author" placeholder="Author / Documented By">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select cs-filter" data-filter="language" id="cs-language-select">
+                    <option value="">Language</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <button type="button" id="cs-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
-            <!-- Sub Tab Content -->
-            <div class="col-md-9">
+        <!-- Sub Tab Content -->
+        <div class="col-lg-9">
+                <h6 id="cs-active-category-label">Longitudinal Self-case Studies Data</h6>
+
+                <div class="no-results text-center py-4 d-none" id="cs-no-results">
+                  <h5 class="mt-2">No case studies match your filters</h5>
+                  <p class="text-muted">Try adjusting or clearing the filters above.</p>
+                </div>
+
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active"  id="training">
                       <div class="row g-4">
 
     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="soil health natural farming" data-theme="Soil" data-location="Anantapur, Andhra Pradesh" data-year="2026" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -357,7 +662,7 @@
     </div>
 
     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -386,7 +691,7 @@
         </a>
     </div>
      <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -422,7 +727,7 @@
                         <div class="row g-4">
 
     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="soil health natural farming" data-theme="Soil" data-location="Anantapur, Andhra Pradesh" data-year="2026" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -452,7 +757,7 @@
     </div>
 
     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -481,7 +786,7 @@
         </a>
     </div>
      <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -518,7 +823,7 @@
                        <div class="row g-4">
 
     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="soil health natural farming" data-theme="Soil" data-location="Anantapur, Andhra Pradesh" data-year="2026" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -548,7 +853,7 @@
     </div>
 
     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -577,7 +882,7 @@
         </a>
     </div>
      <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card">
+        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
 
             <div class="case-study-header">
                 <span class="case-tag">Case Study</span>
@@ -617,10 +922,50 @@
 
      <!-- News Letters Tab -->
     <div class="tab-pane fade" id="newsletters">
-        <div class="row g-4">
+      <div class="row">
+        <!-- Newsletters Filters -->
+        <div class="col-lg-3 mt-2">
+          <div class="library-filter-card">
+            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Newsletters</div>
+            <form>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control nl-filter" data-filter="keyword" placeholder="Keywords">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="text" class="form-control nl-filter" data-filter="issue" placeholder="Issue / Volume">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select nl-filter" data-filter="year" id="nl-year-select">
+                    <option value="">Publication Year</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select nl-filter" data-filter="language" id="nl-language-select">
+                    <option value="">Language</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <button type="button" id="nl-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+        <div class="row g-4" id="nl-results">
 
                           <div class=" col-md-4">
-      <div class="newsletter-cover-card">
+      <div class="newsletter-cover-card" data-keyword="natural farming newsletter" data-issue="Vol 6, Issue 6" data-year="2026" data-language="English">
     <img src="/assets/img/news-1.jpg" alt="Newsletter">
 
     <div class="cover-content">
@@ -635,7 +980,7 @@
 </div>
 </div>
  <div class=" col-md-4">
-<div class="newsletter-cover-card">
+<div class="newsletter-cover-card" data-keyword="natural farming newsletter" data-issue="Vol 6, Issue 7" data-year="2026" data-language="Telugu">
     <img src="/assets/img/news-2.jpg" alt="Newsletter">
 
     <div class="cover-content">
@@ -649,6 +994,13 @@
     </div>
 </div>
 </div>
+    </div>
+      <div class="no-results text-center py-4 d-none" id="nl-no-results">
+        <h5 class="mt-2">No newsletters match your filters</h5>
+        <p class="text-muted">Try adjusting or clearing the filters above.</p>
+      </div>
+        </div>
+      </div>
     </div>
 
 
@@ -1014,36 +1366,180 @@
 
       const isLoggedIn = !!sessionStorage.getItem('user_info');
 
-      // Case Studies tab is open to everyone, but the
-      // "Longitudinal Self-case Studies Data" sub-tab is locked for guests.
-      const longitudinalDataTab = document.getElementById('longitudinal-data-tab');
+      // Case Studies dropdown: switch between the sub-categories (training / farmer / webinars).
+      // "Longitudinal Self-case Studies Data" (training) is locked for guests.
+      const caseStudiesTabBtn = document.getElementById('case-studies-tab');
+      const csCategoryLinks = document.querySelectorAll('.cs-category-link');
+      const csActiveLabel = document.getElementById('cs-active-category-label');
+      const lockedCategory = 'training';
 
-      if (!isLoggedIn && longitudinalDataTab) {
-        longitudinalDataTab.removeAttribute('data-bs-toggle');
-        longitudinalDataTab.removeAttribute('data-bs-target');
-        longitudinalDataTab.classList.remove('active');
-        longitudinalDataTab.style.opacity = '0.55';
-        longitudinalDataTab.style.cursor = 'pointer';
-        longitudinalDataTab.innerHTML = '<i class="bi bi-lock-fill me-1"></i>Longitudinal Self-case Studies Data';
+      function showCsCategory(category) {
+        document.querySelectorAll('#case-studies .tab-content > .tab-pane').forEach(pane => {
+          pane.classList.remove('show', 'active');
+        });
+        const target = document.getElementById(category);
+        if (target) target.classList.add('show', 'active');
 
-        // Don't show its content by default — activate the next sub-tab instead.
-        const trainingPane = document.getElementById('training');
-        if (trainingPane) trainingPane.classList.remove('show', 'active');
-
-        const farmerTabBtn = document.querySelector('[data-bs-target="#farmer"]');
-        const farmerPane = document.getElementById('farmer');
-        if (farmerTabBtn) farmerTabBtn.classList.add('active');
-        if (farmerPane) farmerPane.classList.add('show', 'active');
-
-        longitudinalDataTab.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const toastEl = document.getElementById('loginRequiredToast');
-          const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-          toast.show();
-          setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
+        csCategoryLinks.forEach(link => {
+          const isActive = link.dataset.category === category;
+          link.classList.toggle('active', isActive);
+          if (isActive && csActiveLabel) {
+            csActiveLabel.textContent = link.textContent.trim();
+          }
         });
       }
+
+      csCategoryLinks.forEach(link => {
+        if (!isLoggedIn && link.dataset.category === lockedCategory) {
+          link.style.opacity = '0.55';
+          link.innerHTML = '<i class="bi bi-lock-fill me-1"></i>' + link.textContent.trim();
+        }
+
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          if (!isLoggedIn && link.dataset.category === lockedCategory) {
+            const toastEl = document.getElementById('loginRequiredToast');
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+            setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
+            return;
+          }
+
+          if (caseStudiesTabBtn && caseStudiesTabBtn.getAttribute('data-bs-toggle')) {
+            bootstrap.Tab.getOrCreateInstance(caseStudiesTabBtn).show();
+          }
+          showCsCategory(link.dataset.category);
+        });
+      });
+
+      // Guests land on the first unlocked category instead of the locked one.
+      if (!isLoggedIn) {
+        showCsCategory('farmer');
+      }
+    });
+  </script>
+
+  <!-- Static resource filter bars (Research Articles / Journals / Case Studies / Newsletters) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      function populateSelect(selectEl, cards, attr) {
+        if (!selectEl) return;
+        const values = [...new Set(cards.map(c => c.dataset[attr]).filter(Boolean))].sort();
+        values.forEach(v => {
+          const option = document.createElement('option');
+          option.value = v;
+          option.textContent = v;
+          selectEl.appendChild(option);
+        });
+      }
+
+      function setupFilterableSection({ filterInputSelector, cardSelector, noResultsSelector, clearBtnSelector, dynamicSelects }) {
+        const cards = Array.from(document.querySelectorAll(cardSelector));
+        const filterInputs = Array.from(document.querySelectorAll(filterInputSelector));
+        const noResultsEl = noResultsSelector ? document.querySelector(noResultsSelector) : null;
+
+        if (!cards.length || !filterInputs.length) return;
+
+        (dynamicSelects || []).forEach(({ selectId, attr }) => {
+          populateSelect(document.getElementById(selectId), cards, attr);
+        });
+
+        function applyFilters() {
+          let anyVisible = false;
+
+          cards.forEach(card => {
+            let match = true;
+
+            filterInputs.forEach(input => {
+              const key = input.dataset.filter;
+              const value = (input.value || '').trim().toLowerCase();
+              if (!value) return;
+
+              const cardValue = (card.dataset[key] || '').toLowerCase();
+              if (input.tagName === 'SELECT') {
+                if (cardValue !== value) match = false;
+              } else if (!cardValue.includes(value)) {
+                match = false;
+              }
+            });
+
+            const target = card.closest('.col-md-4') || card;
+            target.style.display = match ? '' : 'none';
+            if (match) anyVisible = true;
+          });
+
+          if (noResultsEl) noResultsEl.classList.toggle('d-none', anyVisible);
+        }
+
+        filterInputs.forEach(input => {
+          input.addEventListener(input.tagName === 'SELECT' ? 'change' : 'input', applyFilters);
+        });
+
+        if (clearBtnSelector) {
+          const clearBtn = document.querySelector(clearBtnSelector);
+          if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+              filterInputs.forEach(input => {
+                if (input.tagName === 'SELECT') input.selectedIndex = 0;
+                else input.value = '';
+              });
+              applyFilters();
+            });
+          }
+        }
+
+        applyFilters();
+      }
+
+      // Research Articles
+      setupFilterableSection({
+        filterInputSelector: '.ra-filter',
+        cardSelector: '.research-card',
+        noResultsSelector: '#ra-no-results',
+        clearBtnSelector: '#ra-clear-btn',
+        dynamicSelects: [
+          { selectId: 'ra-year-select', attr: 'year' },
+          { selectId: 'ra-language-select', attr: 'language' },
+        ],
+      });
+
+      // Journals
+      setupFilterableSection({
+        filterInputSelector: '.jr-filter',
+        cardSelector: '.journal-card',
+        noResultsSelector: '#jr-no-results',
+        clearBtnSelector: '#jr-clear-btn',
+        dynamicSelects: [
+          { selectId: 'jr-year-select', attr: 'year' },
+          { selectId: 'jr-language-select', attr: 'language' },
+        ],
+      });
+
+      // Case Studies (applies across all sub-tab panes)
+      setupFilterableSection({
+        filterInputSelector: '.cs-filter',
+        cardSelector: '.case-study-card',
+        noResultsSelector: '#cs-no-results',
+        clearBtnSelector: '#cs-clear-btn',
+        dynamicSelects: [
+          { selectId: 'cs-year-select', attr: 'year' },
+          { selectId: 'cs-language-select', attr: 'language' },
+        ],
+      });
+
+      // Newsletters
+      setupFilterableSection({
+        filterInputSelector: '.nl-filter',
+        cardSelector: '.newsletter-cover-card',
+        noResultsSelector: '#nl-no-results',
+        clearBtnSelector: '#nl-clear-btn',
+        dynamicSelects: [
+          { selectId: 'nl-year-select', attr: 'year' },
+          { selectId: 'nl-language-select', attr: 'language' },
+        ],
+      });
     });
   </script>
 
