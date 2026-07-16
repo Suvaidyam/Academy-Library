@@ -11,7 +11,6 @@ let pastEventsPage = 0;
 let allUpcomingEvents = [];
 let upcomingEventsPage = 0;
 
-
 const itemsPerPage = 10;
 
 // -------- Get All News ----------
@@ -19,26 +18,26 @@ const get_all_news = async () => {
   let frappe_client = new FrappeApiClient();
 
   try {
-    let response = await frappe_client.get('/get_news_list');
+    let response = await frappe_client.get("/get_news_list");
     console.log("get_news_list", response);
 
     allNewsData = response.message || [];
     renderNewsPage();
   } catch (error) {
-    console.error('Error fetching news:', error);
+    console.error("Error fetching news:", error);
   }
 };
 
 // -------- Format Date ----------
 function formatDateForNews(dateStr) {
   const date = new Date(dateStr);
-  const options = { month: 'short', day: 'numeric', year: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
+  const options = { month: "short", day: "numeric", year: "numeric" };
+  return date.toLocaleDateString("en-US", options);
 }
 
 // -------- Truncate Text ----------
 function truncateText(text, maxLength) {
-  if (!text) return '';
+  if (!text) return "";
   if (text.length <= maxLength) return text;
 
   const truncated = text.substring(0, maxLength).trim();
@@ -47,7 +46,7 @@ function truncateText(text, maxLength) {
 
 // -------- Render Paginated News ----------
 const renderNewsPage = () => {
-  const newsContainer = document.getElementById('news-container');
+  const newsContainer = document.getElementById("news-container");
   const prevBtn = document.getElementById("news-prev-btn");
   const nextBtn = document.getElementById("news-next-btn");
   newsContainer.innerHTML = "";
@@ -56,13 +55,13 @@ const renderNewsPage = () => {
   const end = start + itemsPerPage;
   const currentNews = allNewsData.slice(start, end);
 
-  if(currentNews.length > 0){
-    document.getElementById("n_pagination").style.display = 'block';
-    currentNews.forEach(item => {
+  if (currentNews.length > 0) {
+    document.getElementById("n_pagination").style.display = "block";
+    currentNews.forEach((item) => {
       let news_date = formatDateForNews(item.datetime);
       let link = `news-details?id=${encodeURIComponent(item?.name)}`;
       let page = window.location.hash;
-      if (page === '#services') {
+      if (page === "#services") {
         link = `/pages/news-details.html?id=${encodeURIComponent(item?.name)}`;
       }
 
@@ -92,28 +91,32 @@ const renderNewsPage = () => {
     const totalPages = Math.ceil(allNewsData.length / itemsPerPage);
     prevBtn.disabled = newsPage === 0;
     nextBtn.disabled = newsPage >= totalPages - 1;
-  }else {
-    document.getElementById("n_pagination").style.display = 'none';
+  } else {
+    document.getElementById("n_pagination").style.display = "none";
     const noDataMessage = `
       <div class="text-center py-5">
           <h4>No News Found !</h4>
       </div>`;
-      newsContainer.insertAdjacentHTML("beforeend", noDataMessage);
-    }
+    newsContainer.insertAdjacentHTML("beforeend", noDataMessage);
+  }
 };
 
 // -------- Get All Events ----------
 const get_all_events = async () => {
   let frappe_client = new FrappeApiClient();
   try {
-    let response = await frappe_client.get('/get_events_list');
+    let response = await frappe_client.get("/get_events_list");
     const allEvents = response.message || [];
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); // ignore time part
 
-    allPastEvents = allEvents.filter(event => new Date(event.datetime) < today);
-    allUpcomingEvents = allEvents.filter(event => new Date(event.datetime) >= today);
+    allPastEvents = allEvents.filter(
+      (event) => new Date(event.datetime) < today,
+    );
+    allUpcomingEvents = allEvents.filter(
+      (event) => new Date(event.datetime) >= today,
+    );
 
     renderPastEventsPage();
     renderUpcomingEventsPage();
@@ -122,19 +125,18 @@ const get_all_events = async () => {
   }
 };
 
-
 // -------- Format Date for Events ----------
 export function formatDate(dateStr) {
   const date = new Date(dateStr);
   const day = date.getDate();
-  const month = date.toLocaleString('default', { month: 'short' });
+  const month = date.toLocaleString("default", { month: "short" });
   const year = date.getFullYear();
   return `${day} ${month} <span>${year}</span>`;
 }
 
 // -------- Set All Events ----------
 const renderPastEventsPage = () => {
-  const eventsContainer = document.getElementById('events-container');
+  const eventsContainer = document.getElementById("events-container");
   const prevBtn = document.getElementById("events-prev-btn");
   const nextBtn = document.getElementById("events-next-btn");
   eventsContainer.innerHTML = "";
@@ -144,8 +146,8 @@ const renderPastEventsPage = () => {
   const currentEvents = allPastEvents.slice(start, end);
 
   if (currentEvents.length > 0) {
-    document.getElementById("c_pagination").style.display = 'block';
-    currentEvents.forEach(item => {
+    document.getElementById("c_pagination").style.display = "block";
+    currentEvents.forEach((item) => {
       let event_date = formatDate(item.datetime);
       const card = `
           <div class="col-md-12 " data-aos="fade-up" data-aos-delay="100">
@@ -171,7 +173,7 @@ const renderPastEventsPage = () => {
       eventsContainer.insertAdjacentHTML("beforeend", card);
     });
   } else {
-    document.getElementById("c_pagination").style.display = 'none';
+    document.getElementById("c_pagination").style.display = "none";
     eventsContainer.innerHTML = `<div class="text-center py-5"><h4>No Past Events Found !</h4></div>`;
   }
 
@@ -182,7 +184,7 @@ const renderPastEventsPage = () => {
 
 // -------- Set Upcoming Events ----------
 const renderUpcomingEventsPage = () => {
-  const container = document.getElementById('upcoming_events-container');
+  const container = document.getElementById("upcoming_events-container");
   const prevBtn = document.getElementById("upcoming-prev-btn");
   const nextBtn = document.getElementById("upcoming-next-btn");
 
@@ -193,9 +195,9 @@ const renderUpcomingEventsPage = () => {
   const currentEvents = allUpcomingEvents.slice(start, end);
 
   if (currentEvents.length > 0) {
-    document.getElementById("upcoming_pagination").style.display = 'block';
+    document.getElementById("upcoming_pagination").style.display = "block";
 
-    currentEvents.forEach(item => {
+    currentEvents.forEach((item) => {
       let event_date = formatDate(item.datetime);
       const card = `
         <div class="col-md-12 " data-aos="fade-up" data-aos-delay="100">
@@ -224,14 +226,11 @@ const renderUpcomingEventsPage = () => {
     const totalPages = Math.ceil(allUpcomingEvents.length / itemsPerPage);
     prevBtn.disabled = upcomingEventsPage === 0;
     nextBtn.disabled = upcomingEventsPage >= totalPages - 1;
-
   } else {
-    document.getElementById("upcoming_pagination").style.display = 'none';
+    document.getElementById("upcoming_pagination").style.display = "none";
     container.innerHTML = `<div class="text-center py-5"><h4>No Upcoming Events Found !</h4></div>`;
   }
 };
-
-
 
 // -------- Initialize on Page Load ----------
 document.addEventListener("DOMContentLoaded", () => {
@@ -265,25 +264,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-    // Upcoming Events Pagination
-  document.getElementById("upcoming-next-btn")?.addEventListener("click", () => {
-    const maxPage = Math.floor(allUpcomingEvents.length / itemsPerPage);
-    if (upcomingEventsPage < maxPage) {
-      upcomingEventsPage++;
-      renderUpcomingEventsPage();
-    }
-  });
+  // Upcoming Events Pagination
+  document
+    .getElementById("upcoming-next-btn")
+    ?.addEventListener("click", () => {
+      const maxPage = Math.floor(allUpcomingEvents.length / itemsPerPage);
+      if (upcomingEventsPage < maxPage) {
+        upcomingEventsPage++;
+        renderUpcomingEventsPage();
+      }
+    });
 
-  document.getElementById("upcoming-prev-btn")?.addEventListener("click", () => {
-    if (upcomingEventsPage > 0) {
-      upcomingEventsPage--;
-      renderUpcomingEventsPage();
-    }
-  });
-
+  document
+    .getElementById("upcoming-prev-btn")
+    ?.addEventListener("click", () => {
+      if (upcomingEventsPage > 0) {
+        upcomingEventsPage--;
+        renderUpcomingEventsPage();
+      }
+    });
 
   // Initial Load
   get_all_news();
   get_all_events();
 });
-
