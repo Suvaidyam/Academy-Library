@@ -63,7 +63,7 @@ const renderNewsPage = () => {
       let link = `news-details?id=${encodeURIComponent(item?.name)}`;
       let page = window.location.hash;
       if (page === '#services') {
-        link = `/pages/news-details?id=${encodeURIComponent(item?.name)}`;
+        link = `/pages/news-details.html?id=${encodeURIComponent(item?.name)}`;
       }
 
       let card = `
