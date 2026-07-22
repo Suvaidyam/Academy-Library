@@ -100,7 +100,7 @@ const renderEbooks = (rows) => {
       .map((value) => `<span>${value}</span>`)
       .join("");
 
-    const thumbnail = book.book_thumbnail_image ? `${baseURL}${book.book_thumbnail_image}` : DEFAULT_THUMBNAIL;
+    const thumbnail = book.thumbnail_image ? `${baseURL}${book.thumbnail_image}` : DEFAULT_THUMBNAIL;
     const hasValidLink = isValidHttpUrl(book.resource_link);
     const resourceLink = hasValidLink ? book.resource_link : "#";
     const linkTarget = hasValidLink ? `target="_blank" rel="noopener noreferrer"` : "";
