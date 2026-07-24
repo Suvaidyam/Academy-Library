@@ -3,7 +3,7 @@ import { FrappeApiClient } from "../services/FrappeApiClient.js";
 const frappe_client = new FrappeApiClient();
 let ebookList = [];
 const baseURL = frappe_client.baseURL;
-const DEFAULT_THUMBNAIL = "/assets/img/new_ebook_thumnail_img.jpeg";
+const DEFAULT_THUMBNAIL = "/assets/img/background-img/ebook_thumnail_img.jpeg";
 
 const titleInput = document.getElementById("ebook-title");
 const subtitleInput = document.getElementById("ebook-subtitle");
@@ -22,7 +22,7 @@ const nextBtn = document.getElementById("ebook-next-btn");
 const pageInfo = document.getElementById("ebook-page-info");
 const ebookBody = document.getElementById("ebook-body");
 
-const rowPerPage = 4;
+const rowPerPage = 3;
 let currentPage = 1;
 let totalPages = 1;
 
@@ -106,19 +106,24 @@ const renderEbooks = (rows) => {
     const linkTarget = hasValidLink ? `target="_blank" rel="noopener noreferrer"` : "";
 
     const card = `
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="ebook-card">
-          <a href="${resourceLink}" ${linkTarget}>
+          <!-- full thumbnail — no crop -->
+          <a href="${resourceLink}" ${linkTarget} class="ebook-thumb-wrap">
             <img src="${thumbnail}" alt="${book.book_title || "E-Book"}" class="ebook-thumbnail"
                  onerror="this.onerror=null;this.src='${DEFAULT_THUMBNAIL}'">
           </a>
-          <h5 title="${book.book_title || "Untitled"}">${book.book_title || "Untitled"}</h5>
-          ${book.sub_title ? `<div class="ebook-subtitle">${book.sub_title}</div>` : ""}
-          ${badges ? `<div class="ebook-badges">${badges}</div>` : ""}
-          <div class="ebook-meta">
-            ${book.author ? `<div class="ebook-author" title="${book.author}"><i class="bi bi-person-fill"></i> ${book.author}</div>` : ""}
-            ${book.publisher ? `<div class="ebook-publisher" title="${book.publisher}"><i class="bi bi-building"></i> ${book.publisher}</div>` : ""}
-            ${book.isbn ? `<div class="ebook-isbn" title="${book.isbn}"><i class="bi bi-upc-scan"></i> ISBN: ${book.isbn}</div>` : ""}
+
+          <!-- details below the image -->
+          <div class="ebook-info">
+            <h5 title="${book.book_title || "Untitled"}">${book.book_title || "Untitled"}</h5>
+            ${book.sub_title ? `<div class="ebook-subtitle">${book.sub_title}</div>` : ""}
+            ${badges ? `<div class="ebook-badges">${badges}</div>` : ""}
+            <div class="ebook-meta">
+              ${book.author ? `<div class="ebook-author" title="${book.author}"><i class="bi bi-person-fill"></i> ${book.author}</div>` : ""}
+              ${book.publisher ? `<div class="ebook-publisher" title="${book.publisher}"><i class="bi bi-bank"></i> ${book.publisher}</div>` : ""}
+              ${book.isbn ? `<div class="ebook-isbn" title="${book.isbn}"><i class="bi bi-upc-scan"></i> ISBN: ${book.isbn}</div>` : ""}
+            </div>
           </div>
         </div>
       </div>`;

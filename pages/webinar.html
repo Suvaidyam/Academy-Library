@@ -33,31 +33,28 @@
     /* ─── Hero ─────────────────────────────────────── */
     .webinar-hero {
       position: relative;
-      min-height: 320px;
+      min-height: 360px;
       display: flex;
       align-items: center;
-      background: url("../assets/img/background-img/webinar_bg.png") center / cover no-repeat;
+      background: url("../assets/img/background-img/webinar_hero.png") center / cover no-repeat;
       padding-top: 80px;
-      overflow: hidden;
+      padding-bottom: 110px;   /* extra room so the overlap card covers the bottom */
+      overflow: visible;       /* let upcoming section pull up into hero */
     }
-    /* wave bottom */
-    .webinar-hero::after {
+    /* dark tint so white text is readable on any photo */
+    .webinar-hero::before {
       content: '';
       position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 72px;
-      background: #fff;
-      clip-path: ellipse(55% 100% at 50% 100%);
+      inset: 0;
+      background: rgba(0,0,0,.38);
       pointer-events: none;
     }
-    .webinar-hero .hero-inner { position: relative; z-index: 1; padding: 56px 0 80px; }
+    .webinar-hero .hero-inner { position: relative; z-index: 1; padding: 40px 0 0; }
     .hero-label {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      color: rgba(255,255,255,.8);
+      color: rgba(255,255,255,.85);
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 2px;
@@ -66,6 +63,18 @@
     }
     .webinar-hero h1 { color: #fff; font-size: 2.8rem; font-weight: 700; margin-bottom: 12px; line-height: 1.15; }
     .webinar-hero p  { color: rgba(255,255,255,.88); font-size: .97rem; max-width: 480px; line-height: 1.7; }
+
+    /* ─── Upcoming section: overlaps hero ───────────── */
+    .upcoming-section {
+      position: relative;
+      z-index: 2;
+      width: 85%;
+      margin: -52px auto 0;
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 32px 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,.10);
+    }
 
     /* ─── Section icon chip ─────────────────────────── */
     .sec-icon {
@@ -79,32 +88,35 @@
     /* ─── Upcoming Webinar Card ─────────────────────── */
     .webinar-card {
       background: #fff;
-      border: 1px solid #e4e4e4;
+      border: 1px solid #eef2ee;
       border-radius: 12px;
-      padding: 20px 22px;
+      padding: 18px 20px;
       display: flex;
       align-items: center;
-      gap: 18px;
-      margin-bottom: 14px;
+      gap: 16px;
+      margin-bottom: 12px;
       transition: box-shadow .2s, border-color .2s;
     }
-    .webinar-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); border-color: #c8e6c9; }
+    .webinar-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); border-color: #c8e6c9; }
 
     /* date block */
+    
     .wb-date {
       text-align: center;
-      min-width: 64px;
+      min-width: 58px;
       flex-shrink: 0;
+      background: transparent;
     }
-    .wb-date .day   { font-size: 2.3rem; font-weight: 800; color: #2d6a4f; line-height: 1; }
-    .wb-date .mon   { font-size: .78rem; font-weight: 700; color: #2d6a4f; text-transform: uppercase; letter-spacing: .5px; }
-    .wb-date .yr    { font-size: .75rem; color: #999; margin-top: 1px; }
+    .wb-date .day   { font-size: 2.1rem; font-weight: 800; color: #2d6a4f; line-height: 1; }
+    .wb-date .mon   { font-size: .75rem; font-weight: 700; color: #2d6a4f; text-transform: uppercase; letter-spacing: .5px; }
+    .wb-date .yr    { font-size: .72rem; color: #aaa; margin-top: 2px; }
     .wb-date .wday  {
       display: inline-block;
       background: #2d6a4f; color: #fff;
-      font-size: .65rem; font-weight: 700;
-      padding: 2px 8px; border-radius: 4px;
+      font-size: .63rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px;
       text-transform: uppercase; margin-top: 5px;
+      letter-spacing: .5px;
     }
 
     /* thumbnail */
@@ -292,14 +304,37 @@
 
     /* ─── Responsive tweaks ──────────────────────────── */
     @media (max-width: 768px) {
+      .webinar-hero { padding-bottom: 80px; }
+      .upcoming-section { width: 95%; margin-top: -48px; border-radius: 12px; padding: 24px 16px 28px; }
       .webinar-hero h1 { font-size: 2rem; }
-      .webinar-card { flex-wrap: wrap; }
-      .wb-thumb { width: 100%; height: 150px; }
-      .wb-actions { flex-direction: row; width: 100%; justify-content: flex-end; align-items: center; }
+
+      /* Row 1: date + thumb side by side */
+      .webinar-card { flex-wrap: wrap; gap: 12px; padding: 16px; }
+      .wb-date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        min-width: 54px;
+      }
+      .wb-thumb { flex: 1; height: 100px; min-width: 0; width: auto; }
+      
+      /* Row 2: content full width */
+      .wb-content { width: 100%; flex-basis: 100%; }
+
+      /* Row 3: actions */
+      .wb-actions { flex-direction: row; width: 100%; flex-basis: 100%; justify-content: flex-end; align-items: center; }
+
       .newsletter-card { flex-direction: column; text-align: center; }
     }
     @media (max-width: 480px) {
+      .upcoming-section { width: 96%; margin-top: -32px; padding: 20px 12px 24px; }
       .wb-date .day { font-size: 1.8rem; }
+      .wb-thumb { height: 80px; }
+      .webinar-hero .hero-inner {
+         
+          padding: 40px 10px 0;
+      }
     }
   </style>
 </head>
@@ -321,7 +356,7 @@
     </section>
 
     <!-- ══ UPCOMING WEBINARS ══════════════════════════════════════════ -->
-    <section class="py-5">
+    <section class="upcoming-section">
       <div class="container">
 
         <!-- Header row -->
@@ -372,14 +407,18 @@
               <p class="mb-0 text-muted" style="font-size:.84rem;">Watch recordings of our previous webinars.</p>
             </div>
           </div>
-          <div class="d-flex gap-2 flex-wrap">
-            <div class="input-group" style="width:210px;">
+          <div class="d-flex gap-2 flex-wrap align-items-center">
+            <div class="input-group" style="width:200px;">
               <span class="input-group-text bg-white border-end-0" style="border-radius:8px 0 0 8px;">
                 <i class="bi bi-search text-muted" style="font-size:.85rem;"></i>
               </span>
               <input type="search" class="form-control border-start-0" id="past-search"
                 placeholder="Search webinars..." style="border-radius:0 8px 8px 0; font-size:.85rem;">
             </div>
+            <select class="form-select" id="topic-filter"
+              style="width:auto; font-size:.85rem; border-radius:8px; border-color:#dee2e6; color:#555;">
+              <option value="">Filter by Topic</option>
+            </select>
           </div>
         </div>
 
@@ -389,6 +428,13 @@
           <div class="col-sm-6 col-lg-3"><div class="wb-skeleton" style="height:220px;"></div></div>
           <div class="col-sm-6 col-lg-3"><div class="wb-skeleton" style="height:220px;"></div></div>
           <div class="col-sm-6 col-lg-3"><div class="wb-skeleton" style="height:220px;"></div></div>
+        </div>
+
+        <!-- View All Webinars -->
+        <div class="text-center mt-4" id="view-all-past-wrap" style="display:none;">
+          <button class="btn-outline-rounded" id="view-all-past-btn">
+            View All Webinars <i class="bi bi-arrow-right"></i>
+          </button>
         </div>
 
         <!-- Past Pagination -->
@@ -563,7 +609,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="../assets/js/main.js"></script>
-  <script type="module" src="../services/webinar.js?t=2"></script>
+  <script type="module" src="../services/webinar.js?t=4"></script>
 </body>
 
 </html>

@@ -158,10 +158,12 @@ const buildUpcomingCard = (wb) => {
   return `
   <div class="webinar-card">
     <div class="wb-date">
-      <div class="day">${d.getDate()}</div>
-      <div class="mon">${d.toLocaleString("en-US",{month:"short"}).toUpperCase()}</div>
-      <div class="yr">${d.getFullYear()}</div>
-      <div class="wday">${d.toLocaleString("en-US",{weekday:"short"}).toUpperCase()}</div>
+      <div class="wb-date-inner">
+        <div class="day">${d.getDate()}</div>
+        <div class="mon">${d.toLocaleString("en-US",{month:"short"}).toUpperCase()}</div>
+        <div class="yr">${d.getFullYear()}</div>
+        <div class="wday">${d.toLocaleString("en-US", { weekday: "short" }).toUpperCase()}</div>
+      </div>
     </div>
 
     ${upcomingThumb(wb)}
@@ -175,7 +177,12 @@ const buildUpcomingCard = (wb) => {
       <p class="wb-desc">${esc(wb.key_learnings || "")}</p>
       <div class="wb-speaker">
         <i class="bi bi-person-circle"></i>
-        <span>${esc(wb.speakers || "Speaker TBA")}</span>
+        <div>
+          <span>${esc(wb.speakers || "Speaker TBA")}</span>
+          ${wb.speaker_designation
+            ? `<div class="wb-speaker-role">${esc(wb.speaker_designation)}</div>`
+            : ""}
+        </div>
       </div>
     </div>
 
@@ -282,15 +289,21 @@ const loadAllUpcoming = async () => {
 // PAST WEBINARS
 // ═══════════════════════════════════════════════════════════════════════
 
+const fmtViews = (n) => {
+  if (!n) return null;
+  return n >= 1000 ? `${(n / 1000).toFixed(1).replace(/\.0$/, "")}K` : String(n);
+};
+
 const buildPastCard = (wb) => {
-  const dur  = fmtShortDuration(wb.duration);
-  const date = fmtDate(wb.date_time);
-  const reg  = wb.registration_count || 0;
+  const dur    = fmtShortDuration(wb.duration);
+  const date   = fmtDate(wb.date_time);
+  const views  = fmtViews(wb.view_count || wb.registration_count);
+  const topic  = wb.topic || wb.theme || wb.category || "";
 
   webinarMap.set(wb.name, { ...wb, timeRng: fmtTimeRange(wb.date_time, wb.duration) });
 
   return `
-  <div class="col-sm-6 col-lg-3">
+  <div class="col-sm-6 col-lg-3" data-topic="${esc(topic.toLowerCase())}">
     <div class="past-card" role="button" data-id="${esc(wb.name)}">
       <div class="past-thumb">
         ${pastThumbInner(wb)}
@@ -305,33 +318,61 @@ const buildPastCard = (wb) => {
         <h6>${esc(wb.title)}</h6>
         <div class="past-meta">
           <span><i class="bi bi-calendar3 me-1"></i>${date}</span>
-          <span><i class="bi bi-people me-1"></i>${reg} registered</span>
+          ${views ? `<span><i class="bi bi-eye me-1"></i>${views} Views</span>` : ""}
         </div>
-        ${wb.speakers
-          ? `<div class="wb-speaker mt-1" style="font-size:.76rem;">
-               <i class="bi bi-person-circle" style="color:#2d6a4f;"></i>
-               <span>${esc(wb.speakers)}</span>
-             </div>`
-          : ""}
+        ${topic ? `<div class="mt-1"><span class="topic-tag">${esc(topic)}</span></div>` : ""}
       </div>
     </div>
   </div>`;
 };
 
+const populateTopicFilter = (list) => {
+  const sel = document.getElementById("topic-filter");
+  if (!sel) return;
+  const topics = [...new Set(
+    list.map(wb => wb.topic || wb.theme || wb.category || "").filter(Boolean)
+  )].sort();
+  // preserve existing "Filter by Topic" option, remove old dynamic ones
+  sel.querySelectorAll("option[data-dynamic]").forEach(o => o.remove());
+  topics.forEach(t => {
+    const opt = document.createElement("option");
+    opt.value = t.toLowerCase();
+    opt.textContent = t;
+    opt.dataset.dynamic = "1";
+    sel.appendChild(opt);
+  });
+};
+
+const applyPastFilters = () => {
+  const q     = (document.getElementById("past-search")?.value || "").toLowerCase();
+  const topic = (document.getElementById("topic-filter")?.value || "").toLowerCase();
+  document.querySelectorAll("#past-list [data-topic]").forEach((col) => {
+    const title     = col.querySelector("h6")?.textContent.toLowerCase() || "";
+    const colTopic  = col.dataset.topic || "";
+    const matchQ    = !q     || title.includes(q);
+    const matchTopic = !topic || colTopic === topic;
+    col.style.display = matchQ && matchTopic ? "" : "none";
+  });
+};
+
 const renderPast = (list) => {
-  const el = document.getElementById("past-list");
+  const el        = document.getElementById("past-list");
+  const viewAllWrap = document.getElementById("view-all-past-wrap");
   if (!list || list.length === 0) {
     el.innerHTML = `
       <div class="col-12 text-center py-5 text-muted">
         <i class="bi bi-play-circle" style="font-size:3rem;color:#ccc;"></i>
         <p class="mt-3">No past webinar recordings available yet.</p>
       </div>`;
+    if (viewAllWrap) viewAllWrap.style.display = "none";
     return;
   }
   el.innerHTML = list.map(buildPastCard).join("");
   el.querySelectorAll(".past-card[data-id]").forEach((card) =>
     card.addEventListener("click", () => openDetailsModal(card.dataset.id))
   );
+  populateTopicFilter(list);
+  if (viewAllWrap) viewAllWrap.style.display = "block";
 };
 
 const fetchPast = async (page = 1) => {
@@ -356,6 +397,10 @@ const fetchPast = async (page = 1) => {
       renderPast(res.message.data);
       renderPagination("past-pagination", pastState, fetchPast);
       scrollToSection("past-list");
+      // hide "View All" if only one page
+      if (pastState.totalPages <= 1) {
+        document.getElementById("view-all-past-wrap").style.display = "none";
+      }
     } else {
       renderPast([]);
     }
@@ -584,13 +629,28 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("view-all-btn")
     .addEventListener("click", loadAllUpcoming);
 
-  // Client-side search on past cards (current page only)
-  document.getElementById("past-search").addEventListener("input", (e) => {
-    const q = e.target.value.toLowerCase();
-    document.querySelectorAll("#past-list .col-sm-6").forEach((col) => {
-      const title = col.querySelector("h6")?.textContent.toLowerCase() || "";
-      col.style.display = !q || title.includes(q) ? "" : "none";
-    });
+  // Client-side search + topic filter on past cards (current page only)
+  document.getElementById("past-search").addEventListener("input", applyPastFilters);
+  document.getElementById("topic-filter")?.addEventListener("change", applyPastFilters);
+
+  // View All Webinars (past) — loads all past in scrollable container
+  document.getElementById("view-all-past-btn")?.addEventListener("click", async () => {
+    const btn = document.getElementById("view-all-past-btn");
+    const wrap = document.getElementById("view-all-past-wrap");
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Loading…`;
+    try {
+      const res = await client.get("/get_webinar_list", { type: "past", page: 1, page_size: 100 });
+      if (res?.message?.success && Array.isArray(res.message.data)) {
+        renderPast(res.message.data);
+        document.getElementById("past-pagination").innerHTML = "";
+        wrap.style.display = "none";
+      }
+    } catch (err) {
+      notify("error", "Failed to load all webinars.");
+      btn.disabled = false;
+      btn.innerHTML = `View All Webinars <i class="bi bi-arrow-right"></i>`;
+    }
   });
 
   document.getElementById("add-calendar-btn")
