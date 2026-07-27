@@ -256,6 +256,18 @@
       font-size: .7rem; font-weight: 600;
       padding: 2px 7px; border-radius: 4px;
     }
+    .fullscreen-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,.65); color: #fff;
+      border: none; border-radius: 5px;
+      padding: 4px 8px; font-size: .78rem;
+      cursor: pointer; z-index: 10;
+      display: none;
+      align-items: center; gap: 4px;
+      transition: background .15s;
+    }
+    .past-card:hover .fullscreen-btn { display: flex; }
+    .fullscreen-btn:hover { background: rgba(0,0,0,.9); }
     .past-info { padding: 12px 14px; flex: 1; }
     .past-info h6 { font-size: .9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 5px; line-height: 1.4; }
     .past-meta { display: flex; align-items: center; gap: 10px; font-size: .74rem; color: #999; margin-bottom: 8px; }
@@ -464,6 +476,21 @@
 
   </main>
 
+  <!-- ══ WEBINAR VIDEO MODAL ═════════════════════════════════════════ -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content" style="background:#111;">
+        <div class="modal-header border-0 pb-1" style="background:#111;">
+          <h6 class="modal-title text-white fw-semibold mb-0" id="video-modal-title"></h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0" id="video-modal-body">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ WEBINAR DETAILS MODAL ════════════════════════════════════════ -->
   <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -609,7 +636,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="../assets/js/main.js"></script>
-  <script type="module" src="../services/webinar.js?t=4"></script>
+  <script type="module" src="../services/webinar.js?t=65"></script>
 </body>
 
 </html>

@@ -294,17 +294,28 @@ const fmtViews = (n) => {
   return n >= 1000 ? `${(n / 1000).toFixed(1).replace(/\.0$/, "")}K` : String(n);
 };
 
+const buildAutoplayUrl = (url) => {
+  if (!url) return "";
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&mute=1&rel=0`;
+  const vmMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vmMatch) return `https://player.vimeo.com/video/${vmMatch[1]}?autoplay=1&muted=1`;
+  return url;
+};
+
 const buildPastCard = (wb) => {
   const dur    = fmtShortDuration(wb.duration);
   const date   = fmtDate(wb.date_time);
   const views  = fmtViews(wb.view_count || wb.registration_count);
-  const topic  = wb.topic || wb.theme || wb.category || "";
-
+  const topic = wb.topic || wb.theme || wb.category || "";
+  const VideoUrl = wb.webinar_video
+    ? (wb.webinar_video.startsWith("http") ? wb.webinar_video : `${client.baseURL}${wb.webinar_video}`)
+    : "";
   webinarMap.set(wb.name, { ...wb, timeRng: fmtTimeRange(wb.date_time, wb.duration) });
 
   return `
   <div class="col-sm-6 col-lg-3" data-topic="${esc(topic.toLowerCase())}">
-    <div class="past-card" role="button" data-id="${esc(wb.name)}">
+    <div class="past-card" data-id="${esc(wb.name)}" data-video="${esc(VideoUrl)}">
       <div class="past-thumb">
         ${pastThumbInner(wb)}
         <div class="play-overlay">
@@ -312,6 +323,7 @@ const buildPastCard = (wb) => {
             <i class="bi bi-play-fill" style="margin-left:2px;"></i>
           </div>
         </div>
+        ${wb.webinar_video ? `<button class="fullscreen-btn" title="Full Screen"><i class="bi bi-fullscreen"></i></button>` : ""}
         ${dur ? `<div class="dur-badge">${dur}</div>` : ""}
       </div>
       <div class="past-info">
@@ -368,9 +380,37 @@ const renderPast = (list) => {
     return;
   }
   el.innerHTML = list.map(buildPastCard).join("");
-  el.querySelectorAll(".past-card[data-id]").forEach((card) =>
-    card.addEventListener("click", () => openDetailsModal(card.dataset.id))
-  );
+  el.querySelectorAll(".past-card[data-id]").forEach((card) => {
+    const videoUrl = card.dataset.video;
+    if (!videoUrl) return;
+
+    const thumb       = card.querySelector(".past-thumb");
+    const playOverlay = card.querySelector(".play-overlay");
+    const fsBtn       = card.querySelector(".fullscreen-btn");
+    let iframeEl      = null;
+
+    card.addEventListener("mouseenter", () => {
+      if (iframeEl) return;
+      playOverlay.style.display = "none";
+      iframeEl = document.createElement("iframe");
+      iframeEl.src = buildAutoplayUrl(videoUrl);
+      iframeEl.frameBorder = "0";
+      iframeEl.allow = "autoplay; fullscreen; picture-in-picture";
+      iframeEl.allowFullscreen = true;
+      iframeEl.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5;";
+      thumb.appendChild(iframeEl);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      if (iframeEl) { iframeEl.remove(); iframeEl = null; }
+      playOverlay.style.display = "";
+    });
+
+    fsBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      iframeEl?.requestFullscreen?.();
+    });
+  });
   populateTopicFilter(list);
   if (viewAllWrap) viewAllWrap.style.display = "block";
 };
@@ -421,6 +461,40 @@ const scrollToSection = (sectionId) => {
   const el = document.getElementById(sectionId);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
+
+// ═══════════════════════════════════════════════════════════════════════
+// VIDEO MODAL
+// ═══════════════════════════════════════════════════════════════════════
+
+const openVideoModal = (id) => {
+  const wb = webinarMap.get(id);
+  if (!wb) return;
+
+  const titleEl = document.getElementById("video-modal-title");
+  const bodyEl = document.getElementById("video-modal-body");
+  const videoUrl = `${client.baseURL}${wb.webinar_video}` || "";
+
+  if (titleEl) titleEl.textContent = wb.title || "";
+
+  if (!wb.webinar_video) {
+    bodyEl.innerHTML = `<p class="text-center text-muted py-4">No video available for this webinar.</p>`;
+  } else {
+    bodyEl.innerHTML = `
+      <div class="ratio ratio-16x9">
+        <iframe src="${esc(videoUrl)}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>`;
+  }
+
+  bootstrap.Modal.getOrCreateInstance(document.getElementById("videoModal")).show();
+};
+
+// Clear video src on modal close to stop playback
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("videoModal")?.addEventListener("hidden.bs.modal", () => {
+    const bodyEl = document.getElementById("video-modal-body");
+    if (bodyEl) bodyEl.innerHTML = "";
+  });
+});
 
 // ═══════════════════════════════════════════════════════════════════════
 // DETAILS MODAL
