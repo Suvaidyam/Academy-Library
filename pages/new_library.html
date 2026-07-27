@@ -176,32 +176,61 @@
     }
 
     /* E-Book cards */
+    /* ── Ebook Card ─────────────────────────────────── */
     .ebook-card {
       background: #fff;
-      border: 1px solid #e8ecef;
-      border-radius: 16px;
-      padding: 20px;
+      border: 1.5px solid #b7dcae;
+      border-radius: 20px;
+      overflow: hidden;
       height: 100%;
-      transition: .3s;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 20px;
+      gap: 20px;
+      transition: transform .3s, box-shadow .3s;
     }
 
     .ebook-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .1);
     }
 
+    /* image area — small cover thumbnail on the left */
+    .ebook-thumb-wrap {
+      display: block;
+      width: 140px;
+      height: 190px;
+      background: #f4f6f7;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
+      text-decoration: none;
+    }
     .ebook-card .ebook-thumbnail {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 14px;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    /* details to the right of the image */
+    .ebook-info {
+      padding: 0;
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .ebook-card h5 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      color: #1a1a1a;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       line-clamp: 2;
@@ -212,8 +241,8 @@
 
     .ebook-card .ebook-subtitle {
       color: #6c757d;
-      font-size: 14px;
-      margin-bottom: 10px;
+      font-size: 12px;
+      margin-bottom: 8px;
       display: -webkit-box;
       -webkit-line-clamp: 1;
       line-clamp: 1;
@@ -226,37 +255,60 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .ebook-card .ebook-badges span {
-      background: #eef8f0;
-      color: #198754;
-      padding: 4px 10px;
+      background: #fff;
+      border: 1.5px solid #8fc07f;
+      color: #1a1a1a;
+      padding: 6px 16px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 500;
     }
 
     .ebook-card .ebook-meta {
-      font-size: 13px;
-      color: #555;
+      font-size: 15px;
+      color: #1a1a1a;
+      margin-top: auto;
     }
 
     .ebook-card .ebook-meta div {
-      margin-bottom: 4px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ebook-card .ebook-meta i {
+      color: #1a1a1a;
+      font-size: 19px;
     }
 
     .ebook-card .ebook-meta .ebook-publisher,
     .ebook-card .ebook-meta .ebook-author,
     .ebook-card .ebook-meta .ebook-isbn {
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      line-clamp: 1;
-      -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    /* Mobile — stack thumbnail on top, details below */
+    @media (max-width: 767.98px) {
+      .ebook-card {
+        flex-direction: column;
+      }
+
+      .ebook-thumb-wrap {
+        width: 140px;
+        height: 190px;
+        margin: 0 auto 16px;
+      }
+
+      .ebook-info {
+        width: 100%;
+      }
     }
 
     /* Pagination */
@@ -1429,7 +1481,7 @@
   <script type="module" src="../Libray Service/handleFiletype.js"></script>
   <script type="module" src="../Libray Service/get_book_list.js"></script>
   <script type="module" src="../Libray Service/video_lecture.js"></script>
-  <script type="module" src="../Libray Service/e_book.js"></script>
+  <script type="module" src="../Libray Service/e_book.js?t=2"></script>
 
 
   <script type="module">
@@ -1455,7 +1507,7 @@
 
     let user_roles = [];
     const get_login_user_details = async () => {
-      const userDetails = sessionStorage.getItem('user_info');
+    const userDetails = sessionStorage.getItem('user_info');
       // console.log('userDetails', userDetails);
 
       if (userDetails) {
