@@ -1,4 +1,5 @@
 import { FrappeApiClient } from "../services/FrappeApiClient.js";
+let base=null
 
 const client = new FrappeApiClient();
 
