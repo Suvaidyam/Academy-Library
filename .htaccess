@@ -1,0 +1,21 @@
+# ── Security headers ──────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    # Allow YouTube / Vimeo / Drive iframes to load and autoplay
+    Header always set Permissions-Policy "autoplay=*, fullscreen=*, picture-in-picture=*, encrypted-media=*"
+    Header always set Content-Security-Policy "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; frame-src *;"
+
+    # Prevent MIME-type sniffing (keep security, doesn't affect iframes)
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# ── MIME types for ES modules ──────────────────────────────────────────────
+<IfModule mod_mime.c>
+    AddType application/javascript .js .mjs
+</IfModule>
+
+# ── Rewrite for SPA / clean URLs (optional, safe to keep) ─────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
