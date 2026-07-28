@@ -49,7 +49,7 @@ const isVideoUrl = (url) =>
 const buildAutoplayUrl = (url) => {
   if (!url) return "";
   const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-  if (yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&mute=1&rel=0`;
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&mute=1&rel=0&enablejsapi=1`;
   const vm = url.match(/vimeo\.com\/(\d+)/);
   if (vm) return `https://player.vimeo.com/video/${vm[1]}?autoplay=1&muted=1`;
   const gd = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
@@ -117,12 +117,43 @@ const attachVideoHover = () => {
 
     const onDocMove = (e) => { mouseX = e.clientX; mouseY = e.clientY; };
 
+    let ytErrHandler = null;
+
     const removeVideo = () => {
       if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
       document.removeEventListener("mousemove", onDocMove);
+      if (ytErrHandler) { window.removeEventListener("message", ytErrHandler); ytErrHandler = null; }
       if (iframeEl) { iframeEl.remove(); iframeEl = null; }
       thumb.querySelector(".lr-iframe-capture")?.remove();
+      thumb.querySelector(".lr-embed-error")?.remove();
       if (playOverlay) playOverlay.style.display = "";
+    };
+
+    const attachYouTubeErrorHandler = (originalUrl) => {
+      ytErrHandler = (event) => {
+        if (!event.origin.includes("youtube.com")) return;
+        try {
+          const data = JSON.parse(event.data);
+          // Error codes 100=not found, 101/150/153=embedding disabled
+          if (data.event === "onError") {
+            window.removeEventListener("message", ytErrHandler);
+            ytErrHandler = null;
+            if (iframeEl) { iframeEl.remove(); iframeEl = null; }
+            thumb.querySelector(".lr-iframe-capture")?.remove();
+            if (playOverlay) playOverlay.style.display = "none";
+            const errEl = document.createElement("div");
+            errEl.className = "lr-embed-error";
+            errEl.innerHTML = `
+              <i class="bi bi-exclamation-circle"></i>
+              <span>Video cannot be embedded</span>
+              <a href="${esc(originalUrl)}" target="_blank" rel="noopener">
+                Watch on YouTube <i class="bi bi-box-arrow-up-right"></i>
+              </a>`;
+            thumb.appendChild(errEl);
+          }
+        } catch (_) {}
+      };
+      window.addEventListener("message", ytErrHandler);
     };
 
     const checkBounds = () => {
@@ -171,6 +202,9 @@ const attachVideoHover = () => {
       } else {
         // YouTube / Vimeo: no overlay so player controls work;
         // track mouse position via RAF to detect when cursor leaves card
+        if (videoUrl.match(/youtube\.com|youtu\.be/)) {
+          attachYouTubeErrorHandler(videoUrl);
+        }
         startTracking(e.clientX, e.clientY);
       }
     });
