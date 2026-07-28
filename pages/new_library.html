@@ -382,6 +382,141 @@
       border-color: #198754;
       color: #fff;
     }
+
+    /* ─── Learning Resource Tab ──────────────────── */
+    .lr-cat-card {
+      background: #fff;
+      border: 1.5px solid #dee2e6;
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+      height: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      user-select: none;
+    }
+    .lr-cat-card:hover { border-color: #198754; box-shadow: 0 4px 14px rgba(25,135,84,.1); }
+    .lr-cat-card.active { border-color: #198754; background: #f4f9f2; box-shadow: 0 4px 14px rgba(25,135,84,.12); }
+    .lr-cat-icon-wrap { font-size: 2rem; line-height: 1; }
+    .lr-cat-card h6 { font-size: .88rem; font-weight: 700; color: #1a1a1a; margin: 0; }
+    .lr-cat-card p { font-size: .75rem; color: #6c757d; margin: 0; line-height: 1.4; }
+
+    .lr-artifact-card {
+      background: #fff;
+      border: 1.5px solid #dee2e6;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 100%;
+      display: flex; flex-direction: column;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .lr-artifact-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.1); border-color: #b7dcae; }
+    .lr-artifact-thumb {
+      position: relative; width: 100%; height: 0; padding-top: 56.25%;
+      overflow: hidden;
+    }
+    .lr-artifact-thumb img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .lr-artifact-thumb .lr-thumb-icon {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-size: 2.5rem; color: rgba(255,255,255,.75);
+    }
+    .lr-artifact-info { padding: 14px 16px; display: flex; flex-direction: column; flex: 1; gap: 6px; }
+    .lr-cat-badge {
+      display: inline-block; background: #e8f5e9; color: #1e6b3a;
+      font-size: .67rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: .4px; width: fit-content;
+    }
+    .lr-artifact-info h6 { font-size: .9rem; font-weight: 700; color: #1a1a1a; margin: 0; line-height: 1.4; }
+    .lr-artifact-desc {
+      font-size: .78rem; color: #666; margin: 0;
+      display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .lr-artifact-meta {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      font-size: .72rem; color: #999; margin-top: auto;
+    }
+    .lr-view-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      color: #198754; font-size: .8rem; font-weight: 600;
+      text-decoration: none; margin-top: 6px;
+      transition: color .15s;
+    }
+    .lr-view-btn:hover { color: #0f5132; text-decoration: underline; }
+    .lr-view-btn.disabled { color: #aaa; cursor: default; pointer-events: none; }
+
+    .lr-skeleton-card {
+      height: 260px; border-radius: 12px;
+      background: linear-gradient(90deg,#f2f2f2 25%,#e8e8e8 50%,#f2f2f2 75%);
+      background-size: 400% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    #lr-search { border-radius: 8px 0 0 8px; border-right: 0; }
+    #lr-search-btn { border-radius: 0 8px 8px 0; border-color: #ced4da; color: #555; }
+    #lr-search-btn:hover { background: #198754; border-color: #198754; color: #fff; }
+
+    .lr-pagination-wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .lr-page-info { font-size: .8rem; color: #6c757d; }
+    #lr-pagination .page-link {
+      color: #198754; border-color: #dee2e6; font-size: .82rem;
+      padding: 5px 10px;
+    }
+    #lr-pagination .page-item.active .page-link {
+      background: #198754; border-color: #198754; color: #fff;
+    }
+    #lr-pagination .page-link:hover:not(:disabled) { background: #e8f5e9; color: #0f5132; }
+    #lr-pagination .page-item.disabled .page-link { color: #adb5bd; }
+
+    .lr-artifact-card.no-video { cursor: default; }
+
+    .lr-play-overlay {
+      position: absolute; inset: 0; z-index: 4;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .lr-play-overlay i {
+      display: flex; align-items: center; justify-content: center;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(255,255,255,.9);
+      color: #198754; font-size: 1.6rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,.25);
+      transition: transform .2s, background .2s;
+    }
+    .lr-artifact-card:hover .lr-play-overlay i {
+      transform: scale(1.1);
+      background: #fff;
+    }
+
+    .lr-artifact-thumb iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 5;
+    }
+
+    .lr-fs-btn {
+      position: absolute; bottom: 8px; right: 8px; z-index: 8;
+      background: rgba(0,0,0,.55); border: none; color: #fff;
+      width: 32px; height: 32px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; cursor: pointer; opacity: 0;
+      transition: opacity .2s;
+    }
+    .lr-artifact-card:hover .lr-fs-btn { opacity: 1; }
+    .lr-fs-btn:hover { background: rgba(0,0,0,.8); }
+
+    .lr-drive-hint {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 6px;
+      color: #fff; cursor: pointer;
+      background: rgba(0,0,0,.35);
+    }
+    .lr-drive-hint i { font-size: 2.2rem; }
+    .lr-drive-hint span { font-size: .8rem; font-weight: 600; letter-spacing: .3px; }
   </style>
 </head>
 
@@ -1270,55 +1405,44 @@
         </div>
 
         <div class="tab-pane fade" id="learning-resource" role="tabpanel" aria-labelledby="learning-resource-tab">
-            <main class="container my-4">
-              <div class="row">
+          <div class="py-4">
 
-                <div class="col-lg-12  d-flex align-items-center justify-content-center ">
-                  <div class="featured-section mb-4">
-                 <div class="row g-4">
+            <!-- Category selector -->
+            <div class="row g-3 mb-4" id="lr-category-cards">
+              <!-- populated by learning_resource.js -->
+            </div>
 
-    <!-- PDF -->
-    <div class="col-lg-3 col-md-6">
-        <a href="/assets/img/farmerbook.pdf" target="_blank" class="resource-card">
-            <div class="resource-icon">📕</div>
-            <h5>PDF Resources</h5>
-            <p>Training manuals, guides and reference materials.</p>
-        </a>
-    </div>
-
-    <!-- Videos -->
-    <div class="col-lg-3 col-md-6">
-        <a href="/assets/img/farmerbook.pdf" class="resource-card">
-            <div class="resource-icon">🎥</div>
-            <h5>Videos</h5>
-            <p>Training videos, demonstrations and webinars.</p>
-        </a>
-    </div>
-
-    <!-- Documents -->
-    <div class="col-lg-3 col-md-6">
-        <a href="/assets/img/farmerbook.pdf" class="resource-card">
-            <div class="resource-icon">📄</div>
-            <h5>Documents</h5>
-            <p>Reports, case studies and technical documents.</p>
-        </a>
-    </div>
-
-    <!-- Presentations -->
-    <div class="col-lg-3 col-md-6">
-        <a href="/assets/img/farmerbook.pdf" class="resource-card">
-            <div class="resource-icon">📊</div>
-            <h5>Presentations</h5>
-            <p>Training presentations and workshop materials.</p>
-        </a>
-    </div>
-
-</div>
-                    
-                  </div>
-                </div>
+            <!-- Search -->
+            <div class="d-flex align-items-center mb-4">
+              <div class="input-group" style="max-width:420px;">
+                <input type="text" class="form-control" id="lr-search" placeholder="Search Keywords">
+                <button class="btn btn-outline-secondary" id="lr-search-btn" type="button">
+                  <i class="bi bi-search"></i>
+                </button>
               </div>
-            </main>
+            </div>
+
+            <!-- Artifact grid -->
+            <div class="row g-4" id="lr-artifact-grid">
+              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
+              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
+              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
+              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
+              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
+              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
+            </div>
+
+            <!-- Empty state -->
+            <div id="lr-empty" class="text-center py-5" style="display:none;">
+              <i class="bi bi-folder2-open" style="font-size:3rem;color:#ccc;"></i>
+              <p class="mt-3 text-muted">No resources found. Try a different category or search term.</p>
+              <button class="btn btn-outline-success btn-sm" id="lr-reset-btn">Clear filters</button>
+            </div>
+
+            <!-- Pagination -->
+            <div id="lr-pagination" class="mt-4"></div>
+
+          </div>
         </div>
 
 
@@ -1482,6 +1606,7 @@
   <script type="module" src="../Libray Service/get_book_list.js"></script>
   <script type="module" src="../Libray Service/video_lecture.js"></script>
   <script type="module" src="../Libray Service/e_book.js?t=2"></script>
+  <script type="module" src="../services/learning_resource.js?t=2"></script>
 
 
   <script type="module">
