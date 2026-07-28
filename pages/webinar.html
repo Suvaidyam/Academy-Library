@@ -221,13 +221,20 @@
     .past-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.1); }
     .past-thumb {
       position: relative;
-      aspect-ratio: 16/9;
+      width: 100%;
+      height: 0;
+      padding-top: 56.25%; /* 16:9 */
       overflow: hidden;
     }
     .past-thumb img,
-    .past-thumb .thumb-bg {
-      width: 100%; height: 100%; object-fit: cover;
+    .past-thumb .thumb-bg,
+    .past-thumb iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
       display: block;
+      border: 0;
     }
     .past-thumb .thumb-bg {
       display: flex; align-items: center; justify-content: center;
@@ -250,11 +257,86 @@
       transition: transform .2s;
     }
     .past-card:hover .play-circle { transform: scale(1.08); }
+    .past-card.no-video { cursor: default; }
+    .past-card.no-video .play-overlay { display: none; }
+    .past-card.no-video:hover { box-shadow: none; }
     .dur-badge {
       position: absolute; bottom: 8px; left: 8px;
       background: rgba(0,0,0,.72); color: #fff;
       font-size: .7rem; font-weight: 600;
       padding: 2px 7px; border-radius: 4px;
+    }
+    .drive-play-hint {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px;
+      background: rgba(0,0,0,.45);
+      color: #fff; cursor: pointer;
+      transition: background .2s;
+    }
+    .drive-play-hint:hover { background: rgba(0,0,0,.6); }
+    .drive-play-hint i { font-size: 2.2rem; }
+    .drive-play-hint span { font-size: .78rem; font-weight: 600; letter-spacing: .5px; }
+
+    .fullscreen-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,.65); color: #fff;
+      border: none; border-radius: 5px;
+      padding: 4px 8px; font-size: .78rem;
+      cursor: pointer; z-index: 10;
+      display: none;
+      align-items: center; gap: 4px;
+      transition: background .15s;
+    }
+    .past-card:hover .fullscreen-btn { display: flex; }
+    .fullscreen-btn:hover { background: rgba(0,0,0,.9); }
+
+    /* ─── Drive video mini popup ─────────────────────── */
+    #video-popup {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 360px;
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.55);
+      z-index: 99999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .vp-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: #1c1c1c;
+      gap: 8px;
+    }
+    .vp-title {
+      color: #fff; font-size: .76rem; font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      flex: 1;
+    }
+    .vp-controls { display: flex; gap: 4px; flex-shrink: 0; }
+    .vp-btn {
+      background: none; border: none;
+      color: rgba(255,255,255,.7); font-size: .88rem;
+      cursor: pointer; padding: 4px 7px; border-radius: 5px;
+      transition: color .15s, background .15s;
+      display: flex; align-items: center;
+    }
+    .vp-btn:hover { color: #fff; background: rgba(255,255,255,.12); }
+    .vp-body {
+      position: relative; width: 100%;
+      height: 0; padding-top: calc(56.25% + 44px);
+      overflow: hidden;
+    }
+    .vp-body iframe {
+      position: absolute; top: -44px; left: 0;
+      width: 100%; height: calc(100% + 44px); border: 0;
+    }
+    @media (max-width: 480px) {
+      #video-popup { width: calc(100vw - 24px); right: 12px; bottom: 12px; }
     }
     .past-info { padding: 12px 14px; flex: 1; }
     .past-info h6 { font-size: .9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 5px; line-height: 1.4; }
@@ -464,6 +546,39 @@
 
   </main>
 
+  <!-- ══ DRIVE VIDEO MINI POPUP ═══════════════════════════════════════ -->
+  <div id="video-popup">
+    <div class="vp-header">
+      <span class="vp-title" id="vp-title"></span>
+      <div class="vp-controls">
+        <button class="vp-btn" id="vp-fullscreen" title="Full Screen">
+          <i class="bi bi-fullscreen"></i>
+        </button>
+        <button class="vp-btn" id="vp-close" title="Close">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+    <div class="vp-body">
+      <iframe id="vp-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- ══ WEBINAR VIDEO MODAL ═════════════════════════════════════════ -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content" style="background:#111;">
+        <div class="modal-header border-0 pb-1" style="background:#111;">
+          <h6 class="modal-title text-white fw-semibold mb-0" id="video-modal-title"></h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0" id="video-modal-body">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ WEBINAR DETAILS MODAL ════════════════════════════════════════ -->
   <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -609,7 +724,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="../assets/js/main.js"></script>
-  <script type="module" src="../services/webinar.js?t=4"></script>
+  <script type="module" src="../services/webinar.js?t=67"></script>
 </body>
 
 </html>
