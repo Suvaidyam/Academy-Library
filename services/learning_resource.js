@@ -111,46 +111,65 @@ const attachVideoHover = () => {
     const fsBtn       = card.querySelector(".lr-fs-btn");
     const playOverlay = card.querySelector(".lr-play-overlay");
     const isDrive     = videoUrl.includes("drive.google.com");
-    let iframeEl = null;
-    let rafId    = null;
-    let mouseX   = 0;
-    let mouseY   = 0;
+    const isYT        = /youtube\.com|youtu\.be/.test(videoUrl);
+    let iframeEl  = null;
+    let rafId     = null;
+    let ytTimer   = null;
+    let mouseX    = 0;
+    let mouseY    = 0;
 
     const onDocMove = (e) => { mouseX = e.clientX; mouseY = e.clientY; };
-
     let ytErrHandler = null;
+
+    const showEmbedError = (originalUrl) => {
+      if (iframeEl) { iframeEl.remove(); iframeEl = null; }
+      thumb.querySelector(".lr-iframe-capture")?.remove();
+      if (playOverlay) playOverlay.style.display = "none";
+      if (thumb.querySelector(".lr-embed-error")) return;
+      const errEl = document.createElement("div");
+      errEl.className = "lr-embed-error";
+      errEl.innerHTML = `
+        <i class="bi bi-exclamation-circle"></i>
+        <span>Video cannot be embedded</span>
+        <a href="${esc(originalUrl)}" target="_blank" rel="noopener">
+          Watch on YouTube <i class="bi bi-box-arrow-up-right"></i>
+        </a>`;
+      thumb.appendChild(errEl);
+      card.dataset.embedFailed = "1";
+    };
 
     const removeVideo = () => {
       if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      if (ytTimer) { clearTimeout(ytTimer); ytTimer = null; }
       document.removeEventListener("mousemove", onDocMove);
       if (ytErrHandler) { window.removeEventListener("message", ytErrHandler); ytErrHandler = null; }
       if (iframeEl) { iframeEl.remove(); iframeEl = null; }
       thumb.querySelector(".lr-iframe-capture")?.remove();
-      thumb.querySelector(".lr-embed-error")?.remove();
-      if (playOverlay) playOverlay.style.display = "";
+      // Keep .lr-embed-error visible — don't retry a known broken video
+      if (!thumb.querySelector(".lr-embed-error") && playOverlay) playOverlay.style.display = "";
     };
 
     const attachYouTubeErrorHandler = (originalUrl) => {
+      let playerReady = false;
+
+      // Timeout: if YouTube sends no events within 4s, assume embedding blocked
+      ytTimer = setTimeout(() => {
+        if (!playerReady) showEmbedError(originalUrl);
+      }, 4000);
+
       ytErrHandler = (event) => {
         if (!event.origin.includes("youtube.com")) return;
         try {
           const data = JSON.parse(event.data);
-          // Error codes 100=not found, 101/150/153=embedding disabled
+          // Any valid player event means it's working
+          if (data.event === "onReady" || data.event === "onStateChange" || data.event === "infoDelivery") {
+            playerReady = true;
+            clearTimeout(ytTimer); ytTimer = null;
+          }
           if (data.event === "onError") {
-            window.removeEventListener("message", ytErrHandler);
-            ytErrHandler = null;
-            if (iframeEl) { iframeEl.remove(); iframeEl = null; }
-            thumb.querySelector(".lr-iframe-capture")?.remove();
-            if (playOverlay) playOverlay.style.display = "none";
-            const errEl = document.createElement("div");
-            errEl.className = "lr-embed-error";
-            errEl.innerHTML = `
-              <i class="bi bi-exclamation-circle"></i>
-              <span>Video cannot be embedded</span>
-              <a href="${esc(originalUrl)}" target="_blank" rel="noopener">
-                Watch on YouTube <i class="bi bi-box-arrow-up-right"></i>
-              </a>`;
-            thumb.appendChild(errEl);
+            clearTimeout(ytTimer); ytTimer = null;
+            window.removeEventListener("message", ytErrHandler); ytErrHandler = null;
+            showEmbedError(originalUrl);
           }
         } catch (_) {}
       };
@@ -174,10 +193,20 @@ const attachVideoHover = () => {
 
     card.addEventListener("mouseenter", (e) => {
       if (iframeEl) return;
+
+      // Already confirmed this video can't embed — show error immediately
+      if (card.dataset.embedFailed) {
+        showEmbedError(videoUrl);
+        return;
+      }
+
       if (playOverlay) playOverlay.style.display = "none";
 
       iframeEl = document.createElement("iframe");
-      iframeEl.src = buildAutoplayUrl(videoUrl);
+      // Add origin param so YouTube's JS API sends postMessage events
+      let src = buildAutoplayUrl(videoUrl);
+      if (isYT) src += `&origin=${encodeURIComponent(window.location.origin)}`;
+      iframeEl.src = src;
       iframeEl.frameBorder = "0";
       iframeEl.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
       iframeEl.allowFullscreen = true;
@@ -185,7 +214,6 @@ const attachVideoHover = () => {
       thumb.appendChild(iframeEl);
 
       if (isDrive) {
-        // Drive: keep capture overlay for "Click to play"; switch to RAF after click
         const capture = document.createElement("div");
         capture.className = "lr-iframe-capture";
         capture.style.cssText = "position:absolute;inset:0;z-index:6;";
@@ -201,11 +229,7 @@ const attachVideoHover = () => {
         }, { once: true });
         thumb.appendChild(capture);
       } else {
-        // YouTube / Vimeo: no overlay so player controls work;
-        // track mouse position via RAF to detect when cursor leaves card
-        if (videoUrl.match(/youtube\.com|youtu\.be/)) {
-          attachYouTubeErrorHandler(videoUrl);
-        }
+        if (isYT) attachYouTubeErrorHandler(videoUrl);
         startTracking(e.clientX, e.clientY);
       }
     });
