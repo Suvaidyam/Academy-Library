@@ -392,8 +392,36 @@ const renderPast = (list) => {
     let iframeEl      = null;
 
     const isDrive = videoUrl.includes("drive.google.com");
+    let rafId  = null;
+    let mouseX = 0;
+    let mouseY = 0;
 
-    card.addEventListener("mouseenter", () => {
+    const onDocMove = (e) => { mouseX = e.clientX; mouseY = e.clientY; };
+
+    const removeVideo = () => {
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      document.removeEventListener("mousemove", onDocMove);
+      if (iframeEl) { iframeEl.remove(); iframeEl = null; }
+      thumb.querySelector(".iframe-capture")?.remove();
+      playOverlay.style.display = "";
+    };
+
+    const checkBounds = () => {
+      const r = card.getBoundingClientRect();
+      if (mouseX < r.left || mouseX > r.right || mouseY < r.top || mouseY > r.bottom) {
+        removeVideo();
+      } else {
+        rafId = requestAnimationFrame(checkBounds);
+      }
+    };
+
+    const startTracking = (x, y) => {
+      mouseX = x; mouseY = y;
+      document.addEventListener("mousemove", onDocMove);
+      rafId = requestAnimationFrame(checkBounds);
+    };
+
+    card.addEventListener("mouseenter", (e) => {
       if (iframeEl) return;
       playOverlay.style.display = "none";
 
@@ -402,33 +430,31 @@ const renderPast = (list) => {
       iframeEl.frameBorder = "0";
       iframeEl.allow = "autoplay; fullscreen; picture-in-picture";
       iframeEl.allowFullscreen = true;
-      iframeEl.style.zIndex = "5";
-
-      const capture = document.createElement("div");
-      capture.className = "iframe-capture";
-      capture.style.cssText = "position:absolute;inset:0;z-index:6;";
+      iframeEl.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5;";
+      thumb.appendChild(iframeEl);
 
       if (isDrive) {
+        const capture = document.createElement("div");
+        capture.className = "iframe-capture";
+        capture.style.cssText = "position:absolute;inset:0;z-index:6;";
         capture.innerHTML = `
           <div class="drive-play-hint">
             <i class="bi bi-play-circle-fill"></i>
             <span>Click to play</span>
           </div>`;
-        capture.addEventListener("click", (e) => {
-          e.stopPropagation();
+        capture.addEventListener("click", (ev) => {
+          ev.stopPropagation();
           const wb = webinarMap.get(card.dataset.id);
           openVideoPopup(wb?.title || "", buildAutoplayUrl(videoUrl));
         }, { once: true });
+        thumb.appendChild(capture);
+      } else {
+        startTracking(e.clientX, e.clientY);
       }
-
-      thumb.appendChild(iframeEl);
-      thumb.appendChild(capture);
     });
 
     card.addEventListener("mouseleave", () => {
-      if (iframeEl) { iframeEl.remove(); iframeEl = null; }
-      thumb.querySelector(".iframe-capture")?.remove();
-      playOverlay.style.display = "";
+      if (!rafId) removeVideo();
     });
 
     fsBtn?.addEventListener("click", (e) => {
