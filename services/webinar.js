@@ -330,6 +330,7 @@ const buildPastCard = (wb) => {
       </div>
       <div class="past-info">
         <h6>${esc(wb.title)}</h6>
+        ${wb.speakers ? `<div class="past-speaker"><i class="bi bi-person-circle"></i>${esc(wb.speakers)}</div>` : ""}
         <div class="past-meta">
           <span><i class="bi bi-calendar3 me-1"></i>${date}</span>
           ${views ? `<span><i class="bi bi-eye me-1"></i>${views} Views</span>` : ""}
