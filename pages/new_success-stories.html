@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Success Stories</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+
+  <style>
+    /* ── Filter Sidebar ─────────────────────────────────────── */
+    .ss-filter-card {
+      background: #fff;
+      border: 1px solid #eef0f2;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
+      position: sticky;
+      top: 90px;
+    }
+
+    .ss-filter-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e4356;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ss-filter-card .form-select,
+    .ss-filter-card .form-control {
+      border-radius: 8px;
+      border-color: #dfe3e6;
+      font-size: 14px;
+    }
+
+    .ss-filter-card .form-select:focus,
+    .ss-filter-card .form-control:focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 .2rem rgba(25, 135, 84, .15);
+    }
+
+    .ss-filter-card .btn-clear {
+      width: 100%;
+      border-radius: 8px;
+      font-weight: 500;
+      border-color: #dee2e6;
+      color: #495057;
+    }
+
+    .ss-filter-card .btn-clear:hover {
+      background-color: #198754;
+      border-color: #198754;
+      color: #fff;
+    }
+
+    /* ── Section heading ────────────────────────────────────── */
+    .ss-section-title {
+      color: #1e4356;
+      font-weight: 700;
+      border-left: 4px solid #198754;
+      padding-left: 12px;
+      margin-bottom: 24px;
+      font-size: 20px;
+    }
+
+    /* ── Story Card ─────────────────────────────────────────── */
+    .ss-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 16px;
+      padding: 22px;
+      height: 100%;
+      transition: .3s;
+      color: #212529;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ss-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5px;
+      height: 100%;
+      background: #198754;
+      border-radius: 16px 0 0 16px;
+    }
+
+    .ss-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .09);
+      color: #212529;
+    }
+
+    .ss-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .ss-badge {
+      background: #eef8f0;
+      color: #198754;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .ss-year {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #6c757d;
+      font-size: 13px;
+    }
+
+    .ss-title {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .ss-location {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #198754;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .ss-location i {
+      font-size: 14px;
+    }
+
+    .ss-summary {
+      color: #6c757d;
+      font-size: 14px;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+      margin-bottom: 12px;
+    }
+
+    .ss-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .ss-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: #495057;
+    }
+
+    .ss-meta-item i {
+      color: #198754;
+      font-size: 14px;
+    }
+
+    .ss-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .ss-tag-badge {
+      background: #f0faf4;
+      color: #198754;
+      border: 1px solid #c3e6cb;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .ss-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #198754;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: auto;
+      transition: gap .2s;
+    }
+
+    .ss-card:hover .ss-read-more {
+      gap: 10px;
+    }
+
+    /* ── No results ─────────────────────────────────────────── */
+    #ss-no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6c757d;
+    }
+
+    #ss-no-results i {
+      font-size: 48px;
+      color: #dee2e6;
+      display: block;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+
+<body class="blog-page">
+  <div id="header" class="header d-flex align-items-center fixed-top"></div>
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title dark-background">
+      <div class="container position-relative">
+        <h1>Success Stories</h1>
+        <p class="fst-italic">Indo-German Global Academy for Agroecology Research and Learning – Success Stories</p>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <section class="section service-details">
+      <div class="container">
+        <div class="row g-4">
+
+          <!-- ── Filter Sidebar ───────────────────────────── -->
+          <div class="col-lg-3">
+            <div class="ss-filter-card">
+              <div class="ss-filter-title">
+                <i class="bi bi-funnel-fill"></i> Filter Success Stories
+              </div>
+              <form>
+                <div class="mb-3">
+                  <input type="text" class="form-control ss-filter" data-filter="keyword"
+                    placeholder="Keywords">
+                </div>
+                <div class="mb-3">
+                  <select class="form-select ss-filter" id="ss-theme-select" data-filter="theme">
+                    <option value="">Theme</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control ss-filter" data-filter="location"
+                    placeholder="Location (State/District)">
+                </div>
+                <div class="mb-3">
+                  <select class="form-select ss-filter" id="ss-year-select" data-filter="year">
+                    <option value="">Year</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control ss-filter" data-filter="author"
+                    placeholder="Author / Documented By">
+                </div>
+                <div class="mb-3">
+                  <select class="form-select ss-filter" id="ss-language-select" data-filter="language">
+                    <option value="">Language</option>
+                  </select>
+                </div>
+                <div>
+                  <button type="button" id="ss-clear-btn" class="btn btn-outline-secondary btn-clear">
+                    Clear
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- ── Cards Area ──────────────────────────────── -->
+          <div class="col-lg-9">
+            <h5 class="ss-section-title">Success Stories</h5>
+
+            <div class="row g-3" id="ss-cards">
+              <!-- Cards injected by JS -->
+            </div>
+
+            <!-- No results -->
+            <div id="ss-no-results" class="d-none">
+              <i class="bi bi-search"></i>
+              <p>No stories found matching your filters.</p>
+            </div>
+
+            <!-- Pagination -->
+            <div id="ss-pagination"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer" class="footer dark-background"></div>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/php-email-form/validate.js"></script>
+  <script src="../vendor/aos/aos.js"></script>
+  <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <script src="../services/FrappeApiClient.js"></script>
+  <script src="../services/about.js"></script>
+  <script src="../services/success_stories.js"></script>
+
+  <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

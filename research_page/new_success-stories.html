@@ -29,9 +29,223 @@
     <!-- Main CSS File -->
     <link href="../assets/css/main.css" rel="stylesheet">
 
+    <style>
+        /* ── Filter Sidebar ─────────────────────────────────────── */
+        .ss-filter-card {
+            background: #fff;
+            border: 1px solid #eef0f2;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
+            position: sticky;
+            top: 90px;
+        }
+
+        .ss-filter-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e4356;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ss-filter-card .form-select,
+        .ss-filter-card .form-control {
+            border-radius: 8px;
+            border-color: #dfe3e6;
+            font-size: 14px;
+        }
+
+        .ss-filter-card .form-select:focus,
+        .ss-filter-card .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 .2rem rgba(25, 135, 84, .15);
+        }
+
+        .ss-filter-card .btn-clear {
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 500;
+            border-color: #dee2e6;
+            color: #495057;
+        }
+
+        .ss-filter-card .btn-clear:hover {
+            background-color: #198754;
+            border-color: #198754;
+            color: #fff;
+        }
+
+        /* ── Section heading ────────────────────────────────────── */
+        .ss-section-title {
+            color: #1e4356;
+            font-weight: 700;
+            border-left: 4px solid #198754;
+            padding-left: 12px;
+            margin-bottom: 24px;
+            font-size: 20px;
+        }
+
+        /* ── Story Card ─────────────────────────────────────────── */
+        .ss-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 16px;
+            padding: 22px;
+            height: 100%;
+            transition: .3s;
+            color: #212529;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ss-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: #198754;
+            border-radius: 16px 0 0 16px;
+        }
+
+        .ss-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, .09);
+            color: #212529;
+        }
+
+        .ss-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .ss-badge {
+            background: #eef8f0;
+            color: #198754;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .ss-year {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #6c757d;
+            font-size: 13px;
+        }
+
+        .ss-title {
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .ss-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #198754;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .ss-location i {
+            font-size: 14px;
+        }
+
+        .ss-summary {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+            margin-bottom: 12px;
+        }
+
+        .ss-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .ss-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: #495057;
+        }
+
+        .ss-meta-item i {
+            color: #198754;
+            font-size: 14px;
+        }
+
+        .ss-tags-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .ss-tag-badge {
+            background: #f0faf4;
+            color: #198754;
+            border: 1px solid #c3e6cb;
+            border-radius: 12px;
+            padding: 2px 10px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .ss-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #198754;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: auto;
+            transition: gap .2s;
+        }
+
+        .ss-card:hover .ss-read-more {
+            gap: 10px;
+        }
+
+        /* ── No results ─────────────────────────────────────────── */
+        #ss-no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        #ss-no-results i {
+            font-size: 48px;
+            color: #dee2e6;
+            display: block;
+            margin-bottom: 12px;
+        }
+    </style>
 </head>
 
-<body class="about-details-page">
+<body class="blog-page">
     <div id="header" class="header d-flex align-items-center fixed-top"></div>
     <main class="main">
 
@@ -39,64 +253,92 @@
         <div class="page-title dark-background">
             <div class="container position-relative">
                 <h1>Success Stories</h1>
-                <p class="fst-italic"> Indo-German Global Academy for Agroecology Research and Learning - Success
-                    Stories</p>
-                <nav class="breadcrumbs">
-                    <ol>
-                        <!-- <button class="btn btn-primary mt-2">More</button> -->
-                        <!-- <li><span style="cursor: pointer;" id="loadMoreBtn">More ..</span></li> -->
-                    </ol>
-                </nav>
+                <p class="fst-italic">Indo-German Global Academy for Agroecology Research and Learning – Success Stories
+                </p>
             </div>
-        </div><!-- End Page Title -->
+        </div>
 
-        <!-- About Section -->
-        <section id="about" class="section success-stories">
+        <!-- Main Section -->
+        <section class="section service-details">
             <div class="container">
+                <div class="row g-4">
 
-                <div class="row g-5" id="success-container">
-                    <!-- Card with an image on left -->
-                    <div class="col-md-6 " data-aos="fade-up" data-aos-delay="100">
-                        <a href="success-details.html">
-                            <div class="row   successCard">
-                                <div class="col-md-4">
-                                    <img src="../assets/img/news-1.jpg" class="img-fluid " alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="mb-2">Card with an image on left</h5>
-
-                                        <p class="card-text">This is a wider card with supporting text below
-                                            as a natural lead-in to
-                                            additional content. This content is a little bit longer.</p>
-                                        <div class="post-meta">
-                                            <p class="post-date">
-                                                <time datetime="2022-01-01">Jan 30, 2022</time>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+                    <!-- ── Filter Sidebar ───────────────────────────── -->
+                    <div class="col-lg-3">
+                        <div class="ss-filter-card">
+                            <div class="ss-filter-title">
+                                <i class="bi bi-funnel-fill"></i> Filter Success Stories
+                                <span id="ss-filter-count"
+                                    style="display:none;background:#198754;color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;align-items:center;justify-content:center;margin-left:auto;"></span>
                             </div>
-                        </a>
+                            <form>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control ss-filter" data-filter="keyword"
+                                        placeholder="Keywords">
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select ss-filter" id="ss-theme-select" data-filter="theme">
+                                        <option value="">Theme</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control ss-filter" data-filter="location"
+                                        placeholder="Location (State/District)">
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select ss-filter" id="ss-year-select" data-filter="year">
+                                        <option value="">Year</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control ss-filter" data-filter="author"
+                                        placeholder="Author / Documented By">
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select ss-filter" id="ss-language-select"
+                                        data-filter="language">
+                                        <option value="">Language</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button type="button" id="ss-clear-btn" class="btn btn-outline-secondary btn-clear">
+                                        Clear
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div id="pagination" class="d-flex justify-content-between align-items-center">
-                    <button id="story-prev-btn" class="btn border-0 bg-transparent"><i
-                            class="bi bi-arrow-left-circle fs-1 "></i></button>
-                    <button id="story-next-btn" class="btn border-0 bg-transparent"><i
-                            class="bi bi-arrow-right-circle fs-1 "></i></button>
-                </div>
 
+                    <!-- ── Cards Area ──────────────────────────────── -->
+                    <div class="col-lg-9">
+                        <h5 class="ss-section-title">Success Stories</h5>
+
+                        <div class="row g-3" id="ss-cards">
+                            <!-- Cards injected by JS -->
+                        </div>
+
+                        <!-- No results -->
+                        <div id="ss-no-results" class="d-none">
+                            <i class="bi bi-search"></i>
+                            <p>No stories found matching your filters.</p>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div id="ss-pagination"></div>
+                    </div>
+
+                </div>
             </div>
         </section>
+
     </main>
+
     <div id="footer" class="footer dark-background"></div>
-    <!-- Footer will be loaded here -->
+
     <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
 
     <!-- Preloader -->
     <div id="preloader"></div>
@@ -112,18 +354,13 @@
     <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-
     <script src="../services/FrappeApiClient.js"></script>
-    <script src="../services/research_library.js"></script>
     <script src="../services/about.js"></script>
 
     <script src="../../assets/js/loadAllPageHeaderFooter.js"></script>
-    <script type="module" src="./new_success-stories.js"></script>
-
-
-    <!-- Main JS File -->
     <script src="../assets/js/main.js"></script>
 
+    <script type="module" src="./new_success-stories.js?t=123"></script>
 </body>
 
 </html>

@@ -3972,6 +3972,74 @@ small.text-body-secondary{ color: #059652 !important;}
 .case-summary{
     color:#6c757d;
     line-height:1.6;
+    font-size:14px;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    margin-bottom:14px;
+}
+
+.case-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.case-author,
+.case-lang{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:13px;
+    color:#495057;
+}
+
+.case-author i,
+.case-lang i{
+    color:#198754;
+    font-size:14px;
+}
+
+.case-year{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    color:#6c757d;
+    font-size:13px;
+}
+
+.case-tags-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:14px;
+}
+
+.case-tag-badge{
+    background:#f0faf4;
+    color:#198754;
+    border:1px solid #c3e6cb;
+    border-radius:12px;
+    padding:3px 10px;
+    font-size:11px;
+    font-weight:500;
+}
+
+.case-read-more{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    color:#198754;
+    font-size:13px;
+    font-weight:600;
+    margin-top:4px;
+    transition:gap .2s;
+}
+
+.case-study-card:hover .case-read-more{
+    gap:10px;
 }
 
 .case-impact{
