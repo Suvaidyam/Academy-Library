@@ -208,6 +208,7 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
       text-decoration: none;
     }
+
     .ebook-card .ebook-thumbnail {
       width: 100%;
       height: 100%;
@@ -393,14 +394,42 @@
       cursor: pointer;
       transition: border-color .2s, box-shadow .2s, background .2s;
       height: 100%;
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
       user-select: none;
     }
-    .lr-cat-card:hover { border-color: #198754; box-shadow: 0 4px 14px rgba(25,135,84,.1); }
-    .lr-cat-card.active { border-color: #198754; background: #f4f9f2; box-shadow: 0 4px 14px rgba(25,135,84,.12); }
-    .lr-cat-icon-wrap { font-size: 2rem; line-height: 1; }
-    .lr-cat-card h6 { font-size: .88rem; font-weight: 700; color: #1a1a1a; margin: 0; }
-    .lr-cat-card p { font-size: .75rem; color: #6c757d; margin: 0; line-height: 1.4; }
+
+    .lr-cat-card:hover {
+      border-color: #198754;
+      box-shadow: 0 4px 14px rgba(25, 135, 84, .1);
+    }
+
+    .lr-cat-card.active {
+      border-color: #198754;
+      background: #f4f9f2;
+      box-shadow: 0 4px 14px rgba(25, 135, 84, .12);
+    }
+
+    .lr-cat-icon-wrap {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .lr-cat-card h6 {
+      font-size: .88rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .lr-cat-card p {
+      font-size: .75rem;
+      color: #6c757d;
+      margin: 0;
+      line-height: 1.4;
+    }
 
     .lr-artifact-card {
       background: #fff;
@@ -408,135 +437,383 @@
       border-radius: 12px;
       overflow: hidden;
       height: 100%;
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       transition: box-shadow .2s, border-color .2s;
     }
-    .lr-artifact-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.1); border-color: #b7dcae; }
+
+    .lr-artifact-card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .1);
+      border-color: #b7dcae;
+    }
+
     .lr-artifact-thumb {
-      position: relative; width: 100%; height: 0; padding-top: 56.25%;
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-top: 56.25%;
       overflow: hidden;
     }
+
     .lr-artifact-thumb img {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
+
     .lr-artifact-thumb .lr-thumb-icon {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      font-size: 2.5rem; color: rgba(255,255,255,.75);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      color: rgba(255, 255, 255, .75);
     }
-    .lr-artifact-info { padding: 14px 16px; display: flex; flex-direction: column; flex: 1; gap: 6px; }
+
+    .lr-artifact-info {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 6px;
+    }
+
     .lr-cat-badge {
-      display: inline-block; background: #e8f5e9; color: #1e6b3a;
-      font-size: .67rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
-      text-transform: uppercase; letter-spacing: .4px; width: fit-content;
+      display: inline-block;
+      background: #e8f5e9;
+      color: #1e6b3a;
+      font-size: .67rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      width: fit-content;
     }
-    .lr-artifact-info h6 { font-size: .9rem; font-weight: 700; color: #1a1a1a; margin: 0; line-height: 1.4; }
+
+    .lr-artifact-info h6 {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+      line-height: 1.4;
+    }
+
     .lr-artifact-desc {
-      font-size: .78rem; color: #666; margin: 0;
-      display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
-      -webkit-box-orient: vertical; overflow: hidden;
+      font-size: .78rem;
+      color: #666;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
     .lr-artifact-meta {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      font-size: .72rem; color: #999; margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: .72rem;
+      color: #999;
+      margin-top: auto;
     }
+
     .lr-view-btn {
-      display: inline-flex; align-items: center; gap: 4px;
-      color: #198754; font-size: .8rem; font-weight: 600;
-      text-decoration: none; margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #198754;
+      font-size: .8rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 6px;
       transition: color .15s;
     }
-    .lr-view-btn:hover { color: #0f5132; text-decoration: underline; }
-    .lr-view-btn.disabled { color: #aaa; cursor: default; pointer-events: none; }
+
+    .lr-view-btn:hover {
+      color: #0f5132;
+      text-decoration: underline;
+    }
+
+    .lr-view-btn.disabled {
+      color: #aaa;
+      cursor: default;
+      pointer-events: none;
+    }
 
     .lr-skeleton-card {
-      height: 260px; border-radius: 12px;
-      background: linear-gradient(90deg,#f2f2f2 25%,#e8e8e8 50%,#f2f2f2 75%);
+      height: 260px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #f2f2f2 25%, #e8e8e8 50%, #f2f2f2 75%);
       background-size: 400% 100%;
       animation: shimmer 1.4s infinite;
     }
 
-    #lr-search { border-radius: 8px 0 0 8px; border-right: 0; }
-    #lr-search-btn { border-radius: 0 8px 8px 0; border-color: #ced4da; color: #555; }
-    #lr-search-btn:hover { background: #198754; border-color: #198754; color: #fff; }
+    #lr-search {
+      border-radius: 8px 0 0 8px;
+      border-right: 0;
+    }
+
+    #lr-search-btn {
+      border-radius: 0 8px 8px 0;
+      border-color: #ced4da;
+      color: #555;
+    }
+
+    #lr-search-btn:hover {
+      background: #198754;
+      border-color: #198754;
+      color: #fff;
+    }
 
     .lr-pagination-wrap {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    .lr-page-info { font-size: .8rem; color: #6c757d; }
+
+    .lr-page-info {
+      font-size: .8rem;
+      color: #6c757d;
+    }
+
     #lr-pagination .page-link {
-      color: #198754; border-color: #dee2e6; font-size: .82rem;
+      color: #198754;
+      border-color: #dee2e6;
+      font-size: .82rem;
       padding: 5px 10px;
     }
-    #lr-pagination .page-item.active .page-link {
-      background: #198754; border-color: #198754; color: #fff;
-    }
-    #lr-pagination .page-link:hover:not(:disabled) { background: #e8f5e9; color: #0f5132; }
-    #lr-pagination .page-item.disabled .page-link { color: #adb5bd; }
 
-    .lr-artifact-card.no-video { cursor: default; }
+    #lr-pagination .page-item.active .page-link {
+      background: #198754;
+      border-color: #198754;
+      color: #fff;
+    }
+
+    #lr-pagination .page-link:hover:not(:disabled) {
+      background: #e8f5e9;
+      color: #0f5132;
+    }
+
+    #lr-pagination .page-item.disabled .page-link {
+      color: #adb5bd;
+    }
+
+    .lr-artifact-card.no-video {
+      cursor: default;
+    }
 
     .lr-play-overlay {
-      position: absolute; inset: 0; z-index: 4;
-      display: flex; align-items: center; justify-content: center;
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       pointer-events: none;
     }
+
     .lr-play-overlay i {
-      display: flex; align-items: center; justify-content: center;
-      width: 54px; height: 54px; border-radius: 50%;
-      background: rgba(255,255,255,.9);
-      color: #198754; font-size: 1.6rem;
-      box-shadow: 0 4px 14px rgba(0,0,0,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .9);
+      color: #198754;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
       transition: transform .2s, background .2s;
     }
+
     .lr-artifact-card:hover .lr-play-overlay i {
       transform: scale(1.1);
       background: #fff;
     }
 
     .lr-artifact-thumb iframe {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 5;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 5;
     }
 
     .lr-fs-btn {
-      position: absolute; bottom: 8px; right: 8px; z-index: 8;
-      background: rgba(0,0,0,.55); border: none; color: #fff;
-      width: 32px; height: 32px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85rem; cursor: pointer; opacity: 0;
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      z-index: 8;
+      background: rgba(0, 0, 0, .55);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      cursor: pointer;
+      opacity: 0;
       transition: opacity .2s;
     }
-    .lr-artifact-card:hover .lr-fs-btn { opacity: 1; }
-    .lr-fs-btn:hover { background: rgba(0,0,0,.8); }
+
+    .lr-artifact-card:hover .lr-fs-btn {
+      opacity: 1;
+    }
+
+    .lr-fs-btn:hover {
+      background: rgba(0, 0, 0, .8);
+    }
 
     .lr-drive-hint {
-      position: absolute; inset: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 6px;
-      color: #fff; cursor: pointer;
-      background: rgba(0,0,0,.35);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #fff;
+      cursor: pointer;
+      background: rgba(0, 0, 0, .35);
     }
-    .lr-drive-hint i { font-size: 2.2rem; }
-    .lr-drive-hint span { font-size: .8rem; font-weight: 600; letter-spacing: .3px; }
+
+    .lr-drive-hint i {
+      font-size: 2.2rem;
+    }
+
+    .lr-drive-hint span {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .3px;
+    }
 
     .lr-embed-error {
-      position: absolute; inset: 0; z-index: 7;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px; background: rgba(20,20,20,.88); color: #fff; text-align: center; padding: 12px;
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(20, 20, 20, .88);
+      color: #fff;
+      text-align: center;
+      padding: 12px;
     }
-    .lr-embed-error i { font-size: 1.8rem; color: #f87171; }
-    .lr-embed-error span { font-size: .78rem; color: #ddd; }
+
+    .lr-embed-error i {
+      font-size: 1.8rem;
+      color: #f87171;
+    }
+
+    .lr-embed-error span {
+      font-size: .78rem;
+      color: #ddd;
+    }
+
     .lr-embed-error a {
-      margin-top: 4px; font-size: .8rem; font-weight: 600;
-      color: #fff; background: #dc3545; border-radius: 6px;
-      padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 4px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: #fff;
+      background: #dc3545;
+      border-radius: 6px;
+      padding: 6px 14px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .lr-embed-error a:hover { background: #b02a37; }
+
+    .lr-embed-error a:hover {
+      background: #b02a37;
+    }
+
+    /* Scrolling ticker — navbar ke niche, image se pehle */
+    .library-ticker-wrap {
+      margin-top: 100px;
+      width: 100%;
+      overflow: hidden;
+      background: linear-gradient(90deg, #0f5132 0%, #198754 50%, #0f5132 100%);
+      padding: 11px 0;
+    }
+
+    .library-ticker-track {
+      display: flex;
+      width: max-content;
+      animation: libraryTickerScroll 45s linear infinite;
+    }
+
+    .library-ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    .library-ticker-item {
+      white-space: nowrap;
+      color: #e8f5e9;
+      font-size: 14.5px;
+      font-weight: 500;
+      padding: 0 30px;
+      letter-spacing: 0.3px;
+    }
+
+    .library-ticker-item .ticker-sep {
+      color: #a8d5a2;
+      margin: 0 10px;
+      font-weight: 700;
+    }
+
+    @keyframes libraryTickerScroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
   </style>
 </head>
 
 <body>
   <div id="header" class="header d-flex align-items-center fixed-top"></div>
   <main class="main">
+
+    <!-- Ticker: navbar ke niche, image se pehle -->
+    <div class="library-ticker-wrap">
+      <div class="library-ticker-track">
+        <span class="library-ticker-item">Knowledge is the seed; reading is the water that helps it grow.<span
+            class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">Today a reader, tomorrow a leader. — Margaret Fuller<span
+            class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">The seeds of knowledge, once you planted, yields harvests for
+          generations.<span class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">Knowledge is the root; wisdom is the fruit it grows.<span
+            class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">Today a page, tomorrow a path.<span class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">Knowledge is the seed; reading is the water that helps it grow.<span
+            class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">Today a reader, tomorrow a leader. — Margaret Fuller<span
+            class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">The seeds of knowledge, once you planted, yields harvests for
+          generations.<span class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">Knowledge is the root; wisdom is the fruit it grows.<span
+            class="ticker-sep">✦</span></span>
+        <span class="library-ticker-item">Today a page, tomorrow a path.<span class="ticker-sep">✦</span></span>
+      </div>
+    </div>
 
     <div class="page-title page-library ">
       <div class="container position-relative">
@@ -589,34 +866,38 @@
               Course Content
             </button>
           </li>
-           
-           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="reference-material-tab" data-bs-toggle="tab" data-bs-target="#reference-material"
-              type="button" role="tab" aria-controls="reference-material" aria-selected="false">
-             Reference Materials
+
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reference-material-tab" data-bs-toggle="tab"
+              data-bs-target="#reference-material" type="button" role="tab" aria-controls="reference-material"
+              aria-selected="false">
+              Reference Materials
             </button>
-          </li>  
-           <li class="nav-item dropdown hover-dropdown" role="presentation">
+          </li>
+          <li class="nav-item dropdown hover-dropdown" role="presentation">
             <button class="nav-link" id="global-resource-tab" data-bs-toggle="tab" data-bs-target="#global-resource"
               type="button" role="tab" aria-controls="global-resource" aria-selected="false">
-            Global Resource <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
+              Global Resource <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="global-resource-tab">
-              <li><a class="dropdown-item gr-category-link active" href="#" data-category="ebooks">E-Books & Reference Materials</a></li>
-              <li><a class="dropdown-item gr-category-link" href="#" data-category="researchArticles">Research Articles</a></li>
+              <li><a class="dropdown-item gr-category-link active" href="#" data-category="ebooks">E-Books & Reference
+                  Materials</a></li>
+              <li><a class="dropdown-item gr-category-link" href="#" data-category="researchArticles">Research
+                  Articles</a></li>
               <li><a class="dropdown-item gr-category-link" href="#" data-category="successJournals">Journals</a></li>
             </ul>
           </li>
-           <li class="nav-item" role="presentation">
+          <li class="nav-item" role="presentation">
             <button class="nav-link" id="learning-resource-tab" data-bs-toggle="tab" data-bs-target="#learning-resource"
               type="button" role="tab" aria-controls="learning-resource" aria-selected="false">
-            Learning Resource
+              Learning Resource
             </button>
           </li>
 
           <!-- Toast for login required -->
           <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
-            <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert"
+              aria-live="assertive" aria-atomic="true">
               <div class="d-flex">
                 <div class="toast-body">
                   <i class="bi bi-lock-fill me-2"></i> Please sign in to access Learning Resources.
@@ -625,7 +906,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="video-session-tab" data-bs-toggle="tab" data-bs-target="#video-session"
               type="button" role="tab" aria-controls="video-session" aria-selected="false">
@@ -648,56 +929,56 @@
                   <div class="library-filter-card">
                     <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Books</div>
                     <form>
-                    <!-- <div class="row mb-3">
+                      <!-- <div class="row mb-3">
 
                     </div> -->
 
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" id="year-dropdown" aria-label="Default select example">
-                          <option disabled selected>Select Year</option>
-                        </select>
+                      <div class="row mb-3">
+                        <div class="col-sm-12">
+                          <select class="form-select" id="year-dropdown" aria-label="Default select example">
+                            <option disabled selected>Select Year</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" id="language-dropdown" aria-label="Default select example">
-                          <option disabled selected>Select Language</option>
-                        </select>
+                      <div class="row mb-3">
+                        <div class="col-sm-12">
+                          <select class="form-select" id="language-dropdown" aria-label="Default select example">
+                            <option disabled selected>Select Language</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <!-- <div class="row mb-3">
+                      <!-- <div class="row mb-3">
                       <div class="col-sm-12">
                         <input id="author" class="form-control" placeholder="Search by Author">
                       </div>
                     </div> -->
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select" id="author" aria-label="Default select example">
-                          <option disabled selected>Select Author</option>
-                        </select>
+                      <div class="row mb-3">
+                        <div class="col-sm-12">
+                          <select class="form-select" id="author" aria-label="Default select example">
+                            <option disabled selected>Select Author</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <input id="tagsInput" class="form-control" placeholder="Keywords">
+                      <div class="row mb-3">
+                        <div class="col-sm-12">
+                          <input id="tagsInput" class="form-control" placeholder="Keywords">
+                        </div>
                       </div>
-                    </div>
-                    <div>
+                      <div>
 
-                      <button type="button" id="clearbtn" style="width: 100%;" class="btn btn-outline-secondary">
-                        Clear
-                      </button>
+                        <button type="button" id="clearbtn" style="width: 100%;" class="btn btn-outline-secondary">
+                          Clear
+                        </button>
 
-                      <!-- <div class="services-list"><button id="clear_btn" class="btn btn-outline-secondary">
+                        <!-- <div class="services-list"><button id="clear_btn" class="btn btn-outline-secondary">
                       <i class="bi bi-x-circle"></i> Clear
                     </button>
                     <a class="btn btn-success" id="search-btn"><span> <i class="bi bi-search"></i> Search</span></a>
                     <a class="btn btn-danger" id="reset-btn"> <i class="bi bi-arrow-counterclockwise"></i>
                       <span>Reset</span></a>
                   </div> -->
-                    </div>
-                  </form>
+                      </div>
+                    </form>
                   </div>
 
                   <!-- <div class="card sort-card mb-4">
@@ -736,14 +1017,14 @@
                   <!-- </div> -->
                   <div class="featured-section mb-4" style="width: 100%;">
                     <!-- <div class="featured-label">These are the featured books</div> -->
-                     <div id="pagination" class="d-flex justify-content-end align-items-center">
-                        <button id="book-prev-btn" disabled class="btn border-0 bg-transparent"><i
-                            class="bi bi-arrow-left-circle fs-1 "></i></button>
-                        <button id="book-next-btn" class="btn border-0 bg-transparent"><i
-                            class="bi bi-arrow-right-circle fs-1 "></i></button>
-                      </div>
+                    <div id="pagination" class="d-flex justify-content-end align-items-center">
+                      <button id="book-prev-btn" disabled class="btn border-0 bg-transparent"><i
+                          class="bi bi-arrow-left-circle fs-1 "></i></button>
+                      <button id="book-next-btn" class="btn border-0 bg-transparent"><i
+                          class="bi bi-arrow-right-circle fs-1 "></i></button>
+                    </div>
                     <div class="">
-                      
+
                       <div class="card-body row" id="book-body">
                         <!-- Book 1 -->
                         <!-- <div class="row mb-4 book-card">
@@ -760,7 +1041,7 @@
                           </div>
                         </div> -->
                       </div>
-                      
+
                     </div>
                   </div>
 
@@ -986,9 +1267,9 @@
             <!-- You can move your existing course/module/topic/chapter search UI here -->
           </div>
 
-       
 
-        <div class="tab-pane fade" id="reference-material" role="tabpanel" aria-labelledby="reference-material-tab">
+
+          <div class="tab-pane fade" id="reference-material" role="tabpanel" aria-labelledby="reference-material-tab">
             <main class="container my-4">
               <div class="row">
 
@@ -996,417 +1277,420 @@
                   <div class="featured-section mb-4">
                     <div class="row g-4">
 
-                          <div class=" col-md-4">
-                             <div class="resource-card card h-100 shadow-sm">
-                                <div class="card-body">
+                      <div class=" col-md-4">
+                        <div class="resource-card card h-100 shadow-sm">
+                          <div class="card-body">
 
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <span class="badge bg-success">Crop Management</span>
-                                        <span class="resource-type pdf">PDF</span>
-                                    </div>
-
-                                    <h5 class="card-title">
-                                        Integrated Pest Management Guide
-                                    </h5>
-
-                                    <p class="card-text text-muted">
-                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
-                                    </p>
-
-                                    <div class="resource-meta">
-                                        <span>🌐 English</span>
-                                        <span>📄 24 Pages</span>
-                                        <span>⭐ Beginner</span>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">
-                                            Updated: May 2026
-                                        </small>
-
-                                        <a href="#" class="btn btn-success btn-sm">
-                                            View Resource
-                                        </a>
-                                    </div>
-
-                                </div>
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                              <span class="badge bg-success">Crop Management</span>
+                              <span class="resource-type pdf">PDF</span>
                             </div>
-                          </div>
 
-                            <div class=" col-md-4">
-                             <div class="resource-card card h-100 shadow-sm">
-                                <div class="card-body">
+                            <h5 class="card-title">
+                              Integrated Pest Management Guide
+                            </h5>
 
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <span class="badge bg-success">Crop Management</span>
-                                        <span class="resource-type doc">Doc</span>
-                                    </div>
+                            <p class="card-text text-muted">
+                              Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                            </p>
 
-                                    <h5 class="card-title">
-                                        Integrated Pest Management Guide
-                                    </h5>
-
-                                    <p class="card-text text-muted">
-                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
-                                    </p>
-
-                                    <div class="resource-meta">
-                                        <span>🌐 English</span>
-                                        <span>📄 24 Pages</span>
-                                        <span>⭐ Beginner</span>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">
-                                            Updated: May 2026
-                                        </small>
-
-                                        <a href="#" class="btn btn-success btn-sm">
-                                            View Resource
-                                        </a>
-                                    </div>
-
-                                </div>
+                            <div class="resource-meta">
+                              <span>🌐 English</span>
+                              <span>📄 24 Pages</span>
+                              <span>⭐ Beginner</span>
                             </div>
-                          </div>
-                             <div class=" col-md-4">
-                             <div class="resource-card card h-100 shadow-sm">
-                                <div class="card-body">
 
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <span class="badge bg-success">Crop Management</span>
-                                        <span class="resource-type pdf">PDF</span>
-                                    </div>
+                            <hr>
 
-                                    <h5 class="card-title">
-                                        Integrated Pest Management Guide
-                                    </h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <small class="text-muted">
+                                Updated: May 2026
+                              </small>
 
-                                    <p class="card-text text-muted">
-                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
-                                    </p>
-
-                                    <div class="resource-meta">
-                                        <span>🌐 English</span>
-                                        <span>📄 24 Pages</span>
-                                        <span>⭐ Beginner</span>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">
-                                            Updated: May 2026
-                                        </small>
-
-                                        <a href="#" class="btn btn-success btn-sm">
-                                            View Resource
-                                        </a>
-                                    </div>
-
-                                </div>
+                              <a href="#" class="btn btn-success btn-sm">
+                                View Resource
+                              </a>
                             </div>
+
                           </div>
-                             <div class=" col-md-4">
-                             <div class="resource-card card h-100 shadow-sm">
-                                <div class="card-body">
-
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <span class="badge bg-success">Crop Management</span>
-                                        <span class="resource-type pdf">PDF</span>
-                                    </div>
-
-                                    <h5 class="card-title">
-                                        Integrated Pest Management Guide
-                                    </h5>
-
-                                    <p class="card-text text-muted">
-                                        Practical guide for identifying and managing major crop pests using eco-friendly methods.
-                                    </p>
-
-                                    <div class="resource-meta">
-                                        <span>🌐 English</span>
-                                        <span>📄 24 Pages</span>
-                                        <span>⭐ Beginner</span>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">
-                                            Updated: May 2026
-                                        </small>
-
-                                        <a href="#" class="btn btn-success btn-sm">
-                                            View Resource
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                          </div>
-
+                        </div>
                       </div>
-                    
+
+                      <div class=" col-md-4">
+                        <div class="resource-card card h-100 shadow-sm">
+                          <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                              <span class="badge bg-success">Crop Management</span>
+                              <span class="resource-type doc">Doc</span>
+                            </div>
+
+                            <h5 class="card-title">
+                              Integrated Pest Management Guide
+                            </h5>
+
+                            <p class="card-text text-muted">
+                              Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                            </p>
+
+                            <div class="resource-meta">
+                              <span>🌐 English</span>
+                              <span>📄 24 Pages</span>
+                              <span>⭐ Beginner</span>
+                            </div>
+
+                            <hr>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                              <small class="text-muted">
+                                Updated: May 2026
+                              </small>
+
+                              <a href="#" class="btn btn-success btn-sm">
+                                View Resource
+                              </a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class=" col-md-4">
+                        <div class="resource-card card h-100 shadow-sm">
+                          <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                              <span class="badge bg-success">Crop Management</span>
+                              <span class="resource-type pdf">PDF</span>
+                            </div>
+
+                            <h5 class="card-title">
+                              Integrated Pest Management Guide
+                            </h5>
+
+                            <p class="card-text text-muted">
+                              Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                            </p>
+
+                            <div class="resource-meta">
+                              <span>🌐 English</span>
+                              <span>📄 24 Pages</span>
+                              <span>⭐ Beginner</span>
+                            </div>
+
+                            <hr>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                              <small class="text-muted">
+                                Updated: May 2026
+                              </small>
+
+                              <a href="#" class="btn btn-success btn-sm">
+                                View Resource
+                              </a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class=" col-md-4">
+                        <div class="resource-card card h-100 shadow-sm">
+                          <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                              <span class="badge bg-success">Crop Management</span>
+                              <span class="resource-type pdf">PDF</span>
+                            </div>
+
+                            <h5 class="card-title">
+                              Integrated Pest Management Guide
+                            </h5>
+
+                            <p class="card-text text-muted">
+                              Practical guide for identifying and managing major crop pests using eco-friendly methods.
+                            </p>
+
+                            <div class="resource-meta">
+                              <span>🌐 English</span>
+                              <span>📄 24 Pages</span>
+                              <span>⭐ Beginner</span>
+                            </div>
+
+                            <hr>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                              <small class="text-muted">
+                                Updated: May 2026
+                              </small>
+
+                              <a href="#" class="btn btn-success btn-sm">
+                                View Resource
+                              </a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
                   </div>
                 </div>
               </div>
             </main>
-        </div>
+          </div>
 
-        <div class="tab-pane fade" id="global-resource" role="tabpanel" aria-labelledby="global-resource-tab">
+          <div class="tab-pane fade" id="global-resource" role="tabpanel" aria-labelledby="global-resource-tab">
             <main class="container py-4">
-         <div class="row">
+              <div class="row">
 
-            <!-- Filters (E-Books & Reference Materials only) -->
-            <div class="col-lg-4 mt-8" id="gr-filter-col">
-                <div class="library-filter-card">
+                <!-- Filters (E-Books & Reference Materials only) -->
+                <div class="col-lg-4 mt-8" id="gr-filter-col">
+                  <div class="library-filter-card">
                     <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter E-Books</div>
                     <form>
-                    <div class="row mb-3">
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-title" class="form-control" placeholder="Title">
+                          <input id="ebook-title" class="form-control" placeholder="Title">
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-subtitle" class="form-control" placeholder="Subtitle">
+                          <input id="ebook-subtitle" class="form-control" placeholder="Subtitle">
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-type" class="form-control" placeholder="Type">
+                          <input id="ebook-type" class="form-control" placeholder="Type">
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-theme" class="form-control" placeholder="Theme">
+                          <input id="ebook-theme" class="form-control" placeholder="Theme">
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <select class="form-select" id="ebook-category-dropdown" aria-label="Select Category">
-                                <option value="" selected>Select Category</option>
-                            </select>
+                          <select class="form-select" id="ebook-category-dropdown" aria-label="Select Category">
+                            <option value="" selected>Select Category</option>
+                          </select>
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <select class="form-select" id="ebook-subcategory-dropdown" aria-label="Select Sub-Category">
-                                <option value="" selected>Select Sub-Category</option>
-                            </select>
+                          <select class="form-select" id="ebook-subcategory-dropdown" aria-label="Select Sub-Category">
+                            <option value="" selected>Select Sub-Category</option>
+                          </select>
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-author" class="form-control" placeholder="Author(s)">
+                          <input id="ebook-author" class="form-control" placeholder="Author(s)">
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-publisher" class="form-control" placeholder="Publisher">
+                          <input id="ebook-publisher" class="form-control" placeholder="Publisher">
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-isbn" class="form-control" placeholder="ISBN (Book Identifier)">
+                          <input id="ebook-isbn" class="form-control" placeholder="ISBN (Book Identifier)">
                         </div>
-                    </div>
-                    <div class="row mb-3">
+                      </div>
+                      <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input id="ebook-keywords" class="form-control" placeholder="Keywords">
+                          <input id="ebook-keywords" class="form-control" placeholder="Keywords">
                         </div>
-                    </div>
-                    <div>
-                        <button type="button" id="ebook-clearbtn" style="width: 100%;" class="btn btn-outline-secondary">
-                            Clear
+                      </div>
+                      <div>
+                        <button type="button" id="ebook-clearbtn" style="width: 100%;"
+                          class="btn btn-outline-secondary">
+                          Clear
                         </button>
-                    </div>
-                </form>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-            </div>
 
-            <!-- Sub Tab Content -->
-            <div class="col-lg-8" id="gr-content-col">
-                <h6 id="gr-active-category-label">E-Books & Reference Materials</h6>
-                <div class="tab-content" id="global-resource-content">
+                <!-- Sub Tab Content -->
+                <div class="col-lg-8" id="gr-content-col">
+                  <h6 id="gr-active-category-label">E-Books & Reference Materials</h6>
+                  <div class="tab-content" id="global-resource-content">
 
-                    <div class="tab-pane fade show active"
-                         id="ebooks">
-                       <div id="ebook-body" class="row g-4">
-                         <!-- populated by ebook.js -->
-                       </div>
-                       <div id="ebook-pagination" class="library-pagination d-flex justify-content-end align-items-center gap-3 mt-4">
-                         <button id="ebook-prev-btn" disabled class="pagination-btn"><i class="bi bi-chevron-left"></i></button>
-                         <span id="ebook-page-info" class="pagination-info">Page 1 of 1</span>
-                         <button id="ebook-next-btn" disabled class="pagination-btn"><i class="bi bi-chevron-right"></i></button>
-                       </div>
+                    <div class="tab-pane fade show active" id="ebooks">
+                      <div id="ebook-body" class="row g-4">
+                        <!-- populated by ebook.js -->
+                      </div>
+                      <div id="ebook-pagination"
+                        class="library-pagination d-flex justify-content-end align-items-center gap-3 mt-4">
+                        <button id="ebook-prev-btn" disabled class="pagination-btn"><i
+                            class="bi bi-chevron-left"></i></button>
+                        <span id="ebook-page-info" class="pagination-info">Page 1 of 1</span>
+                        <button id="ebook-next-btn" disabled class="pagination-btn"><i
+                            class="bi bi-chevron-right"></i></button>
+                      </div>
                     </div>
 
                     <div class="tab-pane fade" id="researchArticles">
-                    <div class="row g-4">
+                      <div class="row g-4">
 
-                          <div class=" col-md-4">
-        <div class="research-card">
-            <span class="research-badge">🔬 Research Article</span>
+                        <div class=" col-md-4">
+                          <div class="research-card">
+                            <span class="research-badge">🔬 Research Article</span>
 
-            <h5>
-                Impact of Natural Farming on Soil Health
-            </h5>
+                            <h5>
+                              Impact of Natural Farming on Soil Health
+                            </h5>
 
-            <p class="authors">
-                APCNF Research Team
-            </p>
+                            <p class="authors">
+                              APCNF Research Team
+                            </p>
 
-            <p class="summary">
-                Assessment of soil biological activity and organic carbon under natural farming systems.
-            </p>
+                            <p class="summary">
+                              Assessment of soil biological activity and organic carbon under natural farming systems.
+                            </p>
 
-            <div class="keywords">
-                <span>Soil Health</span>
-                <span>Carbon</span>
-            </div>
+                            <div class="keywords">
+                              <span>Soil Health</span>
+                              <span>Carbon</span>
+                            </div>
 
-            <div class="research-footer">
-                <small>May 2026</small>
-                <a href="#" class="btn btn-success btn-sm">
-                    View PDF
-                </a>
-            </div>
-        </div>
-    </div>
+                            <div class="research-footer">
+                              <small>May 2026</small>
+                              <a href="#" class="btn btn-success btn-sm">
+                                View PDF
+                              </a>
+                            </div>
+                          </div>
+                        </div>
 
-    <div class="col-md-4">
-        <div class="research-card">
-            <span class="research-badge">📊 Research Report</span>
+                        <div class="col-md-4">
+                          <div class="research-card">
+                            <span class="research-badge">📊 Research Report</span>
 
-            <h5>
-                Climate Resilience through Natural Farming
-            </h5>
+                            <h5>
+                              Climate Resilience through Natural Farming
+                            </h5>
 
-            <p class="authors">
-                Sustainable Agriculture Division
-            </p>
+                            <p class="authors">
+                              Sustainable Agriculture Division
+                            </p>
 
-            <p class="summary">
-                Study on crop performance under drought and extreme weather conditions.
-            </p>
+                            <p class="summary">
+                              Study on crop performance under drought and extreme weather conditions.
+                            </p>
 
-            <div class="keywords">
-                <span>Climate</span>
-                <span>Resilience</span>
-            </div>
+                            <div class="keywords">
+                              <span>Climate</span>
+                              <span>Resilience</span>
+                            </div>
 
-            <div class="research-footer">
-                <small>March 2026</small>
-                <a href="#" class="btn btn-success btn-sm">
-                    View PDF
-                </a>
-            </div>
-        </div>
-    </div>
+                            <div class="research-footer">
+                              <small>March 2026</small>
+                              <a href="#" class="btn btn-success btn-sm">
+                                View PDF
+                              </a>
+                            </div>
+                          </div>
+                        </div>
 
-    <div class="col-md-4">
-        <div class="research-card">
-            <span class="research-badge">📈 Case Study</span>
+                        <div class="col-md-4">
+                          <div class="research-card">
+                            <span class="research-badge">📈 Case Study</span>
 
-            <h5>
-                Farmer Income Improvement Analysis
-            </h5>
+                            <h5>
+                              Farmer Income Improvement Analysis
+                            </h5>
 
-            <p class="authors">
-                APCNF Monitoring Team
-            </p>
+                            <p class="authors">
+                              APCNF Monitoring Team
+                            </p>
 
-            <p class="summary">
-                Comparative study of farm economics before and after natural farming adoption.
-            </p>
+                            <p class="summary">
+                              Comparative study of farm economics before and after natural farming adoption.
+                            </p>
 
-            <div class="keywords">
-                <span>Income</span>
-                <span>Economics</span>
-            </div>
+                            <div class="keywords">
+                              <span>Income</span>
+                              <span>Economics</span>
+                            </div>
 
-            <div class="research-footer">
-                <small>January 2026</small>
-                <a href="#" class="btn btn-success btn-sm">
-                    View PDF
-                </a>
-            </div>
-        </div>
-    </div>
+                            <div class="research-footer">
+                              <small>January 2026</small>
+                              <a href="#" class="btn btn-success btn-sm">
+                                View PDF
+                              </a>
+                            </div>
+                          </div>
+                        </div>
 
-</div>
+                      </div>
                     </div>
 
-                    <div class="tab-pane fade"  id="successJournals">
+                    <div class="tab-pane fade" id="successJournals">
 
-                         <div class="row g-4">
+                      <div class="row g-4">
 
-                          
-                       <div class="journal-card">
+
+                        <div class="journal-card">
                           <div class="journal-icon">
-                              📑
+                            📑
                           </div>
 
                           <div class="journal-content">
-                              <h5>
-                                  Natural Farming and Climate Resilience:
-                                  Evidence from Andhra Pradesh
-                              </h5>
+                            <h5>
+                              Natural Farming and Climate Resilience:
+                              Evidence from Andhra Pradesh
+                            </h5>
 
-                              <p>
-                                  Published in Agricultural Sustainability Journal
-                              </p>
+                            <p>
+                              Published in Agricultural Sustainability Journal
+                            </p>
 
-                              <small>
-                                  Authors: APCNF Research Division | 2026
-                              </small>
+                            <small>
+                              Authors: APCNF Research Division | 2026
+                            </small>
 
-                              <div class="mt-3">
-                                  <button class="btn btn-sm btn-success">
-                                      View Publication
-                                  </button>
-                              </div>
+                            <div class="mt-3">
+                              <button class="btn btn-sm btn-success">
+                                View Publication
+                              </button>
+                            </div>
                           </div>
-                      </div>
-                        
-                       <div class="journal-card">
+                        </div>
+
+                        <div class="journal-card">
                           <div class="journal-icon">
-                              📑
+                            📑
                           </div>
 
                           <div class="journal-content">
-                              <h5>
-                                  Natural Farming and Climate Resilience:
-                                  Evidence from Andhra Pradesh
-                              </h5>
+                            <h5>
+                              Natural Farming and Climate Resilience:
+                              Evidence from Andhra Pradesh
+                            </h5>
 
-                              <p>
-                                  Published in Agricultural Sustainability Journal
-                              </p>
+                            <p>
+                              Published in Agricultural Sustainability Journal
+                            </p>
 
-                              <small>
-                                  Authors: APCNF Research Division | 2026
-                              </small>
+                            <small>
+                              Authors: APCNF Research Division | 2026
+                            </small>
 
-                              <div class="mt-3">
-                                  <button class="btn btn-sm btn-success">
-                                      View Publication
-                                  </button>
-                              </div>
+                            <div class="mt-3">
+                              <button class="btn btn-sm btn-success">
+                                View Publication
+                              </button>
+                            </div>
                           </div>
-                      </div>
-                      
-                    </div>
+                        </div>
 
-                </div>
-            </div>
-              <!-- <div class="row">
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- <div class="row">
 
                 <div class="col-lg-8  d-flex align-items-center justify-content-center ">
                   <div class="featured-section mb-4">
@@ -1416,52 +1700,64 @@
                 </div>
               </div> -->
             </main>
-        </div>
-
-        <div class="tab-pane fade" id="learning-resource" role="tabpanel" aria-labelledby="learning-resource-tab">
-          <div class="py-4">
-
-            <!-- Category selector -->
-            <div class="row g-3 mb-4" id="lr-category-cards">
-              <!-- populated by learning_resource.js -->
-            </div>
-
-            <!-- Search -->
-            <div class="d-flex align-items-center mb-4">
-              <div class="input-group" style="max-width:420px;">
-                <input type="text" class="form-control" id="lr-search" placeholder="Search Keywords">
-                <button class="btn btn-outline-secondary" id="lr-search-btn" type="button">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Artifact grid -->
-            <div class="row g-4" id="lr-artifact-grid">
-              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
-              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
-              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
-              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
-              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
-              <div class="col-lg-4 col-md-6"><div class="lr-skeleton-card"></div></div>
-            </div>
-
-            <!-- Empty state -->
-            <div id="lr-empty" class="text-center py-5" style="display:none;">
-              <i class="bi bi-folder2-open" style="font-size:3rem;color:#ccc;"></i>
-              <p class="mt-3 text-muted">No resources found. Try a different category or search term.</p>
-              <button class="btn btn-outline-success btn-sm" id="lr-reset-btn">Clear filters</button>
-            </div>
-
-            <!-- Pagination -->
-            <div id="lr-pagination" class="mt-4"></div>
-
           </div>
-        </div>
+
+          <div class="tab-pane fade" id="learning-resource" role="tabpanel" aria-labelledby="learning-resource-tab">
+            <div class="py-4">
+
+              <!-- Category selector -->
+              <div class="row g-3 mb-4" id="lr-category-cards">
+                <!-- populated by learning_resource.js -->
+              </div>
+
+              <!-- Search -->
+              <div class="d-flex align-items-center mb-4">
+                <div class="input-group" style="max-width:420px;">
+                  <input type="text" class="form-control" id="lr-search" placeholder="Search Keywords">
+                  <button class="btn btn-outline-secondary" id="lr-search-btn" type="button">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Artifact grid -->
+              <div class="row g-4" id="lr-artifact-grid">
+                <div class="col-lg-4 col-md-6">
+                  <div class="lr-skeleton-card"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="lr-skeleton-card"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="lr-skeleton-card"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="lr-skeleton-card"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="lr-skeleton-card"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="lr-skeleton-card"></div>
+                </div>
+              </div>
+
+              <!-- Empty state -->
+              <div id="lr-empty" class="text-center py-5" style="display:none;">
+                <i class="bi bi-folder2-open" style="font-size:3rem;color:#ccc;"></i>
+                <p class="mt-3 text-muted">No resources found. Try a different category or search term.</p>
+                <button class="btn btn-outline-success btn-sm" id="lr-reset-btn">Clear filters</button>
+              </div>
+
+              <!-- Pagination -->
+              <div id="lr-pagination" class="mt-4"></div>
+
+            </div>
+          </div>
 
 
 
-         <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
+          <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
           <div class="tab-pane fade" id="video-session" role="tabpanel" aria-labelledby="video-session-tab">
             <main>
               <div class="row g-2 " id="video-container">
@@ -1534,55 +1830,55 @@
                 <div class="ratio ratio-16x9" style="max-height: 70vh;">
                   <iframe id="youtubeFrame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen
                     class="w-100 rounded" style="max-height: 70vh;"></iframe>
-                    No videos available
+                  No videos available
                 </div>
               </div>
             </div>
 
 
           </div>
-      </div>
+        </div>
 
-      <!-- Login Modal -->
-      <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="loginForm">
-                <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" class="form-control" id="username" required>
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password" required>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="loginForm">
+                  <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" required>
                   </div>
-                  <a href="#" class="text-decoration-none">Forgot password?</a>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="loginBtn">Sign In</button>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="text-decoration-none">Forgot password?</a>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="loginBtn">Sign In</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
   </main>
 
   <div id="footer" class="footer dark-background"></div>
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
-<div id="preloader"></div>
+  <div id="preloader"></div>
   <!-- CDN Links For encryption -->
   <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
   <!-- Bootstrap Bundle includes Popper -->
@@ -1646,7 +1942,7 @@
 
     let user_roles = [];
     const get_login_user_details = async () => {
-    const userDetails = sessionStorage.getItem('user_info');
+      const userDetails = sessionStorage.getItem('user_info');
       // console.log('userDetails', userDetails);
 
       if (userDetails) {
