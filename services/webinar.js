@@ -64,13 +64,17 @@ const resolveImgUrl = (path) => {
 };
 
 /**
- * Upcoming card thumbnail: <img> if webinar_img exists, gradient div otherwise.
+ * Upcoming card thumbnail: clickable if webinar_deatils_img exists, opens image popup.
  */
 const upcomingThumb = (wb) => {
-  const imgUrl = resolveImgUrl(wb.webinar_img);
+  const imgUrl     = resolveImgUrl(wb.webinar_img);
+  const detailsImg = resolveImgUrl(wb.webinar_deatils_img);
+  const clickAttr  = detailsImg
+    ? `data-details-img="${esc(detailsImg)}" class="wb-thumb wb-thumb-clickable" title="Click to view details image"`
+    : `class="wb-thumb"`;
   return imgUrl
-    ? `<div class="wb-thumb"><img src="${imgUrl}" alt="${esc(wb.title)}"></div>`
-    : `<div class="wb-thumb" style="background:${thumbGradient(wb.name)};"><i class="bi bi-camera-video-fill"></i></div>`;
+    ? `<div ${clickAttr}><img src="${imgUrl}" alt="${esc(wb.title)}"></div>`
+    : `<div ${clickAttr} style="background:${thumbGradient(wb.name)};"><i class="bi bi-camera-video-fill"></i></div>`;
 };
 
 /**
@@ -213,6 +217,9 @@ const renderUpcoming = (list) => {
   );
   el.querySelectorAll(".js-open-details").forEach((btn) =>
     btn.addEventListener("click", () => openDetailsModal(btn.dataset.id))
+  );
+  el.querySelectorAll(".wb-thumb-clickable[data-details-img]").forEach((thumb) =>
+    thumb.addEventListener("click", () => openWbImgPopup(thumb.dataset.detailsImg))
   );
 };
 
@@ -513,6 +520,34 @@ const scrollToSection = (sectionId) => {
   const el = document.getElementById(sectionId);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
+
+// ═══════════════════════════════════════════════════════════════════════
+// WEBINAR DETAILS IMAGE POPUP
+// ═══════════════════════════════════════════════════════════════════════
+
+const openWbImgPopup = (imgUrl) => {
+  const popup = document.getElementById("wb-img-popup");
+  const img   = document.getElementById("wb-img-popup-img");
+  if (!popup || !img) return;
+  img.src = imgUrl;
+  popup.style.display = "flex";
+};
+
+const closeWbImgPopup = () => {
+  const popup = document.getElementById("wb-img-popup");
+  const img   = document.getElementById("wb-img-popup-img");
+  if (popup) popup.style.display = "none";
+  if (img)   img.src = "";
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("wb-img-popup-close")
+    ?.addEventListener("click", closeWbImgPopup);
+  document.getElementById("wb-img-popup")
+    ?.addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) closeWbImgPopup();
+    });
+});
 
 // ═══════════════════════════════════════════════════════════════════════
 // DRIVE VIDEO MINI POPUP
