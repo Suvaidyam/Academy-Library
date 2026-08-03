@@ -1,129 +1,224 @@
-import { FrappeApiClient } from "../services/FrappeApiClient.js";
 import ENV from "../config/config.js";
 
-let frappe_client = new FrappeApiClient();
+const API_BASE = ENV.API_BASE_URL;
+const PAGE_SIZE = 6;
 
-let all_success_stories_Data = [];
-let success_story_Page = 0;
+const state = { page: 1, totalPages: 1, totalCount: 0 };
 
-const itemsPerPage = 10;
-const paginationDiv=document.getElementById("pagination")
+// ── API ───────────────────────────────────────────────────────────────────────
 
-
-function handlePaginationVisibility(totalCount) {
-    if (totalCount <= itemsPerPage) {
-        paginationDiv.classList.add('d-none');
-    } else {
-        paginationDiv.classList.remove('d-none');
-    }
+function getFilterValues() {
+  const out = {};
+  document.querySelectorAll('.ss-filter').forEach(el => {
+    const val = (el.value || '').trim();
+    if (val) out[el.dataset.filter] = val;
+  });
+  return out;
 }
 
-// -------- Get All News ----------
-const get_all_success_stories = async () => {
-
+async function apiFetch(params) {
   try {
-    let response = await frappe_client.get('/get_knowledge_artificates',{category:"Success Stories"});
-    // let response = await frappe_client.get('/success_story_list');
-
-    handlePaginationVisibility(response.message.data.length)
-
-    all_success_stories_Data = response.message.data || [];
-    renderSuccess_story_Page();
-  } catch (error) {
-    console.error('Error fetching success_stories:', error);
+    const url = new URL(API_BASE + '/api/method/success_stories_list');
+    Object.keys(params).forEach(k => url.searchParams.append(k, params[k]));
+    const res  = await fetch(url);
+    const json = await res.json();
+    return json.message || {};
+  } catch (e) {
+    console.error('success_stories_list error:', e);
+    return {};
   }
-};
-
-function truncateText(text, maxLength) {
-  if (!text) return '';
-
-  if (text.length <= maxLength) {
-    return text;
-  }
-
-  const truncated = text.substring(0, maxLength).trim();
-  return `${truncated}... <span style="color: #8FBEDE; font-weight: 800;">More</span>`;
 }
 
+function buildParams(extra = {}) {
+  const params  = { ...extra };
+  const filters = getFilterValues();
+  if (filters.keyword)  params.search   = filters.keyword;
+  if (filters.year)     params.year     = filters.year;
+  if (filters.author)   params.author   = filters.author;
+  if (filters.theme)    params.theme    = filters.theme;
+  if (filters.location) params.location = filters.location;
+  if (filters.language) params.language = filters.language;
+  return params;
+}
 
-// -------- Set All stories ----------
-const renderSuccess_story_Page = () => {
-  const successContainer = document.getElementById('success-container');
-  const prevBtn = document.getElementById("story-prev-btn");
-  const nextBtn = document.getElementById("story-next-btn");
+// ── Meta dropdowns ────────────────────────────────────────────────────────────
 
-  successContainer.innerHTML = "";
-  if (all_success_stories_Data.length === 0) {
-        successContainer.innerHTML = `
-            <div class="col-12 text-center">
-                <h1 class="text-muted">No results found.</h1>
-            </div>`;
-        paginationDiv.classList.add('d-none');
-        return;
-    }
-  const start = success_story_Page * itemsPerPage;
-  const end = start + itemsPerPage;
-  const currentCase_study = all_success_stories_Data.slice(start, end);
+function fillSelect(id, items, lower = false) {
+  const sel = document.getElementById(id);
+  if (!sel) return;
+  items.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = lower ? String(v).toLowerCase() : v;
+    opt.textContent = v;
+    sel.appendChild(opt);
+  });
+}
 
-  currentCase_study.forEach(item => {
-    // let link = `success-details?id=${encodeURIComponent(item?.name)}`;
-    let link = `${ENV.API_BASE_URL + item?.attachment}`;
+async function loadMeta() {
+  const data = await apiFetch({ meta: 1 });
+  fillSelect('ss-year-select',     data.years     || []);
+  fillSelect('ss-language-select', data.languages || [], true);
+  fillSelect('ss-theme-select',    data.themes    || []);
+}
 
+// ── Card builder ──────────────────────────────────────────────────────────────
 
-    let cardHTML = ` 
-      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <a href="${link}" target="_blank" class="text-decoration-none text-dark">
-          <div class="row successCard">
-            <div class="col-md-4">
-              <img src="${ENV.API_BASE_URL + item?.thumbnail_image}" class="img-fluid" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="mb-2">${item?.title}</h5>
-                <p class="card-text">${truncateText(item?.a_short_description_about_the_artifact, 200)}</p>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>`;
-    
-    successContainer.insertAdjacentHTML("beforeend", cardHTML);
+function extractYear(val) {
+  if (!val) return '';
+  const m = String(val).match(/\d{4}/);
+  return m ? m[0] : '';
+}
+
+function buildCardHTML(item) {
+  // try all common field names for year
+  const year = item.year
+    ? String(item.year)
+    : extractYear(item.date || item.publication_date || item.published_date || item.creation || item.modified || '');
+  const title    = item.title       || 'Untitled';
+  const desc     = item.description || '';
+  const author   = item.author      || '';
+  const location = item.location    || '';
+  const language = item.language    || '';
+  const pdfUrl   = item.attachment  ? (API_BASE + item.attachment) : '#';
+
+  const tagBadges = (item.tags || [])
+    .map(t => `<span class="ss-tag-badge">${t}</span>`)
+    .join('');
+
+  return `
+    <div class="col-md-4 mb-4">
+      <a href="${pdfUrl}" target="_blank" class="ss-card">
+        <div class="ss-card-header">
+          <span class="ss-badge">Success Story</span>
+          ${year ? `<span class="ss-year"><i class="bi bi-calendar3"></i> ${year}</span>` : ''}
+        </div>
+        <h5 class="ss-title">${title}</h5>
+        ${location ? `<div class="ss-location"><i class="bi bi-geo-alt-fill"></i> ${location}</div>` : ''}
+        <p class="ss-summary">${desc}</p>
+        <div class="ss-meta">
+          ${author   ? `<div class="ss-meta-item"><i class="bi bi-person"></i> ${author}</div>`       : ''}
+          ${language ? `<div class="ss-meta-item"><i class="bi bi-translate"></i> ${language}</div>` : ''}
+        </div>
+        ${tagBadges ? `<div class="ss-tags-wrap">${tagBadges}</div>` : ''}
+        <div class="ss-read-more">View Story <i class="bi bi-arrow-right"></i></div>
+      </a>
+    </div>`;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+
+function renderCards(items) {
+  const el = document.getElementById('ss-cards');
+  if (!el) return;
+  const empty = !items || items.length === 0;
+  el.innerHTML = empty ? '' : items.map(buildCardHTML).join('');
+  document.getElementById('ss-no-results')?.classList.toggle('d-none', !empty);
+}
+
+function renderPagination() {
+  const el = document.getElementById('ss-pagination');
+  if (!el) return;
+  if (state.totalPages <= 1) { el.innerHTML = ''; return; }
+
+  const start = (state.page - 1) * PAGE_SIZE + 1;
+  const end   = Math.min(state.page * PAGE_SIZE, state.totalCount);
+
+  el.innerHTML = `
+    <div class="d-flex align-items-center justify-content-between mt-4 flex-wrap gap-2">
+      <small class="text-muted">Showing ${start}–${end} of ${state.totalCount} records</small>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary ss-page-btn" data-dir="-1"
+          ${state.page <= 1 ? 'disabled' : ''}>&#8592; Previous</button>
+        <span class="small text-muted">Page ${state.page} of ${state.totalPages}</span>
+        <button class="btn btn-sm btn-outline-secondary ss-page-btn" data-dir="1"
+          ${state.page >= state.totalPages ? 'disabled' : ''}>Next &#8594;</button>
+      </div>
+    </div>`;
+}
+
+function showSpinner() {
+  const el = document.getElementById('ss-cards');
+  if (el) el.innerHTML = `
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>`;
+}
+
+// ── Load ──────────────────────────────────────────────────────────────────────
+
+async function loadStories() {
+  showSpinner();
+  const resp = await apiFetch(buildParams({ page: state.page, page_size: PAGE_SIZE }));
+  if (resp.data && resp.data.length) console.log('[SS] sample item keys:', Object.keys(resp.data[0]), resp.data[0]);
+
+  state.totalCount = resp.total_count || 0;
+  state.totalPages = resp.total_pages || 1;
+
+  const items = resp.data || [];
+
+  // auto-fill year dropdown from data if meta didn't populate it
+  const ySel = document.getElementById('ss-year-select');
+  if (ySel && ySel.options.length === 1 && items.length) {
+    const years = [...new Set(
+      items.map(i => i.year ? String(i.year) : extractYear(i.date)).filter(Boolean)
+    )].sort((a, b) => b - a);
+    fillSelect('ss-year-select', years);
+  }
+
+  renderCards(items);
+  renderPagination();
+}
+
+// ── Events ────────────────────────────────────────────────────────────────────
+
+let debounceTimer = null;
+
+function updateFilterBadge() {
+  const count = Object.keys(getFilterValues()).length;
+  const badge = document.getElementById('ss-filter-count');
+  if (!badge) return;
+  badge.textContent  = count || '';
+  badge.style.display = count ? 'inline-flex' : 'none';
+}
+
+function onFilterChange() {
+  state.page = 1;
+  updateFilterBadge();
+  loadStories();
+}
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.ss-page-btn');
+  if (!btn) return;
+  const dir = parseInt(btn.dataset.dir, 10);
+  state.page = Math.max(1, Math.min(state.page + dir, state.totalPages));
+  loadStories();
+});
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadMeta();
+  loadStories();
+
+  document.querySelectorAll('.ss-filter').forEach(input => {
+    const isSelect = input.tagName === 'SELECT';
+    input.addEventListener(isSelect ? 'change' : 'input', () => {
+      if (isSelect) onFilterChange();
+      else {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(onFilterChange, 300);
+      }
+    });
   });
 
-  // -------- Disable Prev/Next Buttons ----------
-  const totalPages = Math.ceil(all_success_stories_Data.length / itemsPerPage);
-  prevBtn.disabled = success_story_Page === 0;
-  nextBtn.disabled = success_story_Page >= totalPages - 1;
-};
-
-
-// export function formatDate(dateStr) {
-//     const date = new Date(dateStr);
-//     const day = date.getDate();
-//     const month = date.toLocaleString('default', { month: 'short' });
-//     const year = date.getFullYear();
-//     return `${day} ${month} <span>${year}</span>`;
-// }
-
-
-document.addEventListener("DOMContentLoaded", async () => {
-  document.getElementById("story-next-btn")?.addEventListener("click", () => {
-    const maxPage =  Math.ceil(all_success_stories_Data.length / itemsPerPage);
-    if (success_story_Page < maxPage - 1) {
-      success_story_Page++;
-      renderSuccess_story_Page();
-    }
+  document.getElementById('ss-clear-btn')?.addEventListener('click', () => {
+    document.querySelectorAll('.ss-filter').forEach(el => {
+      if (el.tagName === 'SELECT') el.selectedIndex = 0;
+      else el.value = '';
+    });
+    onFilterChange();
   });
-
-  document.getElementById("story-prev-btn")?.addEventListener("click", () => {
-    if (success_story_Page > 0) {
-      success_story_Page--;
-      renderSuccess_story_Page();
-    }
-  });
-
-  get_all_success_stories();
-
-
-
-})
+});

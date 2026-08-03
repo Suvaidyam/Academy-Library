@@ -27,7 +27,7 @@
   <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="../assets/css/main.css" rel="stylesheet">
+  <link href="../assets/css/main.css?v=1" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
   <style>
     .library-filter-card {
@@ -154,944 +154,675 @@
 
 
     <section id="service-details" class="service-details publications-details section ">
-        <div class="container">
-          <!-- Parent Tabs -->
-<ul class="nav nav-tabs" id="pubTabs">
-    <li class="nav-item">
-        <button class="nav-link active"
-                data-bs-toggle="tab"
-                data-bs-target="#videos">
-            Research Articles
-        </button>
-    </li>
+      <div class="container">
+        <!-- Parent Tabs -->
+        <ul class="nav nav-tabs" id="pubTabs">
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#videos">
+              Research Articles
+            </button>
+          </li>
 
-    <li class="nav-item">
-        <button class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#photos">
-            Journals
-        </button>
-    </li>
-     <li class="nav-item">
-        <button class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#newsletters">
-            News Letters
-        </button>
-    </li>
-      <li class="nav-item dropdown hover-dropdown">
-        <button class="nav-link" id="case-studies-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#case-studies">
-           Case Studies <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="case-studies-tab">
-          <li><a class="dropdown-item cs-category-link active" href="#" id="longitudinal-data-tab" data-category="training">Longitudinal Self-case Studies Data</a></li>
-          <li><a class="dropdown-item cs-category-link" href="#" data-category="farmer">Longitudinal Self-case Studies</a></li>
-          <li><a class="dropdown-item cs-category-link" href="#" data-category="webinars">Socio-economic Studies</a></li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#photos">
+              Journals
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#newsletters">
+              News Letters
+            </button>
+          </li>
+          <li class="nav-item dropdown hover-dropdown">
+            <button class="nav-link" id="case-studies-tab" data-bs-toggle="tab" data-bs-target="#case-studies">
+              Case Studies <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="case-studies-tab">
+              <li><a class="dropdown-item cs-category-link active" href="#" id="longitudinal-data-tab"
+                  data-category="training">Longitudinal Self-case Studies Data</a></li>
+              <li><a class="dropdown-item cs-category-link" href="#" data-category="farmer">Longitudinal Self-case
+                  Studies</a></li>
+              <li><a class="dropdown-item cs-category-link" href="#" data-category="webinars">Socio-economic Studies</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Toast for login required -->
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+            <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert"
+              aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body">
+                  <i class="bi bi-lock-fill me-2"></i> Please sign in to access Longitudinal Self-case Studies Data.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+
+
         </ul>
-    </li>
 
-    <!-- Toast for login required -->
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
-      <div id="loginRequiredToast" class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body">
-            <i class="bi bi-lock-fill me-2"></i> Please sign in to access Longitudinal Self-case Studies Data.
-          </div>
-          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-      </div>
-    </div>
+        <div class="tab-content p-3 border border-top-0">
 
-    
-</ul>
-
- <div class="tab-content p-3 border border-top-0">
-
-    <!-- Videos Tab -->
-    <div class="tab-pane fade show active" id="videos">
-      <div class="row">
-        <!-- Research Articles Filters -->
-        <div class="col-lg-3 mt-2">
-          <div class="library-filter-card">
-            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Research Articles</div>
-            <form>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control ra-filter" data-filter="keyword" placeholder="Keyword(s)">
+          <!-- Videos Tab -->
+          <div class="tab-pane fade show active" id="videos">
+            <div class="row">
+              <!-- Research Articles Filters -->
+              <div class="col-lg-3 mt-2">
+                <div class="library-filter-card">
+                  <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Research Articles</div>
+                  <form>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control ra-filter" data-filter="keyword"
+                          placeholder="Keyword(s)">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control ra-filter" data-filter="author" placeholder="Author">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select ra-filter" data-filter="theme">
+                          <option value="">Research Theme</option>
+                          <option value="Soil">Soil</option>
+                          <option value="Water">Water</option>
+                          <option value="Crop">Crop</option>
+                          <option value="Climate">Climate</option>
+                          <option value="Biodiversity">Biodiversity</option>
+                          <option value="Economics">Economics</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select ra-filter" data-filter="year" id="ra-year-select">
+                          <option value="">Publication Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control ra-filter" data-filter="journal"
+                          placeholder="Journal Name">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control ra-filter" data-filter="country" placeholder="Country">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select ra-filter" data-filter="language" id="ra-language-select">
+                          <option value="">Language</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select ra-filter" data-filter="doctype">
+                          <option value="">Document Type</option>
+                          <option value="Article">Article</option>
+                          <option value="Review">Review</option>
+                          <option value="Conference Paper">Conference Paper</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <button type="button" id="ra-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control ra-filter" data-filter="author" placeholder="Author">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select ra-filter" data-filter="theme">
-                    <option value="">Research Theme</option>
-                    <option value="Soil">Soil</option>
-                    <option value="Water">Water</option>
-                    <option value="Crop">Crop</option>
-                    <option value="Climate">Climate</option>
-                    <option value="Biodiversity">Biodiversity</option>
-                    <option value="Economics">Economics</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select ra-filter" data-filter="year" id="ra-year-select">
-                    <option value="">Publication Year</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control ra-filter" data-filter="journal" placeholder="Journal Name">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control ra-filter" data-filter="country" placeholder="Country">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select ra-filter" data-filter="language" id="ra-language-select">
-                    <option value="">Language</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select ra-filter" data-filter="doctype">
-                    <option value="">Document Type</option>
-                    <option value="Article">Article</option>
-                    <option value="Review">Review</option>
-                    <option value="Conference Paper">Conference Paper</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <button type="button" id="ra-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
-                  Clear
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
 
-        <div class="col-lg-9">
-      <div class="row g-4" id="ra-results">
+              <div class="col-lg-9">
+                <div class="row g-4" id="ra-results">
 
-                          <div class=" col-md-4 ra-card-col">
-        <div class="research-card" data-keyword="soil health carbon organic" data-author="APCNF Research Team"
-             data-theme="Soil" data-year="2026" data-journal="Journal of Sustainable Agriculture"
-             data-country="India" data-language="English" data-doctype="Article">
-            <span class="research-badge">🔬 Research Article</span>
+                  <div class=" col-md-4 ra-card-col">
+                    <div class="research-card" data-keyword="soil health carbon organic"
+                      data-author="APCNF Research Team" data-theme="Soil" data-year="2026"
+                      data-journal="Journal of Sustainable Agriculture" data-country="India" data-language="English"
+                      data-doctype="Article">
+                      <span class="research-badge">🔬 Research Article</span>
 
-            <h5>
-                Impact of Natural Farming on Soil Health
-            </h5>
+                      <h5>
+                        Impact of Natural Farming on Soil Health
+                      </h5>
 
-            <p class="authors">
-                APCNF Research Team
-            </p>
+                      <p class="authors">
+                        APCNF Research Team
+                      </p>
 
-            <p class="summary">
-                Assessment of soil biological activity and organic carbon under natural farming systems.
-            </p>
+                      <p class="summary">
+                        Assessment of soil biological activity and organic carbon under natural farming systems.
+                      </p>
 
-            <div class="keywords">
-                <span>Soil Health</span>
-                <span>Carbon</span>
-            </div>
-
-            <div class="research-footer">
-                <small>May 2026</small>
-                <a href="#" class="btn btn-success btn-sm">
-                    View PDF
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 ra-card-col">
-        <div class="research-card" data-keyword="climate resilience drought" data-author="Sustainable Agriculture Division"
-             data-theme="Climate" data-year="2026" data-journal="Climate Adaptation Review"
-             data-country="India" data-language="English" data-doctype="Review">
-            <span class="research-badge">📊 Research Report</span>
-
-            <h5>
-                Climate Resilience through Natural Farming
-            </h5>
-
-            <p class="authors">
-                Sustainable Agriculture Division
-            </p>
-
-            <p class="summary">
-                Study on crop performance under drought and extreme weather conditions.
-            </p>
-
-            <div class="keywords">
-                <span>Climate</span>
-                <span>Resilience</span>
-            </div>
-
-            <div class="research-footer">
-                <small>March 2026</small>
-                <a href="#" class="btn btn-success btn-sm">
-                    View PDF
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 ra-card-col">
-        <div class="research-card" data-keyword="income economics farm" data-author="APCNF Monitoring Team"
-             data-theme="Economics" data-year="2026" data-journal="Agricultural Economics Bulletin"
-             data-country="India" data-language="English" data-doctype="Conference Paper">
-            <span class="research-badge">📈 Case Study</span>
-
-            <h5>
-                Farmer Income Improvement Analysis
-            </h5>
-
-            <p class="authors">
-                APCNF Monitoring Team
-            </p>
-
-            <p class="summary">
-                Comparative study of farm economics before and after natural farming adoption.
-            </p>
-
-            <div class="keywords">
-                <span>Income</span>
-                <span>Economics</span>
-            </div>
-
-            <div class="research-footer">
-                <small>January 2026</small>
-                <a href="#" class="btn btn-success btn-sm">
-                    View PDF
-                </a>
-            </div>
-        </div>
-    </div>
-
-</div>
-      <div class="no-results text-center py-4 d-none" id="ra-no-results">
-        <h5 class="mt-2">No research articles match your filters</h5>
-        <p class="text-muted">Try adjusting or clearing the filters above.</p>
-      </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Photos Tab -->
-    <div class="tab-pane fade" id="photos">
-      <div class="row">
-        <!-- Journals Filters -->
-        <div class="col-lg-3 mt-2">
-          <div class="library-filter-card">
-            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Journals</div>
-            <form>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control jr-filter" data-filter="keyword" placeholder="Keyword(s)">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control jr-filter" data-filter="journal" placeholder="Journal Name">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select jr-filter" data-filter="year" id="jr-year-select">
-                    <option value="">Publication Year</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control jr-filter" data-filter="volume" placeholder="Volume & Issue">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control jr-filter" data-filter="publisher" placeholder="Publisher">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select jr-filter" data-filter="language" id="jr-language-select">
-                    <option value="">Language</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select jr-filter" data-filter="peer">
-                    <option value="">Peer Reviewed</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select jr-filter" data-filter="access">
-                    <option value="">Open Access</option>
-                    <option value="Free">Free</option>
-                    <option value="Subscription">Subscription</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <button type="button" id="jr-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
-                  Clear
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="col-lg-9">
-      <div id="jr-results">
-                       <div class="journal-card" data-keyword="climate resilience natural farming" data-journal="Agricultural Sustainability Journal"
-                            data-year="2026" data-volume="Vol 12, Issue 3" data-publisher="Elsevier"
-                            data-language="English" data-peer="Yes" data-access="Subscription">
-                          <div class="journal-icon">
-                              📑
-                          </div>
-
-                          <div class="journal-content">
-                              <h5>
-                                  Natural Farming and Climate Resilience:
-                                  Evidence from Andhra Pradesh
-                              </h5>
-
-                              <p>
-                                  Published in Agricultural Sustainability Journal
-                              </p>
-
-                              <small>
-                                  Authors: APCNF Research Division | 2026
-                              </small>
-
-                              <div class="mt-3">
-                                  <button class="btn btn-sm btn-success">
-                                      View Publication
-                                  </button>
-                              </div>
-                          </div>
+                      <div class="keywords">
+                        <span>Soil Health</span>
+                        <span>Carbon</span>
                       </div>
 
-                       <div class="journal-card" data-keyword="climate resilience natural farming" data-journal="Agricultural Sustainability Journal"
-                            data-year="2025" data-volume="Vol 11, Issue 4" data-publisher="Springer"
-                            data-language="English" data-peer="Yes" data-access="Free">
-                          <div class="journal-icon">
-                              📑
-                          </div>
+                      <div class="research-footer">
+                        <small>May 2026</small>
+                        <a href="#" class="btn btn-success btn-sm">
+                          View PDF
+                        </a>
+                      </div>
+                    </div>
+                  </div>
 
-                          <div class="journal-content">
-                              <h5>
-                                  Natural Farming and Climate Resilience:
-                                  Evidence from Andhra Pradesh
-                              </h5>
+                  <div class="col-md-4 ra-card-col">
+                    <div class="research-card" data-keyword="climate resilience drought"
+                      data-author="Sustainable Agriculture Division" data-theme="Climate" data-year="2026"
+                      data-journal="Climate Adaptation Review" data-country="India" data-language="English"
+                      data-doctype="Review">
+                      <span class="research-badge">📊 Research Report</span>
 
-                              <p>
-                                  Published in Agricultural Sustainability Journal
-                              </p>
+                      <h5>
+                        Climate Resilience through Natural Farming
+                      </h5>
 
-                              <small>
-                                  Authors: APCNF Research Division | 2026
-                              </small>
+                      <p class="authors">
+                        Sustainable Agriculture Division
+                      </p>
 
-                              <div class="mt-3">
-                                  <button class="btn btn-sm btn-success">
-                                      View Publication
-                                  </button>
-                              </div>
-                          </div>
+                      <p class="summary">
+                        Study on crop performance under drought and extreme weather conditions.
+                      </p>
+
+                      <div class="keywords">
+                        <span>Climate</span>
+                        <span>Resilience</span>
                       </div>
 
-                       <div class="journal-card" data-keyword="climate resilience natural farming" data-journal="Agricultural Sustainability Journal"
-                            data-year="2025" data-volume="Vol 10, Issue 2" data-publisher="Taylor & Francis"
-                            data-language="Telugu" data-peer="No" data-access="Subscription">
-                          <div class="journal-icon">
-                              📑
-                          </div>
-
-                          <div class="journal-content">
-                              <h5>
-                                  Natural Farming and Climate Resilience:
-                                  Evidence from Andhra Pradesh
-                              </h5>
-
-                              <p>
-                                  Published in Agricultural Sustainability Journal
-                              </p>
-
-                              <small>
-                                  Authors: APCNF Research Division | 2026
-                              </small>
-
-                              <div class="mt-3">
-                                  <button class="btn btn-sm btn-success">
-                                      View Publication
-                                  </button>
-                              </div>
-                          </div>
+                      <div class="research-footer">
+                        <small>March 2026</small>
+                        <a href="#" class="btn btn-success btn-sm">
+                          View PDF
+                        </a>
                       </div>
-      </div>
-      <div class="no-results text-center py-4 d-none" id="jr-no-results">
-        <h5 class="mt-2">No journals match your filters</h5>
-        <p class="text-muted">Try adjusting or clearing the filters above.</p>
-      </div>
-        </div>
-      </div>
-    </div>
+                    </div>
+                  </div>
 
-    <!-- Case Studies Tab -->
-    <div class="tab-pane fade" id="case-studies">
-      <div class="row">
-        <!-- Case Studies Filters -->
-        <div class="col-lg-3 mt-2">
-          <div class="library-filter-card">
-            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Case Studies</div>
-            <form>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control cs-filter" data-filter="keyword" placeholder="Keywords">
+                  <div class="col-md-4 ra-card-col">
+                    <div class="research-card" data-keyword="income economics farm" data-author="APCNF Monitoring Team"
+                      data-theme="Economics" data-year="2026" data-journal="Agricultural Economics Bulletin"
+                      data-country="India" data-language="English" data-doctype="Conference Paper">
+                      <span class="research-badge">📈 Case Study</span>
+
+                      <h5>
+                        Farmer Income Improvement Analysis
+                      </h5>
+
+                      <p class="authors">
+                        APCNF Monitoring Team
+                      </p>
+
+                      <p class="summary">
+                        Comparative study of farm economics before and after natural farming adoption.
+                      </p>
+
+                      <div class="keywords">
+                        <span>Income</span>
+                        <span>Economics</span>
+                      </div>
+
+                      <div class="research-footer">
+                        <small>January 2026</small>
+                        <a href="#" class="btn btn-success btn-sm">
+                          View PDF
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="no-results text-center py-4 d-none" id="ra-no-results">
+                  <h5 class="mt-2">No research articles match your filters</h5>
+                  <p class="text-muted">Try adjusting or clearing the filters above.</p>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select cs-filter" data-filter="theme">
-                    <option value="">Theme</option>
-                    <option value="Crop">Crop</option>
-                    <option value="Livestock">Livestock</option>
-                    <option value="Water">Water</option>
-                    <option value="Soil">Soil</option>
-                    <option value="Women's Empowerment">Women's Empowerment</option>
-                    <option value="Livelihood">Livelihood</option>
-                    <option value="H&N">H&N</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control cs-filter" data-filter="location" placeholder="Location (State/District)">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select cs-filter" data-filter="year" id="cs-year-select">
-                    <option value="">Year</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <input type="text" class="form-control cs-filter" data-filter="author" placeholder="Author / Documented By">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select cs-filter" data-filter="language" id="cs-language-select">
-                    <option value="">Language</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <button type="button" id="cs-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
-                  Clear
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
-        </div>
 
-        <!-- Sub Tab Content -->
-        <div class="col-lg-9">
+          <!-- Photos Tab -->
+          <div class="tab-pane fade" id="photos">
+            <div class="row">
+              <!-- Journals Filters -->
+              <div class="col-lg-3 mt-2">
+                <div class="library-filter-card">
+                  <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Journals</div>
+                  <form>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control jr-filter" data-filter="keyword"
+                          placeholder="Keyword(s)">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control jr-filter" data-filter="journal"
+                          placeholder="Journal Name">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select jr-filter" data-filter="year" id="jr-year-select">
+                          <option value="">Publication Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control jr-filter" data-filter="volume"
+                          placeholder="Volume & Issue">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control jr-filter" data-filter="publisher"
+                          placeholder="Publisher">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select jr-filter" data-filter="language" id="jr-language-select">
+                          <option value="">Language</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select jr-filter" data-filter="peer">
+                          <option value="">Peer Reviewed</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select jr-filter" data-filter="access">
+                          <option value="">Open Access</option>
+                          <option value="Free">Free</option>
+                          <option value="Subscription">Subscription</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <button type="button" id="jr-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="col-lg-9">
+                <div id="jr-results">
+                  <div class="journal-card" data-keyword="climate resilience natural farming"
+                    data-journal="Agricultural Sustainability Journal" data-year="2026" data-volume="Vol 12, Issue 3"
+                    data-publisher="Elsevier" data-language="English" data-peer="Yes" data-access="Subscription">
+                    <div class="journal-icon">
+                      📑
+                    </div>
+
+                    <div class="journal-content">
+                      <h5>
+                        Natural Farming and Climate Resilience:
+                        Evidence from Andhra Pradesh
+                      </h5>
+
+                      <p>
+                        Published in Agricultural Sustainability Journal
+                      </p>
+
+                      <small>
+                        Authors: APCNF Research Division | 2026
+                      </small>
+
+                      <div class="mt-3">
+                        <button class="btn btn-sm btn-success">
+                          View Publication
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="journal-card" data-keyword="climate resilience natural farming"
+                    data-journal="Agricultural Sustainability Journal" data-year="2025" data-volume="Vol 11, Issue 4"
+                    data-publisher="Springer" data-language="English" data-peer="Yes" data-access="Free">
+                    <div class="journal-icon">
+                      📑
+                    </div>
+
+                    <div class="journal-content">
+                      <h5>
+                        Natural Farming and Climate Resilience:
+                        Evidence from Andhra Pradesh
+                      </h5>
+
+                      <p>
+                        Published in Agricultural Sustainability Journal
+                      </p>
+
+                      <small>
+                        Authors: APCNF Research Division | 2026
+                      </small>
+
+                      <div class="mt-3">
+                        <button class="btn btn-sm btn-success">
+                          View Publication
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="journal-card" data-keyword="climate resilience natural farming"
+                    data-journal="Agricultural Sustainability Journal" data-year="2025" data-volume="Vol 10, Issue 2"
+                    data-publisher="Taylor & Francis" data-language="Telugu" data-peer="No" data-access="Subscription">
+                    <div class="journal-icon">
+                      📑
+                    </div>
+
+                    <div class="journal-content">
+                      <h5>
+                        Natural Farming and Climate Resilience:
+                        Evidence from Andhra Pradesh
+                      </h5>
+
+                      <p>
+                        Published in Agricultural Sustainability Journal
+                      </p>
+
+                      <small>
+                        Authors: APCNF Research Division | 2026
+                      </small>
+
+                      <div class="mt-3">
+                        <button class="btn btn-sm btn-success">
+                          View Publication
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="no-results text-center py-4 d-none" id="jr-no-results">
+                  <h5 class="mt-2">No journals match your filters</h5>
+                  <p class="text-muted">Try adjusting or clearing the filters above.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case Studies Tab -->
+          <div class="tab-pane fade" id="case-studies">
+            <div class="row">
+              <!-- Case Studies Filters -->
+              <div class="col-lg-3 mt-2">
+                <div class="library-filter-card">
+                  <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Case Studies</div>
+                  <form>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control cs-filter" data-filter="keyword" placeholder="Keywords">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select cs-filter" data-filter="theme">
+                          <option value="">Theme</option>
+                          <option value="Crop">Crop</option>
+                          <option value="Livestock">Livestock</option>
+                          <option value="Water">Water</option>
+                          <option value="Soil">Soil</option>
+                          <option value="Women's Empowerment">Women's Empowerment</option>
+                          <option value="Livelihood">Livelihood</option>
+                          <option value="H&N">H&N</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select cs-filter" data-filter="year" id="cs-year-select">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control cs-filter" data-filter="author"
+                          placeholder="Author / Documented By">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select cs-filter" data-filter="language" id="cs-language-select">
+                          <option value="">Language</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <button type="button" id="cs-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Sub Tab Content -->
+              <div class="col-lg-9">
                 <h6 id="cs-active-category-label">Longitudinal Self-case Studies Data</h6>
 
                 <div class="no-results text-center py-4 d-none" id="cs-no-results">
                   <h5 class="mt-2">No case studies match your filters</h5>
-                  <p class="text-muted">Try adjusting or clearing the filters above.</p>
                 </div>
 
                 <div class="tab-content">
 
-                    <div class="tab-pane fade show active"  id="training">
-                      <div class="row g-4">
-
-    <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="soil health natural farming" data-theme="Soil" data-location="Anantapur, Andhra Pradesh" data-year="2026" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2026</span>
-            </div>
-
-            <h5>
-                Improving Soil Health Through Natural Farming
-            </h5>
-
-            <p class="case-location">
-                📍 Anantapur District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Farmers adopted natural farming practices resulting in
-                improved soil fertility, reduced input costs, and higher resilience.
-            </p>
-
-            
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-
-    <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2025</span>
-            </div>
-
-            <h5>
-                Water Conservation in Rainfed Agriculture
-            </h5>
-
-            <p class="case-location">
-                📍 Kurnool District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Community-led interventions improved water retention and
-                crop productivity during drought conditions.
-            </p>
-
-           
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2025</span>
-            </div>
-
-            <h5>
-                Water Conservation in Rainfed Agriculture
-            </h5>
-
-            <p class="case-location">
-                📍 Kurnool District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Community-led interventions improved water retention and
-                crop productivity during drought conditions.
-            </p>
-
-            
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-
-</div>
-                    </div>
-
-                    <div class="tab-pane fade"  id="farmer">
-                        <div class="row g-4">
-
-    <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="soil health natural farming" data-theme="Soil" data-location="Anantapur, Andhra Pradesh" data-year="2026" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2026</span>
-            </div>
-
-            <h5>
-                Improving Soil Health Through Natural Farming
-            </h5>
-
-            <p class="case-location">
-                📍 Anantapur District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Farmers adopted natural farming practices resulting in
-                improved soil fertility, reduced input costs, and higher resilience.
-            </p>
-
-            
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-
-    <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2025</span>
-            </div>
-
-            <h5>
-                Water Conservation in Rainfed Agriculture
-            </h5>
-
-            <p class="case-location">
-                📍 Kurnool District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Community-led interventions improved water retention and
-                crop productivity during drought conditions.
-            </p>
-
-           
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2025</span>
-            </div>
-
-            <h5>
-                Water Conservation in Rainfed Agriculture
-            </h5>
-
-            <p class="case-location">
-                📍 Kurnool District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Community-led interventions improved water retention and
-                crop productivity during drought conditions.
-            </p>
-
-            
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-
-</div>
-                    </div>
-
-                    <div class="tab-pane fade"
-                         id="webinars">
-                       <div class="row g-4">
-
-    <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="soil health natural farming" data-theme="Soil" data-location="Anantapur, Andhra Pradesh" data-year="2026" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2026</span>
-            </div>
-
-            <h5>
-                Improving Soil Health Through Natural Farming
-            </h5>
-
-            <p class="case-location">
-                📍 Anantapur District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Farmers adopted natural farming practices resulting in
-                improved soil fertility, reduced input costs, and higher resilience.
-            </p>
-
-            
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-
-    <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2025</span>
-            </div>
-
-            <h5>
-                Water Conservation in Rainfed Agriculture
-            </h5>
-
-            <p class="case-location">
-                📍 Kurnool District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Community-led interventions improved water retention and
-                crop productivity during drought conditions.
-            </p>
-
-           
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-     <div class="col-md-4">
-        <a href="/assets/img/casestudy.pdf" target="_blank" class="case-study-card" data-keyword="water conservation rainfed agriculture" data-theme="Water" data-location="Kurnool, Andhra Pradesh" data-year="2025" data-author="APCNF Field Team" data-language="English">
-
-            <div class="case-study-header">
-                <span class="case-tag">Case Study</span>
-                <span class="case-year">2025</span>
-            </div>
-
-            <h5>
-                Water Conservation in Rainfed Agriculture
-            </h5>
-
-            <p class="case-location">
-                📍 Kurnool District, Andhra Pradesh
-            </p>
-
-            <p class="case-summary">
-                Community-led interventions improved water retention and
-                crop productivity during drought conditions.
-            </p>
-
-            
-
-            <div class="case-footer">
-                <span>View Case Study →</span>
-            </div>
-
-        </a>
-    </div>
-
-</div>
-                    </div>
+                  <div class="tab-pane fade show active" id="training">
+                    <div class="row g-4" id="training-cards"></div>
+                  </div>
+
+                  <div class="tab-pane fade" id="farmer">
+                    <div class="row g-4" id="farmer-cards"></div>
+                    <div id="farmer-pagination"></div>
+                  </div>
+
+                  <div class="tab-pane fade" id="webinars">
+                    <div class="row g-4" id="webinars-cards"></div>
+                    <div id="webinars-pagination"></div>
+                  </div>
 
                 </div>
+              </div>
+
             </div>
+          </div>
+
+          <!-- News Letters Tab -->
+          <div class="tab-pane fade" id="newsletters">
+            <div class="row">
+              <!-- Newsletters Filters -->
+              <div class="col-lg-3 mt-2">
+                <div class="library-filter-card">
+                  <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Newsletters</div>
+                  <form>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control nl-filter" data-filter="keyword" placeholder="Keywords">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control nl-filter" data-filter="issue"
+                          placeholder="Issue / Volume">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select nl-filter" data-filter="year" id="nl-year-select">
+                          <option value="">Publication Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select nl-filter" data-filter="language" id="nl-language-select">
+                          <option value="">Language</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <button type="button" id="nl-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="col-lg-9">
+                <div class="row g-4" id="nl-results">
+
+                  <div class=" col-md-4">
+                    <div class="newsletter-cover-card" data-keyword="natural farming newsletter"
+                      data-issue="Vol 6, Issue 6" data-year="2026" data-language="English">
+                      <img src="/assets/img/news-1.jpg" alt="Newsletter">
+
+                      <div class="cover-content">
+                        <span>June 2026 Edition</span>
+
+                        <h5>Natural Farming Newsletter</h5>
+
+                        <a href="#" class="btn btn-success btn-sm">
+                          View Newsletter
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class=" col-md-4">
+                    <div class="newsletter-cover-card" data-keyword="natural farming newsletter"
+                      data-issue="Vol 6, Issue 7" data-year="2026" data-language="Telugu">
+                      <img src="/assets/img/news-2.jpg" alt="Newsletter">
+
+                      <div class="cover-content">
+                        <span>June 2026 Edition</span>
+
+                        <h5>Natural Farming Newsletter</h5>
+
+                        <a href="#" class="btn btn-success btn-sm">
+                          View Newsletter
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="no-results text-center py-4 d-none" id="nl-no-results">
+                  <h5 class="mt-2">No newsletters match your filters</h5>
+                  <p class="text-muted">Try adjusting or clearing the filters above.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
         </div>
-    </div>
-
-     <!-- News Letters Tab -->
-    <div class="tab-pane fade" id="newsletters">
-      <div class="row">
-        <!-- Newsletters Filters -->
-        <div class="col-lg-3 mt-2">
-          <div class="library-filter-card">
-            <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Newsletters</div>
+    </section>
+    <section id="service-details" class="service-details publications-details section d-none">
+      <div class="row gy-5">
+        <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-box">
             <form>
               <div class="row mb-3">
                 <div class="col-sm-12">
-                  <input type="text" class="form-control nl-filter" data-filter="keyword" placeholder="Keywords">
+                  <select class="form-select" id="category-dropdown1" aria-label="Default select example" disabled>
+                    <!-- <option disabled selected>Select Category</option> -->
+                    <option value="Article" selected>Articles</option>
+                    <!-- <option value="Publications">Publications</option> -->
+                    <option value="Journal">Journals</option>
+                    <option value="Case Studies">Case Studies</option>
+                    <option value="Newsletter">Newsletter</option>
+                    <!-- <option value="Book">Books</option> -->
+                  </select>
+                  <small id="login-hint" class="text-muted mt-1 d-block" style="font-size: 0.72rem;">
+                    <i class="bi bi-lock-fill me-1"></i>Enable when you are logged in &mdash;
+                    <a href="login.html" class="text-decoration-none fw-semibold" style="color: #2f6646;">Login
+                      first</a>
+                  </small>
                 </div>
               </div>
+
               <div class="row mb-3">
                 <div class="col-sm-12">
-                  <input type="text" class="form-control nl-filter" data-filter="issue" placeholder="Issue / Volume">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select nl-filter" data-filter="year" id="nl-year-select">
-                    <option value="">Publication Year</option>
+                  <select class="form-select" id="year-dropdown" aria-label="Default select example">
+                    <option disabled selected>Select Year</option>
                   </select>
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col-sm-12">
-                  <select class="form-select nl-filter" data-filter="language" id="nl-language-select">
-                    <option value="">Language</option>
+                  <select class="form-select" id="language-dropdown" aria-label="Default select example">
+                    <option disabled selected>Select Language</option>
                   </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <select class="form-select" id="author-dropdown" aria-label="Default select example">
+                    <option disabled selected>Select Author</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 d-none ">
+                <div class="col-sm-12">
+                  <input id="belongToInput" class="form-control" placeholder="Search by Author">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input id="tagsInput" class="form-control" placeholder="Keywords">
                 </div>
               </div>
               <div>
-                <button type="button" id="nl-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+
+                <button type="button" id="clearbtn" style="width: 100%;" class="btn btn-outline-secondary">
                   Clear
                 </button>
-              </div>
-            </form>
-          </div>
-        </div>
 
-        <div class="col-lg-9">
-        <div class="row g-4" id="nl-results">
-
-                          <div class=" col-md-4">
-      <div class="newsletter-cover-card" data-keyword="natural farming newsletter" data-issue="Vol 6, Issue 6" data-year="2026" data-language="English">
-    <img src="/assets/img/news-1.jpg" alt="Newsletter">
-
-    <div class="cover-content">
-        <span>June 2026 Edition</span>
-
-        <h5>Natural Farming Newsletter</h5>
-
-        <a href="#" class="btn btn-success btn-sm">
-            View Newsletter
-        </a>
-    </div>
-</div>
-</div>
- <div class=" col-md-4">
-<div class="newsletter-cover-card" data-keyword="natural farming newsletter" data-issue="Vol 6, Issue 7" data-year="2026" data-language="Telugu">
-    <img src="/assets/img/news-2.jpg" alt="Newsletter">
-
-    <div class="cover-content">
-        <span>June 2026 Edition</span>
-
-        <h5>Natural Farming Newsletter</h5>
-
-        <a href="#" class="btn btn-success btn-sm">
-            View Newsletter
-        </a>
-    </div>
-</div>
-</div>
-    </div>
-      <div class="no-results text-center py-4 d-none" id="nl-no-results">
-        <h5 class="mt-2">No newsletters match your filters</h5>
-        <p class="text-muted">Try adjusting or clearing the filters above.</p>
-      </div>
-        </div>
-      </div>
-    </div>
-
-
-          </div>
-          </section>
-    <section id="service-details" class="service-details publications-details section d-none">
-        <div class="row gy-5">
-          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-box">
-              <form>
-                <div class="row mb-3">
-                  <div class="col-sm-12">
-                    <select class="form-select" id="category-dropdown1" aria-label="Default select example" disabled>
-                      <!-- <option disabled selected>Select Category</option> -->
-                      <option value="Article" selected>Articles</option>
-                      <!-- <option value="Publications">Publications</option> -->
-                      <option value="Journal">Journals</option>
-                      <option value="Case Studies">Case Studies</option>
-                      <option value="Newsletter">Newsletter</option>
-                      <!-- <option value="Book">Books</option> -->
-                    </select>
-                    <small id="login-hint" class="text-muted mt-1 d-block" style="font-size: 0.72rem;">
-                      <i class="bi bi-lock-fill me-1"></i>Enable when you are logged in &mdash;
-                      <a href="login.html" class="text-decoration-none fw-semibold" style="color: #2f6646;">Login first</a>
-                    </small>
-                  </div>
-                </div>
-                
-                <div class="row mb-3">
-                  <div class="col-sm-12">
-                    <select class="form-select" id="year-dropdown" aria-label="Default select example">
-                      <option disabled selected>Select Year</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-sm-12">
-                    <select class="form-select" id="language-dropdown" aria-label="Default select example">
-                      <option disabled selected>Select Language</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-sm-12">
-                    <select class="form-select" id="author-dropdown" aria-label="Default select example">
-                      <option disabled selected>Select Author</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3 d-none ">
-                  <div class="col-sm-12">
-                    <input id="belongToInput" class="form-control" placeholder="Search by Author">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-sm-12">
-                    <input id="tagsInput" class="form-control" placeholder="Keywords">
-                  </div>
-                </div>
-                <div>
-
-                  <button type="button" id="clearbtn" style="width: 100%;" class="btn btn-outline-secondary">
-                    Clear
-                  </button>
-
-                  <!-- <div class="services-list"><button id="clear_btn" class="btn btn-outline-secondary">
+                <!-- <div class="services-list"><button id="clear_btn" class="btn btn-outline-secondary">
                       <i class="bi bi-x-circle"></i> Clear
                     </button>
                     <a class="btn btn-success" id="search-btn"><span> <i class="bi bi-search"></i> Search</span></a>
                     <a class="btn btn-danger" id="reset-btn"> <i class="bi bi-arrow-counterclockwise"></i>
                       <span>Reset</span></a>
                   </div> -->
-                </div>
-              </form>
-            </div><!-- End Services List -->
+              </div>
+            </form>
+          </div><!-- End Services List -->
 
-            <div class="help-box d-flex flex-column justify-content-center align-items-center">
-              <i class="bi bi-envelope help-icon"></i>
-              <h4>Have a Question?</h4>
-              <!-- <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1 5589 55488
+          <div class="help-box d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-envelope help-icon"></i>
+            <h4>Have a Question?</h4>
+            <!-- <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i> <span>+1 5589 55488
                   55</span></p> -->
-              <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a
-                  href="mailto:iggaarl@ryss.ap.gov.in">iggaarl@ryss.ap.gov.in</a></p>
-            </div>
+            <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a
+                href="mailto:iggaarl@ryss.ap.gov.in">iggaarl@ryss.ap.gov.in</a></p>
           </div>
+        </div>
 
-          <div class="col-lg-9 ps-lg-5 d-none" id="research-content" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-9 ps-lg-5 d-none" id="research-content" data-aos="fade-up" data-aos-delay="200">
 
 
-            <!-- <ul class="nav nav-tabs" id="articlesTab" role="tablist">
+          <!-- <ul class="nav nav-tabs" id="articlesTab" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="articles-tab" data-bs-toggle="tab"
                   data-bs-target="#articles" type="button" role="tab" aria-controls="articles"
@@ -1119,28 +850,28 @@
               </li>
             </ul> -->
 
-            <div class="tab-content" id="researchTabContent">
-              <div class="tab-pane fade show active" id="articles" role="tabpanel" aria-labelledby="articles-tab">
-                <section id="blog-posts" class="blog-posts ">
-                  <div id="loader"></div>
-                  <div class="">
-                    <div class="row gy-4" id="blog-container">
-                      <div class="col-lg-6 col-md-6 col-sm-4 d-none " id="article_temp">
-                       <div class="col-md-12 aos-init aos-animate " data-aos="fade-up" data-aos-delay="100">
-                             <a href="" target="_blank" class="articles_pdf noanchor">
-                                <div class="row newsCard">
-                                    <div class="col-md-4">
-                                      <img src="../assets/img/services-1.jpg" alt="" class="img-fluid blog-img" height="150">
-                                    </div>
-                                    <div class="col-md-8">
-                                      <!-- <p class="post-category"></p> -->
-                                       <p class="blog-title"></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                      
-                        <!-- <article>
+          <div class="tab-content" id="researchTabContent">
+            <div class="tab-pane fade show active" id="articles" role="tabpanel" aria-labelledby="articles-tab">
+              <section id="blog-posts" class="blog-posts ">
+                <div id="loader"></div>
+                <div class="">
+                  <div class="row gy-4" id="blog-container">
+                    <div class="col-lg-6 col-md-6 col-sm-4 d-none " id="article_temp">
+                      <div class="col-md-12 aos-init aos-animate " data-aos="fade-up" data-aos-delay="100">
+                        <a href="" target="_blank" class="articles_pdf noanchor">
+                          <div class="row newsCard">
+                            <div class="col-md-4">
+                              <img src="../assets/img/services-1.jpg" alt="" class="img-fluid blog-img" height="150">
+                            </div>
+                            <div class="col-md-8">
+                              <!-- <p class="post-category"></p> -->
+                              <p class="blog-title"></p>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+
+                      <!-- <article>
                               <a href="" target="_blank" class="articles_pdf noanchor">
                                 <div class="post-img">
                                   <img src="../assets/img/services-1.jpg" alt="" class="img-fluid blog-img" height="150">
@@ -1149,88 +880,88 @@
                                 <p class="blog-title"></p>
                               </a>
                         </article> -->
-                      </div>
-                      <div class="col-lg-6 d-none" id="journal_temp">
-                        <article>
-                          <div class="p-0 m-0 my-2">
-                            <a href="" target="_blank" class="noanchor journals_pdf">
-                              <div class="row no-gutters">
-                                <div class="col-md-2 align-content-center">
-                                  <img src="" alt="" class="img-fluid rounded blog-img" alt="Image">
-                                </div>
-                                <div class="col-md-10">
-                                  <div class="card-body">
-                                    <h5 class="card-title blog-title"></h5>
-                                    <p class="card-text journal_details"></p>
-                                    <p class="card-text"><small class="text-body-secondary post-author"></small> -
-                                      <small class="text-body-secondary post-date"></small>
-                                    </p>
-                                  </div>
+                    </div>
+                    <div class="col-lg-6 d-none" id="journal_temp">
+                      <article>
+                        <div class="p-0 m-0 my-2">
+                          <a href="" target="_blank" class="noanchor journals_pdf">
+                            <div class="row no-gutters">
+                              <div class="col-md-2 align-content-center">
+                                <img src="" alt="" class="img-fluid rounded blog-img" alt="Image">
+                              </div>
+                              <div class="col-md-10">
+                                <div class="card-body">
+                                  <h5 class="card-title blog-title"></h5>
+                                  <p class="card-text journal_details"></p>
+                                  <p class="card-text"><small class="text-body-secondary post-author"></small> -
+                                    <small class="text-body-secondary post-date"></small>
+                                  </p>
                                 </div>
                               </div>
-                            </a>
-                          </div>
-                        </article>
-                      </div>
-                      <!-- Case Studies -->
-                      <div class="col-lg-6 d-none" id="case_studies_temp">
-                            <a href="" target="_blank" class="case_studies_pdf">
-                              <div class="row g-2 article-card p-1 rounded-2">
-                                  <div class="col-md-3 align-content-top">
-                                   <img src="" alt="" class="img-fluid blog-img" alt="Image">
-                                  </div>
-                                  <div class="col-md-9">
-                                    <div class="card-body">
-                                      <h5 class="blog-title"></h5>
-                                      <p class="card-text case_studies_details"></p>
-                                    </div>
-                                  </div>
-                                  </div>
-                              </a>
                             </div>
+                          </a>
+                        </div>
+                      </article>
+                    </div>
+                    <!-- Case Studies -->
+                    <div class="col-lg-6 d-none" id="case_studies_temp">
+                      <a href="" target="_blank" class="case_studies_pdf">
+                        <div class="row g-2 article-card p-1 rounded-2">
+                          <div class="col-md-3 align-content-top">
+                            <img src="" alt="" class="img-fluid blog-img" alt="Image">
+                          </div>
+                          <div class="col-md-9">
+                            <div class="card-body">
+                              <h5 class="blog-title"></h5>
+                              <p class="card-text case_studies_details"></p>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
 
-                      </div>
-                      <!-- Books -->
-                      <div class="col-lg-6 d-none" id="book_temp">
-                        <article>
-                          <div class="card p-0 m-0 my-2">
-                            <a href="" target="_blank" class="noanchor books_pdf">
-                              <div class="row no-gutters">
-                                <div class="col-md-2 align-content-center">
-                                  <img src="" alt="" class="img-fluid rounded blog-img" alt="Image">
-                                </div>
-                                <div class="col-md-10">
-                                  <div class="card-body">
-                                    <h5 class="card-title blog-title"></h5>
-                                    <p class="card-text book_details"></p>
-                                    <p class="card-text"><small class="text-body-secondary post-author"></small> -
-                                      <small class="text-body-secondary post-date"></small>
-                                    </p>
-                                  </div>
-                                </div>
+                  </div>
+                  <!-- Books -->
+                  <div class="col-lg-6 d-none" id="book_temp">
+                    <article>
+                      <div class="card p-0 m-0 my-2">
+                        <a href="" target="_blank" class="noanchor books_pdf">
+                          <div class="row no-gutters">
+                            <div class="col-md-2 align-content-center">
+                              <img src="" alt="" class="img-fluid rounded blog-img" alt="Image">
+                            </div>
+                            <div class="col-md-10">
+                              <div class="card-body">
+                                <h5 class="card-title blog-title"></h5>
+                                <p class="card-text book_details"></p>
+                                <p class="card-text"><small class="text-body-secondary post-author"></small> -
+                                  <small class="text-body-secondary post-date"></small>
+                                </p>
                               </div>
-                            </a>
+                            </div>
                           </div>
+                        </a>
+                      </div>
 
-                          <div class="col-lg-6 col-md-6 col-sm-4 d-none " id="newsletter_temp">
-                              <div class="col-md-12 aos-init aos-animate " data-aos="fade-up" data-aos-delay="100">
-                                    <a href="" target="_blank" class="newsletter_pdf noanchor">
-                                        <div class="row newsCard">
-                                            <div class="col-md-4">
-                                              <img src="../assets/img/services-1.jpg" alt="" class="img-fluid blog-img" height="150">
-                                            </div>
-                                            <div class="col-md-8">
-                                              <p class="newsletter_details"></p>
-                                              <!-- <p class="blog-title"></p> -->
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                          </div>
-                          <!-- <div class="post-img">
+                      <div class="col-lg-6 col-md-6 col-sm-4 d-none " id="newsletter_temp">
+                        <div class="col-md-12 aos-init aos-animate " data-aos="fade-up" data-aos-delay="100">
+                          <a href="" target="_blank" class="newsletter_pdf noanchor">
+                            <div class="row newsCard">
+                              <div class="col-md-4">
+                                <img src="../assets/img/services-1.jpg" alt="" class="img-fluid blog-img" height="150">
+                              </div>
+                              <div class="col-md-8">
+                                <p class="newsletter_details"></p>
+                                <!-- <p class="blog-title"></p> -->
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                      <!-- <div class="post-img">
                             <img src="" alt="" class="img-fluid rounded blog-img">
                           </div> -->
-                          <!-- <p class=""></p>
+                      <!-- <p class=""></p>
                           <h2 class="title">
                             <a href="blog-details.html" class="blog-title"></a>
                           </h2>
@@ -1244,46 +975,45 @@
                               </p>
                             </div>
                           </div> -->
-                        </article>
-                      </div>
-                    </div>
+                    </article>
                   </div>
-                </section>
-                <!-- New Changes Blog Posts Section-->
-
-
-                <!-- Blog Pagination Section -->
-                <div id="pagination" class="d-flex justify-content-between align-items-center">
-                  <button id="prev-btn" disabled class="btn border-0 bg-transparent"><i
-                      class="bi bi-arrow-left-circle fs-1 "></i></button>
-                  <button id="next-btn" class="btn border-0 bg-transparent"><i
-                      class="bi bi-arrow-right-circle fs-1 "></i></button>
                 </div>
-              </div>
-
-              <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
-                publications
-              </div>
-              <div class="tab-pane fade" id="journals" role="tabpanel" aria-labelledby="journals-tab">
-                journals
-              </div>
-              <div class="tab-pane fade" id="case-studies" role="tabpanel" aria-labelledby="case-studies-tab">
-                case-studies
-              </div>
             </div>
+    </section>
+    <!-- New Changes Blog Posts Section-->
 
 
-            <!-- <nav>
+    <!-- Blog Pagination Section -->
+    <div id="pagination" class="d-flex justify-content-between align-items-center">
+      <button id="prev-btn" disabled class="btn border-0 bg-transparent"><i
+          class="bi bi-arrow-left-circle fs-1 "></i></button>
+      <button id="next-btn" class="btn border-0 bg-transparent"><i class="bi bi-arrow-right-circle fs-1 "></i></button>
+    </div>
+    </div>
+
+    <div class="tab-pane fade" id="publications" role="tabpanel" aria-labelledby="publications-tab">
+      publications
+    </div>
+    <div class="tab-pane fade" id="journals" role="tabpanel" aria-labelledby="journals-tab">
+      journals
+    </div>
+    <div class="tab-pane fade" id="case-studies" role="tabpanel" aria-labelledby="case-studies-tab">
+      case-studies
+    </div>
+    </div>
+
+
+    <!-- <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                   <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Research Article</button>
                 </div>
               </nav> -->
-            <!-- New Changes Blog Posts Section-->
+    <!-- New Changes Blog Posts Section-->
 
 
 
-          </div>
-        </div>
+    </div>
+    </div>
     </section><!-- /Service Details Section -->
   </main>
   <div id="footer" class="footer dark-background"></div>
@@ -1313,6 +1043,7 @@
   <script src="../assets/js/main.js"></script>
 
   <script type="module" src="../services/research_library.js"></script>
+  <script src="../services/case_study.js?t=34"></script>
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
 
   <!-- CDN Links For encryption -->
@@ -1514,18 +1245,6 @@
         dynamicSelects: [
           { selectId: 'jr-year-select', attr: 'year' },
           { selectId: 'jr-language-select', attr: 'language' },
-        ],
-      });
-
-      // Case Studies (applies across all sub-tab panes)
-      setupFilterableSection({
-        filterInputSelector: '.cs-filter',
-        cardSelector: '.case-study-card',
-        noResultsSelector: '#cs-no-results',
-        clearBtnSelector: '#cs-clear-btn',
-        dynamicSelects: [
-          { selectId: 'cs-year-select', attr: 'year' },
-          { selectId: 'cs-language-select', attr: 'language' },
         ],
       });
 
