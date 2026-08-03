@@ -474,13 +474,27 @@ const renderPast = (list) => {
   if (viewAllWrap) viewAllWrap.style.display = "block";
 };
 
+const SHIMMER_BG = "linear-gradient(90deg,#f2f2f2 25%,#e8e8e8 50%,#f2f2f2 75%)";
+const SHIMMER_STYLE = `background:${SHIMMER_BG};background-size:400% 100%;animation:shimmer 1.4s infinite;`;
+
+const pastSkeletonCard = () => `
+  <div class="col-sm-6 col-lg-3">
+    <div style="background:#fff;border:1px solid #e4e4e4;border-radius:12px;overflow:hidden;width:100%;display:flex;flex-direction:column;">
+      <div style="width:100%;padding-top:56.25%;position:relative;${SHIMMER_STYLE}">
+        <div style="position:absolute;bottom:8px;right:8px;width:42px;height:18px;border-radius:4px;background:rgba(0,0,0,0.15);"></div>
+      </div>
+      <div style="padding:12px 14px;">
+        <div class="wb-skeleton" style="height:13px;width:90%;margin-bottom:7px;border-radius:4px;"></div>
+        <div class="wb-skeleton" style="height:13px;width:60%;margin-bottom:10px;border-radius:4px;"></div>
+        <div class="wb-skeleton" style="height:11px;width:50%;margin-bottom:6px;border-radius:4px;"></div>
+        <div class="wb-skeleton" style="height:11px;width:38%;border-radius:4px;"></div>
+      </div>
+    </div>
+  </div>`;
+
 const fetchPast = async (page = 1) => {
   pastState.page = page;
-  document.getElementById("past-list").innerHTML = `
-    <div class="col-sm-6 col-lg-3"><div class="wb-skeleton" style="height:220px;"></div></div>
-    <div class="col-sm-6 col-lg-3"><div class="wb-skeleton" style="height:220px;"></div></div>
-    <div class="col-sm-6 col-lg-3"><div class="wb-skeleton" style="height:220px;"></div></div>
-    <div class="col-sm-6 col-lg-3"><div class="wb-skeleton" style="height:220px;"></div></div>`;
+  document.getElementById("past-list").innerHTML = Array.from({ length: pastState.pageSize }, pastSkeletonCard).join("");
   document.getElementById("past-pagination").innerHTML = "";
 
   // also populate filter dropdown on first load
