@@ -322,27 +322,40 @@ const buildPastCard = (wb) => {
     : "";
   webinarMap.set(wb.name, { ...wb, timeRng: fmtTimeRange(wb.date_time, wb.duration) });
 
+  const imgUrl = resolveImgUrl(wb.webinar_img);
+
   return `
-  <div class="col-sm-6 col-lg-3" data-topic="${esc(topic.toLowerCase())}">
+  <div class="col-md-6" data-topic="${esc(topic.toLowerCase())}">
     <div class="past-card ${VideoUrl ? "" : "no-video"}" data-id="${esc(wb.name)}" data-video="${esc(VideoUrl)}">
       <div class="past-thumb">
-        ${pastThumbInner(wb)}
-        <div class="play-overlay">
-          <div class="play-circle">
-            <i class="bi bi-play-fill" style="margin-left:2px;"></i>
-          </div>
-        </div>
-        ${wb.webinar_video ? `<button class="fullscreen-btn" title="Full Screen"><i class="bi bi-fullscreen"></i></button>` : ""}
+        ${imgUrl
+          ? `<img src="${imgUrl}" alt="${esc(wb.title)}">`
+          : `<div class="thumb-bg" style="background:${thumbGradient(wb.name)};"><i class="bi bi-camera-video-fill"></i></div>`
+        }
+        ${VideoUrl ? `<div class="play-overlay"><div class="play-circle"><i class="bi bi-play-fill" style="margin-left:2px;"></i></div></div>` : ""}
         ${dur ? `<div class="dur-badge">${dur}</div>` : ""}
       </div>
       <div class="past-info">
-        <h6>${esc(wb.title)}</h6>
-        ${wb.speakers ? `<div class="past-speaker"><i class="bi bi-person-circle"></i>${esc(wb.speakers)}</div>` : ""}
-        <div class="past-meta">
-          <span><i class="bi bi-calendar3 me-1"></i>${date}</span>
-          ${views ? `<span><i class="bi bi-eye me-1"></i>${views} Views</span>` : ""}
+        <div class="info-top">
+          ${topic ? `<span class="topic-tag">${esc(topic)}</span>` : ""}
+          <h6>${esc(wb.title)}</h6>
+          ${wb.speakers ? `<div class="past-speaker"><i class="bi bi-person-circle"></i>${esc(wb.speakers)}</div>` : ""}
+          <div class="past-meta">
+            <span><i class="bi bi-calendar3 me-1"></i>${date}</span>
+            ${views ? `<span><i class="bi bi-eye me-1"></i>${views} Views</span>` : ""}
+            ${dur ? `<span><i class="bi bi-clock me-1"></i>${dur}</span>` : ""}
+          </div>
+          <div class="past-pills">
+            ${wb.speakers ? `<span class="past-pill">${esc(wb.speakers)}</span>` : ""}
+            ${topic ? `<span class="past-pill">${esc(topic)}</span>` : ""}
+          </div>
         </div>
-        ${topic ? `<div class="mt-1"><span class="topic-tag">${esc(topic)}</span></div>` : ""}
+        <div class="info-bottom">
+          ${VideoUrl
+            ? `<button class="btn-watch js-watch-btn" data-title="${esc(wb.title)}" data-video="${esc(VideoUrl)}">Watch Now <i class="bi bi-arrow-right"></i></button>`
+            : `<button class="btn-watch btn-watch-detail js-open-details" data-id="${esc(wb.name)}">View Details <i class="bi bi-arrow-right"></i></button>`
+          }
+        </div>
       </div>
     </div>
   </div>`;
@@ -470,6 +483,20 @@ const renderPast = (list) => {
       iframeEl?.requestFullscreen?.();
     });
   });
+  el.querySelectorAll(".js-watch-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openVideoPopup(btn.dataset.title, btn.dataset.video);
+    });
+  });
+
+  el.querySelectorAll(".js-open-details").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openDetailsModal(btn.dataset.id);
+    });
+  });
+
   populateTopicFilter(list);
   if (viewAllWrap) viewAllWrap.style.display = "block";
 };
@@ -478,16 +505,15 @@ const SHIMMER_BG = "linear-gradient(90deg,#f2f2f2 25%,#e8e8e8 50%,#f2f2f2 75%)";
 const SHIMMER_STYLE = `background:${SHIMMER_BG};background-size:400% 100%;animation:shimmer 1.4s infinite;`;
 
 const pastSkeletonCard = () => `
-  <div class="col-sm-6 col-lg-3">
-    <div style="background:#fff;border:1px solid #e4e4e4;border-radius:12px;overflow:hidden;width:100%;display:flex;flex-direction:column;">
-      <div style="width:100%;padding-top:56.25%;position:relative;${SHIMMER_STYLE}">
-        <div style="position:absolute;bottom:8px;right:8px;width:42px;height:18px;border-radius:4px;background:rgba(0,0,0,0.15);"></div>
-      </div>
-      <div style="padding:12px 14px;">
-        <div class="wb-skeleton" style="height:13px;width:90%;margin-bottom:7px;border-radius:4px;"></div>
-        <div class="wb-skeleton" style="height:13px;width:60%;margin-bottom:10px;border-radius:4px;"></div>
-        <div class="wb-skeleton" style="height:11px;width:50%;margin-bottom:6px;border-radius:4px;"></div>
-        <div class="wb-skeleton" style="height:11px;width:38%;border-radius:4px;"></div>
+  <div class="col-md-6">
+    <div style="background:#fff;border:1px solid #e4e4e4;border-radius:14px;overflow:hidden;width:100%;display:flex;flex-direction:row;min-height:130px;">
+      <div style="width:130px;min-width:130px;${SHIMMER_STYLE}"></div>
+      <div style="padding:14px 16px;flex:1;">
+        <div class="wb-skeleton" style="height:10px;width:50%;margin-bottom:10px;border-radius:20px;"></div>
+        <div class="wb-skeleton" style="height:13px;width:90%;margin-bottom:6px;border-radius:4px;"></div>
+        <div class="wb-skeleton" style="height:13px;width:70%;margin-bottom:10px;border-radius:4px;"></div>
+        <div class="wb-skeleton" style="height:11px;width:55%;margin-bottom:6px;border-radius:4px;"></div>
+        <div class="wb-skeleton" style="height:11px;width:35%;border-radius:4px;"></div>
       </div>
     </div>
   </div>`;
