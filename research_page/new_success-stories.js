@@ -61,6 +61,8 @@ async function loadMeta() {
   fillSelect('ss-theme-select',    data.themes    || []);
 }
 
+const DEFAULT_THUMBNAIL = '../assets/img/background-img/success-story.png';
+
 // ── Card builder ──────────────────────────────────────────────────────────────
 
 function extractYear(val) {
@@ -70,7 +72,6 @@ function extractYear(val) {
 }
 
 function buildCardHTML(item) {
-  // try all common field names for year
   const year = item.year
     ? String(item.year)
     : extractYear(item.date || item.publication_date || item.published_date || item.creation || item.modified || '');
@@ -79,29 +80,36 @@ function buildCardHTML(item) {
   const author   = item.author      || '';
   const location = item.location    || '';
   const language = item.language    || '';
-  const pdfUrl   = item.attachment  ? (API_BASE + item.attachment) : '#';
+  const theme     = item.theme      || 'Success Story';
+  const thumbnail = item.thumbnail  ? (API_BASE + item.thumbnail) : DEFAULT_THUMBNAIL;
+  const pdfUrl    = item.attachment ? (API_BASE + item.attachment) : '#';
+  const linkTarget = pdfUrl !== '#' ? 'target="_blank" rel="noopener noreferrer"' : '';
 
   const tagBadges = (item.tags || [])
     .map(t => `<span class="ss-tag-badge">${t}</span>`)
     .join('');
 
   return `
-    <div class="col-md-4 mb-4">
-      <a href="${pdfUrl}" target="_blank" class="ss-card">
-        <div class="ss-card-header">
-          <span class="ss-badge">Success Story</span>
-          ${year ? `<span class="ss-year"><i class="bi bi-calendar3"></i> ${year}</span>` : ''}
+    <div class="col-md-12 mb-3">
+      <div class="ss-ebook-card">
+        <a href="${pdfUrl}" ${linkTarget} class="ss-thumb-wrap">
+          <img src="${thumbnail}" alt="${title}" class="ss-thumbnail"
+               onerror="this.onerror=null;this.src='${DEFAULT_THUMBNAIL}'">
+        </a>
+        <div class="ss-info">
+          <span class="ss-info-badge">${theme}</span>
+          <h5 class="ss-info-title" title="${title}">${title}</h5>
+          ${location ? `<div class="ss-info-location"><i class="bi bi-geo-alt-fill"></i> ${location}</div>` : ''}
+          <p class="ss-info-desc">${desc}</p>
+          <div class="ss-info-meta">
+            ${year     ? `<div><i class="bi bi-calendar3"></i> ${year}</div>`       : ''}
+            ${author   ? `<div><i class="bi bi-person-fill"></i> ${author}</div>`   : ''}
+            ${language ? `<div><i class="bi bi-translate"></i> ${language}</div>`   : ''}
+          </div>
+          ${tagBadges ? `<div class="ss-tags-wrap">${tagBadges}</div>` : ''}
+          <a href="${pdfUrl}" ${linkTarget} class="ss-view-btn">View Story <i class="bi bi-arrow-right"></i></a>
         </div>
-        <h5 class="ss-title">${title}</h5>
-        ${location ? `<div class="ss-location"><i class="bi bi-geo-alt-fill"></i> ${location}</div>` : ''}
-        <p class="ss-summary">${desc}</p>
-        <div class="ss-meta">
-          ${author   ? `<div class="ss-meta-item"><i class="bi bi-person"></i> ${author}</div>`       : ''}
-          ${language ? `<div class="ss-meta-item"><i class="bi bi-translate"></i> ${language}</div>` : ''}
-        </div>
-        ${tagBadges ? `<div class="ss-tags-wrap">${tagBadges}</div>` : ''}
-        <div class="ss-read-more">View Story <i class="bi bi-arrow-right"></i></div>
-      </a>
+      </div>
     </div>`;
 }
 
@@ -136,20 +144,33 @@ function renderPagination() {
     </div>`;
 }
 
-function showSpinner() {
+function showSkeletons() {
   const el = document.getElementById('ss-cards');
-  if (el) el.innerHTML = `
-    <div class="col-12 text-center py-5">
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
+  if (!el) return;
+  const skeletonCard = `
+    <div class="col-md-12 mb-3">
+      <div class="ss-skeleton-card">
+        <div class="ss-skeleton-thumb"></div>
+        <div class="ss-skeleton-info">
+          <div class="ss-skeleton-line" style="width:25%;height:18px;"></div>
+          <div class="ss-skeleton-line" style="width:75%;height:22px;margin-top:4px;"></div>
+          <div class="ss-skeleton-line" style="width:55%;height:22px;"></div>
+          <div class="ss-skeleton-line" style="width:35%;"></div>
+          <div class="ss-skeleton-line" style="width:100%;"></div>
+          <div class="ss-skeleton-line" style="width:100%;"></div>
+          <div class="ss-skeleton-line" style="width:65%;"></div>
+          <div class="ss-skeleton-line" style="width:45%;"></div>
+          <div class="ss-skeleton-line" style="width:18%;"></div>
+        </div>
       </div>
     </div>`;
+  el.innerHTML = skeletonCard.repeat(6);
 }
 
 // ── Load ──────────────────────────────────────────────────────────────────────
 
 async function loadStories() {
-  showSpinner();
+  showSkeletons();
   const resp = await apiFetch(buildParams({ page: state.page, page_size: PAGE_SIZE }));
   if (resp.data && resp.data.length) console.log('[SS] sample item keys:', Object.keys(resp.data[0]), resp.data[0]);
 

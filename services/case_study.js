@@ -74,6 +74,9 @@
 
   // ── Card rendering ────────────────────────────────────────────────────────
 
+  // var DEFAULT_THUMBNAIL = '../assets/img/research/1.jpg';
+  var DEFAULT_THUMBNAIL = '../assets/img/background-img/case-study.png';
+
   function extractYear(dateStr) {
     if (!dateStr) return '';
     var m = String(dateStr).match(/\d{4}/);
@@ -85,29 +88,35 @@
     var title = item.title || 'Untitled';
     var description = item.description || '';
     var author = item.author || '';
-    var tags = (item.tags || []).join(', ');
     var language = item.language || '';
+    var theme = item.theme || 'Case Study';
+    var thumbnail = item.thumbnail ? (API_BASE + item.thumbnail) : DEFAULT_THUMBNAIL;
     var pdfUrl = item.attachment ? (API_BASE + item.attachment) : '#';
+    var linkTarget = pdfUrl !== '#' ? 'target="_blank" rel="noopener noreferrer"' : '';
 
     var tagBadges = (item.tags || []).map(function (t) {
-      return '<span class="case-tag-badge">' + t + '</span>';
+      return '<span class="cs-tag-badge">' + t + '</span>';
     }).join('');
 
-    return '<div class="col-md-4 mb-4">' +
-      '<a href="' + pdfUrl + '" target="_blank" class="case-study-card">' +
-      '<div class="case-study-header">' +
-      '<span class="case-tag">Case Study</span>' +
-      (year ? '<span class="case-year"><i class="bi bi-calendar3"></i> ' + year + '</span>' : '') +
+    return '<div class="col-md-12 mb-3">' +
+      '<div class="cs-ebook-card">' +
+      '<a href="' + pdfUrl + '" ' + linkTarget + ' class="cs-thumb-wrap">' +
+      '<img src="' + thumbnail + '" alt="' + title + '" class="cs-thumbnail"' +
+      ' onerror="this.onerror=null;this.src=\'' + DEFAULT_THUMBNAIL + '\'">' +
+      '</a>' +
+      '<div class="cs-info">' +
+      '<span class="cs-info-badge">' + theme + '</span>' +
+      '<h5 class="cs-info-title" title="' + title + '">' + title + '</h5>' +
+      '<p class="cs-info-desc">' + description + '</p>' +
+      '<div class="cs-info-meta">' +
+      (year     ? '<div><i class="bi bi-calendar3"></i> '    + year     + '</div>' : '') +
+      (author   ? '<div><i class="bi bi-person-fill"></i> '  + author   + '</div>' : '') +
+      (language ? '<div><i class="bi bi-translate"></i> '    + language + '</div>' : '') +
       '</div>' +
-      '<h5>' + title + '</h5>' +
-      '<p class="case-summary">' + description + '</p>' +
-      '<div class="case-meta">' +
-      (author ? '<div class="case-author"><i class="bi bi-person"></i> ' + author + '</div>' : '') +
-      (language ? '<div class="case-lang"><i class="bi bi-translate"></i> ' + language + '</div>' : '') +
+      (tagBadges ? '<div class="cs-tags-wrap">' + tagBadges + '</div>' : '') +
+      '<a href="' + pdfUrl + '" ' + linkTarget + ' class="cs-view-btn">Read More <i class="bi bi-arrow-right"></i></a>' +
       '</div>' +
-      (tagBadges ? '<div class="case-tags-wrap">' + tagBadges + '</div>' : '') +
-      '<div class="case-read-more">Read More <i class="bi bi-arrow-right"></i></div>' +
-      '</a></div>';
+      '</div></div>';
   }
 
   function renderCards(containerId, items) {
@@ -147,12 +156,25 @@
 
   // ── Fetch + render one tab ────────────────────────────────────────────────
 
-  function showSpinner(containerId) {
+  function showSkeletons(containerId) {
     var el = document.getElementById(containerId);
-    if (el) el.innerHTML =
-      '<div class="col-12 text-center py-4">' +
-      '<div class="spinner-border text-success" role="status">' +
-      '<span class="visually-hidden">Loading...</span></div></div>';
+    if (!el) return;
+    var skeletonCard =
+      '<div class="col-md-12 mb-3">' +
+      '<div class="cs-skeleton-card">' +
+      '<div class="cs-skeleton-thumb"></div>' +
+      '<div class="cs-skeleton-info">' +
+      '<div class="cs-skeleton-line" style="width:25%;height:18px;"></div>' +
+      '<div class="cs-skeleton-line" style="width:75%;height:22px;margin-top:4px;"></div>' +
+      '<div class="cs-skeleton-line" style="width:55%;height:22px;"></div>' +
+      '<div class="cs-skeleton-line" style="width:35%;"></div>' +
+      '<div class="cs-skeleton-line" style="width:100%;"></div>' +
+      '<div class="cs-skeleton-line" style="width:100%;"></div>' +
+      '<div class="cs-skeleton-line" style="width:65%;"></div>' +
+      '<div class="cs-skeleton-line" style="width:45%;"></div>' +
+      '<div class="cs-skeleton-line" style="width:18%;"></div>' +
+      '</div></div></div>';
+    el.innerHTML = skeletonCard.repeat(6);
   }
 
   async function loadTab(tabKey) {
@@ -162,7 +184,7 @@
       ? 'Longitudinal Self-case Studies'
       : 'Socio-economic Studies';
 
-    showSpinner(cardsId);
+    showSkeletons(cardsId);
 
     var params = buildParams({
       study_type: studyType,
