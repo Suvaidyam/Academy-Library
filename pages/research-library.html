@@ -301,22 +301,67 @@
     }
 
     @keyframes cs-shimmer {
-      0% { background-position: 100% 0; }
-      100% { background-position: -100% 0; }
+      0% {
+        background-position: 100% 0;
+      }
+
+      100% {
+        background-position: -100% 0;
+      }
+    }
+
+    /* ── Journal skeleton cards ──────────────────────────────── */
+    .jr-skeleton-card {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 15px;
+      border: 1px solid #e5e5e5;
+      margin-bottom: 20px;
+    }
+
+    .jr-skeleton-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 400% 100%;
+      animation: cs-shimmer 1.4s infinite;
+    }
+
+    .jr-skeleton-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .jr-skeleton-line {
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 400% 100%;
+      animation: cs-shimmer 1.4s infinite;
     }
 
     @media (max-width: 767.98px) {
       .cs-ebook-card {
         flex-direction: column;
       }
+
       .cs-thumb-wrap {
         width: 140px;
         height: 190px;
         margin: 0 auto 16px;
       }
+
       .cs-skeleton-card {
         flex-direction: column;
       }
+
       .cs-skeleton-thumb {
         width: 140px;
         height: 190px;
@@ -644,10 +689,8 @@
                     </div>
                     <div class="row mb-3">
                       <div class="col-sm-12">
-                        <select class="form-select jr-filter" data-filter="access">
+                        <select class="form-select jr-filter" data-filter="access" id="jr-access-select">
                           <option value="">Open Access</option>
-                          <option value="Free">Free</option>
-                          <option value="Subscription">Subscription</option>
                         </select>
                       </div>
                     </div>
@@ -661,94 +704,7 @@
               </div>
 
               <div class="col-lg-9">
-                <div id="jr-results">
-                  <div class="journal-card" data-keyword="climate resilience natural farming"
-                    data-journal="Agricultural Sustainability Journal" data-year="2026" data-volume="Vol 12, Issue 3"
-                    data-publisher="Elsevier" data-language="English" data-peer="Yes" data-access="Subscription">
-                    <div class="journal-icon">
-                      📑
-                    </div>
-
-                    <div class="journal-content">
-                      <h5>
-                        Natural Farming and Climate Resilience:
-                        Evidence from Andhra Pradesh
-                      </h5>
-
-                      <p>
-                        Published in Agricultural Sustainability Journal
-                      </p>
-
-                      <small>
-                        Authors: APCNF Research Division | 2026
-                      </small>
-
-                      <div class="mt-3">
-                        <button class="btn btn-sm btn-success">
-                          View Publication
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="journal-card" data-keyword="climate resilience natural farming"
-                    data-journal="Agricultural Sustainability Journal" data-year="2025" data-volume="Vol 11, Issue 4"
-                    data-publisher="Springer" data-language="English" data-peer="Yes" data-access="Free">
-                    <div class="journal-icon">
-                      📑
-                    </div>
-
-                    <div class="journal-content">
-                      <h5>
-                        Natural Farming and Climate Resilience:
-                        Evidence from Andhra Pradesh
-                      </h5>
-
-                      <p>
-                        Published in Agricultural Sustainability Journal
-                      </p>
-
-                      <small>
-                        Authors: APCNF Research Division | 2026
-                      </small>
-
-                      <div class="mt-3">
-                        <button class="btn btn-sm btn-success">
-                          View Publication
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="journal-card" data-keyword="climate resilience natural farming"
-                    data-journal="Agricultural Sustainability Journal" data-year="2025" data-volume="Vol 10, Issue 2"
-                    data-publisher="Taylor & Francis" data-language="Telugu" data-peer="No" data-access="Subscription">
-                    <div class="journal-icon">
-                      📑
-                    </div>
-
-                    <div class="journal-content">
-                      <h5>
-                        Natural Farming and Climate Resilience:
-                        Evidence from Andhra Pradesh
-                      </h5>
-
-                      <p>
-                        Published in Agricultural Sustainability Journal
-                      </p>
-
-                      <small>
-                        Authors: APCNF Research Division | 2026
-                      </small>
-
-                      <div class="mt-3">
-                        <button class="btn btn-sm btn-success">
-                          View Publication
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div id="jr-results"></div>
                 <div class="no-results text-center py-4 d-none" id="jr-no-results">
                   <h5 class="mt-2">No journals match your filters</h5>
                   <p class="text-muted">Try adjusting or clearing the filters above.</p>
@@ -1240,6 +1196,7 @@
 
   <script type="module" src="../services/research_library.js"></script>
   <script src="../services/case_study.js?t=346775"></script>
+  <script src="../services/journal_list.js?t=123"></script>
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
 
   <!-- CDN Links For encryption -->
@@ -1420,6 +1377,10 @@
         applyFilters();
       }
 
+      // Exposed so dynamically-loaded sections (e.g. Journals, fetched from the API
+      // after DOMContentLoaded) can (re)run filtering once their cards exist in the DOM.
+      window.setupFilterableSection = setupFilterableSection;
+
       // Research Articles
       setupFilterableSection({
         filterInputSelector: '.ra-filter',
@@ -1432,17 +1393,7 @@
         ],
       });
 
-      // Journals
-      setupFilterableSection({
-        filterInputSelector: '.jr-filter',
-        cardSelector: '.journal-card',
-        noResultsSelector: '#jr-no-results',
-        clearBtnSelector: '#jr-clear-btn',
-        dynamicSelects: [
-          { selectId: 'jr-year-select', attr: 'year' },
-          { selectId: 'jr-language-select', attr: 'language' },
-        ],
-      });
+      // Journals — fully handled by services/journal_list.js (own filtering + pagination).
 
       // Newsletters
       setupFilterableSection({
