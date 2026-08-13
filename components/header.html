@@ -8,7 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
     rel="stylesheet">
-    <link href="../assets/css/main.css?v=1.0" rel="stylesheet">
+  <link href="../assets/css/main.css?v=167.0" rel="stylesheet">
   <style>
     .logo-img {
       height: 100px;
@@ -23,6 +23,290 @@
     .overridecss:active {
       background: #1d8453 !important;
       /* red background on active */
+    }
+
+    .topics-popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 30, 20, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      animation: topicsFadeIn 0.3s ease forwards;
+    }
+
+    .topics-popup-overlay.closing {
+      animation: topicsFadeOut 0.25s ease forwards;
+    }
+
+    .topics-popup-box {
+      background: #fff;
+      border-radius: 14px;
+      width: 92%;
+      max-width: 440px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 26px 24px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      position: relative;
+      opacity: 0;
+      transform: translateY(-24px) scale(0.96);
+      animation: topicsPopIn 0.4s 0.05s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .topics-popup-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      line-height: 1;
+      color: #9aa5a0;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .topics-popup-close:hover {
+      color: #198754;
+    }
+
+    .topics-popup-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #146c43;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .topics-popup-sub {
+      font-size: 12.5px;
+      color: #7a8a82;
+      margin-bottom: 16px;
+    }
+
+    .topics-popup-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .topics-popup-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid #eef5f0;
+      font-size: 14.5px;
+      color: #1d3b2a;
+      line-height: 1.4;
+      opacity: 0;
+      transform: translateX(-16px);
+      animation: topicsItemIn 0.4s ease forwards;
+    }
+
+    .topics-popup-list li:last-child {
+      border-bottom: none;
+    }
+
+    .topics-popup-list li::before {
+      content: "\2022";
+      color: #198754;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    @keyframes topicsFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes topicsFadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes topicsPopIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes topicsItemIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .topics-float-btn {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22a866, #146c43);
+      color: #fff;
+      border: none;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      z-index: 1900;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      animation: topicsFloatIn 0.4s ease;
+    }
+
+    .topics-float-btn.has-indicator {
+      animation: topicsFloatIn 0.4s ease, topicsFloatBounce 2.6s ease-in-out 1s infinite;
+    }
+
+    .topics-float-btn.has-indicator i {
+      animation: topicsBellRing 2.6s ease-in-out 1.2s infinite;
+    }
+
+    .topics-float-btn.has-indicator::before,
+    .topics-float-btn.has-indicator::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #22a866;
+      z-index: -1;
+      animation: topicsPulseRing 2.6s ease-out infinite;
+    }
+
+    .topics-float-btn.has-indicator::after {
+      animation-delay: 0.9s;
+    }
+
+    .topics-float-btn .topics-float-dot {
+      display: none;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ff4757;
+      border: 2px solid #fff;
+      animation: topicsDotPulse 1.8s ease-out infinite;
+    }
+
+    .topics-float-btn.has-indicator .topics-float-dot {
+      display: block;
+    }
+
+    .topics-float-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .topics-float-btn:hover,
+    .topics-float-btn:hover i {
+      animation-play-state: paused;
+    }
+
+    @keyframes topicsDotPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(255, 71, 87, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
+      }
+    }
+
+    @keyframes topicsFloatIn {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes topicsFloatBounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      10% {
+        transform: translateY(-6px);
+      }
+
+      20% {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes topicsBellRing {
+
+      0%,
+      100% {
+        transform: rotate(0);
+      }
+
+      5% {
+        transform: rotate(-15deg);
+      }
+
+      10% {
+        transform: rotate(12deg);
+      }
+
+      15% {
+        transform: rotate(-8deg);
+      }
+
+      20% {
+        transform: rotate(0);
+      }
+    }
+
+    @keyframes topicsPulseRing {
+      0% {
+        opacity: 0.55;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.7);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .topics-float-btn {
+        right: 14px;
+        bottom: 14px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -56,55 +340,55 @@
           <div class="d-flex justify-content-end   align-items-center position-relative"
             style="z-index:2; min-height:48px; margin-top:0;">
             <div class="d-flex align-items-center gap-2">
-        <div class="float-container">
-              <!-- calendar icon -->
+              <div class="float-container">
+                <!-- calendar icon -->
 
-              <div class="position-relative z-index-1000 listItem">
-                <a href="/pages/Calendar.html" id="podcast" type="button"
-                  class="btn btn-sm position-relative calendar_icon">
-                  <i class="bi bi-calendar-check pr-2 font18"></i>&nbsp; Calendar
+                <div class="position-relative z-index-1000 listItem">
+                  <a href="/pages/Calendar.html" id="podcast" type="button"
+                    class="btn btn-sm position-relative calendar_icon">
+                    <i class="bi bi-calendar-check pr-2 font18"></i>&nbsp; Calendar
 
-                  <!-- Bootstrap badge -->
-                  <!-- <span id="calendar-badge"
+                    <!-- Bootstrap badge -->
+                    <!-- <span id="calendar-badge"
                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 
 
                   </span> -->
-                </a>
-                
+                  </a>
+
+                </div>
+
+
+                <!-- Announcements Dropdown -->
+                <div class="dropdown position-relative z-index-1000 listItem">
+                  <button type="button" id="Announcement_icon" class="btn  btn-sm dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-megaphone-fill pr-2 lh-16 font18"></i>&nbsp; Announcements
+                  </button>
+                  <ul class="dropdown-menu mx-5">
+                    <li>
+                      <h6 class="dropdown-header">Latest Announcements</h6>
+                    </li>
+                    <li id="announcementList"></li>
+                  </ul>
+
+                </div>
+
+
+                <!-- Language Dropdown -->
+
+
+                <!-- podcast in Button -->
+                <div class="z-index-1000 listItem">
+                  <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-sm"> <i
+                      class="bi bi-broadcast-pin pr-2 font18"></i>&nbsp; Podcast </a>
+                </div>
+
+                <div class="z-index-1000 listItem">
+                  <a href="/pages/webinar.html" id="podcast" type="button" class="btn btn-sm"> <i
+                      class="bi bi-laptop pr-2 font18"></i>&nbsp; Webinar </a>
+                </div>
               </div>
-
-
-              <!-- Announcements Dropdown -->
-              <div class="dropdown position-relative z-index-1000 listItem">
-                <button type="button" id="Announcement_icon" class="btn  btn-sm dropdown-toggle" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="bi bi-megaphone-fill pr-2 lh-16 font18"></i>&nbsp; Announcements
-                </button>
-                <ul class="dropdown-menu mx-5">
-                  <li>
-                    <h6 class="dropdown-header">Latest Announcements</h6>
-                  </li>
-                  <li id="announcementList"></li>
-                </ul>
-                
-              </div>
-
-
-              <!-- Language Dropdown -->
-             
-
-              <!-- podcast in Button -->
-              <div class="z-index-1000 listItem">
-                <a href="/pages/podcast.html" id="podcast" type="button" class="btn btn-sm"> <i
-                    class="bi bi-broadcast-pin pr-2 font18"></i>&nbsp; Podcast </a> 
-              </div>
-
-               <div class="z-index-1000 listItem">
-                <a href="/pages/webinar.html" id="podcast" type="button" class="btn btn-sm"> <i
-                    class="bi bi-laptop pr-2 font18"></i>&nbsp; Webinar </a> 
-              </div>
-</div>
 
               <div class="dropdown listItem">
                 <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown"
@@ -119,7 +403,7 @@
               </div>
               <!-- Sign in Button -->
               <!-- <div class="z-index-1000 mob"> -->
-                <div class="z-index-1000 "> 
+              <div class="z-index-1000 ">
                 <a href="/pages/login.html" id="signin" type="button" class="btn btn-success btn-sm">Sign in</a>
                 <div id="loggedinUser"></div>
               </div>
@@ -170,9 +454,9 @@
                     <a href="/pages/podcast.html" id="podcast" type="button" class=" "> Podcast</a>
                   </div> -->
 
-                  <!-- Sign in Button -->
-                  <!-- <div class="z-index-1000 mob mobvisible"> -->
-                  <!-- <div class="z-index-1000">
+                <!-- Sign in Button -->
+                <!-- <div class="z-index-1000 mob mobvisible"> -->
+                <!-- <div class="z-index-1000">
                     <a href="/pages/login.html" id="signin" type="button" class=" ">Sign in</a>
                     <div id="loggedinUser"></div>
                   </div>
@@ -193,7 +477,20 @@
 
   </header>
 
+  <div id="topicsPopupOverlay" class="topics-popup-overlay" style="display:none;">
+    <div class="topics-popup-box">
+      <button type="button" id="topicsPopupClose" class="topics-popup-close" aria-label="Close">&times;</button>
+      <div class="topics-popup-header"><i class="bi bi-megaphone-fill"></i> Today's Topics</div>
+      <div class="topics-popup-sub">Fresh from IGGAARl Academy</div>
+      <ul id="topicsPopupList" class="topics-popup-list"></ul>
+    </div>
+  </div>
 
+  <button type="button" id="topicsFloatBtn" class="topics-float-btn" style="display:none;" title="Today's Topics"
+    aria-label="Show today's topics">
+    <i class="bi bi-megaphone-fill"></i>
+    <span class="topics-float-dot"></span>
+  </button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
