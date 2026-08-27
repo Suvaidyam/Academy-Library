@@ -25,6 +25,7 @@
     if (filters.theme) params.theme = filters.theme;
     if (filters.location) params.location = filters.location;
     if (filters.language) params.language = filters.language;
+    if (filters.doctype) params.file_type = filters.doctype;
     return params;
   }
 
@@ -61,6 +62,7 @@
     fillSelect('ss-year-select', data.years || []);
     fillSelect('ss-language-select', data.languages || [], true);
     fillSelect('ss-theme-select', data.themes || []);
+    fillSelect('ss-doctype-select', data.file_types || []);
   }
 
   // ── Card rendering ────────────────────────────────────────────────────────
@@ -89,6 +91,7 @@
     var location = item.location || '';
     var language = item.language || '';
     var theme = item.theme || 'Success Story';
+    var fileType = item.file_type || '';
     var thumbnail = item.thumbnail ? (API_BASE + item.thumbnail) : DEFAULT_THUMBNAIL;
     var rawLink = item.attachment
       ? (API_BASE + item.attachment)
@@ -115,6 +118,7 @@
       (year ? '<div><i class="bi bi-calendar3"></i> ' + escapeHtml(year) + '</div>' : '') +
       (author ? '<div><i class="bi bi-person-fill"></i> ' + escapeHtml(author) + '</div>' : '') +
       (language ? '<div><i class="bi bi-translate"></i> ' + escapeHtml(language) + '</div>' : '') +
+      (fileType ? '<div><i class="bi bi-file-earmark-text"></i> ' + escapeHtml(fileType) + '</div>' : '') +
       '</div>' +
       (tagBadges ? '<div class="ss-tags-wrap">' + tagBadges + '</div>' : '') +
       '<a href="' + escapeHtml(pdfUrl) + '" ' + linkTarget + ' class="ss-view-btn">View Story <i class="bi bi-arrow-right"></i></a>' +
@@ -194,6 +198,15 @@
         items.map(function (i) { return i.year ? String(i.year) : extractYear(i.date_of_creationpublication || i.date); }).filter(Boolean)
       )).sort(function (a, b) { return b - a; });
       fillSelect('ss-year-select', years);
+    }
+
+    // Auto-fill document type dropdown from data if meta didn't populate it.
+    var dtSel = document.getElementById('ss-doctype-select');
+    if (dtSel && dtSel.options.length === 1 && items.length) {
+      var fileTypes = [].concat(new Set(
+        items.map(function (i) { return i.file_type; }).filter(Boolean)
+      )).sort();
+      fillSelect('ss-doctype-select', fileTypes);
     }
 
     renderCards(items);
