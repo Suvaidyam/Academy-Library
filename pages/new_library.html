@@ -1333,7 +1333,7 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link " id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content"
               type="button" role="tab" aria-controls="course-content" aria-selected="false">
-              Course Content
+              Lesson Plan
             </button>
           </li>
 
@@ -2056,28 +2056,39 @@
       }
     };
 
+    function gateTabBehindLogin(tab, label) {
+      if (!tab) return;
+      tab.removeAttribute('data-bs-toggle');
+      tab.removeAttribute('data-bs-target');
+      tab.style.opacity = '0.55';
+      tab.style.cursor = 'pointer';
+      tab.innerHTML = `<i class="bi bi-lock-fill me-1"></i>${label}`;
+
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const toastEl = document.getElementById('loginRequiredToast');
+        const toastBody = toastEl?.querySelector('.toast-body');
+        if (toastBody) {
+          toastBody.innerHTML = `<i class="bi bi-lock-fill me-2"></i> Please sign in to access ${label}.`;
+        }
+        const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+        toast.show();
+        setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       get_login_user_details();
       valid_roles();
 
       const learningTab = document.getElementById('learning-resource-tab');
+      const lessonPlanTab = document.getElementById('course-content-tab');
       const isLoggedIn = !!sessionStorage.getItem('user_info');
 
-      if (!isLoggedIn && learningTab) {
-        learningTab.removeAttribute('data-bs-toggle');
-        learningTab.removeAttribute('data-bs-target');
-        learningTab.style.opacity = '0.55';
-        learningTab.style.cursor = 'pointer';
-        learningTab.innerHTML = '<i class="bi bi-lock-fill me-1"></i>Learning Resource';
-
-        learningTab.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const toastEl = document.getElementById('loginRequiredToast');
-          const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-          toast.show();
-          setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
-        });
+      if (!isLoggedIn) {
+        gateTabBehindLogin(learningTab, 'Learning Resource');
+        gateTabBehindLogin(lessonPlanTab, 'Lesson Plan');
       }
 
     });
