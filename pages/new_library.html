@@ -776,6 +776,484 @@
         transform: translateX(-50%);
       }
     }
+
+    /* ─── FSC Curriculum Session Cards (Course Content tab) ─────────── */
+    .fsc-session-card {
+      background: #fff;
+      border: 1.5px solid #dee2e6;
+      border-radius: 14px;
+      padding: 18px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .fsc-session-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .08);
+      border-color: #b7dcae;
+    }
+
+    .fsc-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .fsc-code-badge {
+      background: #198754;
+      color: #fff;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .3px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .fsc-type-badge {
+      background: #f4f9f2;
+      color: #1e6b3a;
+      border: 1px solid #cfe8c8;
+      font-size: .68rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+      white-space: nowrap;
+    }
+
+    .fsc-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .fsc-desc {
+      font-size: .82rem;
+      color: #6c757d;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .fsc-breadcrumb {
+      font-size: .75rem;
+      color: #495057;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .fsc-breadcrumb .fsc-crumb {
+      white-space: nowrap;
+    }
+
+    .fsc-breadcrumb i.bi-chevron-right {
+      font-size: .6rem;
+      color: #adb5bd;
+    }
+
+    .fsc-unit-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #fff8e6;
+      color: #8a6300;
+      border: 1px solid #f0dfa8;
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    .fsc-links {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px dashed #eef0f2;
+    }
+
+    .fsc-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all .18s ease;
+    }
+
+    .fsc-link-btn.fsc-link-en {
+      background: #fff;
+      color: #198754;
+      border: 1.5px solid #198754;
+    }
+
+    .fsc-link-btn.fsc-link-en:hover {
+      background: #198754;
+      color: #fff;
+    }
+
+    .fsc-link-btn.fsc-link-te {
+      background: #fff;
+      color: #495057;
+      border: 1.5px solid #ced4da;
+    }
+
+    .fsc-link-btn.fsc-link-te:hover {
+      background: #495057;
+      color: #fff;
+    }
+
+    .fsc-no-link {
+      font-size: .78rem;
+      color: #adb5bd;
+      font-style: italic;
+    }
+
+    /* List view */
+    .fsc-session-row {
+      background: #fff;
+      border: 1.5px solid #dee2e6;
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      transition: box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .fsc-session-row:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+      border-color: #b7dcae;
+    }
+
+    .fsc-session-row .fsc-row-main {
+      min-width: 0;
+      flex: 1 1 320px;
+    }
+
+    .fsc-session-row h6 {
+      margin: 0;
+      font-size: .95rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .fsc-session-row .fsc-desc {
+      margin: 4px 0 6px;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+    }
+
+    .fsc-session-row .fsc-links {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+      flex-shrink: 0;
+    }
+
+    /* ─── Course Content — filter toolbar & results shell ────────────── */
+    .fsc-toolbar,
+    .fsc-results-card {
+      background: #fff;
+      border: 1px solid #eef0f2;
+      border-radius: 16px;
+      padding: 22px 24px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
+    }
+
+    .fsc-global-search {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .fsc-global-search i.bi-search {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8a9199;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    .fsc-global-search input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      border: 1.5px solid #dfe3e6;
+      border-radius: 30px;
+      font-size: .92rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .fsc-global-search input:focus {
+      outline: none;
+      border-color: #198754;
+      box-shadow: 0 0 0 .2rem rgba(25, 135, 84, .12);
+    }
+
+    .fsc-toolbar-filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr) auto;
+      gap: 14px;
+      align-items: end;
+    }
+
+    .fsc-filter-field label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      color: #8a9199;
+      margin-bottom: 6px;
+    }
+
+    .fsc-filter-field .form-select {
+      border-radius: 10px;
+      border-color: #dfe3e6;
+    }
+
+    .fsc-filter-field .form-select:focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 .2rem rgba(25, 135, 84, .12);
+    }
+
+    .fsc-reset-btn {
+      border: 1.5px solid #dfe3e6;
+      border-radius: 10px;
+      color: #6c757d;
+      font-weight: 600;
+      font-size: .85rem;
+      padding: 8px 16px;
+      white-space: nowrap;
+      transition: all .18s ease;
+    }
+
+    .fsc-reset-btn:hover {
+      background: #fdecea;
+      border-color: #dc3545;
+      color: #dc3545;
+    }
+
+    @media (max-width: 991.98px) {
+      .fsc-toolbar-filters {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .fsc-reset-btn {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .fsc-toolbar-filters {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .fsc-section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e4356;
+    }
+
+    .fsc-section-title i.bi-collection-play-fill {
+      color: #198754;
+      margin-right: 4px;
+    }
+
+    .fsc-result-count {
+      font-size: .75rem;
+      font-weight: 600;
+      color: #6c757d;
+      background: #f4f9f2;
+      border: 1px solid #cfe8c8;
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 6px;
+    }
+
+    .view-toggle .btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 1rem;
+    }
+
+    /* Empty state (no sessions found) */
+    .fsc-empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: #fafcfb;
+      border: 1.5px dashed #cfe0d4;
+      border-radius: 16px;
+      animation: fscFadeInUp .35s ease both;
+    }
+
+    .fsc-empty-state .fsc-empty-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #f4f9f2;
+      color: #198754;
+      font-size: 1.9rem;
+      margin-bottom: 18px;
+    }
+
+    .fsc-empty-reset-btn i {
+      font-size: .8rem;
+    }
+
+    .fsc-empty-state h5 {
+      color: #1e4356;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .fsc-empty-state p {
+      color: #6c757d;
+      font-size: .88rem;
+      max-width: 420px;
+      margin: 0 auto 18px;
+      line-height: 1.5;
+    }
+
+    .fsc-empty-reset-btn {
+      background: #198754;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: .85rem;
+      padding: 9px 22px;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    .fsc-empty-reset-btn:hover {
+      background: #0f5132;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* View switch (card <-> list) animation */
+    #searchResults.fsc-switching .fsc-session-item {
+      opacity: 0 !important;
+      transform: translateY(-8px) !important;
+      transition: opacity .15s ease, transform .15s ease;
+      animation: none !important;
+    }
+
+    @keyframes fscFadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fsc-session-item {
+      animation: fscFadeInUp .4s ease both;
+    }
+
+    /* Loading skeletons */
+    @keyframes shimmer {
+      0% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0 50%;
+      }
+    }
+
+    .fsc-skeleton-card {
+      height: 230px;
+      border-radius: 14px;
+      border: 1.5px solid #eef0f2;
+      background: linear-gradient(90deg, #f2f2f2 25%, #e8e8e8 50%, #f2f2f2 75%);
+      background-size: 400% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    .fsc-skeleton-row {
+      height: 92px;
+      border-radius: 12px;
+      border: 1.5px solid #eef0f2;
+      background: linear-gradient(90deg, #f2f2f2 25%, #e8e8e8 50%, #f2f2f2 75%);
+      background-size: 400% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    /* Pagination */
+    .fsc-page-info {
+      font-size: .8rem;
+      color: #6c757d;
+    }
+
+    #fscPagination .page-link {
+      color: #198754;
+      border-color: #dee2e6;
+      font-size: .82rem;
+      padding: 5px 10px;
+    }
+
+    #fscPagination .page-item.active .page-link {
+      background: #198754;
+      border-color: #198754;
+      color: #fff;
+    }
+
+    #fscPagination .page-link:hover:not(:disabled) {
+      background: #e8f5e9;
+      color: #0f5132;
+    }
+
+    #fscPagination .page-item.disabled .page-link {
+      color: #adb5bd;
+    }
   </style>
 </head>
 
@@ -1084,166 +1562,61 @@
 
           <!-- Course Content Tab Pane - NOW INACTIVE BY DEFAULT -->
           <div class="tab-pane fade" id="course-content" role="tabpanel" aria-labelledby="course-content-tab">
-            <!-- <p>Here goes the Course Content section — search sessions, filter modules, etc.</p> -->
             <main class="container my-4">
-              <div class="row">
-                <!-- Search Section -->
-                <div class="col-lg-9 mb-4">
-                  <!-- Global Search -->
-                  <div class="search-bar mb-4 ">
-                    <form id="searchForm" class="search-form d-flex align-items-center " method="POST">
-                      <input type="text" id="searchInput" name="query"
-                        placeholder="Tags / keywords for generic / global searches" title="Enter search keyword">
-                      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-                    </form>
+
+              <!-- Filter Toolbar -->
+              <div class="fsc-toolbar mb-4">
+                <form id="searchForm" class="fsc-global-search" method="POST">
+                  <i class="bi bi-search"></i>
+                  <input type="text" id="searchInput" name="query"
+                    placeholder="Search sessions by title, code or keyword...">
+                </form>
+
+                <div class="fsc-toolbar-filters">
+                  <div class="fsc-filter-field">
+                    <label for="semesterSearch">Semester</label>
+                    <select id="semesterSearch" class="form-select">
+                      <option selected disabled>Select a Semester</option>
+                    </select>
                   </div>
-                  <!-- <div class="search-container mb-4">
-                  <label for="globalSearch" class="form-label mb-2">Search</label>
-                  <div class="input-group">
-                    <input type="text" id="globalSearch" class="form-control"
-                      placeholder="Tags / keywords for generic / global searches">
-                    <button class="btn btn-outline-secondary search-btn" type="button">
-                      <i class="bi bi-search"></i>
-                    </button>
+                  <div class="fsc-filter-field">
+                    <label for="moduleSearch">Module</label>
+                    <select id="moduleSearch" class="form-select">
+                      <option disabled selected>Select a Module</option>
+                    </select>
                   </div>
-                </div> -->
-
-                  <!-- Course-specific Search -->
-                  <div class="course-search-container mb-4">
-
-
-                    <!-- Course Dropdown -->
-
-
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <select id="courseSearch" class="form-select">
-                          <option selected disabled>Select a Module</option>
-                          <!-- <option value="course1">Course 1</option>
-                        <option value="course2">Course 2</option> -->
-                        </select>
-                        <button class="btn btn-outline-secondary search-btn" type="button">
-                          <i class="bi bi-search"></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Topic Dropdown -->
-
-
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <select id="topicSearch" class="form-select">
-                          <option disabled selected>Select a Topic</option>
-
-                        </select>
-                        <button class="btn btn-outline-secondary search-btn" type="button">
-                          <i class="bi bi-search"></i>
-                        </button>
-                      </div>
-                    </div>
-
-
-
-
-                    <!-- Chapters Dropdown -->
-
-
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <select id="chapterSearch" class="form-select">
-                          <option disabled selected>Select a Chapter</option>
-                        </select>
-                        <button class="btn btn-outline-secondary search-btn" type="button">
-                          <i class="bi bi-search"></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Results List -->
-                    <div class="results-container border rounded p-3 mt-4">
-                      <!-- <h6>Session List</h6> -->
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6 class="mb-0">Session List</h6>
-                        <div class="view-toggle mb-2">
-                          <button id="cardViewBtn" class="btn btn-primary btn-lg"><i
-                              class="bi bi-grid-3x3-gap-fill"></i></button>
-                          <button id="listViewBtn" class="btn btn-outline-secondary btn-lg"> <i
-                              class="bi bi-list-ul"></i></button>
-                        </div>
-                      </div>
-                      <!-- <p class="text-muted small mb-2">e.g., (someone is searching for externalities)</p> -->
-                      <ul class="list-unstyled search-results row gy-4 isotope-container" id="searchResults">
-                        <p>loading Session list ............</p>
-
-                      </ul>
-                    </div>
+                  <div class="fsc-filter-field">
+                    <label for="submoduleSearch">Sub-Module</label>
+                    <select id="submoduleSearch" class="form-select">
+                      <option disabled selected>Select a Sub-Module</option>
+                    </select>
                   </div>
-                </div>
-
-                <!-- File Type Filters -->
-                <div class="col-lg-3">
-                  <div class="file-type-container p-3 bg-light rounded">
-                    <h6 class="mb-3">File Type</h6>
-                    <div class="mb-2 file-type-option">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span>All</span>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="all" id="allFilesCheck">
-                          <label class="form-check-label" for="allFilesCheck"></label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-2 file-type-option">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span>Doc</span>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="Docs" id="docFilesCheck">
-                          <label class="form-check-label" for="docFilesCheck"></label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-2 file-type-option">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span>PDF</span>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="PDF" id="pdfFilesCheck">
-                          <label class="form-check-label" for="pdfFilesCheck"></label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-2 file-type-option">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span>Video</span>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="Video" id="videoFilesCheck">
-                          <label class="form-check-label" for="videoFilesCheck"></label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-2 file-type-option">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span>Image</span>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="Image" id="presentationFilesCheck">
-                          <label class="form-check-label" for="presentationFilesCheck"></label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-2 file-type-option">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span>Presentation</span>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="PPT" id="presentationFilesCheck">
-                          <label class="form-check-label" for="presentationFilesCheck"></label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <button type="button" id="fscResetBtn" class="btn fsc-reset-btn" title="Clear all filters">
+                    <i class="bi bi-arrow-counterclockwise"></i> Reset
+                  </button>
                 </div>
               </div>
+
+              <!-- Results -->
+              <div class="fsc-results-card">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                  <h6 class="mb-0 fsc-section-title">
+                    <i class="bi bi-collection-play-fill"></i> Session List
+                    <span id="fscResultCount" class="fsc-result-count"></span>
+                  </h6>
+                  <div class="view-toggle">
+                    <button id="cardViewBtn" class="btn btn-primary" title="Card view"><i
+                        class="bi bi-grid-3x3-gap-fill"></i></button>
+                    <button id="listViewBtn" class="btn btn-outline-secondary" title="List view"> <i
+                        class="bi bi-list-ul"></i></button>
+                  </div>
+                </div>
+                <ul class="list-unstyled search-results row gy-4" id="searchResults">
+                  <p>loading Session list ............</p>
+                </ul>
+                <div id="fscPagination" class="mt-3"></div>
+              </div>
             </main>
-            <!-- You can move your existing course/module/topic/chapter search UI here -->
           </div>
 
 
@@ -1627,8 +2000,7 @@
   <script type="module" src="../assets/js/main.js"></script>
   <!-- <script src="../Libray/searchService.js"></script> -->
 
-  <script type="module" src="../Libray Service/get_all_courses.js"></script>
-  <script type="module" src="../Libray Service/handleFiletype.js"></script>
+  <script type="module" src="../Libray Service/fsc_curriculum_sessions.js?v=5"></script>
   <script type="module" src="../Libray Service/get_book_list.js"></script>
   <script type="module" src="../Libray Service/video_lecture.js"></script>
   <script type="module" src="../services/learning_resource.js?t1=500"></script>
