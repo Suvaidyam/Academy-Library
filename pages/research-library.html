@@ -574,6 +574,194 @@
         margin: 0 auto;
       }
     }
+
+    /* ── Research Article cards: Title / Author(s) / Abstract / Theme pills /
+       Date, with a small "View PDF" footer link ─────────────────────────── */
+    .ra-card {
+      background: #fff;
+      border: 1.5px solid #cfe8c8;
+      border-radius: 18px;
+      padding: 22px;
+      height: 100%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .ra-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .08);
+      border-color: #198754;
+    }
+
+    .ra-card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .ra-card-author {
+      font-size: .82rem;
+      font-weight: 600;
+      color: #198754;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ra-card-abstract {
+      font-size: .85rem;
+      color: #6c757d;
+      margin: 0;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .ra-theme-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .ra-theme-pill {
+      display: inline-block;
+      background: #fff;
+      color: #198754;
+      border: 1.5px solid #b7dcae;
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .ra-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #eef0f2;
+    }
+
+    .ra-card-date {
+      font-size: .78rem;
+      color: #6c757d;
+    }
+
+    .ra-card-pdf-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: #198754;
+      text-decoration: none;
+    }
+
+    .ra-card-pdf-link:hover {
+      text-decoration: underline;
+    }
+
+    .ra-card-no-pdf {
+      font-size: .78rem;
+      color: #adb5bd;
+      font-style: italic;
+    }
+
+    @keyframes raFadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ra-card-item {
+      animation: raFadeInUp .4s ease both;
+    }
+
+    @keyframes raShimmer {
+      0% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0 50%;
+      }
+    }
+
+    .ra-skeleton-card {
+      height: 230px;
+      border-radius: 18px;
+      border: 1.5px solid #eef0f2;
+      background: linear-gradient(90deg, #f2f2f2 25%, #e8e8e8 50%, #f2f2f2 75%);
+      background-size: 400% 100%;
+      animation: raShimmer 1.4s infinite;
+    }
+
+    .fsc-page-info {
+      font-size: .8rem;
+      color: #6c757d;
+    }
+
+    /* Pagination — identical to Course Content's own pagination
+       (Libray Service/fsc_curriculum_sessions.js + its #fscPagination CSS) */
+    #ra-pagination .pagination {
+      gap: 4px;
+    }
+
+    #ra-pagination .page-item .page-link {
+      /* Bootstrap only rounds the first/last <li> and connects the rest with
+         a negative margin — override both so every page number is its own
+         evenly-rounded, evenly-spaced button (matching fsc's pagination). */
+      margin-left: 0;
+      border-radius: .375rem;
+    }
+
+    #ra-pagination .page-link {
+      color: #198754;
+      background: #f8f9fa;
+      border-color: #dee2e6;
+      font-size: .82rem;
+      padding: 5px 10px;
+    }
+
+    #ra-pagination .page-item.active .page-link {
+      background: #198754;
+      border-color: #198754;
+      color: #fff;
+    }
+
+    #ra-pagination .page-link:hover:not(:disabled) {
+      background: #e8f5e9;
+      color: #0f5132;
+    }
+
+    #ra-pagination .page-item.disabled .page-link {
+      background: #fff;
+      color: #adb5bd;
+    }
   </style>
 </head>
 
@@ -714,16 +902,6 @@
                         </select>
                       </div>
                     </div>
-                    <div class="row mb-3">
-                      <div class="col-sm-12">
-                        <select class="form-select ra-filter" data-filter="doctype">
-                          <option value="">Document Type</option>
-                          <option value="Article">Article</option>
-                          <option value="Review">Review</option>
-                          <option value="Conference Paper">Conference Paper</option>
-                        </select>
-                      </div>
-                    </div>
                     <div>
                       <button type="button" id="ra-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
                         Clear
@@ -734,111 +912,15 @@
               </div>
 
               <div class="col-lg-9">
-                <div class="row g-4" id="ra-results">
-
-                  <div class=" col-md-4 ra-card-col">
-                    <div class="research-card" data-keyword="soil health carbon organic"
-                      data-author="APCNF Research Team" data-theme="Soil" data-year="2026"
-                      data-journal="Journal of Sustainable Agriculture" data-country="India" data-language="English"
-                      data-doctype="Article">
-                      <span class="research-badge">🔬 Research Article</span>
-
-                      <h5>
-                        Impact of Natural Farming on Soil Health
-                      </h5>
-
-                      <p class="authors">
-                        APCNF Research Team
-                      </p>
-
-                      <p class="summary">
-                        Assessment of soil biological activity and organic carbon under natural farming systems.
-                      </p>
-
-                      <div class="keywords">
-                        <span>Soil Health</span>
-                        <span>Carbon</span>
-                      </div>
-
-                      <div class="research-footer">
-                        <small>May 2026</small>
-                        <a href="#" class="btn btn-success btn-sm">
-                          View PDF
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 ra-card-col">
-                    <div class="research-card" data-keyword="climate resilience drought"
-                      data-author="Sustainable Agriculture Division" data-theme="Climate" data-year="2026"
-                      data-journal="Climate Adaptation Review" data-country="India" data-language="English"
-                      data-doctype="Review">
-                      <span class="research-badge">📊 Research Report</span>
-
-                      <h5>
-                        Climate Resilience through Natural Farming
-                      </h5>
-
-                      <p class="authors">
-                        Sustainable Agriculture Division
-                      </p>
-
-                      <p class="summary">
-                        Study on crop performance under drought and extreme weather conditions.
-                      </p>
-
-                      <div class="keywords">
-                        <span>Climate</span>
-                        <span>Resilience</span>
-                      </div>
-
-                      <div class="research-footer">
-                        <small>March 2026</small>
-                        <a href="#" class="btn btn-success btn-sm">
-                          View PDF
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 ra-card-col">
-                    <div class="research-card" data-keyword="income economics farm" data-author="APCNF Monitoring Team"
-                      data-theme="Economics" data-year="2026" data-journal="Agricultural Economics Bulletin"
-                      data-country="India" data-language="English" data-doctype="Conference Paper">
-                      <span class="research-badge">📈 Case Study</span>
-
-                      <h5>
-                        Farmer Income Improvement Analysis
-                      </h5>
-
-                      <p class="authors">
-                        APCNF Monitoring Team
-                      </p>
-
-                      <p class="summary">
-                        Comparative study of farm economics before and after natural farming adoption.
-                      </p>
-
-                      <div class="keywords">
-                        <span>Income</span>
-                        <span>Economics</span>
-                      </div>
-
-                      <div class="research-footer">
-                        <small>January 2026</small>
-                        <a href="#" class="btn btn-success btn-sm">
-                          View PDF
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
+                <!-- Populated dynamically by services/research_articles.js, which calls the
+                     get_research_articles server script (Knowledge Artifact doctype, scoped to
+                     category = "Article" and artifact_source = "Internal" only). -->
+                <div class="row g-4" id="ra-results"></div>
                 <div class="no-results text-center py-4 d-none" id="ra-no-results">
                   <h5 class="mt-2">No research articles match your filters</h5>
                   <p class="text-muted">Try adjusting or clearing the filters above.</p>
                 </div>
+                <div id="ra-pagination" class="mt-3"></div>
               </div>
             </div>
           </div>
@@ -1481,6 +1563,7 @@
   <script src="../assets/js/main.js"></script>
 
   <script type="module" src="../services/research_library.js"></script>
+  <script type="module" src="../services/research_articles.js?t=2"></script>
   <script src="../services/case_study.js?t=346775"></script>
   <script src="../services/journal_list.js?t=123"></script>
   <script src="../services/success_stories_tab.js?t=124483"></script>
@@ -1668,17 +1751,8 @@
       // after DOMContentLoaded) can (re)run filtering once their cards exist in the DOM.
       window.setupFilterableSection = setupFilterableSection;
 
-      // Research Articles
-      setupFilterableSection({
-        filterInputSelector: '.ra-filter',
-        cardSelector: '.research-card',
-        noResultsSelector: '#ra-no-results',
-        clearBtnSelector: '#ra-clear-btn',
-        dynamicSelects: [
-          { selectId: 'ra-year-select', attr: 'year' },
-          { selectId: 'ra-language-select', attr: 'language' },
-        ],
-      });
+      // Research Articles — fully handled by services/research_articles.js (server-side
+      // search, filtering and pagination against the get_research_articles API).
 
       // Journals — fully handled by services/journal_list.js (own filtering + pagination).
 
