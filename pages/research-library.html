@@ -817,6 +817,8 @@
                   data-category="training">Longitudinal Self-case Studies Data</a></li>
               <li><a class="dropdown-item cs-category-link" href="#" data-category="farmer">Longitudinal Self-case
                   Studies</a></li>
+              <li><a class="dropdown-item cs-category-link" href="#" data-category="general">General Case
+                  Studies</a></li>
               <li><a class="dropdown-item cs-category-link" href="#" data-category="webinars">Socio-economic Studies</a>
               </li>
             </ul>
@@ -1077,8 +1079,11 @@
                   </div>
 
                   <div class="tab-pane fade" id="farmer">
-                    <div class="row g-4" id="farmer-cards"></div>
-                    <div id="farmer-pagination"></div>
+                  </div>
+
+                  <div class="tab-pane fade" id="general">
+                    <div class="row g-4" id="general-cards"></div>
+                    <div id="general-pagination"></div>
                   </div>
 
                   <div class="tab-pane fade" id="webinars">
@@ -1564,7 +1569,7 @@
 
   <script type="module" src="../services/research_library.js"></script>
   <script type="module" src="../services/research_articles.js?t=2"></script>
-  <script src="../services/case_study.js?t=346775"></script>
+  <script src="../services/case_study.js?t=3467787"></script>
   <script src="../services/journal_list.js?t=123"></script>
   <script src="../services/success_stories_tab.js?t=124483"></script>
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
@@ -1669,7 +1674,7 @@
 
       // Guests land on the first unlocked category instead of the locked one.
       if (!isLoggedIn) {
-        showCsCategory('farmer');
+        showCsCategory('general');
       }
     });
   </script>
