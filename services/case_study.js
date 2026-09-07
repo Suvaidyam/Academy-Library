@@ -4,7 +4,7 @@
 
   // Per-tab page state
   var state = {
-    farmer: { page: 1, totalPages: 1, totalCount: 0 },
+    general: { page: 1, totalPages: 1, totalCount: 0 },
     webinars: { page: 1, totalPages: 1, totalCount: 0 }
   };
 
@@ -180,11 +180,15 @@
   async function loadTab(tabKey) {
     var cardsId = tabKey + '-cards';
     var paginationId = tabKey + '-pagination';
-    var studyType = tabKey === 'farmer'
+    var studyType = tabKey === 'general'
       ? 'Longitudinal Self-case Studies'
       : 'Socio-economic Studies';
 
     showSkeletons(cardsId);
+
+    // Hide any stale "no results" message from a previous fetch while this one loads.
+    var noResultsEl = document.getElementById('cs-no-results');
+    if (noResultsEl) noResultsEl.classList.add('d-none');
 
     var params = buildParams({
       study_type: studyType,
@@ -210,12 +214,12 @@
   function updateNoResults() {
     var noResults = document.getElementById('cs-no-results');
     if (!noResults) return;
-    var farmerEl = document.getElementById('farmer');
+    var generalEl = document.getElementById('general');
     var webinarsEl = document.getElementById('webinars');
-    var farmerActive = farmerEl && farmerEl.classList.contains('active');
+    var generalActive = generalEl && generalEl.classList.contains('active');
     var webinarsActive = webinarsEl && webinarsEl.classList.contains('active');
 
-    var tabKey = farmerActive ? 'farmer' : webinarsActive ? 'webinars' : null;
+    var tabKey = generalActive ? 'general' : webinarsActive ? 'webinars' : null;
     if (!tabKey) { noResults.classList.add('d-none'); return; }
 
     var cardsEl = document.getElementById(tabKey + '-cards');
@@ -234,9 +238,9 @@
   // ── Filter change → reset pages → reload both tabs ────────────────────────
 
   function onFilterChange() {
-    state.farmer.page = 1;
+    state.general.page = 1;
     state.webinars.page = 1;
-    loadTab('farmer');
+    loadTab('general');
     loadTab('webinars');
   }
 
@@ -260,7 +264,7 @@
   async function init() {
     await loadMeta();
 
-    loadTab('farmer');
+    loadTab('general');
     loadTab('webinars');
 
     // Filter listeners
