@@ -762,6 +762,262 @@
       background: #fff;
       color: #adb5bd;
     }
+
+    /* ── FS-FM profile cards (Govt. ID-card style, Longitudinal Self-case Studies Data) ─── */
+    .fsfm-profile-card {
+      background: #fff;
+      border: 1px solid #e3e8ec;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+      box-shadow: 0 2px 10px rgba(20, 49, 63, .07);
+      height: 100%;
+    }
+
+    .fsfm-profile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(20, 49, 63, .16);
+    }
+
+    .fsfm-profile-photo-wrap {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #eef8f0, #dcefe1);
+      overflow: hidden;
+    }
+
+    .fsfm-profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .fsfm-profile-initials {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #eef8f0, #dcefe1);
+    }
+
+    .fsfm-profile-initials span {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #1e4356, #198754);
+      box-shadow: 0 8px 20px rgba(20, 49, 63, .22);
+    }
+
+    .fsfm-profile-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 20px 20px;
+    }
+
+    .fsfm-profile-name {
+      font-size: 17.5px;
+      font-weight: 700;
+      color: #14313f;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fsfm-profile-name .fsfm-label {
+      font-weight: 600;
+      color: #9aa5ac;
+      font-size: 11px;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 3px;
+    }
+
+    .fsfm-profile-role {
+      margin-bottom: 18px;
+      min-height: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fsfm-profile-role .fsfm-label {
+      font-weight: 600;
+      color: #9aa5ac;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .fsfm-profile-role .fsfm-role-value {
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #198754;
+      background: #eef8f0;
+      border: 1px solid #cfe9d6;
+      border-radius: 20px;
+      padding: 3px 13px;
+      display: inline-block;
+    }
+
+    .fsfm-story-btn {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 16px;
+      background: #14313f;
+      color: #fff;
+      width: 100%;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .fsfm-story-btn:hover {
+      background: #198754;
+      color: #fff;
+    }
+
+    /* ── Story modal (government-portal styled) ─────────────────────────── */
+    #fsfmStoryModal .modal-content {
+      border-radius: 18px;
+      border: none;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+    }
+
+    #fsfmStoryModal .modal-header {
+      background: linear-gradient(135deg, #1e4356, #198754);
+      color: #fff;
+      border: none;
+      padding: 22px 26px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    #fsfmStoryModal .fsfm-modal-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .18);
+      border: 2px solid rgba(255, 255, 255, .5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    #fsfmStoryModal .modal-header .btn-close {
+      filter: invert(1) brightness(2);
+      margin-left: auto;
+    }
+
+    #fsfmStoryModal .modal-title {
+      margin-bottom: 0;
+      flex: 1;
+      min-width: 0;
+      color: #fff;
+    }
+
+    #fsfmStoryModal .modal-title #fsfm-modal-name {
+      display: block;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #fsfmStoryModal .modal-title small {
+      display: block;
+      font-weight: 400;
+      color: #d9efe2;
+      opacity: .9;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    #fsfmStoryModal .nav-tabs {
+      border-bottom: 1px solid #eef0f2;
+      padding: 14px 26px 0;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    #fsfmStoryModal .nav-tabs .nav-link {
+      border: 1px solid transparent;
+      border-radius: 20px;
+      color: #495057;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 7px 18px;
+      background: #f4f6f7;
+    }
+
+    #fsfmStoryModal .nav-tabs .nav-link.active {
+      background: #198754;
+      color: #fff;
+      border-color: #198754;
+    }
+
+    #fsfmStoryModal .modal-body {
+      padding: 26px;
+      max-height: 60vh;
+      overflow-y: auto;
+      background: #fafcfb;
+    }
+
+    .fsfm-story-card {
+      background: #fff;
+      border: 1px solid #eef0f2;
+      border-left: 4px solid #198754;
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+
+    .fsfm-story-text {
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: #2c343a;
+    }
+
+    .fsfm-story-text p {
+      margin-bottom: 10px;
+    }
+
+    .fsfm-story-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .fsfm-story-empty {
+      text-align: center;
+      color: #9aa5ac;
+      padding: 40px 0;
+    }
   </style>
 </head>
 
@@ -842,6 +1098,25 @@
             </div>
           </div>
 
+          <!-- Longitudinal Self-case Studies Data: "Your Story" modal -->
+          <div class="modal fade" id="fsfmStoryModal" tabindex="-1" aria-labelledby="fsfmStoryModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <div class="fsfm-modal-avatar" id="fsfm-modal-avatar">?</div>
+                  <h5 class="modal-title" id="fsfmStoryModalLabel">
+                    <span id="fsfm-modal-name">Profile</span>
+                    <small id="fsfm-modal-meta"></small>
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <ul class="nav nav-tabs" id="fsfm-story-tabs" role="tablist"></ul>
+                <div class="modal-body">
+                  <div class="tab-content" id="fsfm-story-tab-content"></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </ul>
 
@@ -1013,7 +1288,7 @@
             <div class="row">
               <!-- Case Studies Filters -->
               <div class="col-lg-3 mt-2">
-                <div class="library-filter-card">
+                <div class="library-filter-card" id="cs-general-filter-card">
                   <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Case Studies</div>
                   <form>
                     <div class="row mb-3">
@@ -1062,6 +1337,37 @@
                     </div>
                   </form>
                 </div>
+
+                <!-- Longitudinal Self-case Studies Data (FS-FM) Filters -->
+                <div class="library-filter-card d-none" id="fsfm-filter-card">
+                  <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Case Studies</div>
+                  <form>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <select class="form-select fsfm-filter" data-filter="role" id="fsfm-role-select">
+                          <option value="">Role (FS/FM/MI...)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control fsfm-filter" data-filter="search_name"
+                          placeholder="Search Name">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control fsfm-filter" data-filter="search_district"
+                          placeholder="Search District">
+                      </div>
+                    </div>
+                    <div>
+                      <button type="button" id="fsfm-clear-btn" style="width: 100%;" class="btn btn-outline-secondary">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
 
               <!-- Sub Tab Content -->
@@ -1072,6 +1378,14 @@
                   <h5 class="mt-2">No case studies match your filters</h5>
                 </div>
 
+                <div class="no-results text-center py-4 d-none" id="fsfm-no-results">
+                  <h5 class="mt-2">No profiles match your filters</h5>
+                </div>
+
+                <div class="no-results text-center py-4 d-none" id="fsfm-error">
+                  <h5 class="mt-2 text-danger">Unable to load profiles right now. Please try again in a moment.</h5>
+                </div>
+
                 <div class="tab-content">
 
                   <div class="tab-pane fade show active" id="training">
@@ -1079,6 +1393,8 @@
                   </div>
 
                   <div class="tab-pane fade" id="farmer">
+                    <div class="row g-4" id="farmer-cards"></div>
+                    <div id="farmer-pagination"></div>
                   </div>
 
                   <div class="tab-pane fade" id="general">
@@ -1569,7 +1885,7 @@
 
   <script type="module" src="../services/research_library.js"></script>
   <script type="module" src="../services/research_articles.js?t=2"></script>
-  <script src="../services/case_study.js?t=3467787"></script>
+  <script src="../services/case_study.js?t=5485445"></script>
   <script src="../services/journal_list.js?t=123"></script>
   <script src="../services/success_stories_tab.js?t=124483"></script>
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
@@ -1646,6 +1962,24 @@
             csActiveLabel.textContent = link.textContent.trim();
           }
         });
+
+        // Swap the left filter sidebar: Longitudinal Self-case Studies (farmer)
+        // uses the Role / Search Name / Search District filters; every other
+        // sub-category uses the shared Keywords/Theme/Year/Author/Language filters.
+        const generalFilterCard = document.getElementById('cs-general-filter-card');
+        const fsfmFilterCard = document.getElementById('fsfm-filter-card');
+        const csNoResults = document.getElementById('cs-no-results');
+        const fsfmNoResults = document.getElementById('fsfm-no-results');
+        const isFarmer = category === 'farmer';
+
+        if (generalFilterCard) generalFilterCard.classList.toggle('d-none', isFarmer);
+        if (fsfmFilterCard) fsfmFilterCard.classList.toggle('d-none', !isFarmer);
+        if (csNoResults) csNoResults.classList.add('d-none');
+        if (fsfmNoResults) fsfmNoResults.classList.add('d-none');
+
+        if (isFarmer) {
+          document.dispatchEvent(new CustomEvent('fsfm:category-shown'));
+        }
       }
 
       csCategoryLinks.forEach(link => {
