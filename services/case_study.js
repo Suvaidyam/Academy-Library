@@ -327,13 +327,22 @@
 
   function buildFsfmCardHTML(item) {
     var name = ((item.first_name || '') + ' ' + (item.lastfamily_name || '')).trim() || 'Unnamed';
-    var hasPhoto = !!item.profile_image;
-    var photo = hasPhoto ? (API_BASE + item.profile_image) : '';
+    var hasPhoto = !!item.user_profile_img;
+    // user_profile_img can be a full URL (e.g. an external image) or a
+    // relative Frappe file path — only the latter needs the API_BASE prefix.
+    var photo = hasPhoto
+      ? (/^https?:\/\//i.test(item.user_profile_img) ? item.user_profile_img : (API_BASE + item.user_profile_img))
+      : '';
     var role = item.role || '';
-    var initialsBlock = '<div class="fsfm-profile-initials"><span>' + getInitials(name) + '</span></div>';
+    // Render the photo and the initials fallback as sibling elements (instead of
+    // injecting the initials markup as a string inside the onerror="..." attribute,
+    // which broke the surrounding HTML once it hit the double quotes in that markup).
+    // onerror just swaps which one is visible.
+    var initialsBlock = '<div class="fsfm-profile-initials"' + (hasPhoto ? ' style="display:none;"' : '') +
+      '><span>' + getInitials(name) + '</span></div>';
     var photoBlock = hasPhoto ?
       ('<img src="' + photo + '" alt="' + name + '" class="fsfm-profile-photo"' +
-        ' onerror="this.onerror=null;this.parentNode.innerHTML=\'' + initialsBlock.replace(/'/g, "\\'") + '\';">') :
+        ' onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' + initialsBlock) :
       initialsBlock;
 
     return '<div class="col-md-6 col-xl-4">' +
