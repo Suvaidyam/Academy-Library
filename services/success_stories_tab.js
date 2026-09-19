@@ -93,8 +93,9 @@
     var theme = item.theme || 'Success Story';
     var fileType = item.file_type || '';
     var thumbnail = item.thumbnail ? (API_BASE + item.thumbnail) : DEFAULT_THUMBNAIL;
-    var rawLink = item.attachment
-      ? (API_BASE + item.attachment)
+    var attachment = (item.attachment || '').trim();
+    var rawLink = attachment
+      ? (/^https?:\/\//i.test(attachment) ? attachment : API_BASE + attachment)
       : (item.resource_link || item.link || item.url || '');
     var pdfUrl = rawLink ? (/^https?:\/\//i.test(rawLink) ? rawLink : 'https://' + rawLink) : '#';
     var linkTarget = pdfUrl !== '#' ? 'target="_blank" rel="noopener noreferrer"' : '';
