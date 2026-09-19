@@ -149,6 +149,14 @@
       box-shadow: 0 12px 30px rgba(0, 0, 0, .1);
     }
 
+    .cs-thumb-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
     .cs-thumb-wrap {
       display: block;
       width: 140px;
@@ -159,6 +167,29 @@
       flex-shrink: 0;
       box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
       text-decoration: none;
+    }
+
+    .cs-thumb-person {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      background: #eef8f0;
+      color: #198754;
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      width: 140px;
+      box-sizing: border-box;
+      white-space: normal;
+      word-break: break-word;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .cs-thumb-person i {
+      margin-top: 1px;
+      flex-shrink: 0;
     }
 
     .cs-thumbnail {
@@ -196,6 +227,17 @@
       color: #1a1a1a;
       display: -webkit-box;
       -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .cs-info-subtitle {
+      font-size: 14px;
+      font-weight: 500;
+      color: #198754;
+      margin: -6px 0 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -629,6 +671,19 @@
       line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    .ra-card-theme-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: #198754;
+      color: #fff;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .3px;
     }
 
     .ra-theme-pills {
@@ -1143,14 +1198,8 @@
                     </div>
                     <div class="row mb-3">
                       <div class="col-sm-12">
-                        <select class="form-select ra-filter" data-filter="theme">
+                        <select class="form-select ra-filter" data-filter="theme" id="ra-theme-select">
                           <option value="">Research Theme</option>
-                          <option value="Soil">Soil</option>
-                          <option value="Water">Water</option>
-                          <option value="Crop">Crop</option>
-                          <option value="Climate">Climate</option>
-                          <option value="Biodiversity">Biodiversity</option>
-                          <option value="Economics">Economics</option>
                         </select>
                       </div>
                     </div>
@@ -1298,15 +1347,8 @@
                     </div>
                     <div class="row mb-3">
                       <div class="col-sm-12">
-                        <select class="form-select cs-filter" data-filter="theme">
+                        <select class="form-select cs-filter" data-filter="theme" id="cs-theme-select">
                           <option value="">Theme</option>
-                          <option value="Crop">Crop</option>
-                          <option value="Livestock">Livestock</option>
-                          <option value="Water">Water</option>
-                          <option value="Soil">Soil</option>
-                          <option value="Women's Empowerment">Women's Empowerment</option>
-                          <option value="Livelihood">Livelihood</option>
-                          <option value="H&N">H&N</option>
                         </select>
                       </div>
                     </div>
@@ -1884,8 +1926,8 @@
   <script src="../assets/js/main.js"></script>
 
   <script type="module" src="../services/research_library.js"></script>
-  <script type="module" src="../services/research_articles.js?t=2"></script>
-  <script src="../services/case_study.js?t=8765"></script>
+  <script type="module" src="../services/research_articles.js?t=8689"></script>
+  <script src="../services/case_study.js?t=23456"></script>
   <script src="../services/journal_list.js?t=123"></script>
   <script src="../services/success_stories_tab.js?t=976789"></script>
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>

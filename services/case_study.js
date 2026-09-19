@@ -19,6 +19,7 @@
     var params = extra || {};
     var filters = getFilterValues();
     if (filters.keyword) params.search = filters.keyword;
+    if (filters.theme) params.theme = filters.theme;
     if (filters.year) params.year = filters.year;
     if (filters.author) params.author = filters.author;
     if (filters.language) params.language = filters.language;
@@ -57,6 +58,16 @@
     var data = await apiFetch({ meta: 1 });
     var years = data.years || [];
     var languages = data.languages || [];
+    var themes = data.themes || [];
+
+    var tSel = document.getElementById('cs-theme-select');
+    if (tSel) {
+      themes.forEach(function (t) {
+        var opt = document.createElement('option');
+        opt.value = t; opt.textContent = t;
+        tSel.appendChild(opt);
+      });
+    }
 
     var ySel = document.getElementById('cs-year-select');
     if (ySel) {
@@ -91,12 +102,20 @@
   function buildCardHTML(item) {
     var year = extractYear(item.date);
     var title = item.title || 'Untitled';
+    var subTitle = item.sub_title || '';
     var description = item.description || '';
     var author = item.author || '';
+    var personName = item.person_name || '';
     var language = item.language || '';
-    var theme = item.theme || 'Case Study';
-    var thumbnail = item.thumbnail ? (API_BASE + item.thumbnail) : DEFAULT_THUMBNAIL;
-    var pdfUrl = item.attachment ? (API_BASE + item.attachment) : '#';
+    // var theme = item.theme || 'Case Study1';
+    var thumbnailPath = item.thumbnail_image || item.thumbnail || '';
+    var thumbnail = thumbnailPath
+      ? (/^https?:\/\//i.test(thumbnailPath) ? thumbnailPath : (API_BASE + thumbnailPath))
+      : DEFAULT_THUMBNAIL;
+    var attachment = (item.attachment || '').trim();
+    var pdfUrl = attachment
+      ? (/^https?:\/\//i.test(attachment) ? attachment : (API_BASE + attachment))
+      : '#';
     var linkTarget = pdfUrl !== '#' ? 'target="_blank" rel="noopener noreferrer"' : '';
 
     var tagBadges = (item.tags || []).map(function (t) {
@@ -105,13 +124,16 @@
 
     return '<div class="col-md-12 mb-3">' +
       '<div class="cs-ebook-card">' +
+      '<div class="cs-thumb-col">' +
       '<a href="' + pdfUrl + '" ' + linkTarget + ' class="cs-thumb-wrap">' +
       '<img src="' + thumbnail + '" alt="' + title + '" class="cs-thumbnail"' +
       ' onerror="this.onerror=null;this.src=\'' + DEFAULT_THUMBNAIL + '\'">' +
       '</a>' +
+      (personName ? '<span class="cs-thumb-person" title="' + personName + '"><i class="bi bi-person-badge"></i> ' + personName + '</span>' : '') +
+      '</div>' +
       '<div class="cs-info">' +
-      '<span class="cs-info-badge">' + theme + '</span>' +
       '<h5 class="cs-info-title" title="' + title + '">' + title + '</h5>' +
+      (subTitle ? '<p class="cs-info-subtitle">' + subTitle + '</p>' : '') +
       '<p class="cs-info-desc">' + description + '</p>' +
       '<div class="cs-info-meta">' +
       (year     ? '<div><i class="bi bi-calendar3"></i> '    + year     + '</div>' : '') +

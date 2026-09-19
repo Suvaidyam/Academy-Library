@@ -64,6 +64,16 @@ async function loadMeta() {
     const res = await client.get(API, { meta: 1, artifact_source: "Internal" });
     const data = res?.message || {};
 
+    const tSel = document.getElementById("ra-theme-select");
+    if (tSel) {
+      (data.themes || []).forEach((t) => {
+        const opt = document.createElement("option");
+        opt.value = t;
+        opt.textContent = t;
+        tSel.appendChild(opt);
+      });
+    }
+
     const ySel = document.getElementById("ra-year-select");
     if (ySel) {
       (data.years || []).forEach((y) => {
@@ -104,6 +114,7 @@ function buildCard(row, index = 0) {
   const title = row.title || row.sub_title || "Untitled";
   const author = row.author || "Unknown author";
   const abstract = row.a_short_description_about_the_artifact || "";
+  const theme = row.research_article_theme || "";
   const dateLabel = formatMonthYear(row.date_of_creationpublication);
   const pdfUrl = row.attachment ? resolveUrl(row.attachment) : "";
 
@@ -112,6 +123,7 @@ function buildCard(row, index = 0) {
   return `
     <div class="col-lg-4 col-md-6 ra-card-item" style="animation-delay:${Math.min(index, 12) * 35}ms">
       <div class="ra-card">
+        ${theme ? `<span class="ra-card-theme-badge">${esc(theme)}</span>` : ""}
         <h6 class="ra-card-title" title="${esc(title)}">${esc(title)}</h6>
         <p class="ra-card-author" title="${esc(author)}">${esc(author)}</p>
         ${abstract ? `<p class="ra-card-abstract" title="${esc(abstract)}">${esc(abstract)}</p>` : ""}
