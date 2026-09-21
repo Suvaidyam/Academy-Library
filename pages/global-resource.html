@@ -460,6 +460,43 @@
       animation: raShimmer 1.4s infinite;
     }
 
+    /* ── Journal skeleton cards (services/journal_list.js) ──────────────── */
+    .jr-skeleton-card {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 15px;
+      border: 1px solid #e5e5e5;
+      margin-bottom: 20px;
+    }
+
+    .jr-skeleton-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 400% 100%;
+      animation: raShimmer 1.4s infinite;
+    }
+
+    .jr-skeleton-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .jr-skeleton-line {
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 400% 100%;
+      animation: raShimmer 1.4s infinite;
+    }
+
     .fsc-page-info {
       font-size: .8rem;
       color: #6c757d;
@@ -712,62 +749,85 @@
                 </div>
 
                 <div class="tab-pane fade" id="successJournals">
-                  <div class="row g-4">
-
-                    <div class="journal-card">
-                      <div class="journal-icon">
-                        📑
-                      </div>
-
-                      <div class="journal-content">
-                        <h5>
-                          Natural Farming and Climate Resilience:
-                          Evidence from Andhra Pradesh
-                        </h5>
-
-                        <p>
-                          Published in Agricultural Sustainability Journal
-                        </p>
-
-                        <small>
-                          Authors: APCNF Research Division | 2026
-                        </small>
-
-                        <div class="mt-3">
-                          <button class="btn btn-sm btn-success">
-                            View Publication
-                          </button>
-                        </div>
+                  <div class="row">
+                    <!-- Journals Filters -->
+                    <div class="col-lg-3 mt-2">
+                      <div class="library-filter-card">
+                        <div class="library-filter-title"><i class="bi bi-funnel-fill"></i> Filter Journals</div>
+                        <form>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <input type="text" class="form-control jr-filter" data-filter="keyword"
+                                placeholder="Keyword(s)">
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <input type="text" class="form-control jr-filter" data-filter="journal"
+                                placeholder="Journal Name">
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <select class="form-select jr-filter" data-filter="year" id="jr-year-select">
+                                <option value="">Publication Year</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <input type="text" class="form-control jr-filter" data-filter="volume"
+                                placeholder="Volume & Issue">
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <input type="text" class="form-control jr-filter" data-filter="publisher"
+                                placeholder="Publisher">
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <select class="form-select jr-filter" data-filter="language" id="jr-language-select">
+                                <option value="">Language</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <select class="form-select jr-filter" data-filter="peer">
+                                <option value="">Peer Reviewed</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <select class="form-select jr-filter" data-filter="access" id="jr-access-select">
+                                <option value="">Open Access</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div>
+                            <button type="button" id="jr-clear-btn" style="width: 100%;"
+                              class="btn btn-outline-secondary">
+                              Clear
+                            </button>
+                          </div>
+                        </form>
                       </div>
                     </div>
 
-                    <div class="journal-card">
-                      <div class="journal-icon">
-                        📑
-                      </div>
-
-                      <div class="journal-content">
-                        <h5>
-                          Natural Farming and Climate Resilience:
-                          Evidence from Andhra Pradesh
-                        </h5>
-
-                        <p>
-                          Published in Agricultural Sustainability Journal
-                        </p>
-
-                        <small>
-                          Authors: APCNF Research Division | 2026
-                        </small>
-
-                        <div class="mt-3">
-                          <button class="btn btn-sm btn-success">
-                            View Publication
-                          </button>
-                        </div>
+                    <div class="col-lg-9">
+                      <!-- Populated dynamically by services/journal_list.js (get_journals_list API) —
+                           identical to pages/research-library.html's Journals tab. -->
+                      <div id="jr-results"></div>
+                      <div class="no-results text-center py-4 d-none" id="jr-no-results">
+                        <h5 class="mt-2">No journals match your filters</h5>
+                        <p class="text-muted">Try adjusting or clearing the filters above.</p>
                       </div>
                     </div>
-
                   </div>
                 </div>
 
@@ -807,6 +867,7 @@
 
   <script type="module" src="../Libray Service/e_book.js?t=2"></script>
   <script type="module" src="../Libray Service/global_research_articles.js?t=1"></script>
+  <script src="../services/journal_list.js?t=7897" data-source="External"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
