@@ -1,19 +1,37 @@
 (function () {
-  var API_BASE = 'https://erp-ryss.ap.gov.in';
-  var FETCH_PAGE_SIZE = 50;
-  var MAX_FETCH_PAGES = 10; // safety cap
-  var PAGE_SIZE = 3; // cards shown per page in the UI
+  // Shared by both pages/research-library.html and pages/global-resource.html —
+  // each includes this file with its own data-source attribute on the <script>
+  // tag so the same code fetches the right slice of journals for that page:
+  // <script src="services/journal_list.js" data-source="Internal"></script>
+  var SOURCE = (document.currentScript && document.currentScript.dataset.source) || 'Internal';
 
+  var API_BASE = 'https://erp-ryss.ap.gov.in';
+  var PAGE_SIZE = 3; // cards per UI page — also the page size used for the lazy per-click fetch
+  var FULL_FETCH_PAGE_SIZE = 50; // used once a filter needs the whole dataset to match against
+  var MAX_FETCH_PAGES = 10; // safety cap on the full fetch
+
+  // Lazy mode (default): only the page being viewed is fetched — page 1 on load,
+  // each further page only once its Next/Previous button is actually clicked.
+  var lazyPages = {}; // page number -> items already fetched
+  var lazyMeta = { totalRecords: 0, totalPages: 1 };
+  var lazyItemsSeen = []; // union of items fetched so far, for progressively filling the dropdowns
+
+  // Full mode: entered the first time a filter is used, since the API itself
+  // can't filter — from then on filtering/pagination run client-side over the
+  // complete list, same as before.
   var allJournals = [];
+  var fullyLoaded = false;
+
   var state = { page: 1 };
 
   // ── API helpers ───────────────────────────────────────────────────────────
 
-  async function fetchPage(page) {
+  async function fetchPage(page, pageSize) {
     try {
       var url = new URL(API_BASE + '/api/method/get_journals_list');
       url.searchParams.append('page', page);
-      url.searchParams.append('page_size', FETCH_PAGE_SIZE);
+      url.searchParams.append('page_size', pageSize);
+      url.searchParams.append('source', SOURCE);
       var res = await fetch(url);
       var json = await res.json();
       return json.message || {};
@@ -23,13 +41,26 @@
     }
   }
 
+  async function fetchLazyPage(page) {
+    if (lazyPages[page]) return lazyPages[page];
+    var resp = await fetchPage(page, PAGE_SIZE);
+    var items = resp.data || [];
+    lazyPages[page] = items;
+    lazyItemsSeen = lazyItemsSeen.concat(items);
+    if (resp.pagination) {
+      lazyMeta.totalRecords = resp.pagination.total_records || 0;
+      lazyMeta.totalPages = resp.pagination.total_pages || 1;
+    }
+    return items;
+  }
+
   async function fetchAllJournals() {
     var items = [];
     var page = 1;
     var totalPages = 1;
 
     do {
-      var resp = await fetchPage(page);
+      var resp = await fetchPage(page, FULL_FETCH_PAGE_SIZE);
       items = items.concat(resp.data || []);
       totalPages = (resp.pagination && resp.pagination.total_pages) || 1;
       page++;
@@ -47,6 +78,10 @@
       if (val) out[el.dataset.filter] = val;
     });
     return out;
+  }
+
+  function hasActiveFilters() {
+    return Object.keys(getFilterValues()).length > 0;
   }
 
   function itemField(item, key) {
@@ -90,6 +125,9 @@
   }
 
   // ── Dropdown population ───────────────────────────────────────────────────
+  // Filled progressively from whatever's been fetched so far (fully once a
+  // filter has triggered the complete fetch) — never a reason on its own to
+  // fetch more than the page being viewed.
 
   function populateSelect(selectId, values) {
     var el = document.getElementById(selectId);
@@ -105,10 +143,10 @@
     if (values.indexOf(current) !== -1) el.value = current;
   }
 
-  function populateDynamicSelects() {
-    var years = [].concat(new Set(allJournals.map(function (i) { return i.publication_year; }).filter(Boolean))).sort();
-    var languages = [].concat(new Set(allJournals.map(function (i) { return i.language; }).filter(Boolean))).sort();
-    var access = [].concat(new Set(allJournals.map(function (i) { return i.open_access; }).filter(Boolean))).sort();
+  function populateDynamicSelects(source) {
+    var years = Array.from(new Set(source.map(function (i) { return i.publication_year; }).filter(Boolean))).sort();
+    var languages = Array.from(new Set(source.map(function (i) { return i.language; }).filter(Boolean))).sort();
+    var access = Array.from(new Set(source.map(function (i) { return i.open_access; }).filter(Boolean))).sort();
 
     populateSelect('jr-year-select', years);
     populateSelect('jr-language-select', languages);
@@ -186,17 +224,21 @@
     if (noResultsEl) noResultsEl.classList.add('d-none');
   }
 
-  function showNoData() {
+  // Toggles the "no results" placeholder, swapping its heading/text to fit
+  // why it's empty (no filter vs. a filter matched nothing vs. the page
+  // itself came back with no data even though more exists elsewhere).
+  function setEmptyState(active, copy) {
     var el = document.getElementById('jr-results');
-    if (!el) return;
-    el.innerHTML = '<div class="text-center text-muted py-4">' +
-      '<h5 class="mt-2">No journals available yet</h5>' +
-      '<p class="text-muted">Please check back later — new journals will show up here once added.</p>' +
-      '</div>';
-    var paginationEl = document.getElementById('jr-pagination');
-    if (paginationEl) paginationEl.innerHTML = '';
+    if (el && active) el.innerHTML = '';
     var noResultsEl = document.getElementById('jr-no-results');
-    if (noResultsEl) noResultsEl.classList.add('d-none');
+    if (!noResultsEl) return;
+    noResultsEl.classList.toggle('d-none', !active);
+    if (active && copy) {
+      var heading = noResultsEl.querySelector('h5');
+      var desc = noResultsEl.querySelector('p');
+      if (heading) heading.textContent = copy.heading;
+      if (desc) desc.textContent = copy.desc;
+    }
   }
 
   function renderCards(items) {
@@ -240,7 +282,15 @@
 
   // ── Render current page (filters + pagination) ───────────────────────────
 
-  function renderCurrentView() {
+  async function loadFullDataset() {
+    if (fullyLoaded) return;
+    showSkeletons();
+    allJournals = await fetchAllJournals();
+    fullyLoaded = true;
+    populateDynamicSelects(allJournals);
+  }
+
+  async function renderFromFullDataset() {
     var filtered = getFilteredJournals();
     var totalCount = filtered.length;
     var totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
@@ -249,11 +299,66 @@
     var start = (state.page - 1) * PAGE_SIZE;
     var pageItems = filtered.slice(start, start + PAGE_SIZE);
 
-    renderCards(pageItems);
-    renderPagination(totalCount, totalPages);
+    if (pageItems.length) {
+      renderCards(pageItems);
+      renderPagination(totalCount, totalPages);
+      setEmptyState(false);
+    } else {
+      renderPagination(0, 1); // clears the pagination bar — nothing to page through
+      setEmptyState(true, hasActiveFilters() ? {
+        heading: 'No journals match your filters',
+        desc: 'Try adjusting or clearing the filters above.'
+      } : {
+        heading: 'No journals available yet',
+        desc: 'Please check back later — new journals will show up here once added.'
+      });
+    }
+  }
 
-    var noResultsEl = document.getElementById('jr-no-results');
-    if (noResultsEl) noResultsEl.classList.toggle('d-none', totalCount > 0);
+  async function renderCurrentView() {
+    // A filter needs the whole list to match against — the API itself ignores
+    // filter params, so the first time one is used we fetch everything once
+    // and switch permanently to client-side filtering/pagination over it.
+    if (!fullyLoaded && hasActiveFilters()) {
+      await loadFullDataset();
+    }
+
+    if (!fullyLoaded) {
+      // No filters yet — only fetch the page actually being viewed.
+      showSkeletons();
+      var items = await fetchLazyPage(state.page);
+      populateDynamicSelects(lazyItemsSeen);
+      var lazyItems = lazyPages[state.page] || items;
+
+      // The backend's own pagination only ever returns data for page 1 —
+      // any later page comes back empty regardless of page size, even
+      // though it still reports the true total_records. When that happens,
+      // fall back to fetching everything once so paging keeps working.
+      if (!lazyItems.length && lazyMeta.totalRecords > 0) {
+        await loadFullDataset();
+      }
+    }
+
+    if (fullyLoaded) {
+      await renderFromFullDataset();
+      return;
+    }
+
+    // Page 1 rendered fine, or the backend genuinely has no journals at all.
+    state.page = Math.min(state.page, lazyMeta.totalPages || 1);
+    var pageItems = lazyPages[state.page] || [];
+
+    if (pageItems.length) {
+      renderCards(pageItems);
+      renderPagination(lazyMeta.totalRecords, lazyMeta.totalPages);
+      setEmptyState(false);
+    } else {
+      renderPagination(0, 1); // clears the pagination bar — nothing to page through
+      setEmptyState(true, {
+        heading: 'No journals available yet',
+        desc: 'Please check back later — new journals will show up here once added.'
+      });
+    }
   }
 
   // ── Debounce ──────────────────────────────────────────────────────────────
@@ -266,10 +371,6 @@
 
   function onFilterChange() {
     state.page = 1;
-    if (!allJournals.length) {
-      showNoData();
-      return;
-    }
     renderCurrentView();
   }
 
@@ -287,17 +388,6 @@
   // ── Init ──────────────────────────────────────────────────────────────────
 
   async function init() {
-    showSkeletons();
-
-    allJournals = await fetchAllJournals();
-
-    if (!allJournals.length) {
-      showNoData();
-    } else {
-      populateDynamicSelects();
-      renderCurrentView();
-    }
-
     document.querySelectorAll('.jr-filter').forEach(function (input) {
       var isSelect = input.tagName === 'SELECT';
       input.addEventListener(isSelect ? 'change' : 'input', function () {
@@ -316,6 +406,8 @@
         onFilterChange();
       });
     }
+
+    await renderCurrentView();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
