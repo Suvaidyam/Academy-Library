@@ -466,21 +466,31 @@
       return;
     }
 
-    tabsEl.innerHTML = stories.map(function (s, i) {
-      var label = s.semester || s.date_of_capturing_information || ('Record ' + (i + 1));
-      return '<li class="nav-item" role="presentation">' +
-        '<button class="nav-link' + (i === 0 ? ' active' : '') + '" data-bs-toggle="tab" data-bs-target="#fsfm-story-' + i + '" type="button">' +
-        label + '</button></li>';
-    }).join('');
+    // Show every record in one scrollable list, ordered Pre → S1 → S2 → ...
+    var ordered = stories.map(function (s, i) {
+      return { s: s, i: i, label: s.semester || s.date_of_capturing_information || ('Record ' + (i + 1)) };
+    }).sort(function (a, b) {
+      return semesterRank(a.label) - semesterRank(b.label) || a.i - b.i;
+    });
 
-    contentEl.innerHTML = stories.map(function (s, i) {
-      var story = s.your_story ? String(s.your_story) : '';
-      return '<div class="tab-pane fade' + (i === 0 ? ' show active' : '') + '" id="fsfm-story-' + i + '">' +
+    if (tabsEl) tabsEl.innerHTML = '';
+    contentEl.innerHTML = ordered.map(function (o) {
+      var story = o.s.your_story ? String(o.s.your_story) : '';
+      return '<section class="fsfm-story-section">' +
+        '<h6 class="fsfm-story-heading">' + o.label + '</h6>' +
         (story
           ? '<div class="fsfm-story-card"><div class="fsfm-story-text">' + story + '</div></div>'
-          : '<div class="fsfm-story-empty"><i class="bi bi-journal-x fs-2 d-block mb-2"></i>No story recorded for this entry.</div>') +
-        '</div>';
+          : '<div class="fsfm-story-empty fsfm-story-empty-sm">No story recorded for this entry.</div>') +
+        '</section>';
     }).join('');
+  }
+
+  // "Pre-6 Months" sorts first, then S1, S2, ... by number; unknown labels last.
+  function semesterRank(label) {
+    var text = String(label || '').trim().toLowerCase();
+    if (text.indexOf('pre') === 0) return 0;
+    var m = text.match(/^s(?:em(?:ester)?)?[\s-]*(\d+)/);
+    return m ? parseInt(m[1], 10) : 1000;
   }
 
   async function openStoryModal(caseStudy, name) {
