@@ -24,6 +24,12 @@ async function fetchPodcast(id) {
     }
 }
 
+// podcast_file may be a Frappe path ("/files/x.mp4") or already a full URL.
+function resolveFileUrl(path) {
+    if (!path) return '';
+    return /^(https?:)?\/\//i.test(path) ? path : frappe_client.baseURL + path;
+}
+
 function getVideoDuration(url, callback) {
     let video = document.createElement('video');
     video.src = url;
@@ -34,6 +40,7 @@ function getVideoDuration(url, callback) {
         let secs = seconds % 60;
         callback(`${minutes}:${secs.toString().padStart(2, '0')}`);
     };
+    video.onerror = () => callback('');
 }
 function getAudioDuration(url, callback) {
     const audio = document.createElement("audio");
@@ -68,8 +75,14 @@ function getVideoThumbnail(url, callback) {
         canvas.height = video.videoHeight;
         let ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        callback(canvas.toDataURL('image/png'));
+        try {
+            callback(canvas.toDataURL('image/png'));
+        } catch (e) {
+            // Cross-origin video without CORS headers taints the canvas
+            callback('');
+        }
     };
+    video.onerror = () => callback('');
 }
 
 function playEpisode(i) {
@@ -88,7 +101,7 @@ function playEpisode(i) {
     }
     
     const episodeTitle = document.getElementById('episode_title');
-    const src = frappe_client.baseURL + ep.podcast_file;
+    const src = resolveFileUrl(ep.podcast_file);
 
     episodeTitle.innerHTML = ep?.title || '';
 
@@ -101,7 +114,7 @@ function playEpisode(i) {
 
         document.getElementById('audio_source').src = src;
         audioPlayer.load();
-        audioPlayer.play();
+        audioPlayer.play().catch(() => {});
     } else if (ep?.file_type === "Video") {
         // Hide audio player, show video player
         audioPlayer.pause();
@@ -111,7 +124,7 @@ function playEpisode(i) {
 
         document.getElementById('video_source').src = src;
         videoPlayer.load();
-        videoPlayer.play();
+        videoPlayer.play().catch(() => {});
     }
 }
 function getYoutubeThumbnail(url) {
@@ -127,7 +140,7 @@ async function renderEpisodes() {
   const episodePromises = episodes.map((ep, i) => {
     let videoUrl =
       ep.source === "Internal"
-        ? `${frappe_client.baseURL}${ep.podcast_file}`
+        ? resolveFileUrl(ep.podcast_file)
         : ep.podcast_file;
 
     if (ep.source === "Internal" && ep.file_type === "Video") {
