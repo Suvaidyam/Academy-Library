@@ -248,6 +248,7 @@ const attachVideoHover = () => {
         iframeEl.allow =
           "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
         iframeEl.allowFullscreen = true;
+        iframeEl.referrerPolicy = "strict-origin-when-cross-origin";
         iframeEl.style.cssText =
           "position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5;";
         thumb.appendChild(iframeEl);
