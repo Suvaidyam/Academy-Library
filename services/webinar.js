@@ -451,6 +451,7 @@ const renderPast = (list) => {
       iframeEl.frameBorder = "0";
       iframeEl.allow = "autoplay; fullscreen; picture-in-picture";
       iframeEl.allowFullscreen = true;
+      iframeEl.referrerPolicy = "strict-origin-when-cross-origin";
       iframeEl.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5;";
       thumb.appendChild(iframeEl);
 
@@ -630,7 +631,7 @@ const openVideoModal = (id) => {
   } else {
     bodyEl.innerHTML = `
       <div class="ratio ratio-16x9">
-        <iframe src="${esc(videoUrl)}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="${esc(videoUrl)}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>`;
   }
 
