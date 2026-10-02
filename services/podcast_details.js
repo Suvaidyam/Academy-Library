@@ -184,8 +184,11 @@ function playEpisode(i, { autoplay = true } = {}) {
     }
 
     if (media.kind === 'embed') {
+        const frame = document.getElementById('embed_frame');
         const sep = media.src.includes('?') ? '&' : '?';
-        document.getElementById('embed_frame').src = autoplay ? `${media.src}${sep}autoplay=1` : media.src;
+        // Must be set before src: live server sends Referrer-Policy: same-origin, and YouTube needs a Referer (Error 153)
+        frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        frame.src = autoplay ? `${media.src}${sep}autoplay=1` : media.src;
         showPlayer('embed');
         return;
     }

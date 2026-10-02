@@ -447,6 +447,7 @@ const renderPast = (list) => {
       playOverlay.style.display = "none";
 
       iframeEl = document.createElement("iframe");
+      iframeEl.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
       iframeEl.src = buildAutoplayUrl(videoUrl);
       iframeEl.frameBorder = "0";
       iframeEl.allow = "autoplay; fullscreen; picture-in-picture";
@@ -630,7 +631,7 @@ const openVideoModal = (id) => {
   } else {
     bodyEl.innerHTML = `
       <div class="ratio ratio-16x9">
-        <iframe src="${esc(videoUrl)}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe referrerpolicy="strict-origin-when-cross-origin" src="${esc(videoUrl)}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>`;
   }
 
