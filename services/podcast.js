@@ -66,7 +66,10 @@ const render_podcast_lists = (response) => {
   response.message.data.forEach((podcast, index) => {
     const hasEpisodes = podcast?.episode_cout > 0;
 
-    let linkStart = hasEpisodes ? `<a href="podcast-details?id=${podcast.name}" class="text-decoration-none text-dark">` : `<div class="text-muted">`;
+    let linkStart = hasEpisodes
+      ? `<a href="podcast-details.html?id=${encodeURIComponent(podcast.name)}" class="text-decoration-none text-dark">`
+      : `<div class="text-muted">`;
+    let linkEnd = hasEpisodes ? `</a>` : `</div>`;
 
     let playOrNoEpisode = hasEpisodes
       ? `<span class="btn btn-success rounded-pill text-white py-1 px-4">
@@ -91,10 +94,8 @@ const render_podcast_lists = (response) => {
                     <span class="h6 mb-2 d-block">${podcast?.title}</span>
                     <p class="mb-3">${trimWords(podcast?.description)}</p>
                     ${playOrNoEpisode}
-                    
-                    
                 </div>
-                </a>
+                ${linkEnd}
             </div>
             </div>`;
 
