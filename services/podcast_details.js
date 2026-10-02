@@ -16,8 +16,8 @@ async function fetchPodcast(id) {
         show_title1.innerHTML = podcastDetails?.title || '';
 
         renderEpisodes();
-        if (episodes.length > 0 && episodes[0].source === "Internal") {
-            playEpisode(0);
+        if (episodes.length > 0) {
+            playEpisode(0, { autoplay: false });
         }
     } catch (err) {
         console.error(err);
@@ -85,134 +85,166 @@ function getVideoThumbnail(url, callback) {
     video.onerror = () => callback('');
 }
 
-function playEpisode(i) {
+const VIDEO_EXT = /\.(mp4|webm|ogv|ogg|mov|m4v|mkv)(\?|#|$)/i;
+const AUDIO_EXT = /\.(mp3|wav|m4a|aac|oga|flac|opus)(\?|#|$)/i;
+
+function getYoutubeId(url) {
+    const m = url.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/|v\/)|youtu\.be\/)([\w-]{11})/i);
+    return m ? m[1] : null;
+}
+
+function getDriveId(url) {
+    if (!/drive\.google\.com|docs\.google\.com/i.test(url)) return null;
+    const m = url.match(/\/d\/([\w-]+)/) || url.match(/[?&]id=([\w-]+)/);
+    return m ? m[1] : null;
+}
+
+// Works out how a podcast_file URL should be played:
+//   { kind: 'embed', src, thumb }  -> iframe (YouTube, Drive, Vimeo, ...)
+//   { kind: 'video' | 'audio', src } -> native player
+//   { kind: 'link', src }          -> can't be played inline, open in new tab
+function resolveMedia(ep) {
+    const url = (ep.source === "Internal" ? resolveFileUrl(ep.podcast_file) : (ep.podcast_file || '')).trim();
+    let m;
+
+    const ytId = getYoutubeId(url);
+    if (ytId) {
+        return { kind: 'embed', src: `https://www.youtube.com/embed/${ytId}?rel=0`, thumb: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`, url };
+    }
+
+    const driveId = getDriveId(url);
+    if (driveId) {
+        return { kind: 'embed', src: `https://drive.google.com/file/d/${driveId}/preview`, thumb: `https://drive.google.com/thumbnail?id=${driveId}&sz=w320`, url };
+    }
+
+    if ((m = url.match(/vimeo\.com\/(?:.*\/)?(?:video\/)?(\d+)/i))) {
+        return { kind: 'embed', src: `https://player.vimeo.com/video/${m[1]}`, thumb: `https://vumbnail.com/${m[1]}.jpg`, url };
+    }
+
+    if ((m = url.match(/(?:dailymotion\.com\/(?:embed\/)?video\/|dai\.ly\/)([a-z0-9]+)/i))) {
+        return { kind: 'embed', src: `https://www.dailymotion.com/embed/video/${m[1]}`, thumb: `https://www.dailymotion.com/thumbnail/video/${m[1]}`, url };
+    }
+
+    if ((m = url.match(/loom\.com\/(?:share|embed)\/([a-f0-9]+)/i))) {
+        return { kind: 'embed', src: `https://www.loom.com/embed/${m[1]}`, url };
+    }
+
+    if ((m = url.match(/streamable\.com\/(?:e\/)?([a-z0-9]+)/i))) {
+        return { kind: 'embed', src: `https://streamable.com/e/${m[1]}`, url };
+    }
+
+    if (/facebook\.com\/.+\/videos\/|fb\.watch\//i.test(url)) {
+        return { kind: 'embed', src: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false`, url };
+    }
+
+    if (AUDIO_EXT.test(url) || ep.file_type === "Audio") return { kind: 'audio', src: url, url };
+    if (VIDEO_EXT.test(url) || ep.file_type === "Video" || ep.source === "Internal") return { kind: 'video', src: url, url };
+
+    // Unknown external page: try it as a direct video; the error handler falls back to a link
+    return { kind: 'video', src: url, url };
+}
+
+function showPlayer(kind) {
+    document.getElementById('video_player').classList.toggle('d-none', kind !== 'video');
+    document.getElementById('audio_player').classList.toggle('d-none', kind !== 'audio');
+    document.getElementById('embed_player').classList.toggle('d-none', kind !== 'embed');
+    document.getElementById('player_fallback').classList.toggle('d-none', kind !== 'link');
+}
+
+function stopAllPlayers() {
+    const videoPlayer = document.getElementById('video_player');
+    const audioPlayer = document.getElementById('audio_player');
+    videoPlayer.pause();
+    audioPlayer.pause();
+    videoPlayer.removeAttribute('src');
+    audioPlayer.removeAttribute('src');
+    videoPlayer.onerror = null;
+    audioPlayer.onerror = null;
+    document.getElementById('embed_frame').src = 'about:blank';
+}
+
+function showFallback(url) {
+    stopAllPlayers();
+    document.getElementById('player_fallback_link').href = url || '#';
+    showPlayer('link');
+}
+
+function playEpisode(i, { autoplay = true } = {}) {
     if (!episodes[i]) return;
 
     const ep = episodes[i];
+    const media = resolveMedia(ep);
 
-    const videoPlayer = document.getElementById('video_player');
-    const audioPlayer = document.getElementById('audio_player');
-    // Handle external links
-    if (ep.source === "External") {
-        window.open(ep.podcast_file, "_blank");
-        videoPlayer.pause();
-        audioPlayer.pause();
+    document.getElementById('episode_title').innerHTML = ep?.title || '';
+    stopAllPlayers();
+
+    if (!media.src) {
+        showFallback('');
         return;
     }
-    
-    const episodeTitle = document.getElementById('episode_title');
-    const src = resolveFileUrl(ep.podcast_file);
 
-    episodeTitle.innerHTML = ep?.title || '';
-
-    if (ep?.file_type === "Audio") {
-        // Hide video player, show audio player
-        videoPlayer.pause();
-        videoPlayer.currentTime = 0;
-        videoPlayer.classList.add("d-none");
-        audioPlayer.classList.remove("d-none");
-
-        document.getElementById('audio_source').src = src;
-        audioPlayer.load();
-        audioPlayer.play().catch(() => {});
-    } else if (ep?.file_type === "Video") {
-        // Hide audio player, show video player
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0;
-        audioPlayer.classList.add("d-none");
-        videoPlayer.classList.remove("d-none");
-
-        document.getElementById('video_source').src = src;
-        videoPlayer.load();
-        videoPlayer.play().catch(() => {});
+    if (media.kind === 'embed') {
+        const sep = media.src.includes('?') ? '&' : '?';
+        document.getElementById('embed_frame').src = autoplay ? `${media.src}${sep}autoplay=1` : media.src;
+        showPlayer('embed');
+        return;
     }
-}
-function getYoutubeThumbnail(url) {
-    const videoId = url.split('v=')[1]?.split('&')[0];
-    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-}
 
+    const player = document.getElementById(media.kind === 'audio' ? 'audio_player' : 'video_player');
+    player.onerror = () => showFallback(media.url);
+    player.src = media.src;
+    showPlayer(media.kind);
+    player.load();
+    if (autoplay) player.play().catch(() => {});
+}
 
 async function renderEpisodes() {
   let list = document.getElementById("episode_list");
   list.innerHTML = "";
 
   const episodePromises = episodes.map((ep, i) => {
-    let videoUrl =
-      ep.source === "Internal"
-        ? resolveFileUrl(ep.podcast_file)
-        : ep.podcast_file;
-
-    if (ep.source === "Internal" && ep.file_type === "Video") {
-      return new Promise((resolve) => {
-        getVideoDuration(videoUrl, (duration) => {
-          getVideoThumbnail(videoUrl, (thumbnail) => {
-            resolve({
-              html: `
-                                <a href="#" class="episode-item list-group-item d-flex w-100 justify-content-between" data-index="${i}">
-                                    <div class="pr-2">
-                                        <img src="${
-                                          thumbnail || ""
-                                        }" class="img-fluid" width="100">
-                                    </div>
-                                    <div class="w-100">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5>${ep?.title || "No Title"}</h5>
-                                            <small>${duration}</small>
-                                        </div>
-                                        <small>${
-                                          podcastDetails?.guests_name || ""
-                                        }</small>
-                                    </div>
-                                </a>
-                            `,
-            });
-          });
-        });
-      });
-    } else if (ep.source === "Internal" && ep.file_type === "Audio") {
-      return new Promise((resolve) => {
-        getAudioDuration(videoUrl, (duration) => {
-          resolve({
-            html: `
-                            <a href="#" class="episode-item list-group-item d-flex w-100 justify-content-between" data-index="${i}">
-                                <div class="pr-2">
-                                    <img src="../assets/img/audio_img.png" class="img-fluid" width="100" alt="Audio">
-                                </div>
-                                <div class="w-100">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5>${ep?.title || "No Title"}</h5>
-                                        <small>${duration}</small>
-                                    </div>
-                                    <small>${
-                                      podcastDetails?.guests_name || ""
-                                    }</small>
-                                </div>
-                            </a>
-                        `,
-          });
-        });
-      });
-    } else {
-      return Promise.resolve({
-        html: `
+    const media = resolveMedia(ep);
+    const itemHtml = (thumb, meta) => `
                     <a href="#" class="episode-item list-group-item d-flex w-100 justify-content-between" data-index="${i}">
                         <div class="pr-2">
-                            <img src=${getYoutubeThumbnail(
-                              videoUrl
-                            )} class="img-fluid" width="100" alt="No thumbnail">
+                            ${thumb
+                              ? `<img src="${thumb}" class="img-fluid" width="100" alt="" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'bi bi-play-btn fs-1 text-success'}))">`
+                              : `<i class="bi bi-play-btn fs-1 text-success"></i>`}
                         </div>
                         <div class="w-100">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5>${ep?.title || "No Title"}</h5>
-                                <small>External Link</small>
+                                <small>${meta || ""}</small>
                             </div>
                             <small>${podcastDetails?.guests_name || ""}</small>
                         </div>
                     </a>
-                `,
+                `;
+
+    if (media.kind === 'audio') {
+      return new Promise((resolve) => {
+        getAudioDuration(media.src, (duration) => {
+          resolve({ html: itemHtml("../assets/img/audio_img.png", duration) });
+        });
       });
     }
+
+    if (media.kind === 'video') {
+      const fallback = new Promise((resolve) =>
+        setTimeout(() => resolve({ html: itemHtml("", "") }), 8000)
+      );
+      const loaded = new Promise((resolve) => {
+        getVideoDuration(media.src, (duration) => {
+          getVideoThumbnail(media.src, (thumbnail) => {
+            resolve({ html: itemHtml(thumbnail, duration) });
+          });
+        });
+      });
+      // Don't let one slow/unreachable video block the whole list
+      return Promise.race([loaded, fallback]);
+    }
+
+    return Promise.resolve({ html: itemHtml(media.thumb, "") });
   });
 
   const results = await Promise.all(episodePromises);
