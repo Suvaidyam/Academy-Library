@@ -404,13 +404,4 @@ async function init() {
   fetchSessions(1);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const tabBtn = document.getElementById("course-content-tab");
-  if (tabBtn) {
-    tabBtn.addEventListener("shown.bs.tab", init);
-    // If the tab is already active on load (e.g. deep link), init immediately.
-    if (tabBtn.classList.contains("active")) init();
-  } else {
-    init();
-  }
-});
+document.addEventListener("DOMContentLoaded", init);
