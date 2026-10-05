@@ -447,6 +447,7 @@ const renderPast = (list) => {
       playOverlay.style.display = "none";
 
       iframeEl = document.createElement("iframe");
+      iframeEl.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
       iframeEl.src = buildAutoplayUrl(videoUrl);
       iframeEl.frameBorder = "0";
       iframeEl.allow = "autoplay; fullscreen; picture-in-picture";
