@@ -11,6 +11,8 @@ const typeInput = document.getElementById("ebook-type");
 const themeInput = document.getElementById("ebook-theme");
 const categoryDropdown = document.getElementById("ebook-category-dropdown");
 const subcategoryDropdown = document.getElementById("ebook-subcategory-dropdown");
+const levelDropdown = document.getElementById("ebook-level-dropdown");
+const readerDropdown = document.getElementById("ebook-reader-dropdown");
 const authorInput = document.getElementById("ebook-author");
 const publisherInput = document.getElementById("ebook-publisher");
 const isbnInput = document.getElementById("ebook-isbn");
@@ -27,7 +29,8 @@ let currentPage = 1;
 let totalPages = 1;
 
 // Note: the /get_ebooks_lists API currently only accepts
-// book_title, sub_title, theme, book_category, book_subcategory, author, isbn, publisher.
+// book_title, sub_title, theme, book_category, book_subcategory, book_level, suitable_reader,
+// author, isbn, publisher.
 // "type" and "book_keywords" have no matching field on the backend yet, so they're sent
 // but have no effect until those fields are added to the backend's `fields` list.
 let activeFilters = {
@@ -37,6 +40,8 @@ let activeFilters = {
   theme: "",
   book_category: "",
   book_subcategory: "",
+  book_level: "",
+  suitable_reader: "",
   author: "",
   publisher: "",
   isbn: "",
@@ -151,7 +156,8 @@ const getEbookList = async (page = 1) => {
   }
 };
 
-const populateSelect = async (selectEl, field) => {
+// separator: for multi-value fields stored as "A; B; C" (e.g. suitable_reader)
+const populateSelect = async (selectEl, field, separator = null) => {
   if (!selectEl) return;
 
   try {
@@ -161,7 +167,14 @@ const populateSelect = async (selectEl, field) => {
       or_filters: JSON.stringify([{ category: "E-Book" }]),
     });
 
-    const values = [...new Set((response.message || []).map((item) => item[field]).filter(Boolean))].sort();
+    const values = [
+      ...new Set(
+        (response.message || [])
+          .flatMap((item) => (separator && item[field] ? item[field].split(separator) : [item[field]]))
+          .map((value) => (typeof value === "string" ? value.trim() : value))
+          .filter(Boolean)
+      ),
+    ].sort();
     values.forEach((value) => {
       const option = document.createElement("option");
       option.value = value;
@@ -171,6 +184,69 @@ const populateSelect = async (selectEl, field) => {
   } catch (error) {
     console.error(`Error loading ${field} options:`, error);
   }
+};
+
+const updateMultiSelectLabel = (container) => {
+  const label = container.querySelector(".ebook-ms-label");
+  const checked = [...container.querySelectorAll("input:checked")].map((input) => input.value);
+  label.textContent = checked.length ? checked.join(", ") : container.dataset.placeholder;
+  label.parentElement.title = checked.join(", ");
+};
+
+// Unique options for multi-select fields, computed by the backend from all e-books
+const fetchMultiSelectOptions = async () => {
+  try {
+    const response = await frappe_client.get("/get_ebooks_lists", { filter_options: 1 });
+    return response?.message || {};
+  } catch (error) {
+    console.error("Error loading e-book filter options:", error);
+    return {};
+  }
+};
+
+// Checkbox dropdown; selected values are sent as a JSON array and matched with OR logic
+const populateMultiSelect = async (container, field, optionsPromise) => {
+  if (!container) return;
+  const menu = container.querySelector(".ebook-ms-menu");
+
+  try {
+    const options = await optionsPromise;
+    const values = [
+      ...new Set(
+        (options[field] || [])
+          .map((value) => (typeof value === "string" ? value.trim() : value))
+          .filter(Boolean)
+      ),
+    ].sort();
+
+    values.forEach((value, index) => {
+      const id = `${container.id}-opt-${index}`;
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="${id}">
+          <label class="form-check-label" for="${id}"></label>
+        </div>`;
+      li.querySelector("input").value = value;
+      li.querySelector("label").textContent = value;
+      menu.appendChild(li);
+    });
+  } catch (error) {
+    console.error(`Error loading ${field} options:`, error);
+  }
+
+  menu.addEventListener("change", () => {
+    updateMultiSelectLabel(container);
+    const selected = [...menu.querySelectorAll("input:checked")].map((input) => input.value);
+    activeFilters[field] = selected.length ? JSON.stringify(selected) : "";
+    getEbookList(1);
+  });
+};
+
+const resetMultiSelect = (container) => {
+  if (!container) return;
+  container.querySelectorAll("input:checked").forEach((input) => (input.checked = false));
+  updateMultiSelectLabel(container);
 };
 
 const bindTextFilter = (field, inputEl) => {
@@ -218,6 +294,8 @@ clearBtn?.addEventListener("click", () => {
     theme: "",
     book_category: "",
     book_subcategory: "",
+    book_level: "",
+    suitable_reader: "",
     author: "",
     publisher: "",
     isbn: "",
@@ -230,6 +308,8 @@ clearBtn?.addEventListener("click", () => {
   if (themeInput) themeInput.value = "";
   if (categoryDropdown) categoryDropdown.selectedIndex = 0;
   if (subcategoryDropdown) subcategoryDropdown.selectedIndex = 0;
+  resetMultiSelect(levelDropdown);
+  resetMultiSelect(readerDropdown);
   if (authorInput) authorInput.value = "";
   if (publisherInput) publisherInput.value = "";
   if (isbnInput) isbnInput.value = "";
@@ -242,4 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
   getEbookList(1);
   populateSelect(categoryDropdown, "book_category");
   populateSelect(subcategoryDropdown, "book_subcategory");
+  const multiSelectOptions = fetchMultiSelectOptions();
+  populateMultiSelect(levelDropdown, "book_level", multiSelectOptions);
+  populateMultiSelect(readerDropdown, "suitable_reader", multiSelectOptions);
 });

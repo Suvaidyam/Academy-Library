@@ -110,6 +110,27 @@
     }
 
     /* ── Ebook Card ─────────────────────────────────── */
+    .ebook-multiselect .form-select {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .ebook-ms-menu {
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .ebook-ms-menu .form-check {
+      margin: 0;
+      padding: 6px 12px 6px 36px;
+    }
+
+    .ebook-ms-menu .form-check-label {
+      width: 100%;
+      cursor: pointer;
+    }
+
     .ebook-card {
       background: #fff;
       border: 1.5px solid #b7dcae;
@@ -618,6 +639,28 @@
                   </div>
                   <div class="row mb-3">
                     <div class="col-sm-12">
+                      <div class="dropdown ebook-multiselect" id="ebook-level-dropdown" data-placeholder="Select Book Level">
+                        <button class="form-select text-start" type="button" data-bs-toggle="dropdown"
+                          data-bs-auto-close="outside" aria-expanded="false" aria-label="Select Book Level">
+                          <span class="ebook-ms-label">Select Book Level</span>
+                        </button>
+                        <ul class="dropdown-menu w-100 ebook-ms-menu"></ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-12">
+                      <div class="dropdown ebook-multiselect" id="ebook-reader-dropdown" data-placeholder="Select Suitable Reader">
+                        <button class="form-select text-start" type="button" data-bs-toggle="dropdown"
+                          data-bs-auto-close="outside" aria-expanded="false" aria-label="Select Suitable Reader">
+                          <span class="ebook-ms-label">Select Suitable Reader</span>
+                        </button>
+                        <ul class="dropdown-menu w-100 ebook-ms-menu"></ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-12">
                       <input id="ebook-author" class="form-control" placeholder="Author(s)">
                     </div>
                   </div>
@@ -865,7 +908,7 @@
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
 
-  <script type="module" src="../Libray Service/e_book.js?t=2"></script>
+  <script type="module" src="../Libray Service/e_book.js?t=89"></script>
   <script type="module" src="../Libray Service/global_research_articles.js?t=1"></script>
   <script src="../services/journal_list.js?t=7897" data-source="External"></script>
 
