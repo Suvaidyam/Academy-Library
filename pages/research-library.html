@@ -1129,38 +1129,38 @@
         <!-- Parent Tabs -->
         <ul class="nav nav-tabs" id="pubTabs">
           <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#videos">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#videos" data-tab-hash="research-articles">
               Research Articles
             </button>
           </li>
 
           <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#photos">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#photos" data-tab-hash="journals">
               Journals
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#newsletters">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#newsletters" data-tab-hash="newsletters">
               News Letters
             </button>
           </li>
           <li class="nav-item dropdown hover-dropdown">
-            <button class="nav-link" id="case-studies-tab" data-bs-toggle="tab" data-bs-target="#case-studies">
+            <button class="nav-link" id="case-studies-tab" data-bs-toggle="tab" data-bs-target="#case-studies" data-tab-hash="case-studies">
               Case Studies <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="case-studies-tab">
               <li><a class="dropdown-item cs-category-link active" href="#" id="longitudinal-data-tab"
-                  data-category="training">Longitudinal Self-case Studies Data</a></li>
-              <li><a class="dropdown-item cs-category-link" href="#" data-category="farmer">Longitudinal Self-case
+                  data-category="training" data-tab-hash="longitudinal-data">Longitudinal Self-case Studies Data</a></li>
+              <li><a class="dropdown-item cs-category-link" href="#" data-category="farmer" data-tab-hash="longitudinal-case-studies">Longitudinal Self-case
                   Studies</a></li>
-              <li><a class="dropdown-item cs-category-link" href="#" data-category="general">General Case
+              <li><a class="dropdown-item cs-category-link" href="#" data-category="general" data-tab-hash="general-case-studies">General Case
                   Studies</a></li>
-              <li><a class="dropdown-item cs-category-link" href="#" data-category="webinars">Socio-economic Studies</a>
+              <li><a class="dropdown-item cs-category-link" href="#" data-category="webinars" data-tab-hash="socio-economic-studies">Socio-economic Studies</a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#success-stories">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#success-stories" data-tab-hash="success-stories">
               Success Stories
             </button>
           </li>
@@ -2173,6 +2173,45 @@
           { selectId: 'nl-language-select', attr: 'language' },
         ],
       });
+    });
+  </script>
+
+  <!-- Keep the active tab (and Case Studies sub-category) in the URL hash, e.g. #journals or
+       #general-case-studies, so tabs can be linked/reloaded directly -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabButtons = document.querySelectorAll('#pubTabs .nav-link[data-tab-hash]');
+      const csLinks = document.querySelectorAll('#pubTabs .cs-category-link[data-tab-hash]');
+
+      function syncHash() {
+        const activeBtn = document.querySelector('#pubTabs .nav-link.active[data-tab-hash]');
+        if (!activeBtn) return;
+        let hash = activeBtn.dataset.tabHash;
+        if (activeBtn.id === 'case-studies-tab') {
+          const activeCs = document.querySelector('#pubTabs .cs-category-link.active[data-tab-hash]');
+          if (activeCs) hash = activeCs.dataset.tabHash;
+        }
+        history.replaceState(null, '', '#' + hash);
+      }
+
+      function openTabFromHash() {
+        const hash = window.location.hash.slice(1);
+        if (!hash) return;
+        const el = document.querySelector(`#pubTabs [data-tab-hash="${CSS.escape(hash)}"]`);
+        if (!el) return;
+        // Case Studies sub-categories go through their own click handler (handles the guest lock)
+        if (el.classList.contains('cs-category-link')) el.click();
+        else bootstrap.Tab.getOrCreateInstance(el).show();
+      }
+
+      tabButtons.forEach(btn => btn.addEventListener('shown.bs.tab', syncHash));
+
+      // Defer so the Case Studies module script has attached its handlers and set the guest default first.
+      setTimeout(() => {
+        csLinks.forEach(link => link.addEventListener('click', syncHash));
+        openTabFromHash();
+      });
+      window.addEventListener('hashchange', openTabFromHash);
     });
   </script>
 
