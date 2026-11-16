@@ -257,9 +257,10 @@ let modalInstance = null;
 const openVideo = (v) => {
   const yt = getYoutubeId(v);
   if (yt) {
-    els.player.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(yt)}?autoplay=1&rel=0"
-      title="${escapeHtml(v.video_title)}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen></iframe>`;
+    // referrerpolicy is required: live server sends Referrer-Policy: same-origin and YouTube needs a Referer (Error 153)
+    els.player.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(yt)}?autoplay=1&rel=0"
+      title="${escapeHtml(v.video_title)}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+      allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
   } else if (v.url) {
     els.player.innerHTML = `<video src="${escapeHtml(absoluteUrl(v.url))}" controls autoplay playsinline></video>`;
   } else {
