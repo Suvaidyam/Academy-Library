@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Library Video</title>
+    <meta name="description" content="Video library of IGGAARL - talks, podcasts and lectures on natural farming and agroecology.">
+
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../vendor/aos/aos.css" rel="stylesheet">
+    <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+
+    <style>
+        .lv-toolbar .form-control,
+        .lv-toolbar .form-select {
+            border-radius: 8px;
+        }
+
+        .lv-card {
+            background: #fff;
+            border: 1px solid #e6efe9;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .lv-card:hover,
+        .lv-card:focus-visible {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .1);
+            outline: none;
+        }
+
+        .lv-thumb {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #eef3f0;
+            overflow: hidden;
+        }
+
+        .lv-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lv-play {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .15);
+            color: #fff;
+            font-size: 52px;
+            opacity: .85;
+            transition: opacity .2s, background .2s;
+        }
+
+        .lv-card:hover .lv-play {
+            opacity: 1;
+            background: rgba(0, 0, 0, .3);
+        }
+
+        .lv-duration {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            background: rgba(0, 0, 0, .75);
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .lv-category {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            background: #198754;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .lv-body {
+            padding: 14px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .lv-title {
+            font-size: 15.5px;
+            font-weight: 600;
+            color: #1d3b2a;
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .lv-desc {
+            font-size: 13.5px;
+            color: #5c6b63;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .lv-meta {
+            margin-top: auto;
+            font-size: 12.5px;
+            color: #7a8a82;
+        }
+
+        .lv-meta i {
+            color: #198754;
+        }
+
+        .lv-skeleton {
+            background: linear-gradient(90deg, #eef3f0 25%, #f7faf8 50%, #eef3f0 75%);
+            background-size: 200% 100%;
+            animation: lvShimmer 1.2s infinite;
+            border-radius: 6px;
+        }
+
+        @keyframes lvShimmer {
+            to {
+                background-position: -200% 0;
+            }
+        }
+
+        .lv-pagination .page-link {
+            color: #198754;
+        }
+
+        .lv-pagination .page-item.active .page-link {
+            background: #198754;
+            border-color: #198754;
+            color: #fff;
+        }
+
+        .lv-player {
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .lv-player iframe,
+        .lv-player video {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+
+<body class="about-details-page">
+    <div id="header" class="header d-flex align-items-center fixed-top"></div>
+    <main class="main">
+
+        <!-- Page Title -->
+        <div class="page-title page-about">
+            <div class="container position-relative">
+                <h1><i class="bi bi-camera-video"></i> Library Video</h1>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="container">
+
+                <!-- Toolbar -->
+                <form id="lv-filters" class="row g-2 align-items-center mb-4 lv-toolbar" role="search">
+                    <div class="col-12 col-lg-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                            <input id="lv-search" type="search" class="form-control"
+                                placeholder="Search by title, speaker, keyword..." aria-label="Search videos">
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <select id="lv-category" class="form-select" aria-label="Category">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <select id="lv-language" class="form-select" aria-label="Language">
+                            <option value="">All Languages</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <select id="lv-sort" class="form-select" aria-label="Sort">
+                            <option value="newest">Newest first</option>
+                            <option value="oldest">Oldest first</option>
+                            <option value="title_asc">Title A-Z</option>
+                            <option value="title_desc">Title Z-A</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-1 d-grid">
+                        <button id="lv-reset" type="button" class="btn btn-outline-success">Reset</button>
+                    </div>
+                </form>
+
+                <p id="lv-summary" class="text-muted small mb-3"></p>
+
+                <div id="lv-grid" class="row g-4"></div>
+
+                <div id="lv-empty" class="text-center py-5 d-none">
+                    <i class="bi bi-camera-video-off fs-1 text-muted"></i>
+                    <p class="mt-2 text-muted mb-0">No videos found.</p>
+                </div>
+
+                <div id="lv-error" class="alert alert-danger d-none mt-3" role="alert">
+                    Videos could not be loaded. <button type="button" id="lv-retry"
+                        class="btn btn-sm btn-outline-danger ms-2">Retry</button>
+                </div>
+
+                <nav class="mt-5 d-flex justify-content-center" aria-label="Video pages">
+                    <ul id="lv-pagination" class="pagination lv-pagination flex-wrap mb-0"></ul>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Player modal -->
+        <div class="modal fade" id="lv-modal" tabindex="-1" aria-labelledby="lv-modal-title" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="lv-modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div id="lv-player" class="lv-player"></div>
+                        <div id="lv-details" class="p-3 p-md-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <div id="footer" class="footer dark-background"></div>
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/aos/aos.js"></script>
+    <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="../vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+    <script src="../assets/js/loadAllPageHeaderFooter.js?i=56766"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <script type="module" src="../services/library_video.js?v=1"></script>
+</body>
+
+</html>
